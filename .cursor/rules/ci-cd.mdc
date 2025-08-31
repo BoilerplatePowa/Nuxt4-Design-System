@@ -1,0 +1,917 @@
+# CI/CD Guidelines
+
+Apply to: GitHub Actions workflows, deployment scripts, and release management
+
+## GitHub Actions Workflows
+
+### Main CI/CD Pipeline
+```yaml
+# .github/workflows/ci.yml
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+env:
+  NODE_VERSION: '22.18.0'
+  PNPM_VERSION: '8.15.0'
+
+jobs:
+  # Quality Gates
+  quality-gates:
+    name: Quality Gates
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'pnpm'
+          
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+          
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+        
+      - name: Run linting
+        run: pnpm lint
+        
+      - name: Run type checking
+        run: pnpm type-check
+        
+      - name: Check formatting
+        run: pnpm format:check
+        
+      - name: Check commit conventions
+        run: pnpm commitlint
+        
+      - name: Security audit
+        run: pnpm audit --audit-level moderate
+
+  # Testing Suite
+  test:
+    name: Test Suite
+    runs-on: ubuntu-latest
+    needs: quality-gates
+    strategy:
+      matrix:
+        node-version: [18, 20, 22]
+        
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'pnpm'
+          
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+          
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+        
+      - name: Run unit tests
+        run: pnpm test:unit
+        
+      - name: Run integration tests
+        run: pnpm test:integration
+        
+      - name: Run E2E tests
+        run: pnpm test:e2e
+        
+      - name: Upload coverage
+        uses: codecov/codecov-action@v4
+        with:
+          file: coverage/lcov.info
+          flags: unittests
+          name: codecov-umbrella
+
+  # Performance Testing
+  performance:
+    name: Performance Testing
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'pnpm'
+          
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+          
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+        
+      - name: Build for analysis
+        run: pnpm build:analyze
+        
+      - name: Check bundle size
+        run: pnpm bundle-size:check
+        
+      - name: Run Lighthouse CI
+        run: pnpm lighthouse:ci
+        
+      - name: Performance budget check
+        run: pnpm perf:budget
+
+  # Security Scanning
+  security:
+    name: Security Scanning
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Run Snyk security scan
+        uses: snyk/actions/node@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: --severity-threshold=high
+          
+      - name: Run CodeQL analysis
+        uses: github/codeql-action/init@v3
+        with:
+          languages: javascript
+          
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+
+  # Build & Deploy
+  build:
+    name: Build & Deploy
+    runs-on: ubuntu-latest
+    needs: [test, performance, security]
+    if: github.ref == 'refs/heads/main'
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'pnpm'
+          
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+          
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+        
+      - name: Build production
+        run: pnpm build
+        
+      - name: Run final tests
+        run: pnpm test:ci
+        
+      - name: Deploy to staging
+        run: pnpm deploy:staging
+        env:
+          DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
+          
+      - name: Run smoke tests
+        run: pnpm test:smoke
+        
+      - name: Deploy to production
+        run: pnpm deploy:production
+        env:
+          DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
+          
+      - name: Create release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v${{ github.run_number }}
+          release_name: Release v${{ github.run_number }}
+          body: |
+            Automated release from CI/CD pipeline
+            
+            ## Changes
+            - Automated build and deployment
+            - All quality gates passed
+            - Performance benchmarks met
+            - Security scans cleared
+            
+          draft: false
+          prerelease: false
+```
+
+### Pull Request Workflow
+```yaml
+# .github/workflows/pr.yml
+name: Pull Request Checks
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  pr-checks:
+    name: PR Quality Checks
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'pnpm'
+          
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+          
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+        
+      - name: Run linting
+        run: pnpm lint
+        
+      - name: Run type checking
+        run: pnpm type-check
+        
+      - name: Run tests
+        run: pnpm test:unit
+        
+      - name: Check bundle size impact
+        run: pnpm bundle-size:compare
+        
+      - name: Comment PR
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const bundleSize = fs.readFileSync('bundle-size-report.json', 'utf8');
+            const report = JSON.parse(bundleSize);
+            
+            const comment = `## Bundle Size Analysis
+            
+            **Impact:** ${report.impact > 0 ? '+' : ''}${report.impact}KB
+            
+            **Details:**
+            - Main bundle: ${report.main.size}KB
+            - CSS: ${report.css.size}KB
+            - Total: ${report.total.size}KB
+            
+            ${report.impact > 50 ? '⚠️ **Warning:** Bundle size increased significantly' : '✅ Bundle size within acceptable limits'}
+            `;
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });
+```
+
+## Quality Gates
+
+### Automated Quality Checks
+```typescript
+// scripts/quality-gates.ts
+import { execSync } from 'child_process'
+import { readFileSync, writeFileSync } from 'fs'
+
+interface QualityGate {
+  name: string
+  check: () => boolean
+  threshold: number
+  current: number
+  passed: boolean
+}
+
+class QualityGateManager {
+  private gates: QualityGate[] = []
+  
+  /**
+   * Add a quality gate
+   */
+  addGate(gate: Omit<QualityGate, 'current' | 'passed'>) {
+    this.gates.push({
+      ...gate,
+      current: 0,
+      passed: false
+    })
+  }
+  
+  /**
+   * Run all quality gates
+   */
+  async runGates(): Promise<boolean> {
+    console.log('🚀 Running Quality Gates...')
+    
+    for (const gate of this.gates) {
+      try {
+        gate.passed = gate.check()
+        console.log(`${gate.passed ? '✅' : '❌'} ${gate.name}: ${gate.current}/${gate.threshold}`)
+      } catch (error) {
+        console.error(`❌ ${gate.name} failed:`, error)
+        gate.passed = false
+      }
+    }
+    
+    const allPassed = this.gates.every(gate => gate.passed)
+    
+    if (allPassed) {
+      console.log('🎉 All quality gates passed!')
+    } else {
+      console.log('💥 Some quality gates failed!')
+      this.gates
+        .filter(gate => !gate.passed)
+        .forEach(gate => console.log(`  - ${gate.name}: ${gate.current}/${gate.threshold}`))
+    }
+    
+    return allPassed
+  }
+  
+  /**
+   * Generate quality report
+   */
+  generateReport(): string {
+    const report = {
+      timestamp: new Date().toISOString(),
+      summary: {
+        total: this.gates.length,
+        passed: this.gates.filter(g => g.passed).length,
+        failed: this.gates.filter(g => !g.passed).length
+      },
+      gates: this.gates.map(gate => ({
+        name: gate.name,
+        passed: gate.passed,
+        current: gate.current,
+        threshold: gate.threshold
+      }))
+    }
+    
+    return JSON.stringify(report, null, 2)
+  }
+}
+
+// Initialize quality gates
+const qualityGates = new QualityGateManager()
+
+// Bundle size gate
+qualityGates.addGate({
+  name: 'Bundle Size',
+  check: () => {
+    const bundleSize = parseInt(execSync('pnpm bundle-size:get', { encoding: 'utf8' }))
+    qualityGates.gates.find(g => g.name === 'Bundle Size')!.current = bundleSize
+    return bundleSize <= 250 * 1024 // 250KB
+  },
+  threshold: 250 * 1024
+})
+
+// Test coverage gate
+qualityGates.addGate({
+  name: 'Test Coverage',
+  check: () => {
+    const coverage = parseFloat(execSync('pnpm coverage:get', { encoding: 'utf8' }))
+    qualityGates.gates.find(g => g.name === 'Test Coverage')!.current = coverage
+    return coverage >= 80 // 80%
+  },
+  threshold: 80
+})
+
+// Performance gate
+qualityGates.addGate({
+  name: 'Performance Score',
+  check: () => {
+    const score = parseFloat(execSync('pnpm lighthouse:score', { encoding: 'utf8' }))
+    qualityGates.gates.find(g => g.name === 'Performance Score')!.current = score
+    return score >= 90 // 90/100
+  },
+  threshold: 90
+})
+
+// Security gate
+qualityGates.addGate({
+  name: 'Security Vulnerabilities',
+  check: () => {
+    const vulnerabilities = parseInt(execSync('pnpm audit:count', { encoding: 'utf8' }))
+    qualityGates.gates.find(g => g.name === 'Security Vulnerabilities')!.current = vulnerabilities
+    return vulnerabilities === 0
+  },
+  threshold: 0
+})
+
+export { qualityGates }
+```
+
+## Deployment Strategies
+
+### Staging Deployment
+```typescript
+// scripts/deploy-staging.ts
+import { execSync } from 'child_process'
+import { readFileSync } from 'fs'
+
+interface DeploymentConfig {
+  environment: 'staging' | 'production'
+  region: string
+  domain: string
+  healthCheckUrl: string
+}
+
+class StagingDeployment {
+  private config: DeploymentConfig
+  
+  constructor() {
+    this.config = {
+      environment: 'staging',
+      region: 'us-east-1',
+      domain: 'staging.nuxt-design-system.com',
+      healthCheckUrl: 'https://staging.nuxt-design-system.com/health'
+    }
+  }
+  
+  /**
+   * Deploy to staging
+   */
+  async deploy(): Promise<boolean> {
+    console.log('🚀 Deploying to staging...')
+    
+    try {
+      // Build for staging
+      console.log('📦 Building for staging...')
+      execSync('pnpm build:staging', { stdio: 'inherit' })
+      
+      // Run staging-specific tests
+      console.log('🧪 Running staging tests...')
+      execSync('pnpm test:staging', { stdio: 'inherit' })
+      
+      // Deploy to staging environment
+      console.log('🌐 Deploying to staging...')
+      execSync(`pnpm deploy:staging --region ${this.config.region}`, { stdio: 'inherit' })
+      
+      // Wait for deployment
+      console.log('⏳ Waiting for deployment...')
+      await this.waitForDeployment()
+      
+      // Run health checks
+      console.log('🏥 Running health checks...')
+      const healthy = await this.runHealthChecks()
+      
+      if (!healthy) {
+        throw new Error('Health checks failed')
+      }
+      
+      // Run smoke tests
+      console.log('💨 Running smoke tests...')
+      execSync('pnpm test:smoke', { stdio: 'inherit' })
+      
+      console.log('✅ Staging deployment successful!')
+      return true
+      
+    } catch (error) {
+      console.error('❌ Staging deployment failed:', error)
+      await this.rollback()
+      return false
+    }
+  }
+  
+  /**
+   * Wait for deployment to complete
+   */
+  private async waitForDeployment(): Promise<void> {
+    const maxAttempts = 30
+    const delay = 2000
+    
+    for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+      try {
+        const response = await fetch(this.config.healthCheckUrl)
+        if (response.ok) {
+          console.log(`✅ Deployment ready after ${attempt} attempts`)
+          return
+        }
+      } catch (error) {
+        // Continue waiting
+      }
+      
+      console.log(`⏳ Waiting for deployment... (${attempt}/${maxAttempts})`)
+      await new Promise(resolve => setTimeout(resolve, delay))
+    }
+    
+    throw new Error('Deployment timeout')
+  }
+  
+  /**
+   * Run health checks
+   */
+  private async runHealthChecks(): Promise<boolean> {
+    const checks = [
+      this.config.healthCheckUrl,
+      `${this.config.healthCheckUrl}/api/health`,
+      `${this.config.healthCheckUrl}/api/ready`
+    ]
+    
+    for (const url of checks) {
+      try {
+        const response = await fetch(url)
+        if (!response.ok) {
+          console.error(`❌ Health check failed: ${url}`)
+          return false
+        }
+      } catch (error) {
+        console.error(`❌ Health check error: ${url}`, error)
+        return false
+      }
+    }
+    
+    return true
+  }
+  
+  /**
+   * Rollback deployment
+   */
+  private async rollback(): Promise<void> {
+    console.log('🔄 Rolling back deployment...')
+    try {
+      execSync('pnpm deploy:rollback', { stdio: 'inherit' })
+      console.log('✅ Rollback successful')
+    } catch (error) {
+      console.error('❌ Rollback failed:', error)
+    }
+  }
+}
+
+export { StagingDeployment }
+```
+
+### Production Deployment
+```typescript
+// scripts/deploy-production.ts
+import { execSync } from 'child_process'
+import { StagingDeployment } from './deploy-staging'
+
+interface ProductionConfig {
+  environment: 'production'
+  region: string
+  domain: string
+  healthCheckUrl: string
+  canaryPercentage: number
+}
+
+class ProductionDeployment {
+  private config: ProductionConfig
+  
+  constructor() {
+    this.config = {
+      environment: 'production',
+      region: 'us-east-1',
+      domain: 'nuxt-design-system.com',
+      healthCheckUrl: 'https://nuxt-design-system.com/health',
+      canaryPercentage: 10
+    }
+  }
+  
+  /**
+   * Deploy to production with canary strategy
+   */
+  async deploy(): Promise<boolean> {
+    console.log('🚀 Starting production deployment...')
+    
+    try {
+      // Pre-deployment checks
+      console.log('🔍 Running pre-deployment checks...')
+      await this.preDeploymentChecks()
+      
+      // Deploy canary
+      console.log('🐦 Deploying canary...')
+      const canarySuccess = await this.deployCanary()
+      
+      if (!canarySuccess) {
+        throw new Error('Canary deployment failed')
+      }
+      
+      // Monitor canary
+      console.log('📊 Monitoring canary...')
+      const canaryHealthy = await this.monitorCanary()
+      
+      if (!canaryHealthy) {
+        throw new Error('Canary health checks failed')
+      }
+      
+      // Full deployment
+      console.log('🌐 Deploying to full production...')
+      await this.deployFull()
+      
+      // Post-deployment verification
+      console.log('✅ Verifying deployment...')
+      const verified = await this.postDeploymentVerification()
+      
+      if (!verified) {
+        throw new Error('Post-deployment verification failed')
+      }
+      
+      console.log('🎉 Production deployment successful!')
+      return true
+      
+    } catch (error) {
+      console.error('❌ Production deployment failed:', error)
+      await this.emergencyRollback()
+      return false
+    }
+  }
+  
+  /**
+   * Pre-deployment checks
+   */
+  private async preDeploymentChecks(): Promise<void> {
+    // Check staging health
+    const stagingDeployment = new StagingDeployment()
+    const stagingHealthy = await stagingDeployment.deploy()
+    
+    if (!stagingHealthy) {
+      throw new Error('Staging deployment failed')
+    }
+    
+    // Check production readiness
+    const response = await fetch(this.config.healthCheckUrl)
+    if (!response.ok) {
+      throw new Error('Production not ready for deployment')
+    }
+  }
+  
+  /**
+   * Deploy canary
+   */
+  private async deployCanary(): Promise<boolean> {
+    try {
+      execSync(`pnpm deploy:canary --percentage ${this.config.canaryPercentage}`, { stdio: 'inherit' })
+      return true
+    } catch (error) {
+      console.error('Canary deployment failed:', error)
+      return false
+    }
+  }
+  
+  /**
+   * Monitor canary health
+   */
+  private async monitorCanary(): Promise<boolean> {
+    const monitoringDuration = 5 * 60 * 1000 // 5 minutes
+    const checkInterval = 30 * 1000 // 30 seconds
+    const startTime = Date.now()
+    
+    while (Date.now() - startTime < monitoringDuration) {
+      try {
+        const response = await fetch(`${this.config.healthCheckUrl}/canary`)
+        if (!response.ok) {
+          console.error('Canary health check failed')
+          return false
+        }
+        
+        await new Promise(resolve => setTimeout(resolve, checkInterval))
+      } catch (error) {
+        console.error('Canary monitoring error:', error)
+        return false
+      }
+    }
+    
+    return true
+  }
+  
+  /**
+   * Deploy to full production
+   */
+  private async deployFull(): Promise<void> {
+    execSync('pnpm deploy:production', { stdio: 'inherit' })
+  }
+  
+  /**
+   * Post-deployment verification
+   */
+  private async postDeploymentVerification(): Promise<boolean> {
+    // Run full health checks
+    const healthChecks = [
+      this.config.healthCheckUrl,
+      `${this.config.healthCheckUrl}/api/health`,
+      `${this.config.healthCheckUrl}/api/ready`,
+      `${this.config.healthCheckUrl}/api/performance`
+    ]
+    
+    for (const url of healthChecks) {
+      try {
+        const response = await fetch(url)
+        if (!response.ok) {
+          console.error(`Health check failed: ${url}`)
+          return false
+        }
+      } catch (error) {
+        console.error(`Health check error: ${url}`, error)
+        return false
+      }
+    }
+    
+    // Run smoke tests
+    try {
+      execSync('pnpm test:smoke:production', { stdio: 'inherit' })
+    } catch (error) {
+      console.error('Smoke tests failed:', error)
+      return false
+    }
+    
+    return true
+  }
+  
+  /**
+   * Emergency rollback
+   */
+  private async emergencyRollback(): Promise<void> {
+    console.log('🚨 Emergency rollback initiated...')
+    try {
+      execSync('pnpm deploy:emergency-rollback', { stdio: 'inherit' })
+      console.log('✅ Emergency rollback successful')
+    } catch (error) {
+      console.error('❌ Emergency rollback failed:', error)
+    }
+  }
+}
+
+export { ProductionDeployment }
+```
+
+## Release Management
+
+### Automated Release Process
+```typescript
+// scripts/release.ts
+import { execSync } from 'child_process'
+import { readFileSync, writeFileSync } from 'fs'
+
+interface ReleaseConfig {
+  version: string
+  type: 'patch' | 'minor' | 'major'
+  changelog: string
+  artifacts: string[]
+}
+
+class ReleaseManager {
+  /**
+   * Create a new release
+   */
+  async createRelease(type: 'patch' | 'minor' | 'major'): Promise<void> {
+    console.log(`🚀 Creating ${type} release...`)
+    
+    try {
+      // Update version
+      const newVersion = this.updateVersion(type)
+      
+      // Generate changelog
+      const changelog = this.generateChangelog()
+      
+      // Build release artifacts
+      await this.buildArtifacts()
+      
+      // Run release tests
+      await this.runReleaseTests()
+      
+      // Create git tag
+      this.createGitTag(newVersion)
+      
+      // Publish to npm
+      await this.publishToNpm()
+      
+      // Create GitHub release
+      await this.createGitHubRelease(newVersion, changelog)
+      
+      console.log(`✅ Release ${newVersion} created successfully!`)
+      
+    } catch (error) {
+      console.error('❌ Release failed:', error)
+      throw error
+    }
+  }
+  
+  /**
+   * Update package version
+   */
+  private updateVersion(type: 'patch' | 'minor' | 'major'): string {
+    execSync(`pnpm version ${type} --no-git-tag-version`, { stdio: 'inherit' })
+    
+    const packageJson = JSON.parse(readFileSync('package.json', 'utf8'))
+    return packageJson.version
+  }
+  
+  /**
+   * Generate changelog
+   */
+  private generateChangelog(): string {
+    execSync('pnpm changelog:generate', { stdio: 'inherit' })
+    
+    const changelog = readFileSync('CHANGELOG.md', 'utf8')
+    const latestRelease = changelog.split('## ')[1]
+    
+    return latestRelease
+  }
+  
+  /**
+   * Build release artifacts
+   */
+  private async buildArtifacts(): Promise<void> {
+    console.log('📦 Building release artifacts...')
+    
+    execSync('pnpm build:release', { stdio: 'inherit' })
+    execSync('pnpm build:docs', { stdio: 'inherit' })
+    execSync('pnpm build:storybook', { stdio: 'inherit' })
+  }
+  
+  /**
+   * Run release tests
+   */
+  private async runReleaseTests(): Promise<void> {
+    console.log('🧪 Running release tests...')
+    
+    execSync('pnpm test:release', { stdio: 'inherit' })
+    execSync('pnpm test:integration', { stdio: 'inherit' })
+    execSync('pnpm test:e2e', { stdio: 'inherit' })
+  }
+  
+  /**
+   * Create git tag
+   */
+  private createGitTag(version: string): void {
+    execSync(`git add .`, { stdio: 'inherit' })
+    execSync(`git commit -m "chore: release ${version}"`, { stdio: 'inherit' })
+    execSync(`git tag v${version}`, { stdio: 'inherit' })
+    execSync(`git push origin main --tags`, { stdio: 'inherit' })
+  }
+  
+  /**
+   * Publish to npm
+   */
+  private async publishToNpm(): Promise<void> {
+    console.log('📤 Publishing to npm...')
+    execSync('pnpm publish --access public', { stdio: 'inherit' })
+  }
+  
+  /**
+   * Create GitHub release
+   */
+  private async createGitHubRelease(version: string, changelog: string): Promise<void> {
+    console.log('🏷️ Creating GitHub release...')
+    
+    const releaseData = {
+      tag_name: `v${version}`,
+      name: `Release v${version}`,
+      body: changelog,
+      draft: false,
+      prerelease: false
+    }
+    
+    writeFileSync('release.json', JSON.stringify(releaseData, null, 2))
+    execSync('gh release create --repo $GITHUB_REPOSITORY --file release.json', { stdio: 'inherit' })
+  }
+}
+
+export { ReleaseManager }
+```
+
+This comprehensive CI/CD system provides:
+
+1. **Automated quality gates** with bundle size, coverage, and performance checks
+2. **Multi-stage testing** with unit, integration, and E2E tests
+3. **Security scanning** with Snyk and CodeQL
+4. **Performance monitoring** with Lighthouse CI
+5. **Canary deployments** for safe production releases
+6. **Automated rollbacks** for failed deployments
+7. **Release management** with changelog generation
+8. **Bundle size impact analysis** for PRs
+9. **Health checks and smoke tests**
+10. **Emergency procedures** for critical issues
+
+This elevates your CI/CD from basic to enterprise-grade automation! 🚀
+description:
+globs:
+alwaysApply: true
+---

@@ -64,6 +64,8 @@ rules:
     priority: 12
   - path: "rules/monitoring.md"
     priority: 13
+  - path: "rules/ci-cd.md"
+    priority: 14
 
 context:
   project_name: "Nuxt-Design-System"
