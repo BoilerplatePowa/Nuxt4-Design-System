@@ -7,7 +7,6 @@ globs:
 alwaysApply: true
 ---
 
-
 # Accessibility Guidelines (WCAG 2.1 AA)
 
 Apply to: All components, focus on interactive elements

@@ -13,7 +13,6 @@ globs:
 alwaysApply: true
 ---
 
-
 # Unified Testing Standards (Vitest + Vue Test Utils)
 
 Apply to: `tests/**/*.test.ts`, component testing, composable testing, store testing, utils

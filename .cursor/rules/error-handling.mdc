@@ -1,3 +1,18 @@
+---
+description: |
+  Comprehensive guidelines for error handling across the Nuxt-Design-System.
+  Includes global and component-level error boundaries, structured logging
+  and monitoring, graceful degradation, user-friendly feedback patterns,
+  automatic retry logic, circuit breaker patterns, input validation with 
+  auto-correction, and strategies for both error recovery and prevention.
+globs:
+  - "src/components/**/*.vue"
+  - "src/composables/**/*.ts"
+  - "src/stores/**/*.ts"
+  - "src/utils/**/*.ts"
+alwaysApply: true
+---
+
 # Error Handling Guidelines
 
 Apply to: All components, composables, stores, and utilities
@@ -579,7 +594,4 @@ This comprehensive error handling system provides:
 8. **Monitoring integration** for production debugging
 
 This elevates your error handling from good to enterprise-grade! 🚀
-description:
-globs:
-alwaysApply: true
 ---

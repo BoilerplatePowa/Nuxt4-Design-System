@@ -1,3 +1,18 @@
+---
+description: |
+  Guidelines and automated processes for continuous integration, continuous deployment,
+  and release management for the Nuxt-Design-System. Covers GitHub Actions workflows,
+  quality gates, multi-stage testing (unit, integration, E2E), performance monitoring,
+  security scanning, staging and production deployments (including canary strategy),
+  emergency rollbacks, and automated release management with changelog and GitHub release
+  creation.
+globs:
+  - ".github/workflows/**/*.yml"
+  - "scripts/**/*.ts"
+  - "deploy/**/*.ts"
+alwaysApply: true
+---
+
 # CI/CD Guidelines
 
 Apply to: GitHub Actions workflows, deployment scripts, and release management
@@ -909,9 +924,3 @@ This comprehensive CI/CD system provides:
 8. **Bundle size impact analysis** for PRs
 9. **Health checks and smoke tests**
 10. **Emergency procedures** for critical issues
-
-This elevates your CI/CD from basic to enterprise-grade automation! 🚀
-description:
-globs:
-alwaysApply: true
----

@@ -12,7 +12,6 @@ globs:
 alwaysApply: true
 ---
 
-
 # Core Principles for Nuxt-Design-System
 
 You are an expert Nuxt 4 module developer specializing in design systems built on DaisyUI 5.0.54 and Tailwind CSS.

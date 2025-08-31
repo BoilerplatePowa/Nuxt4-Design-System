@@ -1,3 +1,18 @@
+---
+description: |
+  Guidelines for monitoring, observability, and analytics in the Nuxt-Design-System.
+  Covers performance tracking (Core Web Vitals, component render times, bundle sizes),
+  user analytics and event tracking, error tracking (Sentry integration), real-time 
+  metrics collection, alerting systems, and system health checks for enterprise-grade
+  observability.
+globs:
+  - "src/components/**/*.vue"
+  - "src/plugins/**/*.ts"
+  - "src/composables/**/*.ts"
+  - "server/**/*.ts"
+alwaysApply: true
+---
+
 # Monitoring & Observability Guidelines
 
 Apply to: All components, plugins, composables, and server-side code
@@ -766,7 +781,3 @@ This comprehensive monitoring system provides:
 8. **Memory usage tracking** for performance optimization
 
 This elevates your monitoring from basic to enterprise-grade observability! 📊
-description:
-globs:
-alwaysApply: true
----
