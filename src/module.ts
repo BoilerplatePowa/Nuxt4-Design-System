@@ -1,15 +1,24 @@
 import { defineNuxtModule, addPlugin, createResolver } from '@nuxt/kit'
 
 // Module options TypeScript interface definition
-export interface ModuleOptions {}
+export interface ModuleOptions { }
 
 export default defineNuxtModule<ModuleOptions>({
   meta: {
-    name: 'my-module',
-    configKey: 'myModule',
+    name: '@boilerplatepowa/nuxt-design-system',
+    configKey: 'nuxtDesignSystem',
+    compatibility: {
+      // Semver version of supported nuxt versions
+      nuxt: '>=4.0.3'
+    }
   },
   // Default configuration options of the Nuxt module
-  defaults: {},
+  defaults: {
+    prefix: 'Bp',
+    components: true,
+    css: true,
+    composables: true,
+  },
   setup(_options, _nuxt) {
     const resolver = createResolver(import.meta.url)
 
