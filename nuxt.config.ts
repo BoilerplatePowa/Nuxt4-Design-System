@@ -11,8 +11,28 @@ export default defineNuxtConfig({
     '@nuxt/eslint',
     '@nuxt/image',
     '@nuxt/scripts',
-    '@nuxt/test-utils'
+    '@nuxt/test-utils',
   ],
+  content: {
+    build: {
+      markdown: {
+        highlight: {
+          langs: [
+            'js',
+            'ts',
+            'html',
+            'css',
+            'md',
+            'json',
+            'yaml',
+            'yml',
+            'shell',
+            'vue',
+          ]
+        }
+      }
+    }
+  },
   css: ['~/assets/css/main.css'],
   vite: {
     plugins: [
