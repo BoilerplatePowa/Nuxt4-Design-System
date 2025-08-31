@@ -32,7 +32,7 @@ on:
 
 env:
   NODE_VERSION: '22.18.0'
-  PNPM_VERSION: '8.15.0'
+  NPM_VERSION: '10.0.0'
 
 jobs:
   # Quality Gates
@@ -47,30 +47,25 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: 'pnpm'
-          
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: ${{ env.PNPM_VERSION }}
+          cache: 'npm'
           
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: npm ci
         
       - name: Run linting
-        run: pnpm lint
+        run: npm run lint
         
       - name: Run type checking
-        run: pnpm type-check
+        run: npm run type-check
         
       - name: Check formatting
-        run: pnpm format:check
+        run: npm run format:check
         
       - name: Check commit conventions
-        run: pnpm commitlint
+        run: npm run commitlint
         
       - name: Security audit
-        run: pnpm audit --audit-level moderate
+        run: npm audit --audit-level moderate
 
   # Testing Suite
   test:
@@ -89,24 +84,19 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-          cache: 'pnpm'
-          
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: ${{ env.PNPM_VERSION }}
+          cache: 'npm'
           
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: npm ci
         
       - name: Run unit tests
-        run: pnpm test:unit
+        run: npm run test:unit
         
       - name: Run integration tests
-        run: pnpm test:integration
+        run: npm run test:integration
         
       - name: Run E2E tests
-        run: pnpm test:e2e
+        run: npm run test:e2e
         
       - name: Upload coverage
         uses: codecov/codecov-action@v4
@@ -128,27 +118,22 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: 'pnpm'
-          
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: ${{ env.PNPM_VERSION }}
+          cache: 'npm'
           
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: npm ci
         
       - name: Build for analysis
-        run: pnpm build:analyze
+        run: npm run build:analyze
         
       - name: Check bundle size
-        run: pnpm bundle-size:check
+        run: npm run bundle-size:check
         
       - name: Run Lighthouse CI
-        run: pnpm lighthouse:ci
+        run: npm run lighthouse:ci
         
       - name: Performance budget check
-        run: pnpm perf:budget
+        run: npm run perf:budget
 
   # Security Scanning
   security:
@@ -189,32 +174,27 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: 'pnpm'
-          
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: ${{ env.PNPM_VERSION }}
+          cache: 'npm'
           
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: npm ci
         
       - name: Build production
-        run: pnpm build
+        run: npm run build
         
       - name: Run final tests
-        run: pnpm test:ci
+        run: npm run test:ci
         
       - name: Deploy to staging
-        run: pnpm deploy:staging
+        run: npm run deploy:staging
         env:
           DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
           
       - name: Run smoke tests
-        run: pnpm test:smoke
+        run: npm run test:smoke
         
       - name: Deploy to production
-        run: pnpm deploy:production
+        run: npm run deploy:production
         env:
           DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
           
@@ -259,27 +239,22 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: 'pnpm'
-          
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: ${{ env.PNPM_VERSION }}
+          cache: 'npm'
           
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: npm ci
         
       - name: Run linting
-        run: pnpm lint
+        run: npm run lint
         
       - name: Run type checking
-        run: pnpm type-check
+        run: npm run type-check
         
       - name: Run tests
-        run: pnpm test:unit
+        run: npm run test:unit
         
       - name: Check bundle size impact
-        run: pnpm bundle-size:compare
+        run: npm run bundle-size:compare
         
       - name: Comment PR
         uses: actions/github-script@v7
@@ -399,7 +374,7 @@ const qualityGates = new QualityGateManager()
 qualityGates.addGate({
   name: 'Bundle Size',
   check: () => {
-    const bundleSize = parseInt(execSync('pnpm bundle-size:get', { encoding: 'utf8' }))
+    const bundleSize = parseInt(execSync('npm run bundle-size:get', { encoding: 'utf8' }))
     qualityGates.gates.find(g => g.name === 'Bundle Size')!.current = bundleSize
     return bundleSize <= 250 * 1024 // 250KB
   },
@@ -410,7 +385,7 @@ qualityGates.addGate({
 qualityGates.addGate({
   name: 'Test Coverage',
   check: () => {
-    const coverage = parseFloat(execSync('pnpm coverage:get', { encoding: 'utf8' }))
+    const coverage = parseFloat(execSync('npm run coverage:get', { encoding: 'utf8' }))
     qualityGates.gates.find(g => g.name === 'Test Coverage')!.current = coverage
     return coverage >= 80 // 80%
   },
@@ -421,7 +396,7 @@ qualityGates.addGate({
 qualityGates.addGate({
   name: 'Performance Score',
   check: () => {
-    const score = parseFloat(execSync('pnpm lighthouse:score', { encoding: 'utf8' }))
+    const score = parseFloat(execSync('npm run lighthouse:score', { encoding: 'utf8' }))
     qualityGates.gates.find(g => g.name === 'Performance Score')!.current = score
     return score >= 90 // 90/100
   },
@@ -432,7 +407,7 @@ qualityGates.addGate({
 qualityGates.addGate({
   name: 'Security Vulnerabilities',
   check: () => {
-    const vulnerabilities = parseInt(execSync('pnpm audit:count', { encoding: 'utf8' }))
+    const vulnerabilities = parseInt(execSync('npm audit --audit-level moderate | wc -l', { encoding: 'utf8' }))
     qualityGates.gates.find(g => g.name === 'Security Vulnerabilities')!.current = vulnerabilities
     return vulnerabilities === 0
   },
@@ -478,15 +453,15 @@ class StagingDeployment {
     try {
       // Build for staging
       console.log('📦 Building for staging...')
-      execSync('pnpm build:staging', { stdio: 'inherit' })
+      execSync('npm run build:staging', { stdio: 'inherit' })
       
       // Run staging-specific tests
       console.log('🧪 Running staging tests...')
-      execSync('pnpm test:staging', { stdio: 'inherit' })
+      execSync('npm run test:staging', { stdio: 'inherit' })
       
       // Deploy to staging environment
       console.log('🌐 Deploying to staging...')
-      execSync(`pnpm deploy:staging --region ${this.config.region}`, { stdio: 'inherit' })
+      execSync(`npm run deploy:staging --region ${this.config.region}`, { stdio: 'inherit' })
       
       // Wait for deployment
       console.log('⏳ Waiting for deployment...')
@@ -502,7 +477,7 @@ class StagingDeployment {
       
       // Run smoke tests
       console.log('💨 Running smoke tests...')
-      execSync('pnpm test:smoke', { stdio: 'inherit' })
+      execSync('npm run test:smoke', { stdio: 'inherit' })
       
       console.log('✅ Staging deployment successful!')
       return true
@@ -571,7 +546,7 @@ class StagingDeployment {
   private async rollback(): Promise<void> {
     console.log('🔄 Rolling back deployment...')
     try {
-      execSync('pnpm deploy:rollback', { stdio: 'inherit' })
+      execSync('npm run deploy:rollback', { stdio: 'inherit' })
       console.log('✅ Rollback successful')
     } catch (error) {
       console.error('❌ Rollback failed:', error)
@@ -682,7 +657,7 @@ class ProductionDeployment {
    */
   private async deployCanary(): Promise<boolean> {
     try {
-      execSync(`pnpm deploy:canary --percentage ${this.config.canaryPercentage}`, { stdio: 'inherit' })
+      execSync(`npm run deploy:canary --percentage ${this.config.canaryPercentage}`, { stdio: 'inherit' })
       return true
     } catch (error) {
       console.error('Canary deployment failed:', error)
@@ -720,7 +695,7 @@ class ProductionDeployment {
    * Deploy to full production
    */
   private async deployFull(): Promise<void> {
-    execSync('pnpm deploy:production', { stdio: 'inherit' })
+    execSync('npm run deploy:production', { stdio: 'inherit' })
   }
   
   /**
@@ -750,7 +725,7 @@ class ProductionDeployment {
     
     // Run smoke tests
     try {
-      execSync('pnpm test:smoke:production', { stdio: 'inherit' })
+      execSync('npm run test:smoke:production', { stdio: 'inherit' })
     } catch (error) {
       console.error('Smoke tests failed:', error)
       return false
@@ -765,7 +740,7 @@ class ProductionDeployment {
   private async emergencyRollback(): Promise<void> {
     console.log('🚨 Emergency rollback initiated...')
     try {
-      execSync('pnpm deploy:emergency-rollback', { stdio: 'inherit' })
+      execSync('npm run deploy:emergency-rollback', { stdio: 'inherit' })
       console.log('✅ Emergency rollback successful')
     } catch (error) {
       console.error('❌ Emergency rollback failed:', error)
@@ -832,7 +807,7 @@ class ReleaseManager {
    * Update package version
    */
   private updateVersion(type: 'patch' | 'minor' | 'major'): string {
-    execSync(`pnpm version ${type} --no-git-tag-version`, { stdio: 'inherit' })
+    execSync(`npm version ${type} --no-git-tag-version`, { stdio: 'inherit' })
     
     const packageJson = JSON.parse(readFileSync('package.json', 'utf8'))
     return packageJson.version
@@ -842,7 +817,7 @@ class ReleaseManager {
    * Generate changelog
    */
   private generateChangelog(): string {
-    execSync('pnpm changelog:generate', { stdio: 'inherit' })
+    execSync('npm run changelog:generate', { stdio: 'inherit' })
     
     const changelog = readFileSync('CHANGELOG.md', 'utf8')
     const latestRelease = changelog.split('## ')[1]
@@ -856,9 +831,9 @@ class ReleaseManager {
   private async buildArtifacts(): Promise<void> {
     console.log('📦 Building release artifacts...')
     
-    execSync('pnpm build:release', { stdio: 'inherit' })
-    execSync('pnpm build:docs', { stdio: 'inherit' })
-    execSync('pnpm build:storybook', { stdio: 'inherit' })
+    execSync('npm run build:release', { stdio: 'inherit' })
+    execSync('npm run build:docs', { stdio: 'inherit' })
+    execSync('npm run build:storybook', { stdio: 'inherit' })
   }
   
   /**
@@ -867,9 +842,9 @@ class ReleaseManager {
   private async runReleaseTests(): Promise<void> {
     console.log('🧪 Running release tests...')
     
-    execSync('pnpm test:release', { stdio: 'inherit' })
-    execSync('pnpm test:integration', { stdio: 'inherit' })
-    execSync('pnpm test:e2e', { stdio: 'inherit' })
+    execSync('npm run test:release', { stdio: 'inherit' })
+    execSync('npm run test:integration', { stdio: 'inherit' })
+    execSync('npm run test:e2e', { stdio: 'inherit' })
   }
   
   /**
@@ -887,7 +862,7 @@ class ReleaseManager {
    */
   private async publishToNpm(): Promise<void> {
     console.log('📤 Publishing to npm...')
-    execSync('pnpm publish --access public', { stdio: 'inherit' })
+    execSync('npm publish --access public', { stdio: 'inherit' })
   }
   
   /**
