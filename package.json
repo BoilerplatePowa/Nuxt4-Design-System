@@ -1,7 +1,16 @@
 {
-  "name": "nuxt-app",
+  "name": "@boilerplatepowa/nuxt-core-design-system",
+  "version": "0.0.1",
+  "description": "Modern Design System for Nuxt 4+ with TailwindCSS, DaisyUI and Storybook",
   "type": "module",
   "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/BoilerplatePowa/Nuxt4-Design-System.git"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
@@ -16,11 +25,16 @@
     "@nuxt/image": "^1.11.0",
     "@nuxt/scripts": "^0.11.13",
     "@nuxt/test-utils": "^3.19.2",
+    "@tailwindcss/vite": "^4.1.12",
     "@unhead/vue": "^2.0.14",
+    "better-sqlite3": "^12.2.0",
     "eslint": "^9.34.0",
     "nuxt": "^4.0.3",
+    "tailwindcss": "^4.1.12",
     "vue": "^3.5.20",
-    "vue-router": "^4.5.1",
-    "better-sqlite3": "^12.2.0"
+    "vue-router": "^4.5.1"
+  },
+  "devDependencies": {
+    "daisyui": "^5.0.54"
   }
 }
