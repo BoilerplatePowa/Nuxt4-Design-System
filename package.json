@@ -1,40 +1,53 @@
 {
-  "name": "@boilerplatepowa/nuxt-core-design-system",
-  "version": "0.0.1",
-  "description": "Modern Design System for Nuxt 4+ with TailwindCSS, DaisyUI and Storybook",
+  "name": "my-module",
+  "version": "1.0.0",
+  "description": "My new Nuxt module",
+  "repository": "your-org/my-module",
+  "license": "MIT",
   "type": "module",
-  "private": true,
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/BoilerplatePowa/Nuxt4-Design-System.git"
+  "exports": {
+    ".": {
+      "types": "./dist/types.d.mts",
+      "import": "./dist/module.mjs"
+    }
   },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
+  "main": "./dist/module.mjs",
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./dist/types.d.mts"
+      ]
+    }
   },
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "build": "nuxt build",
-    "dev": "nuxt dev",
-    "generate": "nuxt generate",
-    "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "prepack": "nuxt-module-build build",
+    "dev": "npm run dev:prepare && nuxi dev playground",
+    "dev:build": "nuxi build playground",
+    "dev:prepare": "nuxt-module-build build --stub && nuxt-module-build prepare && nuxi prepare playground",
+    "release": "npm run lint && npm run test && npm run prepack && changelogen --release && npm publish && git push --follow-tags",
+    "lint": "eslint .",
+    "test": "vitest run",
+    "test:watch": "vitest watch",
+    "test:types": "vue-tsc --noEmit && cd playground && vue-tsc --noEmit"
   },
   "dependencies": {
-    "@nuxt/content": "^3.6.3",
-    "@nuxt/eslint": "^1.9.0",
-    "@nuxt/fonts": "^0.11.4",
-    "@nuxt/image": "^1.11.0",
-    "@nuxt/scripts": "^0.11.13",
-    "@nuxt/test-utils": "^3.19.2",
-    "@tailwindcss/vite": "^4.1.12",
-    "@unhead/vue": "^2.0.14",
-    "better-sqlite3": "^12.2.0",
-    "eslint": "^9.34.0",
-    "nuxt": "^4.0.3",
-    "tailwindcss": "^4.1.12",
-    "vue": "^3.5.20",
-    "vue-router": "^4.5.1"
+    "@nuxt/kit": "^4.0.3"
   },
   "devDependencies": {
-    "daisyui": "^5.0.54"
+    "@nuxt/devtools": "^2.6.3",
+    "@nuxt/eslint-config": "^1.9.0",
+    "@nuxt/module-builder": "^1.0.2",
+    "@nuxt/schema": "^4.0.3",
+    "@nuxt/test-utils": "^3.19.2",
+    "@types/node": "latest",
+    "changelogen": "^0.6.2",
+    "eslint": "^9.34.0",
+    "nuxt": "^4.0.3",
+    "typescript": "~5.9.2",
+    "vitest": "^3.2.4",
+    "vue-tsc": "^3.0.6"
   }
 }
