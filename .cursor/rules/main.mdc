@@ -4,11 +4,16 @@ description: |
   Defines included/excluded paths, rule priorities, and project context.  
   Ensures consistent enforcement of coding, architecture, documentation,  
   performance, and security standards across the entire codebase.
+  Includes advanced features: error boundaries, monitoring, CI/CD integration,
+  and automated quality gates for enterprise-grade development.
 globs:
   - "src/**/*.{ts,vue,js,json}"
   - "playground/**/*.{ts,vue,js,md}"
   - "docs/**/*.{md,ts,vue}"
   - "tests/**/*.{ts,vue,js}"
+  - "stories/**/*.{ts,mdx}"
+  - "scripts/**/*.{ts,js}"
+  - "ci/**/*.{yml,yaml}"
 alwaysApply: true
 ---
 
@@ -20,11 +25,17 @@ include:
   - "playground/**/*"
   - "docs/**/*"
   - "tests/**/*"
+  - "stories/**/*"
+  - "scripts/**/*"
+  - "ci/**/*"
 exclude:
   - "node_modules/**/*"
   - "dist/**/*"
   - ".nuxt/**/*"
   - ".output/**/*"
+  - "coverage/**/*"
+  - "*.log"
+  - ".env*"
 
 rules:
   - path: "rules/core-principles.md"
@@ -45,6 +56,14 @@ rules:
     priority: 8
   - path: "rules/documentation.md"
     priority: 9
+  - path: "rules/accessibility.md"
+    priority: 10
+  - path: "rules/i18n.md"
+    priority: 11
+  - path: "rules/error-handling.md"
+    priority: 12
+  - path: "rules/monitoring.md"
+    priority: 13
 
 context:
   project_name: "Nuxt-Design-System"
@@ -53,3 +72,7 @@ context:
   language: "TypeScript"
   ui_library: "DaisyUI 5.0.54"
   styling: "Tailwind CSS"
+  target_audience: "enterprise"
+  quality_gates: "automated"
+  monitoring: "enabled"
+  ci_cd: "github_actions"

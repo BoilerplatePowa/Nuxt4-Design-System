@@ -1,0 +1,585 @@
+# Error Handling Guidelines
+
+Apply to: All components, composables, stores, and utilities
+
+## Error Boundary Pattern
+
+### Global Error Boundary
+```vue
+<!-- error.vue - Global error boundary -->
+<template>
+  <div class="min-h-screen bg-base-100 flex items-center justify-center">
+    <div class="card w-96 bg-base-200 shadow-xl">
+      <div class="card-body text-center">
+        <div class="text-6xl mb-4">⚠️</div>
+        <h2 class="card-title justify-center text-error">
+          {{ error?.statusCode === 404 ? 'Page Not Found' : 'Something went wrong' }}
+        </h2>
+        <p class="text-base-content/70 mb-6">
+          {{ error?.statusCode === 404 
+            ? 'The page you are looking for does not exist.' 
+            : 'An unexpected error occurred. Please try again.' 
+          }}
+        </p>
+        
+        <div class="card-actions justify-center">
+          <button 
+            class="btn btn-primary" 
+            @click="handleError"
+          >
+            {{ error?.statusCode === 404 ? 'Go Home' : 'Try Again' }}
+          </button>
+        </div>
+        
+        <!-- Development error details -->
+        <details v-if="process.dev && error" class="mt-4">
+          <summary class="cursor-pointer text-sm text-base-content/60">
+            Error Details (Development)
+          </summary>
+          <pre class="mt-2 p-2 bg-base-300 rounded text-xs overflow-auto">
+            {{ JSON.stringify(error, null, 2) }}
+          </pre>
+        </details>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+interface Props {
+  error: {
+    statusCode?: number
+    statusMessage?: string
+    message?: string
+    stack?: string
+  }
+}
+
+const props = defineProps<Props>()
+
+function handleError() {
+  if (props.error?.statusCode === 404) {
+    return navigateTo('/')
+  }
+  
+  // Clear error and retry
+  clearError({ redirect: '/' })
+}
+</script>
+```
+
+### Component Error Boundary
+```vue
+<!-- components/ErrorBoundary.vue -->
+<template>
+  <div>
+    <div v-if="hasError" class="alert alert-error">
+      <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+      <div>
+        <h3 class="font-bold">Component Error</h3>
+        <div class="text-xs">{{ errorMessage }}</div>
+      </div>
+      <button 
+        class="btn btn-sm btn-ghost" 
+        @click="resetError"
+      >
+        Retry
+      </button>
+    </div>
+    
+    <slot v-else />
+  </div>
+</template>
+
+<script setup lang="ts">
+import { ref, onErrorCaptured } from 'vue'
+
+const hasError = ref(false)
+const errorMessage = ref('')
+
+onErrorCaptured((error, instance, info) => {
+  hasError.value = true
+  errorMessage.value = error.message
+  
+  // Log error for monitoring
+  console.error('[DS Error Boundary]', {
+    error: error.message,
+    component: instance?.$options.name || 'Unknown',
+    info,
+    stack: error.stack
+  })
+  
+  // Send to monitoring service in production
+  if (process.env.NODE_ENV === 'production') {
+    // sendToMonitoring(error, instance, info)
+  }
+  
+  return false // Prevent error from propagating
+})
+
+function resetError() {
+  hasError.value = false
+  errorMessage.value = ''
+}
+</script>
+```
+
+## Error Logging & Monitoring
+
+### Structured Error Logging
+```typescript
+// utils/errorLogger.ts
+export interface ErrorContext {
+  component?: string
+  action?: string
+  userId?: string
+  sessionId?: string
+  timestamp: Date
+  userAgent?: string
+  url?: string
+}
+
+export interface ErrorLog {
+  message: string
+  stack?: string
+  context: ErrorContext
+  severity: 'low' | 'medium' | 'high' | 'critical'
+  category: 'validation' | 'network' | 'runtime' | 'user' | 'system'
+}
+
+class ErrorLogger {
+  private logs: ErrorLog[] = []
+  
+  /**
+   * Log error with structured context
+   */
+  log(
+    error: Error | string,
+    context: Partial<ErrorContext> = {},
+    severity: ErrorLog['severity'] = 'medium',
+    category: ErrorLog['category'] = 'runtime'
+  ) {
+    const errorLog: ErrorLog = {
+      message: typeof error === 'string' ? error : error.message,
+      stack: error instanceof Error ? error.stack : undefined,
+      context: {
+        timestamp: new Date(),
+        userAgent: process.client ? navigator.userAgent : undefined,
+        url: process.client ? window.location.href : undefined,
+        ...context
+      },
+      severity,
+      category
+    }
+    
+    this.logs.push(errorLog)
+    
+    // Console logging in development
+    if (process.dev) {
+      console.group(`[DS Error] ${errorLog.severity.toUpperCase()} - ${errorLog.category}`)
+      console.error(errorLog.message)
+      console.log('Context:', errorLog.context)
+      if (errorLog.stack) console.log('Stack:', errorLog.stack)
+      console.groupEnd()
+    }
+    
+    // Send to monitoring service in production
+    if (process.env.NODE_ENV === 'production') {
+      this.sendToMonitoring(errorLog)
+    }
+  }
+  
+  /**
+   * Send error to monitoring service
+   */
+  private async sendToMonitoring(errorLog: ErrorLog) {
+    try {
+      // Example: Sentry, LogRocket, or custom monitoring
+      await $fetch('/api/errors', {
+        method: 'POST',
+        body: errorLog
+      })
+    } catch (monitoringError) {
+      // Fallback to console if monitoring fails
+      console.error('[DS Monitoring Failed]', monitoringError)
+    }
+  }
+  
+  /**
+   * Get recent errors for debugging
+   */
+  getRecentErrors(limit = 10): ErrorLog[] {
+    return this.logs.slice(-limit)
+  }
+  
+  /**
+   * Clear error logs
+   */
+  clear() {
+    this.logs = []
+  }
+}
+
+export const errorLogger = new ErrorLogger()
+```
+
+### Component Error Handling
+```vue
+<script setup lang="ts">
+import { errorLogger } from '~/utils/errorLogger'
+
+interface Props {
+  data?: unknown
+  isLoading?: boolean
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  isLoading: false
+})
+
+// Error handling for async operations
+async function handleAsyncOperation() {
+  try {
+    const result = await someAsyncCall()
+    return result
+  } catch (error) {
+    errorLogger.log(
+      error as Error,
+      { 
+        component: 'MyComponent',
+        action: 'asyncOperation'
+      },
+      'medium',
+      'network'
+    )
+    
+    // Show user-friendly error
+    throw createError({
+      statusCode: 500,
+      statusMessage: 'Failed to load data. Please try again.'
+    })
+  }
+}
+
+// Validation error handling
+function handleValidationError(field: string, value: unknown) {
+  const error = new Error(`Invalid ${field}: ${value}`)
+  
+  errorLogger.log(
+    error,
+    {
+      component: 'MyComponent',
+      action: 'validation',
+      field
+    },
+    'low',
+    'validation'
+  )
+  
+  // Return user-friendly message
+  return `Please enter a valid ${field}`
+}
+</script>
+```
+
+## Graceful Degradation
+
+### Feature Detection & Fallbacks
+```vue
+<script setup lang="ts">
+// Feature detection for progressive enhancement
+const supportsIntersectionObserver = ref(false)
+const supportsWebGL = ref(false)
+const supportsServiceWorker = ref(false)
+
+onMounted(() => {
+  // Check browser capabilities
+  supportsIntersectionObserver.value = 'IntersectionObserver' in window
+  supportsWebGL.value = !!window.WebGLRenderingContext
+  supportsServiceWorker.value = 'serviceWorker' in navigator
+})
+
+// Fallback for unsupported features
+const useIntersectionObserver = () => {
+  if (!supportsIntersectionObserver.value) {
+    // Fallback: always visible
+    return { isIntersecting: ref(true) }
+  }
+  
+  // Real implementation
+  return useIntersectionObserver()
+}
+</script>
+
+<template>
+  <!-- Progressive enhancement -->
+  <div class="component-wrapper">
+    <!-- Core functionality (always works) -->
+    <div class="core-content">
+      <slot />
+    </div>
+    
+    <!-- Enhanced features (conditional) -->
+    <div v-if="supportsIntersectionObserver" class="enhanced-features">
+      <slot name="enhanced" />
+    </div>
+    
+    <!-- Fallback for unsupported features -->
+    <div v-else class="fallback-content">
+      <slot name="fallback" />
+    </div>
+  </div>
+</template>
+```
+
+## User Feedback Patterns
+
+### Loading States with Error Handling
+```vue
+<script setup lang="ts">
+interface AsyncState<T> {
+  data: T | null
+  isLoading: boolean
+  error: string | null
+}
+
+function useAsyncOperation<T>(operation: () => Promise<T>) {
+  const state = reactive<AsyncState<T>>({
+    data: null,
+    isLoading: false,
+    error: null
+  })
+  
+  async function execute() {
+    state.isLoading = true
+    state.error = null
+    
+    try {
+      state.data = await operation()
+    } catch (error) {
+      state.error = error instanceof Error ? error.message : 'An error occurred'
+      errorLogger.log(error as Error, { action: 'asyncOperation' })
+    } finally {
+      state.isLoading = false
+    }
+  }
+  
+  return {
+    ...toRefs(state),
+    execute
+  }
+}
+</script>
+
+<template>
+  <div class="async-component">
+    <!-- Loading state -->
+    <div v-if="isLoading" class="loading-state">
+      <div class="loading loading-spinner loading-lg"></div>
+      <p class="mt-2">Loading...</p>
+    </div>
+    
+    <!-- Error state -->
+    <div v-else-if="error" class="error-state">
+      <div class="alert alert-error">
+        <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <div>
+          <h3 class="font-bold">Error</h3>
+          <div class="text-xs">{{ error }}</div>
+        </div>
+        <button class="btn btn-sm btn-ghost" @click="execute">
+          Retry
+        </button>
+      </div>
+    </div>
+    
+    <!-- Success state -->
+    <div v-else-if="data" class="success-state">
+      <slot :data="data" />
+    </div>
+  </div>
+</template>
+```
+
+## Error Recovery Strategies
+
+### Automatic Retry Logic
+```typescript
+// utils/retry.ts
+export interface RetryOptions {
+  maxAttempts: number
+  delay: number
+  backoff: 'linear' | 'exponential'
+  shouldRetry: (error: Error) => boolean
+}
+
+export async function withRetry<T>(
+  operation: () => Promise<T>,
+  options: Partial<RetryOptions> = {}
+): Promise<T> {
+  const {
+    maxAttempts = 3,
+    delay = 1000,
+    backoff = 'exponential',
+    shouldRetry = (error: Error) => {
+      // Retry on network errors, not validation errors
+      return error.name === 'NetworkError' || 
+             error.message.includes('timeout') ||
+             error.message.includes('network')
+    }
+  } = options
+  
+  let lastError: Error
+  
+  for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+    try {
+      return await operation()
+    } catch (error) {
+      lastError = error as Error
+      
+      if (attempt === maxAttempts || !shouldRetry(lastError)) {
+        throw lastError
+      }
+      
+      // Calculate delay with backoff
+      const currentDelay = backoff === 'exponential' 
+        ? delay * Math.pow(2, attempt - 1)
+        : delay * attempt
+      
+      await new Promise(resolve => setTimeout(resolve, currentDelay))
+    }
+  }
+  
+  throw lastError!
+}
+```
+
+### Circuit Breaker Pattern
+```typescript
+// utils/circuitBreaker.ts
+export class CircuitBreaker {
+  private failures = 0
+  private lastFailureTime = 0
+  private state: 'closed' | 'open' | 'half-open' = 'closed'
+  
+  constructor(
+    private threshold = 5,
+    private timeout = 60000 // 1 minute
+  ) {}
+  
+  async execute<T>(operation: () => Promise<T>): Promise<T> {
+    if (this.state === 'open') {
+      if (Date.now() - this.lastFailureTime > this.timeout) {
+        this.state = 'half-open'
+      } else {
+        throw new Error('Circuit breaker is open')
+      }
+    }
+    
+    try {
+      const result = await operation()
+      this.onSuccess()
+      return result
+    } catch (error) {
+      this.onFailure()
+      throw error
+    }
+  }
+  
+  private onSuccess() {
+    this.failures = 0
+    this.state = 'closed'
+  }
+  
+  private onFailure() {
+    this.failures++
+    this.lastFailureTime = Date.now()
+    
+    if (this.failures >= this.threshold) {
+      this.state = 'open'
+    }
+  }
+}
+
+// Usage in components
+const apiBreaker = new CircuitBreaker(3, 30000)
+
+async function fetchData() {
+  return apiBreaker.execute(async () => {
+    return await $fetch('/api/data')
+  })
+}
+```
+
+## Error Prevention
+
+### Input Validation with Error Recovery
+```vue
+<script setup lang="ts">
+interface ValidationRule {
+  test: (value: unknown) => boolean
+  message: string
+  severity: 'warning' | 'error'
+}
+
+const emailRules: ValidationRule[] = [
+  {
+    test: (value) => typeof value === 'string' && value.length > 0,
+    message: 'Email is required',
+    severity: 'error'
+  },
+  {
+    test: (value) => typeof value === 'string' && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value),
+    message: 'Please enter a valid email address',
+    severity: 'error'
+  }
+]
+
+function validateInput(value: unknown, rules: ValidationRule[]) {
+  const errors: string[] = []
+  const warnings: string[] = []
+  
+  for (const rule of rules) {
+    if (!rule.test(value)) {
+      if (rule.severity === 'error') {
+        errors.push(rule.message)
+      } else {
+        warnings.push(rule.message)
+      }
+    }
+  }
+  
+  return { errors, warnings, isValid: errors.length === 0 }
+}
+
+// Auto-correction for common mistakes
+function autoCorrectEmail(email: string): string {
+  return email
+    .toLowerCase()
+    .trim()
+    .replace(/\s+/g, '') // Remove spaces
+    .replace(/[gmail]\.com$/i, 'gmail.com') // Fix common domain typos
+}
+</script>
+```
+
+This comprehensive error handling system provides:
+
+1. **Global error boundaries** for catching unhandled errors
+2. **Structured logging** with context and severity levels
+3. **Graceful degradation** for unsupported features
+4. **User-friendly feedback** with retry mechanisms
+5. **Automatic retry logic** with exponential backoff
+6. **Circuit breaker pattern** for API resilience
+7. **Input validation** with auto-correction
+8. **Monitoring integration** for production debugging
+
+This elevates your error handling from good to enterprise-grade! 🚀
+description:
+globs:
+alwaysApply: true
+---

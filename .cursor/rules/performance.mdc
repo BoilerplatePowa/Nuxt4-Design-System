@@ -195,15 +195,326 @@ export default defineNuxtModule({
       })
     }
     
-    // Bundle size warnings
+    // Bundle size warnings with detailed analysis
     nuxt.hook('build:done', () => {
       const maxSize = 250 * 1024 // 250KB
+      const warningSize = 200 * 1024 // 200KB
+      
       if (bundleSize > maxSize) {
-        console.warn(`[DS] Bundle size ${bundleSize}KB exceeds ${maxSize/1024}KB limit`)
+        console.error(`[DS Performance] Bundle size ${(bundleSize/1024).toFixed(2)}KB exceeds ${(maxSize/1024).toFixed(2)}KB limit`)
+        
+        // Provide optimization suggestions
+        console.warn('[DS Performance] Optimization suggestions:')
+        console.warn('- Use dynamic imports for heavy components')
+        console.warn('- Enable tree shaking for unused code')
+        console.warn('- Consider code splitting by routes')
+        console.warn('- Optimize images and assets')
+      } else if (bundleSize > warningSize) {
+        console.warn(`[DS Performance] Bundle size ${(bundleSize/1024).toFixed(2)}KB approaching limit`)
+      } else {
+        console.log(`[DS Performance] Bundle size ${(bundleSize/1024).toFixed(2)}KB is optimal`)
+      }
+    })
+    
+    // Performance budget enforcement
+    nuxt.hook('build:done', () => {
+      const performanceBudget = {
+        bundleSize: 250 * 1024, // 250KB
+        cssSize: 50 * 1024, // 50KB
+        imageSize: 100 * 1024, // 100KB
+        totalRequests: 20
+      }
+      
+      // Check against budget
+      const violations = []
+      
+      if (bundleSize > performanceBudget.bundleSize) {
+        violations.push(`Bundle size: ${(bundleSize/1024).toFixed(2)}KB > ${(performanceBudget.bundleSize/1024).toFixed(2)}KB`)
+      }
+      
+      if (violations.length > 0) {
+        console.error('[DS Performance] Budget violations detected:')
+        violations.forEach(violation => console.error(`- ${violation}`))
       }
     })
   }
 })
+```
+
+## Advanced Performance Patterns
+
+### Virtual Scrolling for Large Lists
+```vue
+<script setup lang="ts">
+// composables/useVirtualScroll.ts
+export function useVirtualScroll<T>(
+  items: T[],
+  itemHeight: number,
+  containerHeight: number
+) {
+  const scrollTop = ref(0)
+  const containerRef = ref<HTMLElement>()
+  
+  const visibleCount = Math.ceil(containerHeight / itemHeight)
+  const startIndex = Math.floor(scrollTop.value / itemHeight)
+  const endIndex = Math.min(startIndex + visibleCount, items.length)
+  
+  const visibleItems = computed(() => 
+    items.slice(startIndex, endIndex).map((item, index) => ({
+      item,
+      index: startIndex + index,
+      style: {
+        position: 'absolute',
+        top: `${(startIndex + index) * itemHeight}px`,
+        height: `${itemHeight}px`,
+        width: '100%'
+      }
+    }))
+  )
+  
+  const totalHeight = computed(() => items.length * itemHeight)
+  
+  function handleScroll(event: Event) {
+    const target = event.target as HTMLElement
+    scrollTop.value = target.scrollTop
+  }
+  
+  return {
+    containerRef,
+    visibleItems,
+    totalHeight,
+    handleScroll
+  }
+}
+</script>
+
+<template>
+  <div 
+    ref="containerRef"
+    class="virtual-scroll-container"
+    :style="{ height: `${containerHeight}px`, overflow: 'auto' }"
+    @scroll="handleScroll"
+  >
+    <div :style="{ height: `${totalHeight}px`, position: 'relative' }">
+      <div 
+        v-for="{ item, style } in visibleItems"
+        :key="item.id"
+        :style="style"
+      >
+        <slot :item="item" />
+      </div>
+    </div>
+  </div>
+</template>
+```
+
+### Intersection Observer for Lazy Loading
+```vue
+<script setup lang="ts">
+// composables/useIntersectionObserver.ts
+export function useIntersectionObserver(
+  target: Ref<HTMLElement | undefined>,
+  options: IntersectionObserverInit = {}
+) {
+  const isIntersecting = ref(false)
+  const isVisible = ref(false)
+  
+  const defaultOptions: IntersectionObserverInit = {
+    root: null,
+    rootMargin: '0px',
+    threshold: 0.1,
+    ...options
+  }
+  
+  onMounted(() => {
+    if (!target.value) return
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        isIntersecting.value = entry.isIntersecting
+        if (entry.isIntersecting) {
+          isVisible.value = true
+        }
+      })
+    }, defaultOptions)
+    
+    observer.observe(target.value)
+    
+    onUnmounted(() => {
+      observer.disconnect()
+    })
+  })
+  
+  return {
+    isIntersecting: readonly(isIntersecting),
+    isVisible: readonly(isVisible)
+  }
+}
+
+// Usage in components
+const imageRef = ref<HTMLImageElement>()
+const { isVisible } = useIntersectionObserver(imageRef)
+
+const imageSrc = computed(() => 
+  isVisible.value ? props.src : undefined
+)
+</script>
+
+<template>
+  <img 
+    ref="imageRef"
+    :src="imageSrc"
+    :alt="alt"
+    class="lazy-image"
+    loading="lazy"
+  />
+</template>
+```
+
+### Memory Management
+```vue
+<script setup lang="ts">
+// composables/useMemoryManagement.ts
+export function useMemoryManagement() {
+  const memoryUsage = ref(0)
+  const isMemoryWarning = ref(false)
+  
+  const checkMemoryUsage = () => {
+    if (process.client && 'memory' in performance) {
+      const memory = (performance as any).memory
+      const usedMB = memory.usedJSHeapSize / 1024 / 1024
+      const limitMB = memory.jsHeapSizeLimit / 1024 / 1024
+      
+      memoryUsage.value = usedMB
+      isMemoryWarning.value = usedMB > limitMB * 0.8 // 80% threshold
+      
+      if (isMemoryWarning.value) {
+        console.warn(`[DS Memory] High memory usage: ${usedMB.toFixed(2)}MB / ${limitMB.toFixed(2)}MB`)
+      }
+    }
+  }
+  
+  const cleanupMemory = () => {
+    // Clear unused references
+    if (process.client) {
+      // Force garbage collection if available
+      if ('gc' in window) {
+        (window as any).gc()
+      }
+      
+      // Clear image cache
+      const images = document.querySelectorAll('img')
+      images.forEach(img => {
+        if (!img.complete) {
+          img.src = ''
+        }
+      })
+    }
+  }
+  
+  onMounted(() => {
+    // Check memory every 30 seconds
+    const interval = setInterval(checkMemoryUsage, 30000)
+    
+    onUnmounted(() => {
+      clearInterval(interval)
+      cleanupMemory()
+    })
+  })
+  
+  return {
+    memoryUsage: readonly(memoryUsage),
+    isMemoryWarning: readonly(isMemoryWarning),
+    cleanupMemory
+  }
+}
+</script>
+```
+
+### Performance Monitoring Dashboard
+```vue
+<template>
+  <div class="performance-dashboard" v-if="process.dev">
+    <div class="card bg-base-200 shadow-xl">
+      <div class="card-body">
+        <h2 class="card-title">Performance Monitor</h2>
+        
+        <div class="grid grid-cols-2 gap-4">
+          <div class="stat">
+            <div class="stat-title">Bundle Size</div>
+            <div class="stat-value text-primary">{{ bundleSize }}KB</div>
+            <div class="stat-desc">{{ bundleStatus }}</div>
+          </div>
+          
+          <div class="stat">
+            <div class="stat-title">Memory Usage</div>
+            <div class="stat-value" :class="memoryClass">{{ memoryUsage }}MB</div>
+            <div class="stat-desc">{{ memoryStatus }}</div>
+          </div>
+          
+          <div class="stat">
+            <div class="stat-title">LCP</div>
+            <div class="stat-value text-secondary">{{ lcp }}ms</div>
+            <div class="stat-desc">{{ lcpStatus }}</div>
+          </div>
+          
+          <div class="stat">
+            <div class="stat-title">FID</div>
+            <div class="stat-value text-accent">{{ fid }}ms</div>
+            <div class="stat-desc">{{ fidStatus }}</div>
+          </div>
+        </div>
+        
+        <div class="card-actions justify-end">
+          <button class="btn btn-sm" @click="refreshMetrics">
+            Refresh
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+const { memoryUsage, isMemoryWarning } = useMemoryManagement()
+const { healthStatus } = useHealthCheck()
+
+const bundleSize = ref(0)
+const lcp = ref(0)
+const fid = ref(0)
+
+const bundleStatus = computed(() => {
+  if (bundleSize.value > 250) return '⚠️ Exceeds limit'
+  if (bundleSize.value > 200) return '⚠️ Approaching limit'
+  return '✅ Optimal'
+})
+
+const memoryStatus = computed(() => {
+  if (isMemoryWarning.value) return '⚠️ High usage'
+  return '✅ Normal'
+})
+
+const memoryClass = computed(() => 
+  isMemoryWarning.value ? 'text-error' : 'text-success'
+)
+
+const lcpStatus = computed(() => {
+  if (lcp.value > 2500) return '❌ Poor'
+  if (lcp.value > 1000) return '⚠️ Needs improvement'
+  return '✅ Good'
+})
+
+const fidStatus = computed(() => {
+  if (fid.value > 300) return '❌ Poor'
+  if (fid.value > 100) return '⚠️ Needs improvement'
+  return '✅ Good'
+})
+
+async function refreshMetrics() {
+  await performHealthCheck()
+  // Update other metrics...
+}
+</script>
 ```
 
 ## Component Performance Patterns

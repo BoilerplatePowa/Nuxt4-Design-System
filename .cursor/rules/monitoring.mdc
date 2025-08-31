@@ -1,0 +1,772 @@
+# Monitoring & Observability Guidelines
+
+Apply to: All components, plugins, composables, and server-side code
+
+## Performance Monitoring
+
+### Core Web Vitals Tracking
+```typescript
+// plugins/performance.client.ts
+export default defineNuxtPlugin({
+  name: 'performance-monitoring',
+  parallel: true,
+  setup() {
+    if (process.client) {
+      // Track Core Web Vitals
+      const trackWebVitals = () => {
+        // Largest Contentful Paint (LCP)
+        new PerformanceObserver((list) => {
+          const entries = list.getEntries()
+          const lastEntry = entries[entries.length - 1]
+          
+          if (lastEntry) {
+            const lcp = lastEntry.startTime
+            console.log('[DS Performance] LCP:', lcp)
+            
+            // Send to analytics
+            sendMetric('lcp', lcp, {
+              url: window.location.href,
+              component: 'page-load'
+            })
+          }
+        }).observe({ entryTypes: ['largest-contentful-paint'] })
+
+        // First Input Delay (FID)
+        new PerformanceObserver((list) => {
+          const entries = list.getEntries()
+          
+          entries.forEach((entry) => {
+            const fid = entry.processingStart - entry.startTime
+            console.log('[DS Performance] FID:', fid)
+            
+            sendMetric('fid', fid, {
+              url: window.location.href,
+              interaction: entry.name
+            })
+          })
+        }).observe({ entryTypes: ['first-input'] })
+
+        // Cumulative Layout Shift (CLS)
+        let clsValue = 0
+        new PerformanceObserver((list) => {
+          const entries = list.getEntries()
+          
+          entries.forEach((entry: any) => {
+            if (!entry.hadRecentInput) {
+              clsValue += entry.value
+            }
+          })
+          
+          console.log('[DS Performance] CLS:', clsValue)
+          sendMetric('cls', clsValue, {
+            url: window.location.href
+          })
+        }).observe({ entryTypes: ['layout-shift'] })
+      }
+
+      // Track component render performance
+      const trackComponentRender = (componentName: string) => {
+        const startTime = performance.now()
+        
+        return () => {
+          const duration = performance.now() - startTime
+          
+          if (duration > 16) { // >16ms = potential frame drop
+            console.warn(`[DS Performance] ${componentName} render took ${duration.toFixed(2)}ms`)
+            
+            sendMetric('component-render', duration, {
+              component: componentName,
+              url: window.location.href
+            })
+          }
+        }
+      }
+
+      // Track bundle size
+      const trackBundleSize = () => {
+        if ('performance' in window && 'getEntriesByType' in performance) {
+          const resources = performance.getEntriesByType('resource')
+          const jsResources = resources.filter(r => r.name.endsWith('.js'))
+          
+          const totalSize = jsResources.reduce((sum, resource) => {
+            return sum + (resource.transferSize || 0)
+          }, 0)
+          
+          sendMetric('bundle-size', totalSize, {
+            url: window.location.href,
+            resourceCount: jsResources.length
+          })
+        }
+      }
+
+      // Initialize tracking
+      trackWebVitals()
+      trackBundleSize()
+      
+      // Expose tracking functions globally
+      return {
+        provide: {
+          trackComponentRender,
+          trackWebVitals
+        }
+      }
+    }
+  }
+})
+```
+
+### Component Performance Monitoring
+```vue
+<script setup lang="ts">
+// composables/usePerformance.ts
+export function usePerformance() {
+  const { $trackComponentRender } = useNuxtApp()
+  
+  const trackRender = (componentName: string) => {
+    if (process.client) {
+      const endTracking = $trackComponentRender(componentName)
+      
+      onMounted(() => {
+        nextTick(() => {
+          endTracking()
+        })
+      })
+    }
+  }
+  
+  const trackInteraction = (action: string, duration?: number) => {
+    if (process.client) {
+      sendMetric('interaction', duration || 0, {
+        action,
+        url: window.location.href,
+        timestamp: Date.now()
+      })
+    }
+  }
+  
+  const trackError = (error: Error, context?: Record<string, unknown>) => {
+    if (process.client) {
+      sendMetric('error', 1, {
+        message: error.message,
+        stack: error.stack,
+        url: window.location.href,
+        ...context
+      })
+    }
+  }
+  
+  return {
+    trackRender,
+    trackInteraction,
+    trackError
+  }
+}
+
+// Usage in components
+const { trackRender, trackInteraction } = usePerformance()
+
+// Track component render time
+trackRender('ButtonPrimary')
+
+// Track user interactions
+function handleClick() {
+  const startTime = performance.now()
+  
+  // Perform action
+  doSomething()
+  
+  const duration = performance.now() - startTime
+  trackInteraction('button-click', duration)
+}
+</script>
+```
+
+## User Analytics
+
+### Event Tracking System
+```typescript
+// utils/analytics.ts
+export interface AnalyticsEvent {
+  event: string
+  category: string
+  action: string
+  label?: string
+  value?: number
+  properties?: Record<string, unknown>
+  timestamp: number
+  sessionId: string
+  userId?: string
+}
+
+class Analytics {
+  private sessionId: string
+  private userId?: string
+  private events: AnalyticsEvent[] = []
+  
+  constructor() {
+    this.sessionId = this.generateSessionId()
+    this.loadUserId()
+  }
+  
+  /**
+   * Track user event
+   */
+  track(
+    event: string,
+    category: string,
+    action: string,
+    label?: string,
+    value?: number,
+    properties?: Record<string, unknown>
+  ) {
+    const analyticsEvent: AnalyticsEvent = {
+      event,
+      category,
+      action,
+      label,
+      value,
+      properties,
+      timestamp: Date.now(),
+      sessionId: this.sessionId,
+      userId: this.userId
+    }
+    
+    this.events.push(analyticsEvent)
+    
+    // Send to analytics service
+    this.sendToAnalytics(analyticsEvent)
+    
+    // Console logging in development
+    if (process.dev) {
+      console.log('[DS Analytics]', analyticsEvent)
+    }
+  }
+  
+  /**
+   * Track component usage
+   */
+  trackComponentUsage(componentName: string, props?: Record<string, unknown>) {
+    this.track('component_used', 'components', 'render', componentName, 1, props)
+  }
+  
+  /**
+   * Track theme changes
+   */
+  trackThemeChange(theme: string) {
+    this.track('theme_changed', 'preferences', 'update', theme, 1)
+  }
+  
+  /**
+   * Track error occurrences
+   */
+  trackError(error: Error, context?: Record<string, unknown>) {
+    this.track('error_occurred', 'errors', 'capture', error.message, 1, {
+      stack: error.stack,
+      ...context
+    })
+  }
+  
+  /**
+   * Track performance metrics
+   */
+  trackPerformance(metric: string, value: number, context?: Record<string, unknown>) {
+    this.track('performance_metric', 'performance', 'measure', metric, value, context)
+  }
+  
+  private generateSessionId(): string {
+    return Math.random().toString(36).substr(2, 9)
+  }
+  
+  private loadUserId(): void {
+    if (process.client) {
+      this.userId = localStorage.getItem('ds-user-id') || undefined
+    }
+  }
+  
+  private async sendToAnalytics(event: AnalyticsEvent): Promise<void> {
+    try {
+      await $fetch('/api/analytics', {
+        method: 'POST',
+        body: event
+      })
+    } catch (error) {
+      console.error('[DS Analytics] Failed to send event:', error)
+    }
+  }
+  
+  /**
+   * Get analytics events for debugging
+   */
+  getEvents(): AnalyticsEvent[] {
+    return [...this.events]
+  }
+  
+  /**
+   * Clear analytics events
+   */
+  clear(): void {
+    this.events = []
+  }
+}
+
+export const analytics = new Analytics()
+```
+
+### Component Analytics Integration
+```vue
+<script setup lang="ts">
+import { analytics } from '~/utils/analytics'
+
+interface Props {
+  variant?: string
+  size?: string
+  isLoading?: boolean
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  variant: 'primary',
+  size: 'md',
+  isLoading: false
+})
+
+// Track component usage
+onMounted(() => {
+  analytics.trackComponentUsage('ButtonPrimary', {
+    variant: props.variant,
+    size: props.size,
+    isLoading: props.isLoading
+  })
+})
+
+// Track interactions
+function handleClick(event: MouseEvent) {
+  analytics.track('button_clicked', 'interactions', 'click', 'ButtonPrimary', 1, {
+    variant: props.variant,
+    size: props.size
+  })
+  
+  emit('click', event)
+}
+</script>
+```
+
+## Error Tracking & Monitoring
+
+### Sentry Integration
+```typescript
+// plugins/sentry.client.ts
+export default defineNuxtPlugin({
+  name: 'sentry-monitoring',
+  parallel: true,
+  setup() {
+    if (process.client && process.env.SENTRY_DSN) {
+      // Initialize Sentry
+      Sentry.init({
+        dsn: process.env.SENTRY_DSN,
+        environment: process.env.NODE_ENV,
+        release: process.env.APP_VERSION,
+        
+        // Performance monitoring
+        tracesSampleRate: 0.1,
+        
+        // Session tracking
+        autoSessionTracking: true,
+        
+        // Breadcrumbs
+        beforeBreadcrumb(breadcrumb) {
+          // Filter out sensitive data
+          if (breadcrumb.category === 'console') {
+            return null
+          }
+          return breadcrumb
+        },
+        
+        // Error filtering
+        beforeSend(event) {
+          // Filter out development errors
+          if (process.dev) {
+            return null
+          }
+          
+          // Add custom context
+          event.tags = {
+            ...event.tags,
+            component: 'design-system',
+            version: process.env.APP_VERSION
+          }
+          
+          return event
+        }
+      })
+      
+      // Track Vue errors
+      const app = useNuxtApp()
+      app.hook('vue:error', (error, context) => {
+        Sentry.captureException(error, {
+          contexts: {
+            vue: {
+              componentName: context?.component?.$options?.name,
+              props: context?.props,
+              lifecycleHook: context?.hook
+            }
+          }
+        })
+      })
+      
+      // Track route changes
+      app.hook('page:finish', () => {
+        Sentry.addBreadcrumb({
+          category: 'navigation',
+          message: `Navigated to ${window.location.pathname}`,
+          level: 'info'
+        })
+      })
+    }
+  }
+})
+```
+
+## Real-time Metrics Collection
+
+### Metrics Dashboard
+```typescript
+// composables/useMetrics.ts
+export interface Metric {
+  name: string
+  value: number
+  unit: string
+  timestamp: number
+  tags: Record<string, string>
+}
+
+class MetricsCollector {
+  private metrics: Metric[] = []
+  private subscribers: ((metric: Metric) => void)[] = []
+  
+  /**
+   * Record a metric
+   */
+  record(
+    name: string,
+    value: number,
+    unit: string = 'ms',
+    tags: Record<string, string> = {}
+  ) {
+    const metric: Metric = {
+      name,
+      value,
+      unit,
+      timestamp: Date.now(),
+      tags: {
+        environment: process.env.NODE_ENV || 'development',
+        version: process.env.APP_VERSION || 'unknown',
+        ...tags
+      }
+    }
+    
+    this.metrics.push(metric)
+    
+    // Notify subscribers
+    this.subscribers.forEach(subscriber => subscriber(metric))
+    
+    // Send to metrics service
+    this.sendToMetricsService(metric)
+  }
+  
+  /**
+   * Subscribe to metrics
+   */
+  subscribe(callback: (metric: Metric) => void) {
+    this.subscribers.push(callback)
+    
+    return () => {
+      const index = this.subscribers.indexOf(callback)
+      if (index > -1) {
+        this.subscribers.splice(index, 1)
+      }
+    }
+  }
+  
+  /**
+   * Get metrics by name
+   */
+  getMetrics(name: string, timeRange?: { start: number; end: number }): Metric[] {
+    let filtered = this.metrics.filter(m => m.name === name)
+    
+    if (timeRange) {
+      filtered = filtered.filter(m => 
+        m.timestamp >= timeRange.start && m.timestamp <= timeRange.end
+      )
+    }
+    
+    return filtered
+  }
+  
+  /**
+   * Get aggregated metrics
+   */
+  getAggregatedMetrics(name: string): {
+    count: number
+    sum: number
+    average: number
+    min: number
+    max: number
+  } {
+    const metrics = this.getMetrics(name)
+    
+    if (metrics.length === 0) {
+      return { count: 0, sum: 0, average: 0, min: 0, max: 0 }
+    }
+    
+    const values = metrics.map(m => m.value)
+    
+    return {
+      count: metrics.length,
+      sum: values.reduce((sum, val) => sum + val, 0),
+      average: values.reduce((sum, val) => sum + val, 0) / values.length,
+      min: Math.min(...values),
+      max: Math.max(...values)
+    }
+  }
+  
+  private async sendToMetricsService(metric: Metric): Promise<void> {
+    try {
+      await $fetch('/api/metrics', {
+        method: 'POST',
+        body: metric
+      })
+    } catch (error) {
+      console.error('[DS Metrics] Failed to send metric:', error)
+    }
+  }
+}
+
+export const metricsCollector = new MetricsCollector()
+```
+
+## Alerting & Notifications
+
+### Alert System
+```typescript
+// utils/alerts.ts
+export interface Alert {
+  id: string
+  type: 'error' | 'warning' | 'info' | 'success'
+  title: string
+  message: string
+  timestamp: number
+  metadata?: Record<string, unknown>
+  acknowledged: boolean
+}
+
+class AlertSystem {
+  private alerts: Alert[] = []
+  private subscribers: ((alert: Alert) => void)[] = []
+  
+  /**
+   * Create an alert
+   */
+  create(
+    type: Alert['type'],
+    title: string,
+    message: string,
+    metadata?: Record<string, unknown>
+  ): string {
+    const alert: Alert = {
+      id: this.generateId(),
+      type,
+      title,
+      message,
+      timestamp: Date.now(),
+      metadata,
+      acknowledged: false
+    }
+    
+    this.alerts.push(alert)
+    this.subscribers.forEach(subscriber => subscriber(alert))
+    
+    // Send to alerting service
+    this.sendToAlertingService(alert)
+    
+    return alert.id
+  }
+  
+  /**
+   * Acknowledge an alert
+   */
+  acknowledge(alertId: string): void {
+    const alert = this.alerts.find(a => a.id === alertId)
+    if (alert) {
+      alert.acknowledged = true
+    }
+  }
+  
+  /**
+   * Get active alerts
+   */
+  getActiveAlerts(): Alert[] {
+    return this.alerts.filter(a => !a.acknowledged)
+  }
+  
+  /**
+   * Subscribe to alerts
+   */
+  subscribe(callback: (alert: Alert) => void) {
+    this.subscribers.push(callback)
+    
+    return () => {
+      const index = this.subscribers.indexOf(callback)
+      if (index > -1) {
+        this.subscribers.splice(index, 1)
+      }
+    }
+  }
+  
+  private generateId(): string {
+    return Math.random().toString(36).substr(2, 9)
+  }
+  
+  private async sendToAlertingService(alert: Alert): Promise<void> {
+    try {
+      await $fetch('/api/alerts', {
+        method: 'POST',
+        body: alert
+      })
+    } catch (error) {
+      console.error('[DS Alerts] Failed to send alert:', error)
+    }
+  }
+}
+
+export const alertSystem = new AlertSystem()
+
+// Usage examples
+alertSystem.create('error', 'High Error Rate', 'Error rate exceeded 5% threshold')
+alertSystem.create('warning', 'Performance Degradation', 'LCP increased by 20%')
+```
+
+## Health Checks & Status Monitoring
+
+### System Health Monitoring
+```typescript
+// composables/useHealthCheck.ts
+export interface HealthStatus {
+  status: 'healthy' | 'degraded' | 'unhealthy'
+  checks: {
+    [key: string]: {
+      status: 'pass' | 'warn' | 'fail'
+      message: string
+      timestamp: number
+    }
+  }
+  timestamp: number
+}
+
+export function useHealthCheck() {
+  const healthStatus = ref<HealthStatus>({
+    status: 'healthy',
+    checks: {},
+    timestamp: Date.now()
+  })
+  
+  /**
+   * Perform health check
+   */
+  async function performHealthCheck(): Promise<HealthStatus> {
+    const checks: HealthStatus['checks'] = {}
+    
+    // Check API connectivity
+    try {
+      const startTime = performance.now()
+      await $fetch('/api/health')
+      const responseTime = performance.now() - startTime
+      
+      checks.api = {
+        status: responseTime < 1000 ? 'pass' : responseTime < 3000 ? 'warn' : 'fail',
+        message: `API response time: ${responseTime.toFixed(2)}ms`,
+        timestamp: Date.now()
+      }
+    } catch (error) {
+      checks.api = {
+        status: 'fail',
+        message: 'API connectivity failed',
+        timestamp: Date.now()
+      }
+    }
+    
+    // Check bundle size
+    if (process.client) {
+      const resources = performance.getEntriesByType('resource')
+      const jsSize = resources
+        .filter(r => r.name.endsWith('.js'))
+        .reduce((sum, r) => sum + (r.transferSize || 0), 0)
+      
+      checks.bundleSize = {
+        status: jsSize < 500000 ? 'pass' : jsSize < 1000000 ? 'warn' : 'fail',
+        message: `Bundle size: ${(jsSize / 1024).toFixed(2)}KB`,
+        timestamp: Date.now()
+      }
+    }
+    
+    // Check memory usage
+    if (process.client && 'memory' in performance) {
+      const memory = (performance as any).memory
+      const usedMB = memory.usedJSHeapSize / 1024 / 1024
+      
+      checks.memory = {
+        status: usedMB < 50 ? 'pass' : usedMB < 100 ? 'warn' : 'fail',
+        message: `Memory usage: ${usedMB.toFixed(2)}MB`,
+        timestamp: Date.now()
+      }
+    }
+    
+    // Determine overall status
+    const hasFail = Object.values(checks).some(c => c.status === 'fail')
+    const hasWarn = Object.values(checks).some(c => c.status === 'warn')
+    
+    const status: HealthStatus['status'] = hasFail ? 'unhealthy' : hasWarn ? 'degraded' : 'healthy'
+    
+    healthStatus.value = {
+      status,
+      checks,
+      timestamp: Date.now()
+    }
+    
+    return healthStatus.value
+  }
+  
+  /**
+   * Start continuous monitoring
+   */
+  function startMonitoring(interval = 30000) {
+    const intervalId = setInterval(performHealthCheck, interval)
+    
+    onUnmounted(() => {
+      clearInterval(intervalId)
+    })
+  }
+  
+  return {
+    healthStatus: readonly(healthStatus),
+    performHealthCheck,
+    startMonitoring
+  }
+}
+```
+
+This comprehensive monitoring system provides:
+
+1. **Performance monitoring** with Core Web Vitals tracking
+2. **User analytics** with event tracking and component usage
+3. **Error tracking** with Sentry integration
+4. **Real-time metrics** collection and aggregation
+5. **Alert system** for critical issues
+6. **Health checks** for system status monitoring
+7. **Bundle size monitoring** and optimization tracking
+8. **Memory usage tracking** for performance optimization
+
+This elevates your monitoring from basic to enterprise-grade observability! 📊
+description:
+globs:
+alwaysApply: true
+---

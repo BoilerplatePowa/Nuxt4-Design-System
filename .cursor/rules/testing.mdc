@@ -47,8 +47,11 @@ tests/
 
 ## Test Coverage Requirements
 - **Current Target**: 0% (building foundation)
-- **Future Goals**: Focus on public API coverage
+- **Future Goals**: 85%+ public API coverage
 - **Priority Areas**: Component props, events, DaisyUI classes, theme integration
+- **Critical Paths**: User interactions, accessibility, error handling
+- **Performance Tests**: Bundle size, render time, memory usage
+- **Integration Tests**: Theme switching, component composition, API integration
 
 ---
 
@@ -166,6 +169,269 @@ describe('theme fixtures', () => {
   it('contains expected themes', () => {
     expect(mockThemes).toContain('light')
     expect(mockThemes).toContain('dark')
+  })
+})
+```
+
+---
+
+## Advanced Testing Patterns
+
+### Accessibility Testing
+```typescript
+// tests/components/accessibility.test.ts
+import { mount } from '@vue/test-utils'
+import { axe, toHaveNoViolations } from 'jest-axe'
+import ButtonPrimary from '~/components/actions/ButtonPrimary.vue'
+
+expect.extend(toHaveNoViolations)
+
+describe('ButtonPrimary Accessibility', () => {
+  it('should not have accessibility violations', async () => {
+    const wrapper = mount(ButtonPrimary, {
+      props: { variant: 'primary' },
+      slots: { default: 'Click me' }
+    })
+    
+    const results = await axe(wrapper.element)
+    expect(results).toHaveNoViolations()
+  })
+  
+  it('should have proper ARIA attributes', () => {
+    const wrapper = mount(ButtonPrimary, {
+      props: { 
+        'aria-label': 'Submit form',
+        'aria-describedby': 'button-help'
+      }
+    })
+    
+    expect(wrapper.attributes('aria-label')).toBe('Submit form')
+    expect(wrapper.attributes('aria-describedby')).toBe('button-help')
+  })
+  
+  it('should announce loading state to screen readers', () => {
+    const wrapper = mount(ButtonPrimary, {
+      props: { isLoading: true },
+      slots: { default: 'Submit' }
+    })
+    
+    const srText = wrapper.find('.sr-only')
+    expect(srText.text()).toContain('Loading')
+  })
+})
+```
+
+### Performance Testing
+```typescript
+// tests/performance/componentRender.test.ts
+import { mount } from '@vue/test-utils'
+import { performance } from 'perf_hooks'
+import ButtonPrimary from '~/components/actions/ButtonPrimary.vue'
+
+describe('Component Performance', () => {
+  it('should render within performance budget', () => {
+    const startTime = performance.now()
+    
+    mount(ButtonPrimary, {
+      props: { variant: 'primary' },
+      slots: { default: 'Click me' }
+    })
+    
+    const endTime = performance.now()
+    const renderTime = endTime - startTime
+    
+    // Should render in under 16ms (60fps)
+    expect(renderTime).toBeLessThan(16)
+  })
+  
+  it('should handle rapid prop changes efficiently', () => {
+    const wrapper = mount(ButtonPrimary, {
+      props: { variant: 'primary' }
+    })
+    
+    const startTime = performance.now()
+    
+    // Rapid prop changes
+    for (let i = 0; i < 100; i++) {
+      wrapper.setProps({ variant: i % 2 === 0 ? 'primary' : 'secondary' })
+    }
+    
+    const endTime = performance.now()
+    const updateTime = endTime - startTime
+    
+    // Should handle 100 updates in under 100ms
+    expect(updateTime).toBeLessThan(100)
+  })
+})
+```
+
+### Error Boundary Testing
+```typescript
+// tests/components/ErrorBoundary.test.ts
+import { mount } from '@vue/test-utils'
+import ErrorBoundary from '~/components/ErrorBoundary.vue'
+
+const ThrowError = {
+  template: '<div>{{ nonExistentProperty }}</div>'
+}
+
+describe('ErrorBoundary', () => {
+  it('should catch and display errors', async () => {
+    const wrapper = mount(ErrorBoundary, {
+      slots: { default: ThrowError }
+    })
+    
+    // Wait for error to be caught
+    await wrapper.vm.$nextTick()
+    
+    expect(wrapper.find('.alert-error').exists()).toBe(true)
+    expect(wrapper.text()).toContain('Component Error')
+  })
+  
+  it('should allow error recovery', async () => {
+    const wrapper = mount(ErrorBoundary, {
+      slots: { default: ThrowError }
+    })
+    
+    await wrapper.vm.$nextTick()
+    
+    // Click retry button
+    await wrapper.find('.btn').trigger('click')
+    
+    // Error should be cleared
+    expect(wrapper.find('.alert-error').exists()).toBe(false)
+  })
+})
+```
+
+### Theme Integration Testing
+```typescript
+// tests/integration/theme.test.ts
+import { mount } from '@vue/test-utils'
+import { createPinia, setActivePinia } from 'pinia'
+import { useThemeStore } from '~/stores/theme'
+import ButtonPrimary from '~/components/actions/ButtonPrimary.vue'
+
+describe('Theme Integration', () => {
+  beforeEach(() => {
+    setActivePinia(createPinia())
+  })
+  
+  it('should apply theme classes correctly', () => {
+    const store = useThemeStore()
+    store.setTheme('dark')
+    
+    const wrapper = mount(ButtonPrimary, {
+      global: {
+        plugins: [createPinia()]
+      }
+    })
+    
+    // Check if theme classes are applied
+    expect(wrapper.classes()).toContain('btn')
+    expect(wrapper.classes()).toContain('btn-primary')
+  })
+  
+  it('should update when theme changes', async () => {
+    const store = useThemeStore()
+    const wrapper = mount(ButtonPrimary, {
+      global: {
+        plugins: [createPinia()]
+      }
+    })
+    
+    // Change theme
+    store.setTheme('corporate')
+    await wrapper.vm.$nextTick()
+    
+    // Component should react to theme change
+    expect(document.documentElement.getAttribute('data-theme')).toBe('corporate')
+  })
+})
+```
+
+### Bundle Size Testing
+```typescript
+// tests/bundle/size.test.ts
+import { bundleAnalyzer } from '~/utils/bundleAnalyzer'
+
+describe('Bundle Size', () => {
+  it('should not exceed size limits', async () => {
+    const analysis = await bundleAnalyzer.analyze()
+    
+    // Main bundle should be under 250KB
+    expect(analysis.main.size).toBeLessThan(250 * 1024)
+    
+    // CSS should be under 50KB
+    expect(analysis.css.size).toBeLessThan(50 * 1024)
+    
+    // Total requests should be under 20
+    expect(analysis.totalRequests).toBeLessThan(20)
+  })
+  
+  it('should have optimal tree shaking', async () => {
+    const analysis = await bundleAnalyzer.analyze()
+    
+    // Unused code should be minimal
+    expect(analysis.unusedCodePercentage).toBeLessThan(5)
+    
+    // Duplicate modules should be minimal
+    expect(analysis.duplicateModules).toHaveLength(0)
+  })
+})
+```
+
+### E2E Testing with Playwright
+```typescript
+// tests/e2e/component.spec.ts
+import { test, expect } from '@playwright/test'
+
+test.describe('Design System Components', () => {
+  test('ButtonPrimary should work correctly', async ({ page }) => {
+    await page.goto('/playground/button-primary')
+    
+    // Check initial state
+    const button = page.locator('[data-testid="button-primary"]')
+    await expect(button).toBeVisible()
+    await expect(button).toHaveText('Click me')
+    
+    // Test click interaction
+    await button.click()
+    await expect(page.locator('[data-testid="click-count"]')).toHaveText('1')
+    
+    // Test loading state
+    await page.click('[data-testid="toggle-loading"]')
+    await expect(button.locator('.loading')).toBeVisible()
+    await expect(button).toBeDisabled()
+  })
+  
+  test('Theme switching should work', async ({ page }) => {
+    await page.goto('/playground/theme-switcher')
+    
+    // Check initial theme
+    await expect(page.locator('html')).toHaveAttribute('data-theme', 'light')
+    
+    // Switch to dark theme
+    await page.click('[data-testid="theme-dark"]')
+    await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark')
+    
+    // Verify theme persistence
+    await page.reload()
+    await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark')
+  })
+  
+  test('Accessibility should be maintained', async ({ page }) => {
+    await page.goto('/playground/accessibility')
+    
+    // Run accessibility audit
+    const accessibilityScanResults = await page.accessibility.snapshot()
+    
+    // Check for violations
+    expect(accessibilityScanResults.violations).toHaveLength(0)
+    
+    // Test keyboard navigation
+    await page.keyboard.press('Tab')
+    await expect(page.locator(':focus')).toHaveAttribute('role', 'button')
   })
 })
 ```
