@@ -1,0 +1,171 @@
+---
+description: |
+  Unified testing guidelines for the Nuxt-Design-System using Vitest and Vue Test Utils.
+  Covers component, composable, store, and utility testing, including fixtures and 
+  test organization. Provides templates for writing reliable, maintainable, and 
+  type-safe tests with a focus on DaisyUI integration, props, events, and theme support.
+globs:
+  - "tests/**/*.test.ts"
+  - "src/components/**/*.vue"
+  - "src/composables/**/*.ts"
+  - "src/stores/**/*.ts"
+  - "src/utils/**/*.ts"
+alwaysApply: true
+---
+
+
+# Unified Testing Standards (Vitest + Vue Test Utils)
+
+Apply to: `tests/**/*.test.ts`, component testing, composable testing, store testing, utils
+
+## Test File Organization
+```
+tests/
+├── components/
+│   ├── actions/
+│   │   ├── ButtonPrimary.test.ts
+│   │   └── DropdownMenu.test.ts
+│   ├── data-display/
+│   │   ├── CardContent.test.ts
+│   │   └── AlertMessage.test.ts
+│   └── data-input/
+│       ├── InputText.test.ts
+│       └── CheckboxInput.test.ts
+├── composables/
+│   ├── useTheme.test.ts
+│   └── useValidation.test.ts
+├── stores/
+│   ├── theme.test.ts
+│   └── config.test.ts
+├── utils/
+│   ├── classUtils.test.ts
+│   └── validationUtils.test.ts
+└── __fixtures__/
+    ├── mockThemes.ts
+    └── testComponents.ts
+```
+
+## Test Coverage Requirements
+- **Current Target**: 0% (building foundation)
+- **Future Goals**: Focus on public API coverage
+- **Priority Areas**: Component props, events, DaisyUI classes, theme integration
+
+---
+
+## Component Testing Template
+```typescript
+// tests/components/actions/ButtonPrimary.test.ts
+import { mount } from '@vue/test-utils'
+import { describe, it, expect, vi, beforeEach } from 'vitest'
+import ButtonPrimary from '~/components/actions/ButtonPrimary.vue'
+
+describe('ButtonPrimary', () => {
+  beforeEach(() => {
+    vi.clearAllMocks()
+  })
+
+  describe('DaisyUI Integration', () => {
+    it('applies correct DaisyUI base classes', () => {
+      const wrapper = mount(ButtonPrimary)
+
+      expect(wrapper.classes()).toContain('btn')
+      expect(wrapper.classes()).toContain('btn-primary')
+    })
+  })
+
+  describe('rendering', () => {
+    it('renders slot content', () => {
+      const wrapper = mount(ButtonPrimary, {
+        slots: { default: 'Click Me' }
+      })
+      expect(wrapper.text()).toBe('Click Me')
+    })
+  })
+})
+```
+
+---
+
+## Composable Testing Template
+```typescript
+// tests/composables/useTheme.test.ts
+import { describe, it, expect, vi } from 'vitest'
+import { useTheme } from '~/composables/useTheme'
+
+describe('useTheme', () => {
+  it('returns default theme', () => {
+    const { theme } = useTheme()
+    expect(theme.value).toBe('light')
+  })
+
+  it('updates theme when setTheme is called', () => {
+    const { theme, setTheme } = useTheme()
+    setTheme('dark')
+    expect(theme.value).toBe('dark')
+  })
+})
+```
+
+---
+
+## Store Testing Template
+```typescript
+// tests/stores/theme.test.ts
+import { setActivePinia, createPinia } from 'pinia'
+import { describe, it, expect, beforeEach } from 'vitest'
+import { useThemeStore } from '~/stores/theme'
+
+describe('useThemeStore', () => {
+  beforeEach(() => {
+    setActivePinia(createPinia())
+  })
+
+  it('sets default theme to light', () => {
+    const store = useThemeStore()
+    expect(store.theme).toBe('light')
+  })
+
+  it('updates theme via action', () => {
+    const store = useThemeStore()
+    store.setTheme('dark')
+    expect(store.theme).toBe('dark')
+  })
+})
+```
+
+---
+
+## Utility Testing Template
+```typescript
+// tests/utils/classUtils.test.ts
+import { describe, it, expect } from 'vitest'
+import { classNames } from '~/utils/classUtils'
+
+describe('classUtils', () => {
+  it('merges class names', () => {
+    expect(classNames('btn', 'btn-primary')).toBe('btn btn-primary')
+  })
+
+  it('filters out falsy values', () => {
+    expect(classNames('btn', false && 'hidden')).toBe('btn')
+  })
+})
+```
+
+---
+
+## Fixture Usage
+```typescript
+// tests/__fixtures__/mockThemes.ts
+export const mockThemes = ['light', 'dark', 'system']
+
+// Example usage in test
+import { mockThemes } from '../__fixtures__/mockThemes'
+
+describe('theme fixtures', () => {
+  it('contains expected themes', () => {
+    expect(mockThemes).toContain('light')
+    expect(mockThemes).toContain('dark')
+  })
+})
+```

@@ -1,0 +1,152 @@
+---
+description: Enforces WCAG 2.1 AA accessibility guidelines across all components, with focus on interactive elements, focus management, screen reader support, and color contrast validation.
+globs:
+  - "src/components/**/*.vue"
+  - "src/utils/accessibility.ts"
+  - "src/**/*.tsx"
+alwaysApply: true
+---
+
+
+# Accessibility Guidelines (WCAG 2.1 AA)
+
+Apply to: All components, focus on interactive elements
+
+## Component Accessibility Requirements
+
+### Interactive Elements
+```vue
+<script setup lang="ts">
+// Generate unique IDs for accessibility
+const inputId = computed(() => `ds-input-${Math.random().toString(36).substr(2, 9)}`)
+const helperTextId = computed(() => `${inputId.value}-helper`)
+const errorId = computed(() => `${inputId.value}-error`)
+</script>
+
+<template>
+  <!-- Form controls need proper labeling -->
+  <div class="form-control">
+    <label class="label" :for="inputId">
+      <span class="label-text">{{ label }}</span>
+      <span v-if="required" class="text-error">*</span>
+    </label>
+    
+    <input
+      :id="inputId"
+      :aria-describedby="helperText ? helperTextId : undefined"
+      :aria-invalid="isError"
+      :aria-required="required"
+      class="input input-bordered"
+    />
+    
+    <div v-if="helperText" :id="helperTextId" class="label-text-alt">
+      {{ helperText }}
+    </div>
+    
+    <div v-if="isError && errorMessage" :id="errorId" class="label-text-alt text-error">
+      {{ errorMessage }}
+    </div>
+  </div>
+</template>
+```
+
+### Button Accessibility
+```vue
+<template>
+  <button
+    class="btn"
+    :aria-pressed="isPressed"
+    :aria-expanded="isExpanded" 
+    :aria-disabled="isDisabled || isLoading"
+    :aria-label="ariaLabel"
+    :aria-describedby="helperTextId"
+  >
+    <!-- Loading state announcement -->
+    <span v-if="isLoading" class="sr-only">Loading, please wait</span>
+    <span v-if="isLoading" class="loading loading-spinner" aria-hidden="true"></span>
+    
+    <slot v-else />
+  </button>
+</template>
+```
+
+### Focus Management
+```vue
+<script setup lang="ts">
+const buttonRef = ref<HTMLButtonElement>()
+
+/**
+ * Focus management for modals and dropdowns
+ */
+function focusButton() {
+  nextTick(() => {
+    buttonRef.value?.focus()
+  })
+}
+
+// Focus trap for modals
+const useFocusTrap = () => {
+  const focusableElements = 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+  
+  const trapFocus = (element: HTMLElement) => {
+    const focusableContent = element.querySelectorAll(focusableElements)
+    const firstFocusable = focusableContent[0] as HTMLElement
+    const lastFocusable = focusableContent[focusableContent.length - 1] as HTMLElement
+    
+    firstFocusable?.focus()
+    
+    return { firstFocusable, lastFocusable }
+  }
+  
+  return { trapFocus }
+}
+</script>
+```
+
+### Screen Reader Support
+```vue
+<template>
+  <!-- Live regions for dynamic content -->
+  <div 
+    aria-live="polite" 
+    aria-atomic="true"
+    class="sr-only"
+  >
+    {{ statusMessage }}
+  </div>
+  
+  <!-- Skip links for navigation -->
+  <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-0 focus:left-0">
+    Skip to main content
+  </a>
+  
+  <!-- Proper heading hierarchy -->
+  <h1 class="text-2xl font-bold">{{ pageTitle }}</h1>
+  <h2 class="text-xl font-semibold">{{ sectionTitle }}</h2>
+</template>
+```
+
+## Color Contrast Validation
+```typescript
+// utils/accessibility.ts
+/**
+ * Validate color contrast ratio for WCAG AA compliance
+ * @param foreground - Foreground color (hex)
+ * @param background - Background color (hex)
+ * @returns boolean - Whether contrast meets WCAG AA standards
+ */
+export function validateContrast(foreground: string, background: string): boolean {
+  const ratio = getContrastRatio(foreground, background)
+  return ratio >= 4.5 // WCAG AA standard
+}
+
+/**
+ * Check if DaisyUI theme meets contrast requirements
+ */
+export function validateThemeContrast(theme: DaisyUITheme): boolean {
+  const themeColors = getDaisyUIThemeColors(theme)
+  
+  return validateContrast(themeColors.primary, themeColors.base100) &&
+         validateContrast(themeColors.secondary, themeColors.base100)
+}
+```

@@ -1,0 +1,298 @@
+---
+description: |
+  Security guidelines for Nuxt-Design-System components and module configuration.  
+  Covers input validation, XSS prevention, CSS class sanitization, runtime prop validation, 
+  configuration security, content security policy, dependency whitelisting, and safe event handling.
+globs:
+  - "src/components/**/*.{vue,ts}"
+  - "src/composables/**/*.ts"
+  - "validation/**/*.{ts,js}"
+  - "module.ts"
+  - "docs/**/*.{md,mdx}"
+alwaysApply: true
+---
+
+# Security Guidelines
+
+Apply to: All user inputs, component props, module configuration
+
+## Input Validation with Yup + TypeScript
+
+### Component Prop Schemas
+```typescript
+// validation/componentSchemas.ts
+import * as yup from 'yup'
+
+// DaisyUI-aligned validation schemas
+export const buttonSchema = yup.object({
+  variant: yup.string().oneOf([
+    'primary', 'secondary', 'accent', 'ghost', 'link',
+    'info', 'success', 'warning', 'error'
+  ]).optional(),
+  size: yup.string().oneOf(['xs', 'sm', 'md', 'lg']).optional(),
+  isLoading: yup.boolean().optional(),
+  isDisabled: yup.boolean().optional(),
+  shape: yup.string().oneOf(['circle', 'square']).optional(),
+  isOutline: yup.boolean().optional()
+})
+
+export const inputSchema = yup.object({
+  modelValue: yup.string().max(1000, 'Input too long').optional(),
+  type: yup.string().oneOf(['text', 'email', 'password', 'number', 'url']).optional(),
+  variant: yup.string().oneOf(['bordered', 'ghost', 'primary', 'secondary']).optional(),
+  size: yup.string().oneOf(['xs', 'sm', 'md', 'lg']).optional(),
+  placeholder: yup.string().max(100, 'Placeholder too long').optional(),
+  label: yup.string().max(50, 'Label too long').optional(),
+  helperText: yup.string().max(200, 'Helper text too long').optional()
+})
+
+export const themeSchema = yup.string().oneOf([
+  'light', 'dark', 'cupcake', 'corporate', 'synthwave',
+  'retro', 'cyberpunk', 'valentine', 'halloween', 'garden',
+  'forest', 'aqua', 'lofi', 'pastel', 'fantasy',
+  'wireframe', 'black', 'luxury', 'dracula', 'cmyk'
+])
+```
+
+### Runtime Validation Pattern
+```vue
+<script setup lang="ts">
+import { componentSchema } from '~/validation/componentSchemas'
+
+interface Props {
+  variant?: string
+  size?: string
+  customClass?: string
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  variant: 'primary',
+  size: 'md'
+})
+
+// Runtime validation (development + production)
+function validateComponentProps() {
+  try {
+    componentSchema.validateSync(props, { abortEarly: false })
+  } catch (error) {
+    if (process.dev) {
+      console.warn(`[DS Security] Component validation failed:`, error.errors)
+    }
+    
+    // In production, use safe defaults
+    return false
+  }
+  return true
+}
+
+// Validate on mount and prop changes
+const isValidProps = ref(true)
+watchEffect(() => {
+  isValidProps.value = validateComponentProps()
+})
+</script>
+
+<template>
+  <!-- Only render if props are valid -->
+  <div v-if="isValidProps" :class="componentClasses">
+    <slot />
+  </div>
+  <div v-else class="alert alert-warning">
+    <span>Invalid component configuration</span>
+  </div>
+</template>
+```
+
+## XSS Prevention
+
+### Safe String Handling
+```vue
+<script setup lang="ts">
+// Sanitize user-provided content
+import DOMPurify from 'isomorphic-dompurify'
+
+interface Props {
+  title?: string
+  description?: string
+  allowHtml?: boolean
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  allowHtml: false
+})
+
+// Sanitize HTML content
+const sanitizedDescription = computed(() => {
+  if (!props.description) return ''
+  
+  return props.allowHtml 
+    ? DOMPurify.sanitize(props.description)
+    : props.description
+})
+</script>
+
+<template>
+  <div class="card">
+    <!-- Safe text rendering -->
+    <h2 class="card-title">{{ title }}</h2>
+    
+    <!-- Sanitized HTML if allowed -->
+    <div 
+      v-if="allowHtml" 
+      class="card-body"
+      v-html="sanitizedDescription"
+    />
+    
+    <!-- Plain text fallback -->
+    <p v-else class="card-body">{{ description }}</p>
+  </div>
+</template>
+```
+
+### CSS Class Injection Prevention
+```typescript
+// utils/classUtils.ts
+const ALLOWED_DAISYUI_PREFIXES = [
+  'btn-', 'card-', 'input-', 'alert-', 'badge-', 'avatar-',
+  'loading-', 'modal-', 'dropdown-', 'navbar-', 'footer-'
+]
+
+/**
+ * Validate CSS classes to prevent injection
+ * @param className - Class name to validate
+ * @returns boolean - Whether class is safe
+ */
+export function isValidDaisyUIClass(className: string): boolean {
+  // Allow base DaisyUI classes
+  const baseDaisyUIClasses = [
+    'btn', 'card', 'input', 'alert', 'badge', 'avatar',
+    'loading', 'modal', 'dropdown', 'navbar', 'footer'
+  ]
+  
+  if (baseDaisyUIClasses.includes(className)) {
+    return true
+  }
+  
+  // Allow prefixed variants
+  return ALLOWED_DAISYUI_PREFIXES.some(prefix => 
+    className.startsWith(prefix) && 
+    className.length <= prefix.length + 20 // Reasonable length limit
+  )
+}
+
+/**
+ * Sanitize classes array to only allow safe DaisyUI classes
+ * @param classes - Array of class names
+ * @returns Filtered safe classes
+ */
+export function sanitizeClasses(classes: (string | undefined)[]): string[] {
+  return classes
+    .filter(Boolean)
+    .filter(isValidDaisyUIClass)
+}
+```
+
+## Configuration Security
+```typescript
+// validation/configSchemas.ts
+export const moduleConfigSchema = yup.object({
+  theme: yup.object({
+    default: themeSchema.required(),
+    available: yup.array().of(themeSchema).min(1).max(25), // Limit theme count
+    persistence: yup.boolean()
+  }),
+  components: yup.object({
+    autoImport: yup.boolean(),
+    prefix: yup.string().matches(/^[A-Z][A-Za-z0-9]*$/, 'Prefix must be PascalCase').max(10),
+    globalRegistration: yup.boolean()
+  }),
+  validation: yup.object({
+    runtime: yup.boolean(),
+    strict: yup.boolean(),
+    devOnly: yup.boolean()
+  })
+}).noUnknown(true, 'Unknown configuration options are not allowed')
+```
+
+## Content Security Policy
+```typescript
+// module.ts - CSP headers for Storybook/docs
+export default defineNuxtModule({
+  setup(options, nuxt) {
+    if (process.env.NODE_ENV === 'development') {
+      nuxt.options.ssr = false // Client-side only for dev
+    }
+    
+    // Add CSP for external resources
+    nuxt.options.nitro = nuxt.options.nitro || {}
+    nuxt.options.nitro.routeRules = {
+      '/storybook/**': {
+        headers: {
+          'Content-Security-Policy': "default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self'"
+        }
+      }
+    }
+  }
+})
+```
+
+## Dependency Security
+```typescript
+// Validate external dependencies
+const ALLOWED_DEPENDENCIES = [
+  'vue',
+  'nuxt', 
+  '@nuxt/kit',
+  'daisyui',
+  'tailwindcss',
+  'yup',
+  'pinia'
+]
+
+function validateDependency(packageName: string): boolean {
+  return ALLOWED_DEPENDENCIES.includes(packageName) ||
+         packageName.startsWith('@nuxt-design-system/')
+}
+```
+
+## Safe Event Handling
+```vue
+<script setup lang="ts">
+// Prevent event object leakage
+function handleUserInput(event: Event) {
+  const target = event.target as HTMLInputElement
+  
+  // Extract only needed data
+  const safeData = {
+    value: target.value?.slice(0, 1000), // Limit input length
+    type: target.type,
+    name: target.name
+  }
+  
+  // Don't pass raw event object
+  emit('input', safeData.value)
+}
+
+// Validate event data
+function handleFileUpload(event: Event) {
+  const target = event.target as HTMLInputElement
+  const file = target.files?.[0]
+  
+  if (!file) return
+  
+  // File type validation
+  const allowedTypes = ['image/jpeg', 'image/png', 'image/webp']
+  if (!allowedTypes.includes(file.type)) {
+    throw new Error('Invalid file type')
+  }
+  
+  // File size validation (5MB limit)
+  const maxSize = 5 * 1024 * 1024
+  if (file.size > maxSize) {
+    throw new Error('File too large')
+  }
+  
+  emit('file-selected', file)
+}
+</script>
+```

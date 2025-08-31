@@ -1,0 +1,200 @@
+---
+description: |
+  Guidelines for managing application and component state using Pinia in the Nuxt-Design-System.
+  Includes theme management, module configuration store, and reusable composable state patterns.
+  Focuses on strict TypeScript typing, runtime validation, and safe state updates.
+globs:
+  - "src/stores/**/*.ts"
+  - "src/composables/**/*.ts"
+  - "src/components/**/*.{vue,ts}"
+alwaysApply: true
+---
+
+# State Management with Pinia
+
+Apply to: `src/stores/**/*.ts`, composables using state
+
+## Theme Management Store
+```typescript
+// stores/theme.ts
+export const useThemeStore = defineStore('design-system-theme', () => {
+  // State
+  const currentTheme = ref<DaisyUITheme>('light')
+  const availableThemes = ref<DaisyUITheme[]>([
+    'light', 'dark', 'cupcake', 'corporate', 'synthwave',
+    'retro', 'cyberpunk', 'valentine', 'halloween', 'garden',
+    'forest', 'aqua', 'lofi', 'pastel', 'fantasy',
+    'wireframe', 'black', 'luxury', 'dracula', 'cmyk'
+  ])
+  
+  // Getters
+  const isDarkTheme = computed(() => 
+    ['dark', 'synthwave', 'halloween', 'forest', 'black', 'luxury', 'dracula'].includes(currentTheme.value)
+  )
+  
+  // Actions
+  /**
+   * Set the active DaisyUI theme
+   * @param theme - Valid DaisyUI theme name
+   */
+  function setTheme(theme: DaisyUITheme) {
+    if (!availableThemes.value.includes(theme)) {
+      throw new Error(`[DS Theme] Invalid theme: ${theme}`)
+    }
+    
+    currentTheme.value = theme
+    
+    if (process.client) {
+      document.documentElement.setAttribute('data-theme', theme)
+      localStorage.setItem('@nuxt-design-system/theme', theme)
+    }
+  }
+  
+  /**
+   * Initialize theme from storage or system preference
+   */
+  function initTheme() {
+    if (process.client) {
+      const stored = localStorage.getItem('@nuxt-design-system/theme') as DaisyUITheme
+      const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+      
+      const defaultTheme = stored || (systemDark ? 'dark' : 'light')
+      setTheme(defaultTheme)
+    }
+  }
+  
+  /**
+   * Toggle between light and dark themes
+   */
+  function toggleTheme() {
+    const newTheme = isDarkTheme.value ? 'light' : 'dark'
+    setTheme(newTheme)
+  }
+  
+  return {
+    // State (readonly)
+    currentTheme: readonly(currentTheme),
+    availableThemes: readonly(availableThemes),
+    isDarkTheme,
+    
+    // Actions
+    setTheme,
+    initTheme,
+    toggleTheme
+  }
+})
+```
+
+## Configuration Store
+```typescript
+// stores/config.ts
+export interface DesignSystemConfig {
+  theme: {
+    default: DaisyUITheme
+    available: DaisyUITheme[]
+    persistence: boolean
+  }
+  components: {
+    autoImport: boolean
+    prefix: string
+    globalRegistration: boolean
+  }
+  validation: {
+    runtime: boolean
+    strict: boolean
+    devOnly: boolean
+  }
+  i18n: {
+    enabled: boolean
+    defaultLocale: string
+    messages: Record<string, Record<string, string>>
+  }
+}
+
+export const useConfigStore = defineStore('design-system-config', () => {
+  const config = ref<DesignSystemConfig>({
+    theme: {
+      default: 'light',
+      available: ['light', 'dark'],
+      persistence: true
+    },
+    components: {
+      autoImport: true,
+      prefix: 'DS',
+      globalRegistration: false
+    },
+    validation: {
+      runtime: true,
+      strict: false,
+      devOnly: false
+    },
+    i18n: {
+      enabled: true,
+      defaultLocale: 'en',
+      messages: {}
+    }
+  })
+  
+  /**
+   * Update configuration with validation
+   * @param updates - Partial configuration updates
+   */
+  function updateConfig(updates: Partial<DesignSystemConfig>) {
+    try {
+      const validatedConfig = configSchema.validateSync({
+        ...config.value,
+        ...updates
+      })
+      config.value = validatedConfig
+    } catch (error) {
+      throw new Error(`[DS Config] Invalid configuration: ${error.message}`)
+    }
+  }
+  
+  return {
+    config: readonly(config),
+    updateConfig
+  }
+})
+```
+
+## Composable State Pattern
+```typescript
+// For components that need complex local state
+export function useComponentState<T>(initialValue: T, validator?: (value: T) => boolean) {
+  const state = ref<T>(initialValue)
+  const isLoading = ref(false)
+  const error = ref<string | null>(null)
+  
+  const setState = (newState: T) => {
+    if (validator && !validator(newState)) {
+      error.value = 'Invalid state value'
+      return
+    }
+    
+    state.value = newState
+    error.value = null
+  }
+  
+  const setLoading = (loading: boolean) => {
+    isLoading.value = loading
+    if (loading) {
+      error.value = null
+    }
+  }
+  
+  const setError = (errorMessage: string) => {
+    error.value = errorMessage
+    isLoading.value = false
+  }
+  
+  return {
+    state: readonly(state),
+    isLoading: readonly(isLoading),
+    error: readonly(error),
+    setState,
+    setLoading,
+    setError
+  }
+}
+```

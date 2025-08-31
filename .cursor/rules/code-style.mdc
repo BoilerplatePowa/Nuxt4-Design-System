@@ -1,0 +1,238 @@
+---
+description: |
+  Code style and naming conventions for components, composables, types, 
+  Vue setup, imports, and general best practices across the project.
+  Ensures consistent and readable code in `src`, `tests`, and `playground`.
+globs:
+  - "src/**/*.{ts,vue,js}"
+  - "tests/**/*.{ts,vue,js}"
+  - "playground/**/*.{ts,vue}"
+alwaysApply: true
+---
+
+# Code Style Guidelines
+
+Apply to: `src/**/*.{ts,vue,js}`, `tests/**/*.{ts,vue,js}`, `playground/**/*.{ts,vue}`
+
+## File & Naming Conventions
+
+### Components (PascalCase)
+- **Format**: PascalCase
+- **Examples**: `ButtonPrimary.vue`, `CardContent.vue`, `InputText.vue`
+- **Pattern**: `{ComponentName}.vue`
+
+✅ Examples  
+```
+ButtonPrimary.vue
+CardContent.vue
+InputText.vue
+```
+
+❌ Anti-patterns  
+```
+button-primary.vue
+cardContent.vue
+```
+
+### Composables (camelCase with `use` prefix)
+- **Format**: camelCase with `use` prefix
+- **Examples**: `useTheme.ts`, `useValidation.ts`, `useDesignTokens.ts`
+- **Pattern**: `use{FunctionName}.ts`
+
+### Types (PascalCase)
+- **Format**: PascalCase
+- **Examples**: `ComponentProps.ts`, `ThemeConfig.ts`, `ValidationSchema.ts`
+- **Pattern**: `{TypeName}.ts`
+
+### Directories (kebab-case)
+- **Format**: kebab-case
+- **Examples**: `design-tokens/`, `ui-components/`, `validation-schemas/`
+
+✅ Examples  
+```
+design-tokens/
+ui-components/
+validation-schemas/
+```
+
+❌ Anti-patterns  
+```
+designTokens/
+uiComponents/
+```
+
+### Variables and Functions
+```typescript
+// Boolean variables: 'is' prefix
+const isLoading = ref(false)
+const isVisible = computed(() => props.show)
+const isValidTheme = (theme: string) => themes.includes(theme)
+
+// Functions: mixed based on use case
+// Arrow functions for utilities
+const formatToken = (value: string) => `--${value}`
+
+// Function declarations for complex logic
+function setupComponentValidation(schema: Schema) {
+  // Complex setup logic
+}
+```
+
+## Vue Component Conventions
+- Props should be typed and use `defineProps` / `defineEmits`.
+- Use `script setup` syntax.
+- Keep templates declarative and avoid inline logic when possible.
+
+## Import Style
+```typescript
+// Default imports preferred
+import ButtonPrimary from '~/components/actions/ButtonPrimary.vue'
+
+// Named imports for composables & types
+import { useTheme } from '~/composables/useTheme'
+import type { ButtonProps } from '~/types/ComponentProps'
+```
+
+## General Guidelines
+- Use TypeScript everywhere (`.ts` / `.vue` with `<script setup lang="ts">`).
+- Keep code consistent and readable (prefer clarity over brevity).
+- Avoid abbreviations unless well-known in context (e.g., `id`, `url`).
+
+
+---
+
+# Additional Rules from Source Files
+
+## File Naming Conventions
+
+#
+
+## Composables  
+- **Format**: camelCase with `use` prefix
+- **Examples**: `useTheme.ts`, `useValidation.ts`, `useDesignTokens.ts`
+- **Pattern**: `use{FunctionName}.ts`
+
+#
+
+## Function Patterns
+```typescript
+// Arrow functions for short utilities and inline functions
+const formatToken = (value: string) => `--${value}`
+const isValidSize = (size: string) => ['xs', 'sm', 'md', 'lg'].includes(size)
+
+// Function declarations for main component logic and complex operations
+function handleFormSubmit(event: Event) {
+  // Complex validation and submission logic
+}
+
+function setupThemeWatcher() {
+  // Complex setup logic
+}
+```
+
+## Vue Composition API Style
+```vue
+<script setup lang="ts">
+// Always use Composition API
+// Props with strict typing and defaults
+interface Props {
+  /** DaisyUI button variant */
+  variant?: 'primary' | 'secondary' | 'accent' | 'ghost'
+  /** Size following DaisyUI scale */  
+  size?: 'xs' | 'sm' | 'md' | 'lg'
+  /** Loading state with spinner */
+  isLoading?: boolean
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  variant: 'primary',
+  size: 'md',
+  isLoading: false
+})
+
+// Emits with TypeScript
+interface Emits {
+  click: [event: MouseEvent]
+  change: [value: string]
+}
+
+const emit = defineEmits<Emits>()
+</script>
+```
+
+## Boolean Variable Naming
+```typescript
+// Always prefix with 'is'
+const isLoading = ref(false)
+const isVisible = computed(() => props.show)
+const isValidTheme = (theme: string) => availableThemes.includes(theme)
+const isComponentMounted = ref(false)
+```
+
+## JSDoc Documentation Standards
+```typescript
+/**
+ * Primary button component based on DaisyUI button styles
+ * 
+ * @example
+ * ```vue
+ * <ButtonPrimary 
+ *   variant="primary" 
+ *   size="lg" 
+ *   :is-loading="submitting"
+ *   @click="handleSubmit"
+ * >
+ *   Submit Form
+ * </ButtonPrimary>
+ * ```
+ * 
+ * @param variant - Button style variant from DaisyUI theme
+ * @param size - Size following DaisyUI sizing scale  
+ * @param isLoading - Shows loading spinner and disables interaction
+ * @emits click - Fired when button is clicked (unless disabled/loading)
+ */
+```
+
+## Class Computation Pattern
+```vue
+<script setup lang="ts">
+// Use computed for dynamic classes
+const buttonClasses = computed(() => [
+  'btn', // DaisyUI base class
+  `btn-${props.variant}`,
+  `btn-${props.size}`,
+  {
+    'loading': props.isLoading,
+    'btn-disabled': props.isDisabled
+  },
+  props.class // Allow class override
+])
+</script>
+
+<template>
+  <button :class="buttonClasses">
+    <slot />
+  </button>
+</template>
+```
+
+## Error Handling Style
+```typescript
+// Use Result pattern for operations that can fail
+type Result<T, E = Error> = 
+  | { success: true; data: T }
+  | { success: false; error: E }
+
+// Clear error messages for developers
+const validateComponentProps = (props: unknown): Result<ComponentProps> => {
+  try {
+    const validProps = componentSchema.validateSync(props)
+    return { success: true, data: validProps }
+  } catch (error) {
+    return { 
+      success: false, 
+      error: new Error(`[DS Component] Invalid props: ${error.message}`)
+    }
+  }
+}
+```

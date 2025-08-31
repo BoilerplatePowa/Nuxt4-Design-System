@@ -1,0 +1,59 @@
+---
+description: |
+  Core principles and standards for building the Nuxt-Design-System module.  
+  Defines project context, technology stack, priorities, non-negotiables,  
+  and success metrics to ensure a production-ready, maintainable design system  
+  using Nuxt 4, DaisyUI 5, and Tailwind CSS.
+globs:
+  - "src/**/*.{ts,vue,js}"
+  - "tests/**/*.{ts,vue,js}"
+  - "playground/**/*.{ts,vue}"
+  - "docs/**/*.{md,ts,vue}"
+alwaysApply: true
+---
+
+
+# Core Principles for Nuxt-Design-System
+
+You are an expert Nuxt 4 module developer specializing in design systems built on DaisyUI 5.0.54 and Tailwind CSS.
+
+## Project Context
+- **Name**: Nuxt-Design-System
+- **Type**: Production-ready Nuxt module/library
+- **Purpose**: Maintainable design system based on DaisyUI with extensible configuration
+- **Scale**: Production-level for distribution via GitHub packages
+- **Team**: Solo development, external developer-focused
+
+## Technology Stack
+- **Framework**: Nuxt 4.0.3 (module development)
+- **Language**: TypeScript (strict mode)
+- **Runtime**: Node.js v22.18.0
+- **UI**: DaisyUI 5.0.54 + Tailwind CSS
+- **State**: Pinia
+- **Testing**: Vitest + Vue Test Utils
+- **Validation**: Yup + TypeScript
+- **Docs**: Storybook
+- **Build**: Vite
+
+## Core Principles (Priority Order)
+1. **Code readability and maintainability** - Self-documenting, clean code
+2. **Type safety and error prevention** - Strict TypeScript, comprehensive validation
+3. **Developer experience** - Easy integration, clear APIs, helpful errors
+4. **Documentation quality** - Complete docs, examples, migration guides
+5. **Performance and bundle size** - Optimized but not at expense of DX
+
+## Non-Negotiables
+- Strict TypeScript with no `any` types
+- JSDoc for all public APIs
+- DaisyUI component category organization
+- Runtime + TypeScript validation for all props
+- WCAG 2.1 AA accessibility compliance
+- Semantic versioning with conventional commits
+- Auto-import support with DS prefix
+
+## Success Metrics
+- Installation requires ≤ 3 configuration steps
+- Component APIs follow Vue 3 + DaisyUI conventions
+- Bundle size increase ≤ 50KB for basic setup
+- All components support theme customization
+- Zero breaking changes in patch releases

@@ -1,0 +1,80 @@
+---
+description: |
+  Internationalization (i18n) guidelines for Nuxt-Design-System components.  
+  Defines message structure, component integration, and validation error handling  
+  to ensure multilingual support across UI and developer-facing messages.
+globs:
+  - "src/components/**/*.{vue,ts}"
+  - "src/composables/**/*.ts"
+  - "src/validation/**/*.{ts,js}"
+  - "i18n/**/*.{ts,json}"
+alwaysApply: true
+---
+
+# Internationalization Guidelines
+
+Apply to: Components with text content, validation messages
+
+## Built-in i18n Support
+
+### Message Structure
+```typescript
+// i18n/messages.ts
+export const messages = {
+  en: {
+    components: {
+      button: {
+        loading: 'Loading...',
+        disabled: 'Button is disabled'
+      },
+      input: {
+        required: 'This field is required',
+        invalid: 'Please enter a valid value',
+        tooLong: 'Input is too long'
+      },
+      validation: {
+        invalidVariant: 'Invalid variant provided',
+        invalidSize: 'Invalid size provided'
+      }
+    }
+  },
+  fr: {
+    components: {
+      button: {
+        loading: 'Chargement...',
+        disabled: 'Bouton désactivé'
+      },
+      input: {
+        required: 'Ce champ est requis',
+        invalid: 'Veuillez entrer une valeur valide',
+        tooLong: 'Saisie trop longue'
+      }
+    }
+  }
+}
+```
+
+### Component i18n Usage
+```vue
+<script setup lang="ts">
+const { t } = useI18n()
+
+interface Props {
+  loadingText?: string
+  isLoading?: boolean
+}
+
+const props = defineProps<Props>()
+
+const loadingMessage = computed(() => 
+  props.loadingText || t('components.button.loading')
+)
+</script>
+
+<template>
+  <button class="btn" :aria-label="loadingMessage">
+    <span v-if="isLoading">{{ loadingMessage }}</span>
+    <slot v-else />
+  </button>
+</template>
+```

@@ -1,0 +1,278 @@
+---
+description: |
+  Guidelines for developing Vue components using DaisyUI.  
+  Covers structure, categories (Actions, Data Display, Data Input),  
+  prop typing and validation, accessibility, slot documentation,  
+  and consistent coding patterns within `src/components`.
+globs:
+  - "src/components/**/*.vue"
+alwaysApply: true
+---
+
+
+# Component Development Guidelines
+
+Apply to: `src/components/**/*.vue`
+
+## DaisyUI Component Categories
+
+### Actions Category (`src/components/actions/`)
+Components: Button, Dropdown, Modal, Swap
+
+```vue
+<!-- ButtonPrimary.vue -->
+<script setup lang="ts">
+interface Props {
+  /** DaisyUI button variants */
+  variant?: 'primary' | 'secondary' | 'accent' | 'ghost' | 'link' | 'info' | 'success' | 'warning' | 'error'
+  /** DaisyUI button sizes */
+  size?: 'xs' | 'sm' | 'md' | 'lg'
+  /** Wide button modifier */
+  isWide?: boolean
+  /** Loading state */
+  isLoading?: boolean
+  /** Disabled state */
+  isDisabled?: boolean
+  /** Button shape */
+  shape?: 'circle' | 'square' | undefined
+  /** Button outline style */
+  isOutline?: boolean
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  variant: 'primary',
+  size: 'md',
+  isWide: false,
+  isLoading: false,
+  isDisabled: false,
+  isOutline: false
+})
+
+const buttonClasses = computed(() => [
+  'btn',
+  `btn-${props.variant}`,
+  `btn-${props.size}`,
+  {
+    'btn-wide': props.isWide,
+    'btn-outline': props.isOutline,
+    'btn-circle': props.shape === 'circle',
+    'btn-square': props.shape === 'square',
+    'loading': props.isLoading
+  }
+])
+</script>
+
+<template>
+  <button 
+    :class="buttonClasses"
+    :disabled="isDisabled || isLoading"
+    @click="$emit('click', $event)"
+  >
+    <slot v-if="!isLoading" />
+    <span v-if="isLoading" class="loading loading-spinner"></span>
+  </button>
+</template>
+```
+
+### Data Display Category (`src/components/data-display/`)
+Components: Alert, Avatar, Badge, Card, Chat, Collapse, etc.
+
+```vue
+<!-- CardContent.vue -->
+<script setup lang="ts">
+interface Props {
+  /** Card styling variant */
+  variant?: 'normal' | 'bordered' | 'glass'
+  /** Compact card body */
+  isCompact?: boolean
+  /** Card title */
+  title?: string
+  /** Side image */
+  imageSide?: 'start' | 'end'
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  variant: 'normal',
+  isCompact: false
+})
+
+const cardClasses = computed(() => [
+  'card',
+  'bg-base-100',
+  'shadow-xl',
+  {
+    'card-bordered': props.variant === 'bordered',
+    'glass': props.variant === 'glass',
+    'card-side': props.imageSide,
+    'card-compact': props.isCompact
+  }
+])
+</script>
+
+<template>
+  <div :class="cardClasses">
+    <figure v-if="$slots.image">
+      <slot name="image" />
+    </figure>
+    
+    <div class="card-body">
+      <h2 v-if="title" class="card-title">{{ title }}</h2>
+      <slot name="title" />
+      
+      <slot />
+      
+      <div v-if="$slots.actions" class="card-actions justify-end">
+        <slot name="actions" />
+      </div>
+    </div>
+  </div>
+</template>
+```
+
+### Data Input Category (`src/components/data-input/`)
+Components: Checkbox, File Input, Radio, Range, Rating, Select, etc.
+
+```vue
+<!-- InputText.vue -->
+<script setup lang="ts">
+interface Props {
+  /** Input value (v-model) */
+  modelValue?: string
+  /** Input type */
+  type?: 'text' | 'email' | 'password' | 'number' | 'url'
+  /** Placeholder text */
+  placeholder?: string
+  /** DaisyUI input variants */
+  variant?: 'bordered' | 'ghost' | 'primary' | 'secondary' | 'accent'
+  /** Input size */
+  size?: 'xs' | 'sm' | 'md' | 'lg'
+  /** Error state */
+  isError?: boolean
+  /** Disabled state */
+  isDisabled?: boolean
+  /** Label text */
+  label?: string
+  /** Helper text */
+  helperText?: string
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  modelValue: '',
+  type: 'text',
+  variant: 'bordered',
+  size: 'md',
+  isError: false,
+  isDisabled: false
+})
+
+interface Emits {
+  'update:modelValue': [value: string]
+  change: [event: Event]
+  focus: [event: FocusEvent]
+  blur: [event: FocusEvent]
+}
+
+const emit = defineEmits<Emits>()
+
+const inputClasses = computed(() => [
+  'input',
+  `input-${props.variant}`,
+  `input-${props.size}`,
+  {
+    'input-error': props.isError
+  }
+])
+
+function handleInput(event: Event) {
+  const target = event.target as HTMLInputElement
+  emit('update:modelValue', target.value)
+  emit('change', event)
+}
+</script>
+
+<template>
+  <div class="form-control w-full max-w-xs">
+    <label v-if="label" class="label">
+      <span class="label-text">{{ label }}</span>
+    </label>
+    
+    <input
+      :type="type"
+      :class="inputClasses"
+      :placeholder="placeholder"
+      :value="modelValue"
+      :disabled="isDisabled"
+      @input="handleInput"
+      @focus="$emit('focus', $event)"
+      @blur="$emit('blur', $event)"
+    />
+    
+    <label v-if="helperText || isError" class="label">
+      <span 
+        class="label-text-alt"
+        :class="{ 'text-error': isError }"
+      >
+        {{ helperText }}
+      </span>
+    </label>
+  </div>
+</template>
+```
+
+## Component Standards
+
+### Prop Validation
+```typescript
+// validation/componentSchemas.ts
+import * as yup from 'yup'
+
+export const buttonSchema = yup.object({
+  variant: yup.string().oneOf(['primary', 'secondary', 'accent', 'ghost', 'link']),
+  size: yup.string().oneOf(['xs', 'sm', 'md', 'lg']),
+  isLoading: yup.boolean(),
+  isDisabled: yup.boolean()
+})
+
+export const cardSchema = yup.object({
+  variant: yup.string().oneOf(['normal', 'bordered', 'glass']),
+  isCompact: yup.boolean(),
+  title: yup.string()
+})
+```
+
+### Accessibility Requirements
+```vue
+<template>
+  <!-- All interactive elements need proper ARIA -->
+  <button 
+    :aria-label="ariaLabel || title"
+    :aria-pressed="isPressed"
+    :aria-disabled="isDisabled"
+    role="button"
+  >
+    <slot />
+  </button>
+  
+  <!-- Form elements need labels -->
+  <div class="form-control">
+    <label class="label">
+      <span class="label-text">{{ label }}</span>
+    </label>
+    <input :id="inputId" :aria-describedby="helperTextId" />
+    <div :id="helperTextId" class="label-text-alt">{{ helperText }}</div>
+  </div>
+</template>
+```
+
+### Slot Documentation
+```vue
+<template>
+  <!--
+    @slot default - Main content area
+    @slot header - Card header with title and actions
+    @slot image - Card image or media content
+    @slot actions - Action buttons in card footer
+    @slot loading - Custom loading state content
+  -->
+</template>
+```

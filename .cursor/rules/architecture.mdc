@@ -1,0 +1,239 @@
+---
+description: Defines project architecture guidelines including directory structure, component patterns, Nuxt module setup, plugin architecture, composables, and design token integration.
+globs:
+  - "src/**/*"
+  - "module.ts"
+  - "runtime/**/*.ts"
+  - "composables/**/*.ts"
+  - "tokens/**/*"
+  - "types/**/*.ts"
+  - "validation/**/*.ts"
+  - "utils/**/*.ts"
+alwaysApply: true
+---
+
+# Architecture Guidelines
+
+Apply to: `src/**/*`, project structure decisions
+
+## Module Directory Structure
+```
+src/
+├── components/              # Vue components by DaisyUI categories
+│   ├── actions/            # btn, dropdown, modal, swap
+│   │   ├── ButtonPrimary.vue
+│   │   ├── DropdownMenu.vue
+│   │   └── ModalDialog.vue
+│   ├── data-display/       # alert, avatar, badge, card, etc.
+│   │   ├── AlertMessage.vue
+│   │   ├── AvatarImage.vue
+│   │   └── CardContent.vue
+│   ├── data-input/         # checkbox, input, radio, select, etc.
+│   │   ├── CheckboxInput.vue
+│   │   ├── InputText.vue
+│   │   └── SelectDropdown.vue
+│   ├── feedback/           # loading, progress, toast
+│   ├── layout/             # divider, footer, hero, navbar
+│   └── navigation/         # breadcrumbs, link, menu, pagination
+├── composables/            # Reusable composition functions
+│   ├── useTheme.ts
+│   ├── useValidation.ts
+│   └── useDesignTokens.ts
+├── tokens/                 # Design token definitions (separate package)
+├── types/                  # TypeScript definitions
+│   ├── ComponentProps.ts
+│   ├── ThemeConfig.ts
+│   └── ModuleOptions.ts
+├── utils/                  # Pure utility functions
+│   ├── classUtils.ts
+│   ├── themeUtils.ts
+│   └── validationUtils.ts
+├── validation/             # Yup schemas
+│   ├── componentSchemas.ts
+│   └── configSchemas.ts
+├── module.ts              # Main Nuxt module entry
+└── runtime/               # Runtime plugin files
+    ├── plugin.client.ts
+    ├── plugin.server.ts
+    └── auto-imports.ts
+```
+
+## Component Architecture Pattern
+
+### Base Component Template
+```vue
+<!-- Base pattern for all components -->
+<script setup lang="ts">
+import { componentSchema } from '~/validation/componentSchemas'
+
+interface Props {
+  /** DaisyUI variant alignment */
+  variant?: string
+  /** DaisyUI size scale */
+  size?: string
+  /** Custom CSS classes */
+  class?: string
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  variant: 'primary',
+  size: 'md'
+})
+
+// Runtime validation in development
+if (process.dev) {
+  try {
+    componentSchema.validateSync(props)
+  } catch (error) {
+    console.warn(`[DS Component] ${error.message}`)
+  }
+}
+
+// Computed classes following DaisyUI patterns
+const componentClasses = computed(() => [
+  'daisyui-base-class', // Replace with actual DaisyUI class
+  `daisyui-base-class-${props.variant}`,
+  `daisyui-base-class-${props.size}`,
+  props.class
+])
+</script>
+
+<template>
+  <div :class="componentClasses">
+    <slot />
+  </div>
+</template>
+```
+
+### Nuxt Module Structure
+```typescript
+// module.ts - Main module entry
+import { defineNuxtModule, addComponentsDir, addPlugin, createResolver } from '@nuxt/kit'
+
+export interface ModuleOptions {
+  /** Enable component auto-imports */
+  components?: boolean
+  /** Enable theme management */
+  theme?: boolean | ThemeConfig
+  /** Enable validation */
+  validation?: boolean
+  /** Component prefix for auto-imports */
+  prefix?: string
+}
+
+export default defineNuxtModule<ModuleOptions>({
+  meta: {
+    name: '@nuxt-design-system/core',
+    configKey: 'designSystem',
+    compatibility: {
+      nuxt: '^4.0.0'
+    }
+  },
+  defaults: {
+    components: true,
+    theme: true,
+    validation: true,
+    prefix: 'DS'
+  },
+  setup(options, nuxt) {
+    const resolver = createResolver(import.meta.url)
+    
+    // Add components with auto-import
+    if (options.components) {
+      addComponentsDir({
+        path: resolver.resolve('./src/components'),
+        pathPrefix: false,
+        prefix: options.prefix,
+        global: true
+      })
+    }
+    
+    // Add theme management plugin
+    if (options.theme) {
+      addPlugin({
+        src: resolver.resolve('./src/runtime/plugin.client.ts'),
+        mode: 'client'
+      })
+    }
+    
+    // Configure Tailwind and DaisyUI
+    nuxt.options.css.push('daisyui/dist/full.css')
+    nuxt.options.tailwindcss = nuxt.options.tailwindcss || {}
+    nuxt.options.tailwindcss.config = {
+      plugins: ['daisyui'],
+      daisyui: {
+        themes: options.theme === true ? 'all' : options.theme
+      }
+    }
+  }
+})
+```
+
+### Plugin Architecture
+```typescript
+// runtime/plugin.client.ts
+export default defineNuxtPlugin({
+  name: 'design-system',
+  parallel: true,
+  setup() {
+    // Initialize theme system
+    const themeStore = useThemeStore()
+    
+    // Setup theme persistence
+    themeStore.initTheme()
+    
+    // Register global error handler for components
+    const app = useNuxtApp()
+    app.hook('vue:error', (error, context) => {
+      if (error.message.includes('[DS Component]')) {
+        console.warn('Design System Component Error:', error.message)
+      }
+    })
+  }
+})
+```
+
+## Composable Architecture
+```typescript
+// composables/useTheme.ts
+export function useTheme() {
+  const store = useThemeStore()
+  
+  /**
+   * Set active DaisyUI theme
+   * @param theme - Valid DaisyUI theme name
+   */
+  const setTheme = (theme: DaisyUITheme) => {
+    store.setTheme(theme)
+  }
+  
+  /**
+   * Get current theme reactive reference
+   */
+  const currentTheme = computed(() => store.currentTheme)
+  
+  return {
+    currentTheme,
+    setTheme,
+    availableThemes: store.availableThemes
+  }
+}
+```
+
+## Design Token Integration
+```typescript
+// Separate package: @nuxt-design-system/tokens
+export interface DesignTokens {
+  colors: Record<string, string>
+  spacing: Record<string, string>
+  typography: Record<string, string>
+  shadows: Record<string, string>
+}
+
+// Main module integration
+import { tokens } from '@nuxt-design-system/tokens'
+
+export const useDesignTokens = () => {
+  return readonly(tokens)
+}
+```

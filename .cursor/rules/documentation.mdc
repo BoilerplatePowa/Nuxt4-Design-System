@@ -1,0 +1,391 @@
+---
+description: |
+  Standards and templates for documenting the Nuxt-Design-System.  
+  Includes Storybook story structure, component API documentation,  
+  README and module docs, API reference, and documentation checklists.  
+  Ensures consistency across public APIs, Storybook stories, and user guides.
+globs:
+  - "src/components/**/*.{vue,ts}"
+  - "src/composables/**/*.ts"
+  - "docs/**/*.{md,mdx}"
+  - "stories/**/*.{ts,mdx}"
+  - "README.md"
+alwaysApply: true
+---
+
+# Documentation Standards
+
+Apply to: All public APIs, README files, Storybook stories
+
+## Storybook Story Structure
+
+### Component Stories Template
+```typescript
+// stories/ButtonPrimary.stories.ts
+import type { Meta, StoryObj } from '@storybook/vue3'
+import ButtonPrimary from '~/components/actions/ButtonPrimary.vue'
+
+const meta: Meta<typeof ButtonPrimary> = {
+  title: 'Actions/ButtonPrimary',
+  component: ButtonPrimary,
+  parameters: {
+    layout: 'centered',
+    docs: {
+      description: {
+        component: 'Primary button component based on DaisyUI button styles. Supports all DaisyUI variants and includes loading states.'
+      }
+    }
+  },
+  argTypes: {
+    variant: {
+      control: 'select',
+      options: ['primary', 'secondary', 'accent', 'ghost', 'link', 'info', 'success', 'warning', 'error'],
+      description: 'DaisyUI button variant styling'
+    },
+    size: {
+      control: 'select', 
+      options: ['xs', 'sm', 'md', 'lg'],
+      description: 'Button size following DaisyUI scale'
+    },
+    isLoading: {
+      control: 'boolean',
+      description: 'Shows loading spinner and disables interaction'
+    }
+  },
+  args: {
+    variant: 'primary',
+    size: 'md',
+    isLoading: false
+  }
+}
+
+export default meta
+type Story = StoryObj<typeof meta>
+
+// Default story
+export const Default: Story = {
+  args: {},
+  render: (args) => ({
+    components: { ButtonPrimary },
+    setup() {
+      return { args }
+    },
+    template: '<ButtonPrimary v-bind="args">Click me</ButtonPrimary>'
+  })
+}
+
+// All variants showcase
+export const AllVariants: Story = {
+  render: () => ({
+    components: { ButtonPrimary },
+    template: `
+      <div class="flex flex-wrap gap-4">
+        <ButtonPrimary variant="primary">Primary</ButtonPrimary>
+        <ButtonPrimary variant="secondary">Secondary</ButtonPrimary>
+        <ButtonPrimary variant="accent">Accent</ButtonPrimary>
+        <ButtonPrimary variant="ghost">Ghost</ButtonPrimary>
+        <ButtonPrimary variant="link">Link</ButtonPrimary>
+      </div>
+    `
+  })
+}
+
+// Loading states
+export const LoadingStates: Story = {
+  render: () => ({
+    components: { ButtonPrimary },
+    template: `
+      <div class="flex gap-4">
+        <ButtonPrimary :is-loading="true">Loading</ButtonPrimary>
+        <ButtonPrimary :is-loading="true" variant="secondary">Loading</ButtonPrimary>
+      </div>
+    `
+  })
+}
+
+// Interactive playground
+export const Playground: Story = {
+  args: {
+    variant: 'primary',
+    size: 'md',
+    isLoading: false,
+    isDisabled: false
+  }
+}
+```
+
+### API Documentation Template
+```typescript
+// For each component, include comprehensive API docs
+/**
+ * # ButtonPrimary
+ * 
+ * Primary button component implementing DaisyUI button styles with full theme support.
+ * 
+ * ## Features
+ * - Full DaisyUI variant and size support
+ * - Loading states with spinner
+ * - Accessibility compliant (WCAG 2.1 AA)
+ * - TypeScript support with runtime validation
+ * - Theme-aware styling
+ * 
+ * ## Usage
+ * 
+ * ### Basic Usage
+ * ```vue
+ * <template>
+ *   <ButtonPrimary @click="handleClick">
+ *     Click me
+ *   </ButtonPrimary>
+ * </template>
+ * ```
+ * 
+ * ### With Props
+ * ```vue
+ * <template>
+ *   <ButtonPrimary 
+ *     variant="accent"
+ *     size="lg"
+ *     :is-loading="submitting"
+ *     @click="handleSubmit"
+ *   >
+ *     Submit Form
+ *   </ButtonPrimary>
+ * </template>
+ * ```
+ * 
+ * ### All Variants
+ * ```vue
+ * <template>
+ *   <div class="space-x-2">
+ *     <ButtonPrimary variant="primary">Primary</ButtonPrimary>
+ *     <ButtonPrimary variant="secondary">Secondary</ButtonPrimary>
+ *     <ButtonPrimary variant="accent">Accent</ButtonPrimary>
+ *   </div>
+ * </template>
+ * ```
+ * 
+ * ## Props
+ * 
+ * | Prop | Type | Default | Description |
+ * |------|------|---------|-------------|
+ * | variant | `'primary' \| 'secondary' \| 'accent' \| 'ghost' \| 'link'` | `'primary'` | DaisyUI button variant |
+ * | size | `'xs' \| 'sm' \| 'md' \| 'lg'` | `'md'` | Button size from DaisyUI scale |
+ * | isLoading | `boolean` | `false` | Shows loading spinner and disables button |
+ * | isDisabled | `boolean` | `false` | Disables button interaction |
+ * 
+ * ## Events
+ * 
+ * | Event | Payload | Description |
+ * |-------|---------|-------------|
+ * | click | `MouseEvent` | Emitted when button is clicked (unless disabled/loading) |
+ * 
+ * ## Slots
+ * 
+ * | Slot | Description |
+ * |------|-------------|
+ * | default | Button content (text, icons, etc.) |
+ * 
+ * ## Accessibility
+ * 
+ * - Proper `button` role
+ * - Supports `aria-label` and `aria-describedby`
+ * - Keyboard navigation support
+ * - Loading state announced to screen readers
+ * 
+ * ## Theme Support
+ * 
+ * Automatically adapts to current DaisyUI theme. All variants work with both light and dark themes.
+ */
+```
+
+## Module Documentation
+
+### README Structure
+```markdown
+# @nuxt-design-system/core
+
+A production-ready Nuxt module providing a comprehensive design system based on DaisyUI 5.0.54.
+
+## Quick Start
+
+### Installation
+```bash
+npm install @nuxt-design-system/core @nuxt-design-system/tokens
+```
+
+### Basic Setup
+```typescript
+// nuxt.config.ts
+export default defineNuxtConfig({
+  modules: ['@nuxt-design-system/core'],
+  designSystem: {
+    theme: 'light',
+    components: true,
+    prefix: 'DS'
+  }
+})
+```
+
+### Usage
+```vue
+<template>
+  <div>
+    <DSButtonPrimary variant="primary" @click="handleClick">
+      Click me
+    </DSButtonPrimary>
+    
+    <DSCardContent title="Welcome">
+      <p>Content goes here</p>
+      
+      <template #actions>
+        <DSButtonPrimary variant="accent">Action</DSButtonPrimary>
+      </template>
+    </DSCardContent>
+  </div>
+</template>
+```
+
+## Configuration
+
+### Module Options
+| Option | Type | Default | Description |
+|--------|------|---------|-------------|
+| `theme` | `DaisyUITheme \| boolean` | `'light'` | Theme configuration |
+| `components` | `boolean` | `true` | Enable component auto-imports |
+| `prefix` | `string` | `'DS'` | Component prefix for auto-imports |
+| `validation` | `boolean` | `true` | Enable runtime prop validation |
+
+### Theme Configuration
+```typescript
+// nuxt.config.ts
+export default defineNuxtConfig({
+  designSystem: {
+    theme: {
+      default: 'corporate',
+      available: ['light', 'dark', 'corporate'],
+      persistence: true
+    }
+  }
+})
+```
+
+## Components
+
+### Available Categories
+- **Actions**: ButtonPrimary, DropdownMenu, ModalDialog
+- **Data Display**: AlertMessage, CardContent, BadgeLabel  
+- **Data Input**: InputText, CheckboxInput, SelectDropdown
+- **Feedback**: LoadingSpinner, ProgressBar, ToastMessage
+- **Layout**: DividerLine, NavbarHeader, FooterContent
+- **Navigation**: BreadcrumbTrail, LinkButton, MenuList
+
+### Component Props
+All components follow DaisyUI conventions and support:
+- Theme-aware variants
+- Standard size scales (xs, sm, md, lg)
+- Loading and disabled states
+- Custom CSS class override
+- Full TypeScript support
+
+## Composables
+
+### useTheme()
+```typescript
+const { currentTheme, setTheme, availableThemes } = useTheme()
+```
+
+### useDesignTokens()
+```typescript
+const tokens = useDesignTokens()
+// Access: tokens.colors.primary, tokens.spacing.md, etc.
+```
+
+## Migration Guide
+
+### From DaisyUI Direct Usage
+```vue
+<!-- Before -->
+<button class="btn btn-primary btn-lg">Click</button>
+
+<!-- After -->
+<DSButtonPrimary variant="primary" size="lg">Click</DSButtonPrimary>
+```
+
+### From Other Design Systems
+See full migration guide in `/docs/migration.md`
+
+## Contributing
+
+1. Fork the repository
+2. Create feature branch: `git checkout -b feature/new-component`
+3. Follow conventional commits: `feat: add ButtonSecondary component`
+4. Add tests and documentation
+5. Submit pull request
+
+## License
+
+MIT License - see LICENSE file for details
+```
+
+### API Reference Template
+```markdown
+# API Reference
+
+## Components
+
+### ButtonPrimary
+**Import**: `import ButtonPrimary from '@nuxt-design-system/core/components/actions/ButtonPrimary.vue'`
+**Auto-import**: `<DSButtonPrimary>` (when enabled)
+
+#### Props
+- `variant?: 'primary' | 'secondary' | 'accent' | 'ghost' | 'link'` - DaisyUI button variant
+- `size?: 'xs' | 'sm' | 'md' | 'lg'` - Button size
+- `isLoading?: boolean` - Loading state with spinner
+- `isDisabled?: boolean` - Disabled state
+
+#### Events  
+- `@click(event: MouseEvent)` - Button click event
+
+#### Slots
+- `default` - Button content
+
+---
+
+### CardContent
+**Import**: `import CardContent from '@nuxt-design-system/core/components/data-display/CardContent.vue'`
+**Auto-import**: `<DSCardContent>` (when enabled)
+
+#### Props
+- `variant?: 'normal' | 'bordered' | 'glass'` - Card styling
+- `isCompact?: boolean` - Compact card body
+- `title?: string` - Card title text
+
+#### Slots
+- `default` - Main card content
+- `title` - Custom title content  
+- `image` - Card image/media
+- `actions` - Card action buttons
+```
+
+## Documentation Requirements
+
+### Component Documentation Checklist
+- [ ] JSDoc with @example usage
+- [ ] Storybook story with all variants
+- [ ] Props table with types and descriptions
+- [ ] Event documentation
+- [ ] Slot documentation
+- [ ] Accessibility notes
+- [ ] Theme compatibility notes
+- [ ] Migration examples (if applicable)
+
+### Module Documentation Checklist  
+- [ ] Installation instructions
+- [ ] Basic configuration example
+- [ ] Advanced configuration options
+- [ ] Component usage examples
+- [ ] Composable API reference
+- [ ] Migration guide from direct DaisyUI
+- [ ] Contributing guidelines
+- [ ] Changelog with conventional commits

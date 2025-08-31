@@ -1,0 +1,55 @@
+---
+description: |
+  Centralized Cursor rules configuration for the Nuxt-Design-System project.  
+  Defines included/excluded paths, rule priorities, and project context.  
+  Ensures consistent enforcement of coding, architecture, documentation,  
+  performance, and security standards across the entire codebase.
+globs:
+  - "src/**/*.{ts,vue,js,json}"
+  - "playground/**/*.{ts,vue,js,md}"
+  - "docs/**/*.{md,ts,vue}"
+  - "tests/**/*.{ts,vue,js}"
+alwaysApply: true
+---
+
+# Cursor Project Rules Configuration for Nuxt-Design-System
+
+extends: []
+include: 
+  - "src/**/*"
+  - "playground/**/*"
+  - "docs/**/*"
+  - "tests/**/*"
+exclude:
+  - "node_modules/**/*"
+  - "dist/**/*"
+  - ".nuxt/**/*"
+  - ".output/**/*"
+
+rules:
+  - path: "rules/core-principles.md"
+    priority: 1
+  - path: "rules/code-style.md"
+    priority: 2
+  - path: "rules/architecture.md"
+    priority: 3
+  - path: "rules/components.md"
+    priority: 4
+  - path: "rules/state-management.md"
+    priority: 5
+  - path: "rules/testing.md"
+    priority: 6
+  - path: "rules/performance.md"
+    priority: 7
+  - path: "rules/security.md"
+    priority: 8
+  - path: "rules/documentation.md"
+    priority: 9
+
+context:
+  project_name: "Nuxt-Design-System"
+  project_type: "library"
+  framework: "Nuxt 4.0.3"
+  language: "TypeScript"
+  ui_library: "DaisyUI 5.0.54"
+  styling: "Tailwind CSS"

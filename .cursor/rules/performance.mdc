@@ -1,0 +1,257 @@
+---
+description: |
+  Guidelines for optimizing performance in the Nuxt-Design-System.  
+  Covers bundle size management, dynamic imports, CSS optimization,  
+  runtime performance patterns, event handling, bundle analysis, and component-level performance monitoring.
+globs:
+  - "src/components/**/*.{vue,ts}"
+  - "src/composables/**/*.ts"
+  - "playground/**/*.{vue,ts}"
+  - "assets/css/**/*.css"
+  - "module.ts"
+alwaysApply: true
+---
+
+# Performance Optimization Guidelines
+
+Apply to: All code, with focus on `src/components/**/*`, `src/composables/**/*`
+
+## Bundle Size Management (Important Priority)
+
+### Tree Shaking Strategy - Auto
+```typescript
+// components/index.ts - Named exports for tree shaking
+export { default as ButtonPrimary } from './actions/ButtonPrimary.vue'
+export { default as CardContent } from './data-display/CardContent.vue'
+export { default as InputText } from './data-input/InputText.vue'
+
+// Separate category exports
+export * from './actions'
+export * from './data-display'
+export * from './data-input'
+export * from './feedback'
+export * from './layout'
+export * from './navigation'
+
+// Type-only exports
+export type { ButtonProps } from './actions/ButtonPrimary.vue'
+export type { CardProps } from './data-display/CardContent.vue'
+```
+
+### Dynamic Imports for Heavy Components
+```vue
+<script setup lang="ts">
+// Lazy load complex components
+const ChartComponent = defineAsyncComponent({
+  loader: () => import('~/components/data-display/ChartComplex.vue'),
+  loadingComponent: () => h('div', { class: 'loading loading-spinner loading-lg' }),
+  errorComponent: () => h('div', { class: 'alert alert-error' }, 'Failed to load chart'),
+  delay: 200,
+  timeout: 3000
+})
+
+const isChartNeeded = ref(false)
+</script>
+
+<template>
+  <div>
+    <button @click="isChartNeeded = true" class="btn btn-primary">
+      Load Chart
+    </button>
+    
+    <Suspense v-if="isChartNeeded">
+      <ChartComponent />
+      <template #fallback>
+        <div class="skeleton h-32 w-full"></div>
+      </template>
+    </Suspense>
+  </div>
+</template>
+```
+
+## CSS Optimization - Both PurgeCSS + Critical CSS
+
+### PurgeCSS Configuration
+```typescript
+// module.ts - Auto purging setup
+export default defineNuxtModule({
+  setup(options, nuxt) {
+    // Configure PurgeCSS for DaisyUI
+    nuxt.options.tailwindcss = {
+      ...nuxt.options.tailwindcss,
+      config: {
+        content: [
+          './src/**/*.{vue,ts}',
+          './playground/**/*.{vue,ts}'
+        ],
+        plugins: ['daisyui'],
+        daisyui: {
+          themes: options.theme?.available || ['light', 'dark']
+        }
+      }
+    }
+    
+    // Safelist critical DaisyUI classes
+    nuxt.options.css = nuxt.options.css || []
+    nuxt.options.css.push('@/assets/css/critical-daisyui.css')
+  }
+})
+```
+
+### Critical CSS Extraction
+```css
+/* assets/css/critical-daisyui.css */
+/* Critical DaisyUI classes that should never be purged */
+@layer components {
+  .btn {
+    @apply btn;
+  }
+  
+  .card {
+    @apply card;
+  }
+  
+  .input {
+    @apply input;
+  }
+  
+  .loading {
+    @apply loading;
+  }
+}
+```
+
+## Runtime Performance
+
+### Computed Property Optimization
+```vue
+<script setup lang="ts">
+// Cache expensive class computations
+const classCache = new Map<string, string[]>()
+
+const componentClasses = computed(() => {
+  const cacheKey = `${props.variant}-${props.size}-${props.isLoading}`
+  
+  if (classCache.has(cacheKey)) {
+    return classCache.get(cacheKey)
+  }
+  
+  const classes = [
+    'btn',
+    `btn-${props.variant}`,
+    `btn-${props.size}`,
+    { 'loading': props.isLoading }
+  ]
+  
+  classCache.set(cacheKey, classes)
+  return classes
+})
+
+// Use shallowRef for objects that don't need deep reactivity
+const staticConfig = shallowRef({
+  themes: ['light', 'dark'],
+  variants: ['primary', 'secondary']
+})
+</script>
+```
+
+### Event Handler Optimization
+```vue
+<script setup lang="ts">
+import { debounce, throttle } from 'lodash-es'
+
+// Debounce for input validation
+const debouncedValidation = debounce((value: string) => {
+  validateInput(value)
+}, 300)
+
+// Throttle for scroll/resize events
+const throttledResize = throttle(() => {
+  updateLayout()
+}, 100)
+
+// Cleanup on unmount
+onUnmounted(() => {
+  debouncedValidation.cancel()
+  throttledResize.cancel()
+})
+</script>
+```
+
+## Bundle Analysis Setup
+```typescript
+// module.ts - Include bundle monitoring
+export default defineNuxtModule({
+  setup(options, nuxt) {
+    if (process.env.ANALYZE === 'true') {
+      nuxt.hook('webpack:config', (config) => {
+        config.plugins = config.plugins || []
+        config.plugins.push(
+          new BundleAnalyzerPlugin({
+            analyzerMode: 'static',
+            openAnalyzer: false
+          })
+        )
+      })
+    }
+    
+    // Bundle size warnings
+    nuxt.hook('build:done', () => {
+      const maxSize = 250 * 1024 // 250KB
+      if (bundleSize > maxSize) {
+        console.warn(`[DS] Bundle size ${bundleSize}KB exceeds ${maxSize/1024}KB limit`)
+      }
+    })
+  }
+})
+```
+
+## Component Performance Patterns
+```vue
+<script setup lang="ts">
+// Use defineOptions for static component metadata
+defineOptions({
+  name: 'ButtonPrimary',
+  inheritAttrs: false
+})
+
+// Avoid unnecessary watchers
+const computedValue = computed(() => {
+  // Prefer computed over watch when possible
+  return props.value?.toUpperCase()
+})
+
+// Use readonly for props that shouldn't trigger reactivity
+const staticProps = readonly({
+  allowedSizes: ['xs', 'sm', 'md', 'lg'],
+  defaultVariant: 'primary'
+})
+</script>
+```
+
+## Performance Monitoring
+```typescript
+// utils/performance.ts
+export function usePerformanceTracking() {
+  const trackComponentRender = (componentName: string) => {
+    if (process.dev) {
+      const startMark = `${componentName}-render-start`
+      const endMark = `${componentName}-render-end`
+      
+      performance.mark(startMark)
+      
+      nextTick(() => {
+        performance.mark(endMark)
+        performance.measure(`${componentName}-render`, startMark, endMark)
+        
+        const measure = performance.getEntriesByName(`${componentName}-render`)[0]
+        if (measure.duration > 16) { // >16ms = might cause frame drops
+          console.warn(`[DS Performance] ${componentName} render took ${measure.duration.toFixed(2)}ms`)
+        }
+      })
+    }
+  }
+  
+  return { trackComponentRender }
+}
+```
