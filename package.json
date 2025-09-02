@@ -30,6 +30,9 @@
     "dev": "npm run dev:prepare && nuxi dev playground",
     "dev:build": "nuxi build playground",
     "dev:prepare": "nuxt-module-build build --stub && nuxt-module-build prepare && nuxi prepare playground",
+    "dev:storybook": "storybook dev -p 6006",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
     "release": "npm run lint && npm run test && npm run prepack && changelogen --release && npm publish && git push --follow-tags",
     "lint": "eslint .",
     "test": "vitest run",
@@ -39,7 +42,9 @@
   "dependencies": {
     "@nuxt/kit": "^4.0.3",
     "@tailwindcss/vite": "^4.1.12",
+    "@vitejs/plugin-vue": "^6.0.1",
     "daisyui": "^5.1.0",
+    "lucide-vue-next": "^0.542.0",
     "tailwindcss": "^4.1.12"
   },
   "devDependencies": {
@@ -48,10 +53,17 @@
     "@nuxt/module-builder": "^1.0.2",
     "@nuxt/schema": "^4.0.3",
     "@nuxt/test-utils": "^3.19.2",
+    "@storybook/addon-a11y": "^9.1.4",
+    "@storybook/addon-docs": "^9.1.4",
+    "@storybook/addon-links": "^9.1.4",
+    "@storybook/builder-vite": "^9.1.4",
+    "@storybook/vue3-vite": "^9.1.4",
     "@types/node": "latest",
     "changelogen": "^0.6.2",
     "eslint": "^9.34.0",
+    "eslint-plugin-storybook": "9.1.4",
     "nuxt": "^4.0.3",
+    "storybook": "^9.1.4",
     "typescript": "~5.9.2",
     "vitest": "^3.2.4",
     "vue-tsc": "^3.0.6"

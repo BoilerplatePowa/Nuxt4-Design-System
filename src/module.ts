@@ -35,7 +35,8 @@ export default defineNuxtModule<ModuleOptions>({
     if (_options.components) {
       addComponentsDir({
         path: resolver.resolve('runtime/components'),
-        prefix: _options.prefix
+        prefix: _options.prefix,
+        pathPrefix: false,
       })
     }
 
@@ -51,19 +52,7 @@ export default defineNuxtModule<ModuleOptions>({
 
     // Tailwind CSS v4.1 setup
     if (_options.tailwind) {
-      // Configure Vite for Tailwind v4.1
-      _nuxt.options.vite = _nuxt.options.vite || {}
-      _nuxt.options.vite.plugins = _nuxt.options.vite.plugins || []
-
-      try {
-        // Dynamic import of the Tailwind Vite plugin
-        // const tailwindPlugin = await import('@tailwindcss/vite')
-        //_nuxt.options.vite.plugins.push(tailwindPlugin.default());
-
-        _nuxt.options.vite.plugins.push(tailwindcss());
-      } catch (error) {
-        console.warn('[DS Module] Tailwind CSS v4.1 not found. Please install tailwindcss and @tailwindcss/vite in your project.')
-      }
+      addVitePlugin(tailwindcss());
     }
   },
 })
