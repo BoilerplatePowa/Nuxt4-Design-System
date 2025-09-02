@@ -43,7 +43,7 @@
     "@nuxt/kit": "^4.0.3",
     "@tailwindcss/vite": "^4.1.12",
     "@vitejs/plugin-vue": "^6.0.1",
-    "daisyui": "^5.1.0",
+    "daisyui": "^5.1.5",
     "lucide-vue-next": "^0.542.0",
     "tailwindcss": "^4.1.12"
   },

@@ -9,7 +9,7 @@
       Click me 
     </BpButton>
     <BpTestButton
-      variant="error"
+      variant="accent"
     > 
       Click me 
     </BpTestButton>
