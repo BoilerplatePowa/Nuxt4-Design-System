@@ -1,8 +1,11 @@
 {
-  "name": "my-module",
+  "name": "@boilerplatepowa/nuxt4-design-system",
   "version": "1.0.0",
-  "description": "My new Nuxt module",
-  "repository": "your-org/my-module",
+  "description": "Modern Design System for Nuxt 4+ with TailwindCSS, DaisyUI and Storybook",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/BoilerplatePowa/Nuxt4-Design-System.git"
+  },
   "license": "MIT",
   "type": "module",
   "exports": {
@@ -34,7 +37,10 @@
     "test:types": "vue-tsc --noEmit && cd playground && vue-tsc --noEmit"
   },
   "dependencies": {
-    "@nuxt/kit": "^4.0.3"
+    "@nuxt/kit": "^4.0.3",
+    "@tailwindcss/vite": "^4.1.12",
+    "daisyui": "^5.1.0",
+    "tailwindcss": "^4.1.12"
   },
   "devDependencies": {
     "@nuxt/devtools": "^2.6.3",
