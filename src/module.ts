@@ -41,7 +41,7 @@ export default defineNuxtModule<ModuleOptions>({
 
     // CSS
     if (_options.css) {
-      _nuxt.options.css.push(resolver.resolve('runtime/assets/css/main.css'))
+      _nuxt.options.css.push(resolver.resolve('runtime/assets/main.css'))
     }
 
     // Composables
@@ -51,9 +51,6 @@ export default defineNuxtModule<ModuleOptions>({
 
     // Tailwind CSS v4.1 setup
     if (_options.tailwind) {
-      // Add Tailwind CSS v4.1
-      _nuxt.options.css.push('tailwindcss')
-
       // Configure Vite for Tailwind v4.1
       _nuxt.options.vite = _nuxt.options.vite || {}
       _nuxt.options.vite.plugins = _nuxt.options.vite.plugins || []
