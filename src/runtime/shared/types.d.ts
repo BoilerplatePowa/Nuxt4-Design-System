@@ -1,4 +1,11 @@
 import { iconMap, inputTypesMap, sizeMap, variantMap } from './map';
+import {
+  btnColorMap,
+  btnStyleMap,
+  btnSizeMap,
+  btnBehaviorMap,
+  btnModifierMap
+} from './componentsMaps/actions/btnMap';
 
 export type IconName = keyof typeof iconMap;
 export type InputType = (typeof inputTypesMap)[number];
@@ -49,3 +56,10 @@ export type MaskType =
   | 'email'
   | 'zip'
   | 'ssn';
+
+// Button-specific types based on btnMap
+export type BtnColor = keyof typeof btnColorMap;
+export type BtnStyle = keyof typeof btnStyleMap;
+export type BtnSize = keyof typeof btnSizeMap;
+export type BtnBehavior = keyof typeof btnBehaviorMap;
+export type BtnModifier = keyof typeof btnModifierMap;

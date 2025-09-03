@@ -5,6 +5,7 @@
 }
 
 @source "../components/**";
+@source "../shared/componentsMaps/**";
 
 /* Boilerplate Light Theme */
 @plugin "daisyui/theme" {

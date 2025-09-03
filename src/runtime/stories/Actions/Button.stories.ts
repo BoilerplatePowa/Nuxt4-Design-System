@@ -9,34 +9,50 @@ const meta: Meta<typeof Button> = {
     docs: {
       description: {
         component:
-          'A flexible button component with multiple variants, sizes, loading states, and accessibility features.',
+          'A flexible button component with multiple variants, sizes, loading states, and accessibility features. Uses btnMap for consistent DaisyUI class mapping.',
       },
     },
   },
   tags: ['autodocs'],
   argTypes: {
-    variant: {
+    // New btnMap-based props
+    color: {
       control: { type: 'select' },
-      options: [
-        'primary',
-        'secondary',
-        'accent',
-        'neutral',
-        'ghost',
-        'outline',
-        'link',
-        'info',
-        'success',
-        'warning',
-        'error',
-      ],
-      description: 'Button variant',
+      options: ['neutral', 'primary', 'secondary', 'accent', 'info', 'success', 'warning', 'error'],
+      description: 'Button color variant from btnColorMap',
+    },
+    style: {
+      control: { type: 'select' },
+      options: ['outline', 'dash', 'soft', 'ghost', 'link'],
+      description: 'Button style variant from btnStyleMap',
     },
     size: {
       control: { type: 'select' },
-      options: ['xs', 'sm', 'md', 'lg'],
-      description: 'Button size',
+      options: ['xs', 'sm', 'md', 'lg', 'xl'],
+      description: 'Button size from btnSizeMap',
     },
+    active: {
+      control: { type: 'boolean' },
+      description: 'Active state from btnBehaviorMap',
+    },
+    wide: {
+      control: { type: 'boolean' },
+      description: 'Wide modifier from btnModifierMap',
+    },
+    block: {
+      control: { type: 'boolean' },
+      description: 'Block modifier from btnModifierMap',
+    },
+    square: {
+      control: { type: 'boolean' },
+      description: 'Square modifier from btnModifierMap',
+    },
+    circle: {
+      control: { type: 'boolean' },
+      description: 'Circle modifier from btnModifierMap',
+    },
+
+    // Standard button properties
     disabled: {
       control: { type: 'boolean' },
       description: 'Disabled state',
@@ -60,15 +76,7 @@ const meta: Meta<typeof Button> = {
     },
     fullWidth: {
       control: { type: 'boolean' },
-      description: 'Full width',
-    },
-    circle: {
-      control: { type: 'boolean' },
-      description: 'Circle shape',
-    },
-    square: {
-      control: { type: 'boolean' },
-      description: 'Square shape',
+      description: 'Full width (legacy, use block instead)',
     },
     glass: {
       control: { type: 'boolean' },
@@ -449,9 +457,99 @@ const meta: Meta<typeof Button> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+// New btnMap-based stories
+export const ColorVariants: Story = {
+  render: () => ({
+    components: { Button },
+    template: `
+      <div class="space-y-6">
+        <div>
+          <h3 class="text-lg font-semibold mb-3">Color Variants (btnColorMap)</h3>
+          <div class="flex flex-wrap gap-2">
+            <Button color="primary">Primary</Button>
+            <Button color="secondary">Secondary</Button>
+            <Button color="accent">Accent</Button>
+            <Button color="neutral">Neutral</Button>
+            <Button color="info">Info</Button>
+            <Button color="success">Success</Button>
+            <Button color="warning">Warning</Button>
+            <Button color="error">Error</Button>
+          </div>
+        </div>
+        <div>
+          <h3 class="text-lg font-semibold mb-3">Style Variants (btnStyleMap)</h3>
+          <div class="flex flex-wrap gap-2">
+            <Button style="outline">Outline</Button>
+            <Button style="dash">Dash</Button>
+            <Button style="soft">Soft</Button>
+            <Button style="ghost">Ghost</Button>
+            <Button style="link">Link</Button>
+          </div>
+        </div>
+        <div>
+          <h3 class="text-lg font-semibold mb-3">Combined Color + Style</h3>
+          <div class="flex flex-wrap gap-2">
+            <Button color="primary" style="outline">Primary Outline</Button>
+            <Button color="secondary" style="ghost">Secondary Ghost</Button>
+            <Button color="accent" style="soft">Accent Soft</Button>
+            <Button color="success" style="link">Success Link</Button>
+          </div>
+        </div>
+      </div>
+    `,
+  }),
+};
+
+export const SizeVariants: Story = {
+  render: () => ({
+    components: { Button },
+    template: `
+      <div class="space-y-4">
+        <h3 class="text-lg font-semibold mb-3">Size Variants (btnSizeMap)</h3>
+        <div class="flex flex-wrap gap-2 items-center">
+          <Button size="xs">XS</Button>
+          <Button size="sm">SM</Button>
+          <Button size="md">MD</Button>
+          <Button size="lg">LG</Button>
+          <Button size="xl">XL</Button>
+        </div>
+      </div>
+    `,
+  }),
+};
+
+export const ModifierVariants: Story = {
+  render: () => ({
+    components: { Button },
+    template: `
+      <div class="space-y-6">
+        <div>
+          <h3 class="text-lg font-semibold mb-3">Modifiers (btnModifierMap)</h3>
+          <div class="flex flex-wrap gap-2">
+            <Button wide>Wide Button</Button>
+            <Button block>Block Button</Button>
+            <Button square>Square</Button>
+            <Button circle>Circle</Button>
+          </div>
+        </div>
+        <div>
+          <h3 class="text-lg font-semibold mb-3">Combined Modifiers</h3>
+          <div class="flex flex-wrap gap-2">
+            <Button color="primary" wide>Primary Wide</Button>
+            <Button color="secondary" block>Secondary Block</Button>
+            <Button color="accent" square>Accent Square</Button>
+            <Button color="success" circle>Success Circle</Button>
+          </div>
+        </div>
+      </div>
+    `,
+  }),
+};
+
+// Color variant stories
 export const Primary: Story = {
   args: {
-    variant: 'primary',
+    color: 'primary',
   },
   render: args => ({
     components: { Button },
@@ -464,7 +562,7 @@ export const Primary: Story = {
 
 export const Secondary: Story = {
   args: {
-    variant: 'secondary',
+    color: 'secondary',
   },
   render: args => ({
     components: { Button },
@@ -477,7 +575,7 @@ export const Secondary: Story = {
 
 export const Accent: Story = {
   args: {
-    variant: 'accent',
+    color: 'accent',
   },
   render: args => ({
     components: { Button },
@@ -488,9 +586,10 @@ export const Accent: Story = {
   }),
 };
 
+// Style variant stories
 export const Ghost: Story = {
   args: {
-    variant: 'ghost',
+    style: 'ghost',
   },
   render: args => ({
     components: { Button },
@@ -503,7 +602,7 @@ export const Ghost: Story = {
 
 export const Outline: Story = {
   args: {
-    variant: 'outline',
+    style: 'outline',
   },
   render: args => ({
     components: { Button },
@@ -516,7 +615,7 @@ export const Outline: Story = {
 
 export const Link: Story = {
   args: {
-    variant: 'link',
+    style: 'link',
   },
   render: args => ({
     components: { Button },
@@ -529,7 +628,7 @@ export const Link: Story = {
 
 export const Neutral: Story = {
   args: {
-    variant: 'neutral',
+    color: 'neutral',
   },
   render: args => ({
     components: { Button },
@@ -542,7 +641,7 @@ export const Neutral: Story = {
 
 export const Info: Story = {
   args: {
-    variant: 'info',
+    color: 'info',
   },
   render: args => ({
     components: { Button },
@@ -555,7 +654,7 @@ export const Info: Story = {
 
 export const Success: Story = {
   args: {
-    variant: 'success',
+    color: 'success',
   },
   render: args => ({
     components: { Button },
@@ -568,7 +667,7 @@ export const Success: Story = {
 
 export const Warning: Story = {
   args: {
-    variant: 'warning',
+    color: 'warning',
   },
   render: args => ({
     components: { Button },
@@ -581,7 +680,7 @@ export const Warning: Story = {
 
 export const Error: Story = {
   args: {
-    variant: 'error',
+    color: 'error',
   },
   render: args => ({
     components: { Button },
@@ -834,12 +933,12 @@ export const IconExamples: Story = {
         <div>
           <h3 class="text-lg font-semibold mb-3">Different Variants with Icons</h3>
           <div class="flex flex-wrap gap-2">
-            <Button variant="primary" iconLeft="check">Primary</Button>
-            <Button variant="secondary" iconLeft="star">Secondary</Button>
-            <Button variant="accent" iconLeft="heart">Accent</Button>
-            <Button variant="ghost" iconLeft="settings">Ghost</Button>
-            <Button variant="outline" iconLeft="download">Outline</Button>
-            <Button variant="link" iconLeft="external-link">Link</Button>
+            <Button color="primary" iconLeft="check">Primary</Button>
+            <Button color="secondary" iconLeft="star">Secondary</Button>
+            <Button color="accent" iconLeft="heart">Accent</Button>
+            <Button style="ghost" iconLeft="settings">Ghost</Button>
+            <Button style="outline" iconLeft="download">Outline</Button>
+            <Button style="link" iconLeft="external-link">Link</Button>
           </div>
         </div>
       </div>
@@ -929,16 +1028,16 @@ export const AnimationDemo: Story = {
           <h3 class="text-lg font-semibold mb-4">Button Animations</h3>
           <p class="text-sm text-gray-600 mb-4">Click buttons to see hover, focus, and active state animations</p>
           <div class="flex flex-wrap gap-4">
-            <Button variant="primary" class="transform transition-all duration-200 hover:scale-105 hover:shadow-lg">
+            <Button color="primary" class="transform transition-all duration-200 hover:scale-105 hover:shadow-lg">
               Hover Scale Effect
             </Button>
-            <Button variant="secondary" class="transition-all duration-300 hover:bg-opacity-80">
+            <Button color="secondary" class="transition-all duration-300 hover:bg-opacity-80">
               Smooth Hover
             </Button>
-            <Button variant="accent" class="transform transition-transform duration-150 active:scale-95">
+            <Button color="accent" class="transform transition-transform duration-150 active:scale-95">
               Click Scale
             </Button>
-            <Button variant="outline" class="transition-all duration-200 hover:border-1 hover:border-primary">
+            <Button style="outline" class="transition-all duration-200 hover:border-1 hover:border-primary">
               Border Animation
             </Button>
           </div>
@@ -947,9 +1046,9 @@ export const AnimationDemo: Story = {
         <div>
           <h3 class="text-lg font-semibold mb-4">Loading Animations</h3>
           <div class="flex flex-wrap gap-4">
-            <Button loading variant="primary">Loading Primary</Button>
-            <Button loading variant="secondary">Loading Secondary</Button>
-            <Button loading variant="accent">Loading Accent</Button>
+            <Button loading color="primary">Loading Primary</Button>
+            <Button loading color="secondary">Loading Secondary</Button>
+            <Button loading color="accent">Loading Accent</Button>
           </div>
         </div>
         
@@ -958,19 +1057,19 @@ export const AnimationDemo: Story = {
           <p class="text-sm text-gray-600 mb-4">Buttons with custom CSS animations</p>
           <div class="flex flex-wrap gap-4">
             <Button 
-              variant="primary" 
+              color="primary" 
               class="animate-pulse"
             >
               Pulse Animation
             </Button>
             <Button 
-              variant="secondary" 
+              color="secondary" 
               class="transform transition-all duration-500 hover:rotate-3"
             >
               Rotate on Hover
             </Button>
             <Button 
-              variant="accent" 
+              color="accent" 
               class="transition-all duration-300 hover:shadow-2xl hover:shadow-accent/50"
             >
               Shadow Glow
@@ -981,10 +1080,10 @@ export const AnimationDemo: Story = {
         <div>
           <h3 class="text-lg font-semibold mb-4">Animation Comparison</h3>
           <div class="flex flex-wrap gap-4">
-            <Button variant="primary">
+            <Button color="primary">
               Normal Button
             </Button>
-            <Button variant="primary" noAnimation>
+            <Button color="primary" noAnimation>
               No Animation
             </Button>
           </div>
@@ -1000,42 +1099,45 @@ export const AllVariants: Story = {
     template: `
       <div class="space-y-6">
         <div>
-          <h3 class="text-lg font-semibold mb-3">Variants</h3>
+          <h3 class="text-lg font-semibold mb-3">Color Variants (btnColorMap)</h3>
           <div class="flex flex-wrap gap-2">
-            <Button variant="primary">Primary</Button>
-            <Button variant="secondary">Secondary</Button>
-            <Button variant="accent">Accent</Button>
-            <Button variant="neutral">Neutral</Button>
-            <Button variant="ghost">Ghost</Button>
-            <Button variant="outline">Outline</Button>
-            <Button variant="link">Link</Button>
+            <Button color="primary">Primary</Button>
+            <Button color="secondary">Secondary</Button>
+            <Button color="accent">Accent</Button>
+            <Button color="neutral">Neutral</Button>
+            <Button color="info">Info</Button>
+            <Button color="success">Success</Button>
+            <Button color="warning">Warning</Button>
+            <Button color="error">Error</Button>
           </div>
         </div>
         <div>
-          <h3 class="text-lg font-semibold mb-3">Status Colors</h3>
+          <h3 class="text-lg font-semibold mb-3">Style Variants (btnStyleMap)</h3>
           <div class="flex flex-wrap gap-2">
-            <Button variant="info">Info</Button>
-            <Button variant="success">Success</Button>
-            <Button variant="warning">Warning</Button>
-            <Button variant="error">Error</Button>
+            <Button style="outline">Outline</Button>
+            <Button style="dash">Dash</Button>
+            <Button style="soft">Soft</Button>
+            <Button style="ghost">Ghost</Button>
+            <Button style="link">Link</Button>
           </div>
         </div>
         <div>
-          <h3 class="text-lg font-semibold mb-3">Sizes</h3>
+          <h3 class="text-lg font-semibold mb-3">Sizes (btnSizeMap)</h3>
           <div class="flex flex-wrap gap-2 items-center">
             <Button size="xs">XS</Button>
             <Button size="sm">SM</Button>
             <Button size="md">MD</Button>
             <Button size="lg">LG</Button>
+            <Button size="xl">XL</Button>
           </div>
         </div>
         <div>
-          <h3 class="text-lg font-semibold mb-3">Shapes</h3>
+          <h3 class="text-lg font-semibold mb-3">Shapes (btnModifierMap)</h3>
           <div class="flex flex-wrap gap-2 items-center">
-            <Button circle size="sm">○</Button>
             <Button square size="sm">■</Button>
-            <Button circle size="lg">○</Button>
+            <Button circle size="sm">○</Button>
             <Button square size="lg">■</Button>
+            <Button circle size="lg">○</Button>
           </div>
         </div>
         <div>

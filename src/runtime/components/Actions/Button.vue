@@ -20,7 +20,6 @@
       <Icon v-else-if="iconLeft" :name="iconLeft" :size="iconSize" />
       <span v-if="$slots.default" :class="{ 'sr-only': loading && hideTextOnLoading }">
         <slot />
-        {{ variant }}
       </span>
       <span v-if="loading && loadingText" class="ml-1">{{ loadingText }}</span>
   
@@ -31,31 +30,32 @@
   
   <script setup lang="ts">
   import { computed, ref, nextTick, onMounted, onUnmounted } from 'vue';
-  import type { IconName, Size } from '../../shared/types.d';
+  import type { IconName, Size, BtnColor, BtnStyle, BtnSize, BtnBehavior, BtnModifier } from '../../shared/types.d';
   import Icon from '../../components/Icons/Icon.vue';
+  import { generateBtnClasses } from '../../shared/utils/classGenerator';
   
   interface Props {
-    variant?:
-      | 'primary'
-      | 'secondary'
-      | 'accent'
-      | 'neutral'
-      | 'ghost'
-      | 'outline'
-      | 'link'
-      | 'info'
-      | 'success'
-      | 'warning'
-      | 'error';
-    size?: 'xs' | 'sm' | 'md' | 'lg';
+    // Color variants from btnColorMap
+    color?: BtnColor;
+    // Style variants from btnStyleMap
+    style?: BtnStyle;
+    // Size from btnSizeMap
+    size?: BtnSize;
+    // Behavior states from btnBehaviorMap
+    active?: boolean;
+    // Modifiers from btnModifierMap
+    wide?: boolean;
+    block?: boolean;
+    square?: boolean;
+    circle?: boolean;
+    
+    // Standard button properties
     disabled?: boolean;
     loading?: boolean;
     loadingText?: string;
     hideTextOnLoading?: boolean;
     type?: 'button' | 'submit' | 'reset';
     fullWidth?: boolean;
-    circle?: boolean;
-    square?: boolean;
     glass?: boolean;
     noAnimation?: boolean;
     ariaLabel?: string;
@@ -72,16 +72,20 @@
   }
   
   const props = withDefaults(defineProps<Props>(), {
-    variant: 'primary',
+    color: 'primary',
+    style: undefined,
     size: 'md',
+    active: false,
+    wide: false,
+    block: false,
+    square: false,
+    circle: false,
     disabled: false,
     loading: false,
     loadingText: '',
     hideTextOnLoading: false,
     type: 'button',
     fullWidth: false,
-    circle: false,
-    square: false,
     glass: false,
     noAnimation: false,
     debounceMs: 0,
@@ -102,38 +106,65 @@
   let debounceTimer: ReturnType<typeof setTimeout> | null = null;
   
   const buttonClasses = computed(() => {
-    const baseClasses = ['btn', 'flex', 'items-center', 'justify-center'];
-  
-    if (props.variant) {
-      baseClasses.push(`btn-${props.variant}`);
+    // Prepare props for generateBtnClasses
+    const classProps: Parameters<typeof generateBtnClasses>[0] = {};
+    
+    // Handle color variants
+    if (props.color) {
+      classProps.color = props.color;
     }
-  
+    
+    // Handle style variants
+    if (props.style) {
+      classProps.style = props.style;
+    }
+    
+    // Handle size
     if (props.size) {
-      baseClasses.push(`btn-${props.size}`);
+      classProps.size = props.size;
     }
-  
-    // Shape classes
-    if (props.circle) {
-      baseClasses.push('btn-circle');
+    
+    // Handle behavior states
+    if (props.active) {
+      classProps.behavior = 'active';
     }
-    if (props.square) {
-      baseClasses.push('btn-square');
+    
+    // Handle modifiers
+    const modifiers: BtnModifier[] = [];
+    if (props.wide) modifiers.push('wide');
+    if (props.block || props.fullWidth) modifiers.push('block');
+    if (props.square) modifiers.push('square');
+    if (props.circle) modifiers.push('circle');
+    
+    if (modifiers.length > 0) {
+      classProps.modifiers = modifiers;
     }
-  
+    
+    // Generate base classes using the utility function
+    const baseClasses = generateBtnClasses(classProps);
+    
+    // Add additional utility classes
+    const additionalClasses = [
+      'flex',
+      'items-center',
+      'justify-center'
+    ];
+    
     // Style modifiers
     if (props.glass) {
-      baseClasses.push('glass');
+      additionalClasses.push('glass');
     }
     if (props.noAnimation) {
-      baseClasses.push('no-animation');
+      additionalClasses.push('no-animation');
     }
-  
-    // Full width
-    if (props.fullWidth) {
-      baseClasses.push('btn-block', 'w-full');
+    
+    // Full width (legacy support)
+    if (props.fullWidth && !props.block) {
+      additionalClasses.push('w-full');
     }
-  
-    return baseClasses.join(' ');
+    
+    // Combine base classes with additional classes
+    return [baseClasses, ...additionalClasses].join(' ');
   });
   
   const computedAriaLabel = computed(() => {
