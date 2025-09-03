@@ -47,6 +47,7 @@ const meta: Meta<typeof Icon> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+// Default icon for playground
 export const Default: Story = {
   args: {
     name: 'heart',
@@ -61,134 +62,92 @@ export const Default: Story = {
   }),
 };
 
-export const Small: Story = {
-  args: {
-    name: 'star',
-    size: 'sm',
-  },
-  render: args => ({
+// Sizes showcase
+export const Sizes: Story = {
+  render: () => ({
     components: { Icon },
-    setup() {
-      return { args };
-    },
-    template: '<Icon v-bind="args" />',
-  }),
-};
-
-export const Large: Story = {
-  args: {
-    name: 'settings',
-    size: 'lg',
-  },
-  render: args => ({
-    components: { Icon },
-    setup() {
-      return { args };
-    },
-    template: '<Icon v-bind="args" />',
-  }),
-};
-
-export const Colored: Story = {
-  args: {
-    name: 'check-circle',
-    size: 'lg',
-    color: 'success',
-  },
-  render: args => ({
-    components: { Icon },
-    setup() {
-      return { args };
-    },
-    template: '<Icon v-bind="args" />',
-  }),
-};
-
-export const CustomStroke: Story = {
-  args: {
-    name: 'zap',
-    size: 'lg',
-    strokeWidth: 1.5,
-  },
-  render: args => ({
-    components: { Icon },
-    setup() {
-      return { args };
-    },
-    template: '<Icon v-bind="args" />',
-  }),
-};
-
-export const IconGrid: Story = {
-  args: {
-    name: 'heart',
-    size: 'md',
-  },
-  render: args => ({
-    components: { Icon },
-    setup() {
-      return { args };
-    },
     template: `
-      <div class="grid grid-cols-6 gap-4 p-4">
-        <Icon name="heart" size="md" />
-        <Icon name="star" size="md" />
-        <Icon name="settings" size="md" />
-        <Icon name="user" size="md" />
-        <Icon name="home" size="md" />
-        <Icon name="search" size="md" />
-        <Icon name="mail" size="md" />
-        <Icon name="phone" size="md" />
-        <Icon name="calendar" size="md" />
-        <Icon name="clock" size="md" />
-        <Icon name="map-pin" size="md" />
-        <Icon name="download" size="md" />
-        <Icon name="upload" size="md" />
-        <Icon name="edit" size="md" />
-        <Icon name="delete" size="md" />
-        <Icon name="plus" size="md" />
-        <Icon name="minus" size="md" />
-        <Icon name="check" size="md" />
-        <Icon name="x" size="md" />
-        <Icon name="menu" size="md" />
-        <Icon name="info" size="md" />
-        <Icon name="help-circle" size="md" />
-        <Icon name="ice-cream" size="md" />
-      </div>
-    `,
-  }),
-};
-
-export const DynamicIcons: Story = {
-  args: {
-    name: 'heart',
-    size: 'md',
-  },
-  render: args => ({
-    components: { Icon },
-    setup() {
-      return { args };
-    },
-    template: `
-      <div class="space-y-4 p-4">
-        <h3 class="text-lg font-semibold">Dynamic Icon Loading Examples</h3>
-        <div class="grid grid-cols-4 gap-4">
+      <div class="space-y-3">
+        <h3 class="text-lg font-semibold mb-2">Size Variants</h3>
+        <div class="flex items-center gap-3">
+          <Icon name="heart" size="xs" />
+          <Icon name="heart" size="sm" />
+          <Icon name="heart" size="md" />
           <Icon name="heart" size="lg" />
-          <Icon name="star" size="lg" />
-          <Icon name="settings" size="lg" />
-          <Icon name="user" size="lg" />
+          <Icon name="heart" size="xl" />
+          <Icon name="heart" size="2xl" />
         </div>
-        <p class="text-sm text-gray-600">
-          These icons are loaded dynamically from Lucide. Any Lucide icon name will work!
-        </p>
       </div>
     `,
   }),
 };
 
-export const DifferentSizes: Story = {
+// Colors showcase
+export const Colors: Story = {
+  render: () => ({
+    components: { Icon },
+    template: `
+      <div class="space-y-3">
+        <h3 class="text-lg font-semibold mb-2">Color Variants</h3>
+        <div class="flex items-center gap-3">
+          <Icon name="check-circle" size="lg" color="success" />
+          <Icon name="alert-circle" size="lg" color="warning" />
+          <Icon name="x-circle" size="lg" color="error" />
+          <Icon name="info" size="lg" color="info" />
+          <Icon name="heart" size="lg" color="primary" />
+          <Icon name="star" size="lg" color="secondary" />
+          <Icon name="settings" size="lg" color="accent" />
+        </div>
+      </div>
+    `,
+  }),
+};
+
+// Icon collection
+export const IconCollection: Story = {
+  render: () => ({
+    components: { Icon },
+    template: `
+      <div class="space-y-3">
+        <h3 class="text-lg font-semibold mb-2">Common Icons</h3>
+        <div class="grid grid-cols-8 gap-3 p-2">
+          <Icon name="heart" size="md" />
+          <Icon name="star" size="md" />
+          <Icon name="settings" size="md" />
+          <Icon name="user" size="md" />
+          <Icon name="home" size="md" />
+          <Icon name="search" size="md" />
+          <Icon name="mail" size="md" />
+          <Icon name="phone" size="md" />
+          <Icon name="calendar" size="md" />
+          <Icon name="clock" size="md" />
+          <Icon name="map-pin" size="md" />
+          <Icon name="download" size="md" />
+          <Icon name="upload" size="md" />
+          <Icon name="edit" size="md" />
+          <Icon name="delete" size="md" />
+          <Icon name="plus" size="md" />
+          <Icon name="minus" size="md" />
+          <Icon name="check" size="md" />
+          <Icon name="x" size="md" />
+          <Icon name="menu" size="md" />
+          <Icon name="info" size="md" />
+          <Icon name="help-circle" size="md" />
+          <Icon name="ice-cream" size="md" />
+          <Icon name="zap" size="md" />
+        </div>
+      </div>
+    `,
+  }),
+};
+
+// Interactive playground
+export const Playground: Story = {
   args: {
     name: 'heart',
+    size: 'md',
+    color: undefined,
+    strokeWidth: 2,
   },
   render: args => ({
     components: { Icon },
@@ -196,35 +155,11 @@ export const DifferentSizes: Story = {
       return { args };
     },
     template: `
-      <div class="flex items-center gap-4 p-4">
-        <Icon name="heart" size="xs" />
-        <Icon name="heart" size="sm" />
-        <Icon name="heart" size="md" />
-        <Icon name="heart" size="lg" />
-        <Icon name="heart" size="xl" />
-        <Icon name="heart" size="2xl" />
-      </div>
-    `,
-  }),
-};
-
-export const WithColors: Story = {
-  args: {
-    name: 'check-circle',
-    size: 'lg',
-  },
-  render: args => ({
-    components: { Icon },
-    setup() {
-      return { args };
-    },
-    template: `
-      <div class="flex items-center gap-4 p-4">
-        <Icon name="check-circle" size="lg" color="success" />
-        <Icon name="alert-circle" size="lg" color="warning" />
-        <Icon name="x-circle" size="lg" color="error" />
-        <Icon name="info" size="lg" color="info" />
-        <Icon name="heart" size="lg" color="primary" />
+      <div class="space-y-3">
+        <Icon v-bind="args" />
+        <div class="text-sm text-gray-600">
+          Use the controls above to customize this icon
+        </div>
       </div>
     `,
   }),

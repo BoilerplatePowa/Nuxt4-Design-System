@@ -158,6 +158,7 @@ import {
   XSquare,
   AlertTriangle,
   AlertOctagon,
+  Grid,
 } from 'lucide-vue-next';
 
 // Icon mapping object with useful icons
@@ -323,6 +324,7 @@ export const iconMap = {
   'x-square': XSquare,
   'alert-triangle': AlertTriangle,
   'alert-octagon': AlertOctagon,
+  'grid': Grid,
 } as const;
 
 export const sizeMap = {
