@@ -38,7 +38,7 @@
     // Color variants from btnColorMap
     color?: BtnColor;
     // Style variants from btnStyleMap
-    style?: BtnStyle;
+    btnStyle?: BtnStyle;
     // Size from btnSizeMap
     size?: BtnSize;
     // Behavior states from btnBehaviorMap
@@ -73,7 +73,7 @@
   
   const props = withDefaults(defineProps<Props>(), {
     color: 'primary',
-    style: undefined,
+    btnStyle: undefined,
     size: 'md',
     active: false,
     wide: false,
@@ -115,8 +115,8 @@
     }
     
     // Handle style variants
-    if (props.style) {
-      classProps.style = props.style;
+    if (props.btnStyle) {
+      classProps.style = props.btnStyle;
     }
     
     // Handle size
