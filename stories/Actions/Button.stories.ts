@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
-import Button from '../../components/Actions/Button.vue';
+import Button from 'src/runtime/components/Actions/Button.vue';
 
 const meta: Meta<typeof Button> = {
   title: 'Actions/Button',
