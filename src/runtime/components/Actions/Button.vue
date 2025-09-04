@@ -195,11 +195,6 @@
   const handleClick = (event: MouseEvent) => {
     if (props.disabled || props.loading) return;
   
-    // Don't interfere with submit buttons - let them handle form submission naturally
-    if (props.type === 'submit') {
-      return;
-    }
-  
     if (props.debounceMs > 0) {
       if (debounceTimer) clearTimeout(debounceTimer);
       debounceTimer = setTimeout(() => {
