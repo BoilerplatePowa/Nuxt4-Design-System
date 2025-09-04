@@ -8,7 +8,7 @@ const meta: Meta<typeof Dropdown> = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'Interactive dropdown menu component with customizable trigger and positioning.',
+        component: 'Interactive dropdown menu component built with Button components for consistent styling and enhanced functionality. Features customizable trigger buttons and menu items with full Button component integration.',
       },
     },
   },
@@ -48,10 +48,20 @@ const meta: Meta<typeof Dropdown> = {
       options: ['xs', 'sm', 'md', 'lg'],
       description: 'Dropdown size',
     },
-    variant: {
+    triggerColor: {
       control: { type: 'select' },
-      options: ['primary', 'secondary', 'accent', 'ghost', 'outline'],
-      description: 'Dropdown variant',
+      options: ['primary', 'secondary', 'accent', 'neutral', 'info', 'success', 'warning', 'error'],
+      description: 'Trigger button color',
+    },
+    triggerStyle: {
+      control: { type: 'select' },
+      options: ['outline', 'ghost', 'link', 'dash', 'soft'],
+      description: 'Trigger button style',
+    },
+    itemColor: {
+      control: { type: 'select' },
+      options: ['primary', 'secondary', 'accent', 'neutral', 'info', 'success', 'warning', 'error'],
+      description: 'Menu item button color',
     },
     closeOnSelect: {
       control: 'boolean',
@@ -87,7 +97,8 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     triggerText: 'Click me',
-    variant: 'primary',
+    triggerColor: 'primary',
+    itemColor: 'neutral',
   },
   render: args => ({
     components: { Dropdown },
@@ -107,6 +118,8 @@ export const Default: Story = {
 export const WithItems: Story = {
   args: {
     triggerText: 'Select Action',
+    triggerColor: 'primary',
+    itemColor: 'neutral',
     items: [
       { label: 'Edit', value: 'edit' },
       { label: 'Delete', value: 'delete' },
@@ -129,32 +142,141 @@ export const WithItems: Story = {
   }),
 };
 
-export const AllVariants: Story = {
+export const ButtonIntegration: Story = {
+  render: () => ({
+    components: { Dropdown },
+    template: `
+      <div class="space-y-6">
+        <div>
+          <h3 class="text-lg font-semibold mb-4">Button Component Integration</h3>
+          <p class="text-sm text-gray-600 mb-4">
+            The dropdown now uses Button components for both trigger and menu items, providing consistent styling and enhanced functionality.
+          </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Trigger Button Styles -->
+          <div>
+            <h4 class="font-medium mb-3">Trigger Button Styles</h4>
+            <div class="space-y-2">
+              <Dropdown trigger-color="primary" trigger-style="outline" trigger-text="Primary Outline">
+                <li><a>Menu Item 1</a></li>
+                <li><a>Menu Item 2</a></li>
+              </Dropdown>
+              
+              <Dropdown trigger-color="secondary" trigger-style="ghost" trigger-text="Secondary Ghost">
+                <li><a>Menu Item 1</a></li>
+                <li><a>Menu Item 2</a></li>
+              </Dropdown>
+              
+              <Dropdown trigger-color="accent" trigger-style="link" trigger-text="Accent Link">
+                <li><a>Menu Item 1</a></li>
+                <li><a>Menu Item 2</a></li>
+              </Dropdown>
+            </div>
+          </div>
+          
+          <!-- Menu Item Colors -->
+          <div>
+            <h4 class="font-medium mb-3">Menu Item Colors</h4>
+            <div class="space-y-2">
+              <Dropdown trigger-text="Primary Items" item-color="primary">
+                <li><a>Primary Item 1</a></li>
+                <li><a>Primary Item 2</a></li>
+              </Dropdown>
+              
+              <Dropdown trigger-text="Success Items" item-color="success">
+                <li><a>Success Item 1</a></li>
+                <li><a>Success Item 2</a></li>
+              </Dropdown>
+              
+              <Dropdown trigger-text="Warning Items" item-color="warning">
+                <li><a>Warning Item 1</a></li>
+                <li><a>Warning Item 2</a></li>
+              </Dropdown>
+            </div>
+          </div>
+        </div>
+      </div>
+    `,
+  }),
+};
+
+export const AllTriggerColors: Story = {
   render: () => ({
     components: { Dropdown },
     template: `
       <div class="flex gap-4 flex-wrap">
-        <Dropdown variant="primary" trigger-text="Primary">
+        <Dropdown trigger-color="primary" trigger-text="Primary">
           <li><a>Item 1</a></li>
           <li><a>Item 2</a></li>
         </Dropdown>
         
-        <Dropdown variant="secondary" trigger-text="Secondary">
+        <Dropdown trigger-color="secondary" trigger-text="Secondary">
           <li><a>Item 1</a></li>
           <li><a>Item 2</a></li>
         </Dropdown>
         
-        <Dropdown variant="accent" trigger-text="Accent">
+        <Dropdown trigger-color="accent" trigger-text="Accent">
           <li><a>Item 1</a></li>
           <li><a>Item 2</a></li>
         </Dropdown>
         
-        <Dropdown variant="ghost" trigger-text="Ghost">
+        <Dropdown trigger-color="neutral" trigger-text="Neutral">
           <li><a>Item 1</a></li>
           <li><a>Item 2</a></li>
         </Dropdown>
         
-        <Dropdown variant="outline" trigger-text="Outline">
+        <Dropdown trigger-color="info" trigger-text="Info">
+          <li><a>Item 1</a></li>
+          <li><a>Item 2</a></li>
+        </Dropdown>
+        
+        <Dropdown trigger-color="success" trigger-text="Success">
+          <li><a>Item 1</a></li>
+          <li><a>Item 2</a></li>
+        </Dropdown>
+        
+        <Dropdown trigger-color="warning" trigger-text="Warning">
+          <li><a>Item 1</a></li>
+          <li><a>Item 2</a></li>
+        </Dropdown>
+        
+        <Dropdown trigger-color="error" trigger-text="Error">
+          <li><a>Item 1</a></li>
+          <li><a>Item 2</a></li>
+        </Dropdown>
+      </div>
+    `,
+  }),
+};
+
+export const AllTriggerStyles: Story = {
+  render: () => ({
+    components: { Dropdown },
+    template: `
+      <div class="flex gap-4 flex-wrap">
+        <Dropdown trigger-color="primary" trigger-style="outline" trigger-text="Outline">
+          <li><a>Item 1</a></li>
+          <li><a>Item 2</a></li>
+        </Dropdown>
+        
+        <Dropdown trigger-color="primary" trigger-style="ghost" trigger-text="Ghost">
+          <li><a>Item 1</a></li>
+          <li><a>Item 2</a></li>
+        </Dropdown>
+        
+        <Dropdown trigger-color="primary" trigger-style="link" trigger-text="Link">
+          <li><a>Item 1</a></li>
+          <li><a>Item 2</a></li>
+        </Dropdown>
+        
+        <Dropdown trigger-color="primary" trigger-style="dash" trigger-text="Dash">
+          <li><a>Item 1</a></li>
+          <li><a>Item 2</a></li>
+        </Dropdown>
+        
+        <Dropdown trigger-color="primary" trigger-style="soft" trigger-text="Soft">
           <li><a>Item 1</a></li>
           <li><a>Item 2</a></li>
         </Dropdown>
@@ -292,7 +414,9 @@ export const Playground: Story = {
     forceOpen: false,
     disabled: false,
     size: 'md',
-    variant: 'ghost',
+    triggerColor: 'primary',
+    triggerStyle: 'outline',
+    itemColor: 'neutral',
     closeOnSelect: true,
     autoFocus: true,
     items: [
@@ -312,7 +436,7 @@ export const Playground: Story = {
         <Dropdown v-bind="args" />
         
         <div class="text-sm text-gray-600">
-          Use the controls above to customize this dropdown
+          Use the controls above to customize this dropdown. The dropdown now uses Button components for enhanced styling and functionality.
         </div>
       </div>
     `,

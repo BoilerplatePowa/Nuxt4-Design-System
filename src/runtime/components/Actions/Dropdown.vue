@@ -5,38 +5,25 @@
     @focusout="handleFocusOut"
     @keydown="handleGlobalKeydown"
   >
-    <div
+    <Button
       ref="triggerRef"
-      :tabindex="disabled ? -1 : 0"
-      role="button"
-      :class="triggerClasses"
+      :color="triggerColor"
+      :btn-style="triggerStyle"
+      :size="size"
+      :disabled="disabled"
+      :icon-right="isOpen ? 'chevron-up' : 'chevron-down'"
       :aria-haspopup="true"
       :aria-expanded="isOpen"
       :aria-controls="menuId"
-      :aria-disabled="disabled"
       @click="toggle"
       @keydown="handleTriggerKeydown"
     >
-      <slot name="trigger">
-        <span>{{ triggerText || 'Dropdown' }}</span>
-        <svg
-          class="w-2.5 h-2.5 ml-2.5 transition-transform duration-200"
-          :class="{ 'rotate-180': isOpen }"
-          aria-hidden="true"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 10 6"
-        >
-          <path
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="m1 1 4 4 4-4"
-          />
-        </svg>
-      </slot>
-    </div>
+      <template #default>
+        <slot name="trigger">
+          <span>{{ triggerText || 'Dropdown' }}</span> {{ isOpen }}
+        </slot>
+      </template>
+    </Button>
 
     <ul
       ref="menuRef"
@@ -63,20 +50,18 @@
           >
             {{ getItemLabel(item) }}
           </a>
-          <button
+          <Button
             v-else
             :ref="el => setItemRef(el, index)"
-            type="button"
-            :class="getItemClasses(item)"
-            role="menuitem"
-            :tabindex="isOpen ? 0 : -1"
+            :color="getItemColor(item)"
+            :size="size"
             :disabled="getItemDisabled(item)"
-            :aria-disabled="getItemDisabled(item)"
+            :class="getItemClasses(item)"
             @click="handleItemClick(item, $event)"
             @keydown="handleItemKeydown"
           >
             {{ getItemLabel(item) }}
-          </button>
+          </Button>
         </li>
       </slot>
     </ul>
@@ -85,6 +70,12 @@
 
 <script setup lang="ts">
 import { ref, computed, nextTick } from 'vue';
+import { generateDropdownClasses } from '../../shared/utils/classGenerator';
+import type { 
+  dropdownPlacementMap, 
+  dropdownModifierMap 
+} from '../../shared/componentsMaps/actions/dropdownMap';
+import Button from './Button.vue';
 
 // Simple ID generator
 let idCounter = 0;
@@ -102,15 +93,21 @@ interface DropdownItem {
 interface Props {
   items?: DropdownItem[];
   triggerText?: string;
-  position?: 'bottom' | 'top' | 'left' | 'right';
+  position?: keyof typeof dropdownPlacementMap;
   align?: 'start' | 'end';
   hover?: boolean;
   forceOpen?: boolean;
   disabled?: boolean;
   size?: 'xs' | 'sm' | 'md' | 'lg';
-  variant?: 'primary' | 'secondary' | 'accent' | 'ghost' | 'outline';
   closeOnSelect?: boolean;
   autoFocus?: boolean;
+  // Additional props for dropdownMap integration
+  placements?: Array<keyof typeof dropdownPlacementMap>;
+  modifiers?: Array<keyof typeof dropdownModifierMap>;
+  // Button component props
+  triggerColor?: 'primary' | 'secondary' | 'accent' | 'neutral' | 'info' | 'success' | 'warning' | 'error';
+  triggerStyle?: 'outline' | 'ghost' | 'link' | 'dash' | 'soft';
+  itemColor?: 'primary' | 'secondary' | 'accent' | 'neutral' | 'info' | 'success' | 'warning' | 'error';
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -121,9 +118,9 @@ const props = withDefaults(defineProps<Props>(), {
   forceOpen: false,
   disabled: false,
   size: 'md',
-  variant: 'ghost',
   closeOnSelect: true,
   autoFocus: true,
+  triggerColor: 'neutral',
 });
 
 const emit = defineEmits<{
@@ -152,71 +149,59 @@ const setItemRef = (el: any, index: number) => {
 };
 
 const dropdownClasses = computed(() => {
-  const baseClasses = ['dropdown'];
-
-  // Position classes
-  if (props.position === 'top') {
-    baseClasses.push('dropdown-top');
-  } else if (props.position === 'left') {
-    baseClasses.push('dropdown-left');
-  } else if (props.position === 'right') {
-    baseClasses.push('dropdown-right');
+  // Build placements array from props
+  const placements: Array<keyof typeof dropdownPlacementMap> = [];
+  
+  // Add position-based placement
+  if (props.position && props.position !== 'bottom') {
+    placements.push(props.position);
   }
-  // 'bottom' is default
-
-  // Alignment
+  
+  // Add alignment-based placement
   if (props.align === 'end') {
-    baseClasses.push('dropdown-end');
+    placements.push('end');
+  } else if (props.align === 'start') {
+    placements.push('start');
   }
 
-  // Hover behavior
+  // Add custom placements if provided
+  if (props.placements) {
+    placements.push(...props.placements);
+  }
+
+  // Build modifiers array from props
+  const modifiers: Array<keyof typeof dropdownModifierMap> = [];
+  
   if (props.hover) {
-    baseClasses.push('dropdown-hover');
+    modifiers.push('hover');
   }
-
-  // Force open
+  
   if (props.forceOpen || isOpen.value) {
-    baseClasses.push('dropdown-open');
+    modifiers.push('open');
   }
 
-  return baseClasses.join(' ');
+  // Add custom modifiers if provided
+  if (props.modifiers) {
+    modifiers.push(...props.modifiers);
+  }
+
+  return generateDropdownClasses({
+    placements,
+    modifiers
+  });
 });
 
-const triggerClasses = computed(() => {
-  const baseClasses = ['btn', 'flex', 'items-center'];
-
-  // Size classes
-  if (props.size === 'xs') {
-    baseClasses.push('btn-xs');
-  } else if (props.size === 'sm') {
-    baseClasses.push('btn-sm');
-  } else if (props.size === 'lg') {
-    baseClasses.push('btn-lg');
+// Helper function to get item color for Button component
+const getItemColor = (item: DropdownItem | string) => {
+  if (typeof item === 'object' && item.active) {
+    return 'primary';
   }
-
-  // Variant classes
-  if (props.variant === 'primary') {
-    baseClasses.push('btn-primary');
-  } else if (props.variant === 'secondary') {
-    baseClasses.push('btn-secondary');
-  } else if (props.variant === 'accent') {
-    baseClasses.push('btn-accent');
-  } else if (props.variant === 'ghost') {
-    baseClasses.push('btn-ghost');
-  } else if (props.variant === 'outline') {
-    baseClasses.push('btn-outline');
-  }
-
-  if (props.disabled) {
-    baseClasses.push('btn-disabled');
-  }
-
-  return baseClasses.join(' ');
-});
+  return props.itemColor || 'neutral';
+};
 
 const menuClasses = computed(() => {
   const classes = [
-    'dropdown-content',
+    'dropdown-content', // This comes from dropdownPartMap.content
     'menu',
     'bg-base-100',
     'rounded-box',
@@ -411,11 +396,11 @@ const getItemDisabled = (item: DropdownItem | string): boolean => {
 };
 
 const getItemClasses = (item: DropdownItem | string) => {
-  const classes = ['transition-colors', 'duration-150'];
+  const classes = ['w-full', 'justify-start', 'transition-colors', 'duration-150'];
 
   if (typeof item === 'object') {
-    if (item.active) classes.push('active', 'bg-primary', 'text-primary-content');
-    if (item.disabled) classes.push('disabled', 'opacity-50', 'cursor-not-allowed');
+    if (item.active) classes.push('active');
+    if (item.disabled) classes.push('opacity-50', 'cursor-not-allowed');
   }
 
   // Focus state for keyboard navigation
