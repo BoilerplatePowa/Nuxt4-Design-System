@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
-import ChatBubble from './ChatBubble.vue';
+import ChatBubble from '../../src/runtime/components/DataDisplay/ChatBubble.vue';
 
 const meta: Meta<typeof ChatBubble> = {
   title: 'Data Display/ChatBubble',

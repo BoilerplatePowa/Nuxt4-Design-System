@@ -1,14 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import { ref, nextTick } from 'vue';
 import * as yup from 'yup';
-import FormWizard from './FormWizard.vue';
-import Input from './Input.vue';
-import Select from './Select.vue';
-import Textarea from './Textarea.vue';
-import Checkbox from './Checkbox.vue';
-import Toggle from './Toggle.vue';
-import Avatar from '../DataDisplay/Avatar.vue';
-import Icon from '../Icons/Icon.vue';
+import FormWizard from '../../src/runtime/components/DataInput/FormWizard.vue';
+import Input from '../../src/runtime/components/DataInput/Input.vue';
+import Select from '../../src/runtime/components/DataInput/Select.vue';
+import Textarea from '../../src/runtime/components/DataInput/Textarea.vue';
+import Checkbox from '../../src/runtime/components/DataInput/Checkbox.vue';
+import Toggle from '../../src/runtime/components/DataInput/Toggle.vue';
+import Avatar from '../../src/runtime/components/DataDisplay/Avatar.vue';
+import Icon from '../../src/runtime/components/Icons/Icon.vue';
 
 const meta: Meta<typeof FormWizard> = {
   title: 'Data Input/FormWizard',

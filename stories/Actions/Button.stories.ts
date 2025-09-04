@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
-import Button from 'src/runtime/components/Actions/Button.vue';
+import Button from '../../src/runtime/components/Actions/Button.vue';
 
 const meta: Meta<typeof Button> = {
   title: 'Actions/Button',
@@ -18,17 +18,37 @@ const meta: Meta<typeof Button> = {
     color: {
       control: { type: 'select' },
       options: ['neutral', 'primary', 'secondary', 'accent', 'info', 'success', 'warning', 'error'],
-      description: 'Button color variant',
+      description: 'Button color variant from btnColorMap',
     },
     btnStyle: {
       control: { type: 'select' },
       options: ['outline', 'dash', 'soft', 'ghost', 'link'],
-      description: 'Button style variant',
+      description: 'Button style variant from btnStyleMap',
     },
     size: {
       control: { type: 'select' },
       options: ['xs', 'sm', 'md', 'lg', 'xl'],
-      description: 'Button size',
+      description: 'Button size from btnSizeMap',
+    },
+    active: {
+      control: { type: 'boolean' },
+      description: 'Active state from btnBehaviorMap',
+    },
+    wide: {
+      control: { type: 'boolean' },
+      description: 'Wide modifier from btnModifierMap',
+    },
+    block: {
+      control: { type: 'boolean' },
+      description: 'Block modifier from btnModifierMap',
+    },
+    square: {
+      control: { type: 'boolean' },
+      description: 'Square modifier from btnModifierMap',
+    },
+    circle: {
+      control: { type: 'boolean' },
+      description: 'Circle modifier from btnModifierMap',
     },
     disabled: {
       control: { type: 'boolean' },
@@ -36,37 +56,95 @@ const meta: Meta<typeof Button> = {
     },
     loading: {
       control: { type: 'boolean' },
-      description: 'Loading state',
+      description: 'Loading state with spinner',
     },
-    wide: {
-      control: { type: 'boolean' },
-      description: 'Wide modifier',
+    loadingText: {
+      control: { type: 'text' },
+      description: 'Text to show during loading',
     },
-    block: {
+    hideTextOnLoading: {
       control: { type: 'boolean' },
-      description: 'Block modifier',
+      description: 'Hide button text during loading',
     },
-    square: {
-      control: { type: 'boolean' },
-      description: 'Square modifier',
+    type: {
+      control: { type: 'select' },
+      options: ['button', 'submit', 'reset'],
+      description: 'Button type attribute',
     },
-    circle: {
+    fullWidth: {
       control: { type: 'boolean' },
-      description: 'Circle modifier',
+      description: 'Full width button (legacy support)',
+    },
+    glass: {
+      control: { type: 'boolean' },
+      description: 'Glass effect modifier',
+    },
+    noAnimation: {
+      control: { type: 'boolean' },
+      description: 'Disable animations',
     },
     iconLeft: {
       control: { type: 'select' },
-      options: ['heart', 'star', 'settings', 'user', 'home', 'search', 'download', 'plus', 'arrow-right'],
-      description: 'Left icon name',
+      options: ['heart', 'star', 'settings', 'user', 'home', 'search', 'download', 'plus', 'arrow-right', 'mail', 'phone', 'edit', 'delete', 'check', 'x'],
+      description: 'Left icon name from iconMap',
     },
     iconRight: {
       control: { type: 'select' },
-      options: ['heart', 'star', 'settings', 'user', 'home', 'search', 'download', 'plus', 'arrow-right'],
-      description: 'Right icon name',
+      options: ['heart', 'star', 'settings', 'user', 'home', 'search', 'download', 'plus', 'arrow-right', 'mail', 'phone', 'edit', 'delete', 'check', 'x'],
+      description: 'Right icon name from iconMap',
+    },
+    iconSize: {
+      control: { type: 'select' },
+      options: ['xs', 'sm', 'md', 'lg', 'xl', '2xl'],
+      description: 'Icon size from sizeMap',
+    },
+    debounceMs: {
+      control: { type: 'number', min: 0, max: 1000, step: 50 },
+      description: 'Debounce delay in milliseconds',
+    },
+    confirmAction: {
+      control: { type: 'boolean' },
+      description: 'Show confirmation dialog before action',
+    },
+    confirmText: {
+      control: { type: 'text' },
+      description: 'Confirmation dialog text',
+    },
+    autoFocus: {
+      control: { type: 'boolean' },
+      description: 'Auto-focus button on mount',
+    },
+    ariaLabel: {
+      control: { type: 'text' },
+      description: 'Custom ARIA label',
+    },
+    ariaPressed: {
+      control: { type: 'boolean' },
+      description: 'ARIA pressed state',
+    },
+    ariaExpanded: {
+      control: { type: 'boolean' },
+      description: 'ARIA expanded state',
+    },
+    ariaDescribedby: {
+      control: { type: 'text' },
+      description: 'ARIA describedby reference',
     },
     onClick: {
       action: 'clicked',
       description: 'Click event',
+    },
+    onKeydown: {
+      action: 'keydown',
+      description: 'Keydown event',
+    },
+    onFocus: {
+      action: 'focus',
+      description: 'Focus event',
+    },
+    onBlur: {
+      action: 'blur',
+      description: 'Blur event',
     },
   },
 };
@@ -222,11 +300,11 @@ export const Shapes: Story = {
         
         <h4 class="text-md font-medium mt-4 mb-2">Icon Shapes</h4>
         <div class="flex flex-wrap gap-2 items-center">
-          <Button circle iconLeft="heart" />
-          <Button circle iconLeft="star" />
-          <Button circle iconLeft="settings" />
-          <Button square iconLeft="plus" />
-          <Button square iconLeft="minus" />
+          <Button circle icon-left="heart" />
+          <Button circle icon-left="star" />
+          <Button circle icon-left="settings" />
+          <Button square icon-left="plus" />
+          <Button square icon-left="minus" />
         </div>
       </div>
     `,
@@ -241,28 +319,62 @@ export const Icons: Story = {
       <div class="space-y-4">
         <h3 class="text-lg font-semibold mb-3">Icon Examples</h3>
         <div class="flex flex-wrap gap-2">
-          <Button iconLeft="heart">Like</Button>
-          <Button iconLeft="star">Favorite</Button>
-          <Button iconLeft="download">Download</Button>
-          <Button iconLeft="plus">Add New</Button>
-          <Button iconLeft="search">Search</Button>
+          <Button icon-left="heart">Like</Button>
+          <Button icon-left="star">Favorite</Button>
+          <Button icon-left="download">Download</Button>
+          <Button icon-left="plus">Add New</Button>
+          <Button icon-left="search">Search</Button>
         </div>
         
         <h4 class="text-md font-medium mt-4 mb-2">Right Icons</h4>
         <div class="flex flex-wrap gap-2">
-          <Button iconRight="arrow-right">Continue</Button>
-          <Button iconRight="external-link">Open Link</Button>
-          <Button iconRight="share">Share</Button>
-          <Button iconRight="copy">Copy</Button>
-          <Button iconRight="settings">Settings</Button>
+          <Button icon-right="arrow-right">Continue</Button>
+          <Button icon-right="external-link">Open Link</Button>
+          <Button icon-right="share">Share</Button>
+          <Button icon-right="copy">Copy</Button>
+          <Button icon-right="settings">Settings</Button>
         </div>
         
         <h4 class="text-md font-medium mt-4 mb-2">Both Icons</h4>
         <div class="flex flex-wrap gap-2">
-          <Button iconLeft="arrow-left" iconRight="arrow-right">Navigate</Button>
-          <Button iconLeft="mail" iconRight="send">Send Email</Button>
-          <Button iconLeft="edit" iconRight="check">Edit & Save</Button>
-          <Button iconLeft="trash" iconRight="alert-triangle">Delete</Button>
+          <Button icon-left="arrow-left" icon-right="arrow-right">Navigate</Button>
+          <Button icon-left="mail" icon-right="send">Send Email</Button>
+          <Button icon-left="edit" icon-right="check">Edit & Save</Button>
+          <Button icon-left="trash" icon-right="alert-triangle">Delete</Button>
+        </div>
+      </div>
+    `,
+  }),
+};
+
+// Advanced features showcase
+export const AdvancedFeatures: Story = {
+  render: () => ({
+    components: { Button },
+    template: `
+      <div class="space-y-4">
+        <h3 class="text-lg font-semibold mb-3">Advanced Features</h3>
+        
+        <h4 class="text-md font-medium mb-2">Glass Effect</h4>
+        <div class="flex flex-wrap gap-2">
+          <Button glass color="primary">Glass Primary</Button>
+          <Button glass color="secondary">Glass Secondary</Button>
+        </div>
+        
+        <h4 class="text-md font-medium mb-2">Loading with Text</h4>
+        <div class="flex flex-wrap gap-2">
+          <Button loading loading-text="Processing..." color="success">Submit</Button>
+          <Button loading loading-text="Saving..." color="info">Save</Button>
+        </div>
+        
+        <h4 class="text-md font-medium mb-2">Confirmation Action</h4>
+        <div class="flex flex-wrap gap-2">
+          <Button confirm-action confirm-text="Are you sure you want to delete?" color="error">Delete</Button>
+        </div>
+        
+        <h4 class="text-md font-medium mb-2">Debounced Action</h4>
+        <div class="flex flex-wrap gap-2">
+          <Button :debounce-ms="500" color="warning">Debounced (500ms)</Button>
         </div>
       </div>
     `,
@@ -274,15 +386,27 @@ export const Playground: Story = {
   args: {
     color: 'primary',
     size: 'md',
-    style: undefined,
-    disabled: false,
-    loading: false,
+    btnStyle: undefined,
+    active: false,
     wide: false,
     block: false,
     square: false,
     circle: false,
+    disabled: false,
+    loading: false,
+    loadingText: '',
+    hideTextOnLoading: false,
+    type: 'button',
+    fullWidth: false,
+    glass: false,
+    noAnimation: false,
     iconLeft: undefined,
     iconRight: undefined,
+    iconSize: 'md',
+    debounceMs: 0,
+    confirmAction: false,
+    confirmText: 'Are you sure?',
+    autoFocus: false,
   },
   render: args => ({
     components: { Button },
@@ -365,10 +489,10 @@ export const AllVariants: Story = {
         <div>
           <h4 class="text-md font-medium mb-2">With Icons</h4>
           <div class="flex flex-wrap gap-2">
-            <Button iconLeft="heart">Like</Button>
-            <Button iconRight="arrow-right">Continue</Button>
-            <Button iconLeft="download" iconRight="external-link">Download</Button>
-            <Button circle iconLeft="settings" />
+            <Button icon-left="heart">Like</Button>
+            <Button icon-right="arrow-right">Continue</Button>
+            <Button icon-left="download" icon-right="external-link">Download</Button>
+            <Button circle icon-left="settings" />
           </div>
         </div>
         

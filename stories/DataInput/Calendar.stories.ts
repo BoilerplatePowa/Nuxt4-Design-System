@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import { ref } from 'vue';
-import Calendar from './Calendar.vue';
+import Calendar from '../../src/runtime/components/DataInput/Calendar.vue';
 
 const meta: Meta<typeof Calendar> = {
   title: 'Data Input/Calendar',

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
-import Breadcrumbs from './Breadcrumbs.vue';
+import Breadcrumbs from '../../src/runtime/components/Navigation/Breadcrumbs.vue';
 
 const meta: Meta<typeof Breadcrumbs> = {
   title: 'Navigation/Breadcrumbs',

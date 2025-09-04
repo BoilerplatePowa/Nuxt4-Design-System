@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import { ref } from 'vue';
-import Textarea from './Textarea.vue';
+import Textarea from '../../src/runtime/components/DataInput/Textarea.vue';
 
 const meta: Meta<typeof Textarea> = {
   title: 'Data Input/Textarea',

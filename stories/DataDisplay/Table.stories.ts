@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
-import Table from './Table.vue';
+import Table from '../../src/runtime/components/DataDisplay/Table.vue';
 
 const meta: Meta<typeof Table> = {
   title: 'Data Display/Table',

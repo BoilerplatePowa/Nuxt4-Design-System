@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
-import WindowMockup from './WindowMockup.vue';
+import WindowMockup from '../../src/runtime/components/Mockup/WindowMockup.vue';
 
 const meta: Meta<typeof WindowMockup> = {
   title: 'Mockup/WindowMockup',

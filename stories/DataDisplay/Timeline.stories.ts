@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
 
-import Timeline from './Timeline.vue';
+import Timeline from '../../src/runtime/components/DataDisplay/Timeline.vue';
 
 const meta: Meta<typeof Timeline> = {
   title: 'Data Display/Timeline',

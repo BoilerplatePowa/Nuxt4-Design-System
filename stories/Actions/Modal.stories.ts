@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import { ref } from 'vue';
-import Modal from './Modal.vue';
-import Button from './Button.vue';
+import Modal from '../../src/runtime/components/Actions/Modal.vue';
+import Button from '../../src/runtime/components/Actions/Button.vue';
 
 const meta: Meta<typeof Modal> = {
   title: 'Actions/Modal',
@@ -104,132 +104,7 @@ export const Default: Story = {
   },
 };
 
-export const DaisyUINative: Story = {
-  render: () => ({
-    components: { Button },
-    setup() {
-      const showModal = () => {
-        const modal = document.getElementById('my_modal_1') as HTMLDialogElement;
-        if (modal) {
-          modal.showModal();
-        }
-      };
-
-      return { showModal };
-    },
-    template: `
-      <div>
-        <Button @click="showModal">Open DaisyUI Native Modal</Button>
-        
-        <dialog id="my_modal_1" class="modal">
-          <div class="modal-box">
-            <h3 class="text-lg font-bold">Hello!</h3>
-            <p class="py-4">Press ESC key or click the button below to close</p>
-            <div class="modal-action">
-              <form method="dialog">
-                <!-- if there is a button in form, it will close the modal -->
-                <Button variant="primary">Close</Button>
-              </form>
-            </div>
-          </div>
-        </dialog>
-      </div>
-    `,
-  }),
-  parameters: {
-    docs: {
-      description: {
-        story:
-          'This example shows the traditional DaisyUI modal pattern using the native HTML dialog element with showModal() method.',
-      },
-    },
-  },
-};
-
-export const WithFooter: Story = {
-  render: args => ({
-    components: { Modal, Button },
-    setup() {
-      const isOpen = ref(false);
-      const openModal = () => {
-        isOpen.value = true;
-      };
-
-      return { args, isOpen, openModal };
-    },
-    template: `
-      <div>
-        <Button @click="openModal">Open Modal with Footer</Button>
-        
-        <Modal 
-          v-model="isOpen" 
-          v-bind="args"
-          title="Confirm Action"
-        >
-          <p>Are you sure you want to perform this action? This cannot be undone.</p>
-          
-          <template #footer>
-            <Button variant="outline" @click="isOpen = false">Cancel</Button>
-            <Button variant="primary" @click="isOpen = false">Confirm</Button>
-          </template>
-        </Modal>
-      </div>
-    `,
-  }),
-  args: {
-    size: 'md',
-    closable: true,
-    closeOnOverlay: true,
-    closeOnEsc: true,
-    persistent: false,
-  },
-};
-
-export const CustomHeader: Story = {
-  render: args => ({
-    components: { Modal, Button },
-    setup() {
-      const isOpen = ref(false);
-      const openModal = () => {
-        isOpen.value = true;
-      };
-
-      return { args, isOpen, openModal };
-    },
-    template: `
-      <div>
-        <Button @click="openModal">Open Modal with Custom Header</Button>
-        
-        <Modal 
-          v-model="isOpen" 
-          v-bind="args"
-        >
-          <template #header>
-            <div class="flex items-center space-x-3">
-              <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center">
-                <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
-                </svg>
-              </div>
-              <h2 class="text-lg font-semibold">Custom Header</h2>
-            </div>
-          </template>
-          
-          <p>This modal has a custom header with an icon and styling.</p>
-        </Modal>
-      </div>
-    `,
-  }),
-  args: {
-    size: 'md',
-    closable: true,
-    closeOnOverlay: true,
-    closeOnEsc: true,
-    persistent: false,
-  },
-};
-
-export const Sizes: Story = {
+export const AllSizes: Story = {
   render: () => ({
     components: { Modal, Button },
     setup() {
@@ -279,8 +154,108 @@ export const Sizes: Story = {
   }),
 };
 
+export const CustomExamples: Story = {
+  render: () => ({
+    components: { Modal, Button },
+    setup() {
+      const modals = ref({
+        footer: false,
+        customHeader: false,
+        persistent: false,
+        form: false,
+      });
+
+      const formData = ref({
+        name: '',
+        email: '',
+        message: '',
+      });
+
+      const openModal = (type: string) => {
+        modals.value[type as keyof typeof modals.value] = true;
+      };
+
+      const submitForm = () => {
+        console.log('Form submitted:', formData.value);
+        modals.value.form = false;
+        formData.value = { name: '', email: '', message: '' };
+      };
+
+      return { modals, openModal, formData, submitForm };
+    },
+    template: `
+      <div class="space-y-4">
+        <!-- With Footer -->
+        <Button @click="openModal('footer')">Modal with Footer</Button>
+        <Modal v-model="modals.footer" title="Confirm Action">
+          <p>Are you sure you want to perform this action? This cannot be undone.</p>
+          <template #footer>
+            <Button btn-style="outline" @click="modals.footer = false">Cancel</Button>
+            <Button color="primary" @click="modals.footer = false">Confirm</Button>
+          </template>
+        </Modal>
+        
+        <!-- Custom Header -->
+        <Button @click="openModal('customHeader')">Custom Header</Button>
+        <Modal v-model="modals.customHeader">
+          <template #header>
+            <div class="flex items-center space-x-3">
+              <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center">
+                <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+                </svg>
+              </div>
+              <h2 class="text-lg font-semibold">Custom Header</h2>
+            </div>
+          </template>
+          <p>This modal has a custom header with an icon and styling.</p>
+        </Modal>
+        
+        <!-- Persistent Modal -->
+        <Button @click="openModal('persistent')">Persistent Modal</Button>
+        <Modal 
+          v-model="modals.persistent" 
+          title="Persistent Modal"
+          :closable="false"
+          :close-on-overlay="false"
+          :close-on-esc="false"
+          :persistent="true"
+        >
+          <p>This modal cannot be closed by clicking outside, pressing Escape, or using the X button. You must use the Close button below.</p>
+          <template #footer>
+            <Button color="primary" @click="modals.persistent = false">Close Modal</Button>
+          </template>
+        </Modal>
+        
+        <!-- Form Modal -->
+        <Button @click="openModal('form')">Form Modal</Button>
+        <Modal v-model="modals.form" title="Contact Form" size="lg">
+          <form @submit.prevent="submitForm" class="space-y-4">
+            <div>
+              <label for="name" class="block text-sm font-medium mb-1">Name</label>
+              <input id="name" v-model="formData.name" type="text" class="input input-bordered w-full" required />
+            </div>
+            <div>
+              <label for="email" class="block text-sm font-medium mb-1">Email</label>
+              <input id="email" v-model="formData.email" type="email" class="input input-bordered w-full" required />
+            </div>
+            <div>
+              <label for="message" class="block text-sm font-medium mb-1">Message</label>
+              <textarea id="message" v-model="formData.message" class="textarea textarea-bordered w-full h-24" required></textarea>
+            </div>
+          </form>
+          <template #footer>
+            <Button btn-style="outline" @click="modals.form = false">Cancel</Button>
+            <Button color="primary" @click="submitForm">Submit</Button>
+          </template>
+        </Modal>
+      </div>
+    `,
+  }),
+};
+
 export const Accessibility: Story = {
-  render: args => ({
+  render: () => ({
     components: { Modal, Button },
     setup() {
       const isOpen = ref(false);
@@ -288,7 +263,7 @@ export const Accessibility: Story = {
         isOpen.value = true;
       };
 
-      return { args, isOpen, openModal };
+      return { isOpen, openModal };
     },
     template: `
       <div>
@@ -296,8 +271,11 @@ export const Accessibility: Story = {
         
         <Modal 
           v-model="isOpen" 
-          v-bind="args"
           title="Accessibility Features"
+          size="lg"
+          :trap-focus="true"
+          :return-focus="true"
+          :auto-focus="true"
         >
           <div class="space-y-4">
             <div>
@@ -329,14 +307,59 @@ export const Accessibility: Story = {
           </div>
           
           <template #footer>
-            <Button variant="primary" @click="isOpen = false">Got it!</Button>
+            <Button color="primary" @click="isOpen = false">Got it!</Button>
           </template>
         </Modal>
       </div>
     `,
   }),
+};
+
+export const DaisyUINative: Story = {
+  render: () => ({
+    components: { Button },
+    setup() {
+      const showModal = () => {
+        const modal = document.getElementById('my_modal_1') as HTMLDialogElement;
+        if (modal) {
+          modal.showModal();
+        }
+      };
+
+      return { showModal };
+    },
+    template: `
+      <div>
+        <Button @click="showModal">Open DaisyUI Native Modal</Button>
+        
+        <dialog id="my_modal_1" class="modal">
+          <div class="modal-box">
+            <h3 class="text-lg font-bold">Hello!</h3>
+            <p class="py-4">Press ESC key or click the button below to close</p>
+            <div class="modal-action">
+              <form method="dialog">
+                <Button color="primary">Close</Button>
+              </form>
+            </div>
+          </div>
+        </dialog>
+      </div>
+    `,
+  }),
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'This example shows the traditional DaisyUI modal pattern using the native HTML dialog element with showModal() method.',
+      },
+    },
+  },
+};
+
+export const Playground: Story = {
   args: {
-    size: 'lg',
+    size: 'md',
+    title: 'Customize Me',
     closable: true,
     closeOnOverlay: true,
     closeOnEsc: true,
@@ -344,10 +367,8 @@ export const Accessibility: Story = {
     trapFocus: true,
     returnFocus: true,
     autoFocus: true,
+    zIndex: 50,
   },
-};
-
-export const Persistent: Story = {
   render: args => ({
     components: { Modal, Button },
     setup() {
@@ -359,118 +380,18 @@ export const Persistent: Story = {
       return { args, isOpen, openModal };
     },
     template: `
-      <div>
-        <Button @click="openModal">Open Persistent Modal</Button>
+      <div class="space-y-4">
+        <Button @click="openModal">Open Customizable Modal</Button>
         
-        <Modal 
-          v-model="isOpen" 
-          v-bind="args"
-          title="Persistent Modal"
-        >
-          <p>This modal cannot be closed by clicking outside, pressing Escape, or using the X button. You must use the Close button below.</p>
-          
-          <template #footer>
-            <Button variant="primary" @click="isOpen = false">Close Modal</Button>
-          </template>
+        <Modal v-model="isOpen" v-bind="args">
+          <p>This is a customizable modal. Use the controls above to modify its behavior and appearance.</p>
+          <p class="mt-2 text-sm text-gray-500">Modal state: {{ isOpen ? 'Open' : 'Closed' }}</p>
         </Modal>
+        
+        <div class="text-sm text-gray-600">
+          Use the controls above to customize this modal
+        </div>
       </div>
     `,
   }),
-  args: {
-    size: 'md',
-    closable: false,
-    closeOnOverlay: false,
-    closeOnEsc: false,
-    persistent: true,
-    trapFocus: true,
-    returnFocus: true,
-    autoFocus: true,
-  },
-};
-
-export const FormExample: Story = {
-  render: args => ({
-    components: { Modal, Button },
-    setup() {
-      const isOpen = ref(false);
-      const formData = ref({
-        name: '',
-        email: '',
-        message: '',
-      });
-
-      const openModal = () => {
-        isOpen.value = true;
-      };
-
-      const submitForm = () => {
-        console.log('Form submitted:', formData.value);
-        isOpen.value = false;
-        // Reset form
-        formData.value = { name: '', email: '', message: '' };
-      };
-
-      return { args, isOpen, openModal, formData, submitForm };
-    },
-    template: `
-      <div>
-        <Button @click="openModal">Open Form Modal</Button>
-        
-        <Modal 
-          v-model="isOpen" 
-          v-bind="args"
-          title="Contact Form"
-        >
-          <form @submit.prevent="submitForm" class="space-y-4">
-            <div>
-              <label for="name" class="block text-sm font-medium mb-1">Name</label>
-              <input 
-                id="name"
-                v-model="formData.name"
-                type="text" 
-                class="input input-bordered w-full" 
-                required
-              />
-            </div>
-            
-            <div>
-              <label for="email" class="block text-sm font-medium mb-1">Email</label>
-              <input 
-                id="email"
-                v-model="formData.email"
-                type="email" 
-                class="input input-bordered w-full" 
-                required
-              />
-            </div>
-            
-            <div>
-              <label for="message" class="block text-sm font-medium mb-1">Message</label>
-              <textarea 
-                id="message"
-                v-model="formData.message"
-                class="textarea textarea-bordered w-full h-24" 
-                required
-              ></textarea>
-            </div>
-          </form>
-          
-          <template #footer>
-            <Button variant="outline" @click="isOpen = false">Cancel</Button>
-            <Button variant="primary" @click="submitForm">Submit</Button>
-          </template>
-        </Modal>
-      </div>
-    `,
-  }),
-  args: {
-    size: 'lg',
-    closable: true,
-    closeOnOverlay: false,
-    closeOnEsc: true,
-    persistent: false,
-    trapFocus: true,
-    returnFocus: true,
-    autoFocus: true,
-  },
 };

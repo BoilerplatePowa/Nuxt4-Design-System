@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
-import Divider from './Divider.vue';
+import Divider from '../../src/runtime/components/Layout/Divider.vue';
 
 const meta: Meta<typeof Divider> = {
   title: 'Layout/Divider',

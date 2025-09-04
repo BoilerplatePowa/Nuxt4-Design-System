@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import { ref } from 'vue';
-import Validator from './Validator.vue';
+import Validator from '../../src/runtime/components/DataInput/Validator.vue';
 
 const meta: Meta<typeof Validator> = {
   title: 'Data Input/Validator',

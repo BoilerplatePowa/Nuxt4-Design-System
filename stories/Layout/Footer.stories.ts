@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
-import Footer from './Footer.vue';
+import Footer from '../../src/runtime/components/Layout/Footer.vue';
 
 const meta: Meta<typeof Footer> = {
   title: 'Layout/Footer',

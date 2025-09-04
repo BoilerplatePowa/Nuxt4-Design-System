@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
-import PhoneMockup from './PhoneMockup.vue';
+import PhoneMockup from '../../src/runtime/components/Mockup/PhoneMockup.vue';
 
 const meta: Meta<typeof PhoneMockup> = {
   title: 'Mockup/PhoneMockup',

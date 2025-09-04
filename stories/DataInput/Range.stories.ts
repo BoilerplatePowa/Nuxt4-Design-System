@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
-import Range from './Range.vue';
+import Range from '../../src/runtime/components/DataInput/Range.vue';
 import { ref } from 'vue';
 
 const meta: Meta<typeof Range> = {

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
-import Toggle from './Toggle.vue';
+import Toggle from '../../src/runtime/components/DataInput/Toggle.vue';
 
 const meta: Meta<typeof Toggle> = {
   title: 'Data Input/Toggle',

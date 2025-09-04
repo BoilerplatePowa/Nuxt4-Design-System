@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import { Form, Field } from 'vee-validate';
 import * as yup from 'yup';
-import Input from './Input.vue';
+import Input from '../../src/runtime/components/DataInput/Input.vue';
 
 const meta: Meta<typeof Input> = {
   title: 'Data Input/Input',

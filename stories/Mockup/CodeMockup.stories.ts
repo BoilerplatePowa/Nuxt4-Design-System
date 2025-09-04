@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
-import CodeMockup from './CodeMockup.vue';
+import CodeMockup from '../../src/runtime/components/Mockup/CodeMockup.vue';
 
 const meta: Meta<typeof CodeMockup> = {
   title: 'Mockup/CodeMockup',

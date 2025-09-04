@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
-import Alert from './Alert.vue';
+import Alert from '../../src/runtime/components/Feedback/Alert.vue';
 
 const meta: Meta<typeof Alert> = {
   title: 'Feedback/Alert',

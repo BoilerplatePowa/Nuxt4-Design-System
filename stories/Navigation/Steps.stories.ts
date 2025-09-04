@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import { ref } from 'vue';
-import Steps from './Steps.vue';
-import Icon from '../Icons/Icon.vue';
-import Button from '../Actions/Button.vue';
-import Card from '../DataDisplay/Card.vue';
-import Avatar from '../DataDisplay/Avatar.vue';
+import Steps from '../../src/runtime/components/Navigation/Steps.vue';
+import Icon from '../../src/runtime/components/Icons/Icon.vue';
+import Button from '../../src/runtime/components/Actions/Button.vue';
+import Card from '../../src/runtime/components/DataDisplay/Card.vue';
+import Avatar from '../../src/runtime/components/DataDisplay/Avatar.vue';
 
 const meta: Meta<typeof Steps> = {
   title: 'Navigation/Steps',

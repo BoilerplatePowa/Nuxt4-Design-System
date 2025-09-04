@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
-import Countdown from './Countdown.vue';
+import Countdown from '../../src/runtime/components/DataDisplay/Countdown.vue';
 
 const meta: Meta<typeof Countdown> = {
   title: 'Data Display/Countdown',

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
-import Kbd from './Kbd.vue';
+import Kbd from '../../src/runtime/components/DataDisplay/Kbd.vue';
 
 const meta: Meta<typeof Kbd> = {
   title: 'Data Display/Kbd',

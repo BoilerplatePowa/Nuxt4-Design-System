@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
-import Stack from './Stack.vue';
+import Stack from '../../src/runtime/components/Layout/Stack.vue';
 
 const meta: Meta<typeof Stack> = {
   title: 'Layout/Stack',

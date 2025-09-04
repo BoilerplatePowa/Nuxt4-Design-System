@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
-import Card from './Card.vue';
-import Button from '../Actions/Button.vue';
-import Alert from '../Feedback/Alert.vue';
+import Card from '../../src/runtime/components/DataDisplay/Card.vue';
+import Button from '../../src/runtime/components/Actions/Button.vue';
+import Alert from '../../src/runtime/components/Feedback/Alert.vue';
 import { ref } from 'vue';
 
 const meta: Meta<typeof Card> = {

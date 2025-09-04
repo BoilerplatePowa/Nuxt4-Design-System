@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
-import Menu from './Menu.vue';
+import Menu from '../../src/runtime/components/Navigation/Menu.vue';
 
 const meta: Meta<typeof Menu> = {
   title: 'Navigation/Menu',

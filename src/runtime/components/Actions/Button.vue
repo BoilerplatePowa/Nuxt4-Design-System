@@ -72,7 +72,7 @@
   }
   
   const props = withDefaults(defineProps<Props>(), {
-    color: 'primary',
+    color: undefined,
     btnStyle: undefined,
     size: 'md',
     active: false,

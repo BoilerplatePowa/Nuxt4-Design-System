@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
-import Indicator from './Indicator.vue';
+import Indicator from '../../src/runtime/components/Layout/Indicator.vue';
 
 const meta: Meta<typeof Indicator> = {
   title: 'Layout/Indicator',

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
-import TextDiff from './TextDiff.vue';
+import TextDiff from '../../src/runtime/components/DataDisplay/TextDiff.vue';
 
 const meta: Meta<typeof TextDiff> = {
   title: 'Data Display/TextDiff',

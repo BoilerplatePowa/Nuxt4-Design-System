@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
-import { Tabs } from '.';
+import Tabs from '../../src/runtime/components/DataDisplay/Tabs.vue';
 import { ref } from 'vue';
 
 const meta: Meta<typeof Tabs> = {

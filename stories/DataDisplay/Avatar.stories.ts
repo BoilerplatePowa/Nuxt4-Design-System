@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
-import Avatar from './Avatar.vue';
+import Avatar from '../../src/runtime/components/DataDisplay/Avatar.vue';
 
 const meta: Meta<typeof Avatar> = {
   title: 'Data Display/Avatar',

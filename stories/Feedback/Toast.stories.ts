@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
-import Toast from './Toast.vue';
-import ToastContainer from './ToastContainer.vue';
-import { useToast } from './useToast';
+import Toast from '../../src/runtime/components/Feedback/Toast.vue';
+import ToastContainer from '../../src/runtime/components/Feedback/ToastContainer.vue';
+import { useToast } from '../../src/runtime/composables/useToast';
 
 const meta: Meta<typeof Toast> = {
   title: 'Feedback/Toast',

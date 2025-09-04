@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
-import Label from './Label.vue';
+import Label from '../../src/runtime/components/DataInput/Label.vue';
 
 const meta: Meta<typeof Label> = {
   title: 'Data Input/Label',

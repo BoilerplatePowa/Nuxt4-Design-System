@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
-import Tooltip from './Tooltip.vue';
+import Tooltip from '../../src/runtime/components/Feedback/Tooltip.vue';
 
 const meta: Meta<typeof Tooltip> = {
   title: 'Feedback/Tooltip',

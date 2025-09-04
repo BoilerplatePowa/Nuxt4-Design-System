@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
-import Loading from './Loading.vue';
+import Loading from '../../src/runtime/components/Feedback/Loading.vue';
 
 const meta: Meta<typeof Loading> = {
   title: 'Feedback/Loading',

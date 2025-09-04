@@ -30,7 +30,7 @@
           <Button
             v-if="closable"
             ref="closeButtonRef"
-            variant="ghost"
+            btn-style="ghost"
             size="xs"
             circle
             aria-label="Close modal"
@@ -241,7 +241,7 @@ const focusFirstElement = () => {
 
   const elements = getFocusableElements();
   if (elements.length > 0) {
-    elements[0].focus();
+    elements[0]?.focus();
   } else if (closeButtonRef.value) {
     closeButtonRef.value.focus();
   } else if (modalRef.value) {
@@ -254,7 +254,7 @@ const focusLastElement = () => {
 
   const elements = getFocusableElements();
   if (elements.length > 0) {
-    elements[elements.length - 1].focus();
+    elements[elements.length - 1]?.focus();
   } else if (closeButtonRef.value) {
     closeButtonRef.value.focus();
   } else if (modalRef.value) {
@@ -309,12 +309,12 @@ const handleKeyDown = (event: KeyboardEvent) => {
     if (event.shiftKey) {
       if (document.activeElement === firstElement) {
         event.preventDefault();
-        lastElement.focus();
+        lastElement?.focus();
       }
     } else {
       if (document.activeElement === lastElement) {
         event.preventDefault();
-        firstElement.focus();
+        firstElement?.focus();
       }
     }
   }

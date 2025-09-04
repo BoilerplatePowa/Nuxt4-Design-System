@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
-import Select from './Select.vue';
+import Select from '../../src/runtime/components/DataInput/Select.vue';
 
 const meta: Meta<typeof Select> = {
   title: 'Data Input/Select',

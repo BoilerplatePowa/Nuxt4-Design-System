@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
-import Link from './Link.vue';
+import Link from '../../src/runtime/components/Navigation/Link.vue';
 
 const meta: Meta<typeof Link> = {
   title: 'Navigation/Link',

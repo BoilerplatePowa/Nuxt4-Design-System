@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
-import Drawer from './Drawer.vue';
+import Drawer from '../../src/runtime/components/Layout/Drawer.vue';
 
 const meta: Meta<typeof Drawer> = {
   title: 'Layout/Drawer',

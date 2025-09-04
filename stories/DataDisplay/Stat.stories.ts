@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
-import Stat from './Stat.vue';
+import Stat from '../../src/runtime/components/DataDisplay/Stat.vue';
 
 const meta: Meta<typeof Stat> = {
   title: 'Data Display/Stat',

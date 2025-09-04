@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
-import BrowserMockup from './BrowserMockup.vue';
+import BrowserMockup from '../../src/runtime/components/Mockup/BrowserMockup.vue';
 
 const meta: Meta<typeof BrowserMockup> = {
   title: 'Mockup/BrowserMockup',

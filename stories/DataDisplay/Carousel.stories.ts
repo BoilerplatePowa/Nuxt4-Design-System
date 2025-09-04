@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import { ref } from 'vue';
-import Carousel from './Carousel.vue';
+import Carousel from '../../src/runtime/components/DataDisplay/Carousel.vue';
 
 const meta: Meta<typeof Carousel> = {
   title: 'Data Display/Carousel',

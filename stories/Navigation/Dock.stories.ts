@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
-import Dock from './Dock.vue';
+import Dock from '../../src/runtime/components/Navigation/Dock.vue';
 
 const meta: Meta<typeof Dock> = {
   title: 'Navigation/Dock',

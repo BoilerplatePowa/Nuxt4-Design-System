@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import { ref } from 'vue';
-import PhoneInput from './PhoneInput.vue';
+import PhoneInput from '../../src/runtime/components/DataInput/PhoneInput.vue';
 
 const meta: Meta<typeof PhoneInput> = {
   title: 'Data Input/PhoneInput',

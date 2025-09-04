@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
-import StatusBox from './StatusBox.vue';
+import StatusBox from '../../src/runtime/components/DataDisplay/StatusBox.vue';
 
 interface NotificationItem {
   id: number;

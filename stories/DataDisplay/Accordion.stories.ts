@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
-import Accordion from './Accordion.vue';
+import Accordion from '../../src/runtime/components/DataDisplay/Accordion.vue';
 
 const meta: Meta<typeof Accordion> = {
   title: 'Data Display/Accordion',

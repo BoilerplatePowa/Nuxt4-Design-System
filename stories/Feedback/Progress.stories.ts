@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
-import Progress from './Progress.vue';
+import Progress from '../../src/runtime/components/Feedback/Progress.vue';
 
 const meta: Meta<typeof Progress> = {
   title: 'Feedback/Progress',

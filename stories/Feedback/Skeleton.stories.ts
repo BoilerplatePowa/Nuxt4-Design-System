@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
-import Skeleton from './Skeleton.vue';
+import Skeleton from '../../src/runtime/components/Feedback/Skeleton.vue';
 
 const meta: Meta<typeof Skeleton> = {
   title: 'Feedback/Skeleton',

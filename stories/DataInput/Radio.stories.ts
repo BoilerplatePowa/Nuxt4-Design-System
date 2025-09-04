@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
-import Radio from './Radio.vue';
+import Radio from '../../src/runtime/components/DataInput/Radio.vue';
 import { ref } from 'vue';
 
 const meta: Meta<typeof Radio> = {

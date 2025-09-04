@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
-import Rating from './Rating.vue';
+import Rating from '../../src/runtime/components/DataInput/Rating.vue';
 import { ref } from 'vue';
 
 const meta: Meta<typeof Rating> = {

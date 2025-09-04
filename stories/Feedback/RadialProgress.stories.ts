@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
-import RadialProgress from './RadialProgress.vue';
+import RadialProgress from '../../src/runtime/components/Feedback/RadialProgress.vue';
 
 const meta: Meta<typeof RadialProgress> = {
   title: 'Feedback/RadialProgress',

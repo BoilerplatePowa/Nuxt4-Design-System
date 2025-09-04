@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
-import FileInput from './FileInput.vue';
+import FileInput from '../../src/runtime/components/DataInput/FileInput.vue';
 
 const meta: Meta<typeof FileInput> = {
   title: 'Data Input/FileInput',

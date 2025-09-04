@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
 
-import Filter from './Filter.vue';
+import Filter from '../../src/runtime/components/DataInput/Filter.vue';
 
 const meta: Meta<typeof Filter> = {
   title: 'Data Input/Filter',

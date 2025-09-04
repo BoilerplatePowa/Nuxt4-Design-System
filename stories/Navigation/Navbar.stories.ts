@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
-import Navbar from './Navbar.vue';
+import Navbar from '../../src/runtime/components/Navigation/Navbar.vue';
 
 const meta: Meta<typeof Navbar> = {
   title: 'Navigation/Navbar',

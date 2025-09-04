@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
-import Hero from './Hero.vue';
+import Hero from '../../src/runtime/components/Layout/Hero.vue';
 
 const meta: Meta<typeof Hero> = {
   title: 'Layout/Hero',

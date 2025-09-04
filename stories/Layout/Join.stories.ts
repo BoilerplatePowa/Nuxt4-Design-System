@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
-import Join from './Join.vue';
+import Join from '../../src/runtime/components/Layout/Join.vue';
 
 const meta: Meta<typeof Join> = {
   title: 'Layout/Join',

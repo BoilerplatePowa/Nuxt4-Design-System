@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
-import List from './List.vue';
+import List from '../../src/runtime/components/DataDisplay/List.vue';
 
 const meta: Meta<typeof List> = {
   title: 'Data Display/List',

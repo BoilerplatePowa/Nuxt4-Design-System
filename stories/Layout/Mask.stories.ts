@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
-import Mask from './Mask.vue';
+import Mask from '../../src/runtime/components/Layout/Mask.vue';
 
 const meta: Meta<typeof Mask> = {
   title: 'Layout/Mask',
