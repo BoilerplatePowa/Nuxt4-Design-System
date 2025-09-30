@@ -59,9 +59,13 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 
-// Simple ID generator
+// Simple ID generator with better uniqueness
 let idCounter = 0
-const generateId = () => `textarea-${Date.now()}-${++idCounter}`
+const generateId = () => {
+  const timestamp = Date.now()
+  const random = Math.random().toString(36).substr(2, 9)
+  return `textarea-${timestamp}-${++idCounter}-${random}`
+}
 
 interface Props {
     label?: string

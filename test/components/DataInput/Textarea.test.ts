@@ -206,8 +206,8 @@ describe('Textarea', () => {
         expect(id1).toBeDefined()
         expect(id2).toBeDefined()
         // Since the counter is shared, we expect sequential IDs
-        expect(id1).toMatch(/^textarea-\d+-\d+$/)
-        expect(id2).toMatch(/^textarea-\d+-\d+$/)
+        expect(id1).toMatch(/^textarea-\d+-\d+-[a-z0-9]+$/)
+        expect(id2).toMatch(/^textarea-\d+-\d+-[a-z0-9]+$/)
         expect(id1).not.toBe(id2)
     })
 
