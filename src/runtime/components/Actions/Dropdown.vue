@@ -275,6 +275,8 @@ const close = () => {
 const toggle = () => {
   if (props.disabled) return;
 
+  console.log('toggle');
+
   if (isOpen.value) {
     close();
   } else {
