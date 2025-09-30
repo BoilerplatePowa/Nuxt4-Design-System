@@ -1,46 +1,46 @@
-import type { Meta, StoryObj } from '@storybook/vue3-vite';
-import Skeleton from '../../src/runtime/components/Feedback/Skeleton.vue';
+import type { Meta, StoryObj } from '@storybook/vue3-vite'
+import Skeleton from '../../src/runtime/components/Feedback/Skeleton.vue'
 
 const meta: Meta<typeof Skeleton> = {
-  title: 'Feedback/Skeleton',
-  component: Skeleton,
-  parameters: {
-    layout: 'padded',
-  },
-  argTypes: {
-    variant: {
-      control: { type: 'select' },
-      options: ['text', 'circular', 'rectangular', 'rounded'],
+    title: 'Feedback/Skeleton',
+    component: Skeleton,
+    parameters: {
+        layout: 'padded',
     },
-    width: {
-      control: { type: 'text' },
+    argTypes: {
+        variant: {
+            control: { type: 'select' },
+            options: ['text', 'circular', 'rectangular', 'rounded'],
+        },
+        width: {
+            control: { type: 'text' },
+        },
+        height: {
+            control: { type: 'text' },
+        },
+        lines: {
+            control: { type: 'number' },
+        },
+        animated: {
+            control: { type: 'boolean' },
+        },
     },
-    height: {
-      control: { type: 'text' },
-    },
-    lines: {
-      control: { type: 'number' },
-    },
-    animated: {
-      control: { type: 'boolean' },
-    },
-  },
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof meta>;
+export default meta
+type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
-  args: {
-    variant: 'text',
-    width: '100%',
-  },
-};
+    args: {
+        variant: 'text',
+        width: '100%',
+    },
+}
 
 export const Variants: Story = {
-  render: () => ({
-    components: { Skeleton },
-    template: `
+    render: () => ({
+        components: { Skeleton },
+        template: `
       <div class="space-y-8">
         <div>
           <h3 class="text-lg font-bold mb-4">Text Skeleton</h3>
@@ -71,13 +71,13 @@ export const Variants: Story = {
         </div>
       </div>
     `,
-  }),
-};
+    }),
+}
 
 export const CardSkeleton: Story = {
-  render: () => ({
-    components: { Skeleton },
-    template: `
+    render: () => ({
+        components: { Skeleton },
+        template: `
       <div class="max-w-sm mx-auto">
         <div class="card bg-base-100 shadow-xl">
           <div class="card-body">
@@ -109,13 +109,13 @@ export const CardSkeleton: Story = {
         </div>
       </div>
     `,
-  }),
-};
+    }),
+}
 
 export const ListSkeleton: Story = {
-  render: () => ({
-    components: { Skeleton },
-    template: `
+    render: () => ({
+        components: { Skeleton },
+        template: `
       <div class="max-w-md mx-auto space-y-4">
         <h3 class="text-lg font-bold">Loading List Items...</h3>
         
@@ -130,13 +130,13 @@ export const ListSkeleton: Story = {
         </div>
       </div>
     `,
-  }),
-};
+    }),
+}
 
 export const TableSkeleton: Story = {
-  render: () => ({
-    components: { Skeleton },
-    template: `
+    render: () => ({
+        components: { Skeleton },
+        template: `
       <div class="overflow-x-auto">
         <table class="table w-full">
           <thead>
@@ -169,13 +169,13 @@ export const TableSkeleton: Story = {
         </table>
       </div>
     `,
-  }),
-};
+    }),
+}
 
 export const FormSkeleton: Story = {
-  render: () => ({
-    components: { Skeleton },
-    template: `
+    render: () => ({
+        components: { Skeleton },
+        template: `
       <div class="max-w-md mx-auto space-y-6">
         <h3 class="text-lg font-bold">Loading Form...</h3>
         
@@ -201,13 +201,13 @@ export const FormSkeleton: Story = {
         </div>
       </div>
     `,
-  }),
-};
+    }),
+}
 
 export const WithoutAnimation: Story = {
-  render: () => ({
-    components: { Skeleton },
-    template: `
+    render: () => ({
+        components: { Skeleton },
+        template: `
       <div class="space-y-4">
         <h3 class="text-lg font-bold">Without Animation</h3>
         
@@ -226,5 +226,5 @@ export const WithoutAnimation: Story = {
         </div>
       </div>
     `,
-  }),
-};
+    }),
+}

@@ -1,97 +1,97 @@
-import type { Meta, StoryObj } from '@storybook/vue3-vite';
-import { ref } from 'vue';
-import ThemeController from '../../src/runtime/components/Actions/ThemeController.vue';
+import type { Meta, StoryObj } from '@storybook/vue3-vite'
+import { ref } from 'vue'
+import ThemeController from '../../src/runtime/components/Actions/ThemeController.vue'
 
 const meta: Meta<typeof ThemeController> = {
-  title: 'Actions/ThemeController',
-  component: ThemeController,
-  parameters: {
-    layout: 'centered',
-    docs: {
-      description: {
-        component: 'A flexible theme controller component with multiple variants for switching between themes. Supports button, toggle, switch, dropdown, and radio variants.',
-      },
+    title: 'Actions/ThemeController',
+    component: ThemeController,
+    parameters: {
+        layout: 'centered',
+        docs: {
+            description: {
+                component: 'A flexible theme controller component with multiple variants for switching between themes. Supports button, toggle, switch, dropdown, and radio variants.',
+            },
+        },
     },
-  },
-  argTypes: {
-    variant: {
-      control: { type: 'select' },
-      options: ['button', 'toggle', 'switch', 'dropdown', 'radio'],
-      description: 'Theme controller variant',
+    argTypes: {
+        variant: {
+            control: { type: 'select' },
+            options: ['button', 'toggle', 'switch', 'dropdown', 'radio'],
+            description: 'Theme controller variant',
+        },
+        themes: {
+            control: 'object',
+            description: 'Array of available themes with value and label properties',
+        },
+        defaultTheme: {
+            control: 'text',
+            description: 'Default theme value',
+        },
+        darkTheme: {
+            control: 'text',
+            description: 'Theme value for dark mode',
+        },
+        lightTheme: {
+            control: 'text',
+            description: 'Theme value for light mode',
+        },
+        showLabel: {
+            control: { type: 'boolean' },
+            description: 'Show theme label (button variant only)',
+        },
+        size: {
+            control: { type: 'select' },
+            options: ['xs', 'sm', 'md', 'lg'],
+            description: 'Component size',
+        },
+        radioName: {
+            control: 'text',
+            description: 'Name attribute for radio inputs (radio variant only)',
+        },
+        ariaLabel: {
+            control: 'text',
+            description: 'ARIA label for accessibility',
+        },
+        onThemeChange: {
+            action: 'themeChange',
+            description: 'Theme change event',
+        },
     },
-    themes: {
-      control: 'object',
-      description: 'Array of available themes with value and label properties',
-    },
-    defaultTheme: {
-      control: 'text',
-      description: 'Default theme value',
-    },
-    darkTheme: {
-      control: 'text',
-      description: 'Theme value for dark mode',
-    },
-    lightTheme: {
-      control: 'text',
-      description: 'Theme value for light mode',
-    },
-    showLabel: {
-      control: { type: 'boolean' },
-      description: 'Show theme label (button variant only)',
-    },
-    size: {
-      control: { type: 'select' },
-      options: ['xs', 'sm', 'md', 'lg'],
-      description: 'Component size',
-    },
-    radioName: {
-      control: 'text',
-      description: 'Name attribute for radio inputs (radio variant only)',
-    },
-    ariaLabel: {
-      control: 'text',
-      description: 'ARIA label for accessibility',
-    },
-    onThemeChange: {
-      action: 'themeChange',
-      description: 'Theme change event',
-    },
-  },
-  tags: ['autodocs'],
-};
+    tags: ['autodocs'],
+}
 
-export default meta;
-type Story = StoryObj<typeof meta>;
+export default meta
+type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
-  args: {
-    variant: 'button',
-    size: 'md',
-  },
-};
+    args: {
+        variant: 'button',
+        size: 'md',
+    },
+}
 
 export const AllVariants: Story = {
-  render: () => ({
-    components: { ThemeController },
-    setup() {
-      const currentTheme = ref('light');
-      const allThemes = ref([
-        { value: 'light', label: 'Light' },
-        { value: 'dark', label: 'Dark' },
-        { value: 'cupcake', label: 'Cupcake' },
-        { value: 'bumblebee', label: 'Bumblebee' },
-        { value: 'emerald', label: 'Emerald' },
-        { value: 'corporate', label: 'Corporate' },
-      ]);
+    render: () => ({
+        components: { ThemeController },
+        setup() {
+            const currentTheme = ref('light')
+            const allThemes = ref([
+                { value: 'light', label: 'Light' },
+                { value: 'dark', label: 'Dark' },
+                { value: 'cupcake', label: 'Cupcake' },
+                { value: 'bumblebee', label: 'Bumblebee' },
+                { value: 'emerald', label: 'Emerald' },
+                { value: 'corporate', label: 'Corporate' },
+            ])
 
-      const onThemeChange = (theme: string) => {
-        currentTheme.value = theme;
-        console.log('Theme changed to:', theme);
-      };
+            const onThemeChange = (theme: string) => {
+                currentTheme.value = theme
+                console.log('Theme changed to:', theme)
+            }
 
-      return { currentTheme, allThemes, onThemeChange };
-    },
-    template: `
+            return { currentTheme, allThemes, onThemeChange }
+        },
+        template: `
       <div class="space-y-6">
         <div class="text-center">
           <h3 class="text-lg font-bold mb-2">All Theme Controller Variants</h3>
@@ -155,13 +155,13 @@ export const AllVariants: Story = {
         </div>
       </div>
     `,
-  }),
-};
+    }),
+}
 
 export const AllSizes: Story = {
-  render: () => ({
-    components: { ThemeController },
-    template: `
+    render: () => ({
+        components: { ThemeController },
+        template: `
       <div class="space-y-6">
         <div>
           <h3 class="text-lg font-bold mb-4">Button Variant Sizes</h3>
@@ -218,58 +218,58 @@ export const AllSizes: Story = {
         </div>
       </div>
     `,
-  }),
-};
+    }),
+}
 
 export const AdvancedExamples: Story = {
-  render: () => ({
-    components: { ThemeController },
-    setup() {
-      const customThemes = ref([
-        { value: 'light', label: 'Light Theme' },
-        { value: 'dark', label: 'Dark Theme' },
-        { value: 'cupcake', label: 'Cupcake' },
-        { value: 'bumblebee', label: 'Bumblebee' },
-        { value: 'emerald', label: 'Emerald' },
-        { value: 'corporate', label: 'Corporate' },
-        { value: 'synthwave', label: 'Synthwave' },
-        { value: 'retro', label: 'Retro' },
-        { value: 'cyberpunk', label: 'Cyberpunk' },
-        { value: 'valentine', label: 'Valentine' },
-        { value: 'halloween', label: 'Halloween' },
-        { value: 'garden', label: 'Garden' },
-        { value: 'forest', label: 'Forest' },
-        { value: 'aqua', label: 'Aqua' },
-        { value: 'lofi', label: 'Lo-Fi' },
-        { value: 'pastel', label: 'Pastel' },
-        { value: 'fantasy', label: 'Fantasy' },
-        { value: 'wireframe', label: 'Wireframe' },
-        { value: 'black', label: 'Black' },
-        { value: 'luxury', label: 'Luxury' },
-        { value: 'dracula', label: 'Dracula' },
-        { value: 'cmyk', label: 'CMYK' },
-        { value: 'autumn', label: 'Autumn' },
-        { value: 'business', label: 'Business' },
-        { value: 'acid', label: 'Acid' },
-        { value: 'lemonade', label: 'Lemonade' },
-        { value: 'night', label: 'Night' },
-        { value: 'coffee', label: 'Coffee' },
-        { value: 'winter', label: 'Winter' },
-      ]);
+    render: () => ({
+        components: { ThemeController },
+        setup() {
+            const customThemes = ref([
+                { value: 'light', label: 'Light Theme' },
+                { value: 'dark', label: 'Dark Theme' },
+                { value: 'cupcake', label: 'Cupcake' },
+                { value: 'bumblebee', label: 'Bumblebee' },
+                { value: 'emerald', label: 'Emerald' },
+                { value: 'corporate', label: 'Corporate' },
+                { value: 'synthwave', label: 'Synthwave' },
+                { value: 'retro', label: 'Retro' },
+                { value: 'cyberpunk', label: 'Cyberpunk' },
+                { value: 'valentine', label: 'Valentine' },
+                { value: 'halloween', label: 'Halloween' },
+                { value: 'garden', label: 'Garden' },
+                { value: 'forest', label: 'Forest' },
+                { value: 'aqua', label: 'Aqua' },
+                { value: 'lofi', label: 'Lo-Fi' },
+                { value: 'pastel', label: 'Pastel' },
+                { value: 'fantasy', label: 'Fantasy' },
+                { value: 'wireframe', label: 'Wireframe' },
+                { value: 'black', label: 'Black' },
+                { value: 'luxury', label: 'Luxury' },
+                { value: 'dracula', label: 'Dracula' },
+                { value: 'cmyk', label: 'CMYK' },
+                { value: 'autumn', label: 'Autumn' },
+                { value: 'business', label: 'Business' },
+                { value: 'acid', label: 'Acid' },
+                { value: 'lemonade', label: 'Lemonade' },
+                { value: 'night', label: 'Night' },
+                { value: 'coffee', label: 'Coffee' },
+                { value: 'winter', label: 'Winter' },
+            ])
 
-      const radioThemes = ref([
-        { value: 'light', label: 'Light' },
-        { value: 'dark', label: 'Dark' },
-        { value: 'cupcake', label: 'Cupcake' },
-        { value: 'bumblebee', label: 'Bumblebee' },
-        { value: 'emerald', label: 'Emerald' },
-        { value: 'corporate', label: 'Corporate' },
-        { value: 'synthwave', label: 'Synthwave' },
-      ]);
+            const radioThemes = ref([
+                { value: 'light', label: 'Light' },
+                { value: 'dark', label: 'Dark' },
+                { value: 'cupcake', label: 'Cupcake' },
+                { value: 'bumblebee', label: 'Bumblebee' },
+                { value: 'emerald', label: 'Emerald' },
+                { value: 'corporate', label: 'Corporate' },
+                { value: 'synthwave', label: 'Synthwave' },
+            ])
 
-      return { customThemes, radioThemes };
-    },
-    template: `
+            return { customThemes, radioThemes }
+        },
+        template: `
       <div class="space-y-6">
         <!-- Dropdown with Many Themes -->
         <div>
@@ -313,30 +313,30 @@ export const AdvancedExamples: Story = {
         </div>
       </div>
     `,
-  }),
-};
+    }),
+}
 
 export const InNavbar: Story = {
-  render: () => ({
-    components: { ThemeController },
-    setup() {
-      const navbarThemes = ref([
-        { value: 'light', label: 'Light' },
-        { value: 'dark', label: 'Dark' },
-        { value: 'cupcake', label: 'Cupcake' },
-        { value: 'bumblebee', label: 'Bumblebee' },
-        { value: 'emerald', label: 'Emerald' },
-        { value: 'corporate', label: 'Corporate' },
-        { value: 'synthwave', label: 'Synthwave' },
-      ]);
+    render: () => ({
+        components: { ThemeController },
+        setup() {
+            const navbarThemes = ref([
+                { value: 'light', label: 'Light' },
+                { value: 'dark', label: 'Dark' },
+                { value: 'cupcake', label: 'Cupcake' },
+                { value: 'bumblebee', label: 'Bumblebee' },
+                { value: 'emerald', label: 'Emerald' },
+                { value: 'corporate', label: 'Corporate' },
+                { value: 'synthwave', label: 'Synthwave' },
+            ])
 
-      const onThemeChange = (theme: string) => {
-        console.log('Navbar theme changed to:', theme);
-      };
+            const onThemeChange = (theme: string) => {
+                console.log('Navbar theme changed to:', theme)
+            }
 
-      return { navbarThemes, onThemeChange };
-    },
-    template: `
+            return { navbarThemes, onThemeChange }
+        },
+        template: `
       <div class="space-y-6">
         <h3 class="text-lg font-bold mb-4">Theme Controller in Navbar</h3>
         
@@ -426,32 +426,32 @@ export const InNavbar: Story = {
         </div>
       </div>
     `,
-  }),
-};
+    }),
+}
 
 export const Playground: Story = {
-  args: {
-    variant: 'button',
-    themes: [
-      { value: 'light', label: 'Light' },
-      { value: 'dark', label: 'Dark' },
-      { value: 'cupcake', label: 'Cupcake' },
-      { value: 'corporate', label: 'Corporate' },
-    ],
-    defaultTheme: 'light',
-    darkTheme: 'dark',
-    lightTheme: 'light',
-    showLabel: false,
-    size: 'md',
-    radioName: 'playground-theme',
-    ariaLabel: 'Toggle theme',
-  },
-  render: (args) => ({
-    components: { ThemeController },
-    setup() {
-      return { args };
+    args: {
+        variant: 'button',
+        themes: [
+            { value: 'light', label: 'Light' },
+            { value: 'dark', label: 'Dark' },
+            { value: 'cupcake', label: 'Cupcake' },
+            { value: 'corporate', label: 'Corporate' },
+        ],
+        defaultTheme: 'light',
+        darkTheme: 'dark',
+        lightTheme: 'light',
+        showLabel: false,
+        size: 'md',
+        radioName: 'playground-theme',
+        ariaLabel: 'Toggle theme',
     },
-    template: `
+    render: args => ({
+        components: { ThemeController },
+        setup() {
+            return { args }
+        },
+        template: `
       <div class="space-y-4">
         <ThemeController v-bind="args" />
         
@@ -460,5 +460,5 @@ export const Playground: Story = {
         </div>
       </div>
     `,
-  }),
-};
+    }),
+}

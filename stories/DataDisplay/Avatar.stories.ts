@@ -1,412 +1,412 @@
-import type { Meta, StoryObj } from '@storybook/vue3-vite';
-import Avatar from '../../src/runtime/components/DataDisplay/Avatar.vue';
+import type { Meta, StoryObj } from '@storybook/vue3-vite'
+import Avatar from '../../src/runtime/components/DataDisplay/Avatar.vue'
 
 const meta: Meta<typeof Avatar> = {
-  title: 'Data Display/Avatar',
-  component: Avatar,
-  parameters: {
-    layout: 'centered',
-    docs: {
-      description: {
-        component:
+    title: 'Data Display/Avatar',
+    component: Avatar,
+    parameters: {
+        layout: 'centered',
+        docs: {
+            description: {
+                component:
           'A flexible avatar component with support for images, placeholders, presence indicators, badges, and loading states.',
-      },
+            },
+        },
     },
-  },
-  tags: ['autodocs'],
-  argTypes: {
-    src: {
-      type: 'string',
-      control: { type: 'text' },
-      description: 'Image source URL',
-      table: {
-        type: { summary: 'string' },
-      },
+    tags: ['autodocs'],
+    argTypes: {
+        src: {
+            type: 'string',
+            control: { type: 'text' },
+            description: 'Image source URL',
+            table: {
+                type: { summary: 'string' },
+            },
+        },
+        alt: {
+            type: 'string',
+            control: { type: 'text' },
+            description: 'Alt text for image',
+            table: {
+                type: { summary: 'string' },
+            },
+        },
+        name: {
+            type: 'string',
+            control: { type: 'text' },
+            description: 'User name for generating initials',
+            table: {
+                type: { summary: 'string' },
+            },
+        },
+        placeholder: {
+            type: 'string',
+            control: { type: 'text' },
+            description: 'Placeholder text (shown when no image)',
+            table: {
+                type: { summary: 'string' },
+            },
+        },
+        initials: {
+            type: 'string',
+            control: { type: 'text' },
+            description: 'Custom initials to display',
+            table: {
+                type: { summary: 'string' },
+            },
+        },
+        size: {
+            type: 'string',
+            control: { type: 'select' },
+            options: ['xs', 'sm', 'md', 'lg', 'xl', '2xl'],
+            description: 'Avatar size',
+            table: {
+                type: { summary: 'string' },
+                defaultValue: { summary: 'md' },
+            },
+        },
+        shape: {
+            type: 'string',
+            control: { type: 'select' },
+            options: ['circle', 'square', 'rounded'],
+            description: 'Avatar shape',
+            table: {
+                type: { summary: 'string' },
+                defaultValue: { summary: 'circle' },
+            },
+        },
+        presence: {
+            type: 'string',
+            control: { type: 'select' },
+            options: ['online', 'offline', 'away', 'busy'],
+            description: 'Presence status',
+            table: {
+                type: { summary: 'string' },
+            },
+        },
+        showPresence: {
+            type: 'boolean',
+            control: { type: 'boolean' },
+            description: 'Show presence indicator',
+            table: {
+                type: { summary: 'boolean' },
+                defaultValue: { summary: 'true' },
+            },
+        },
+        ring: {
+            type: 'boolean',
+            control: { type: 'boolean' },
+            description: 'Show ring around avatar',
+            table: {
+                type: { summary: 'boolean' },
+                defaultValue: { summary: 'false' },
+            },
+        },
+        ringColor: {
+            type: 'string',
+            control: { type: 'select' },
+            options: ['bordered', 'ghost', 'primary', 'secondary', 'accent', 'info', 'success', 'warning', 'error', 'neutral'],
+            description: 'Ring color',
+            table: {
+                type: { summary: 'string' },
+                defaultValue: { summary: 'primary' },
+            },
+        },
+        badge: {
+            type: 'string',
+            control: { type: 'text' },
+            description: 'Badge text to display',
+            table: {
+                type: { summary: 'string' },
+            },
+        },
+        badgeVariant: {
+            type: 'string',
+            control: { type: 'select' },
+            options: ['bordered', 'ghost', 'primary', 'secondary', 'accent', 'info', 'success', 'warning', 'error', 'neutral'],
+            description: 'Badge variant',
+            table: {
+                type: { summary: 'string' },
+                defaultValue: { summary: 'primary' },
+            },
+        },
+        count: {
+            type: 'number',
+            control: { type: 'number' },
+            description: 'Count number to display as badge',
+            table: {
+                type: { summary: 'number' },
+            },
+        },
+        loading: {
+            type: 'boolean',
+            control: { type: 'boolean' },
+            description: 'Show loading state',
+            table: {
+                type: { summary: 'boolean' },
+                defaultValue: { summary: 'false' },
+            },
+        },
+        lazy: {
+            type: 'boolean',
+            control: { type: 'boolean' },
+            description: 'Enable lazy loading for image',
+            table: {
+                type: { summary: 'boolean' },
+                defaultValue: { summary: 'true' },
+            },
+        },
+        fallbackColor: {
+            type: 'string',
+            control: { type: 'select' },
+            options: ['primary', 'secondary', 'accent', 'neutral', 'random'],
+            description: 'Background color for placeholder (random generates color from name)',
+            table: {
+                type: { summary: 'string' },
+                defaultValue: { summary: 'neutral' },
+            },
+        },
+        fallbackIcon: {
+            type: 'string',
+            control: { type: 'text' },
+            description: 'Icon to show when no image, name, or placeholder is provided',
+            table: {
+                type: { summary: 'string' },
+                defaultValue: { summary: 'user' },
+            },
+        },
     },
-    alt: {
-      type: 'string',
-      control: { type: 'text' },
-      description: 'Alt text for image',
-      table: {
-        type: { summary: 'string' },
-      },
-    },
-    name: {
-      type: 'string',
-      control: { type: 'text' },
-      description: 'User name for generating initials',
-      table: {
-        type: { summary: 'string' },
-      },
-    },
-    placeholder: {
-      type: 'string',
-      control: { type: 'text' },
-      description: 'Placeholder text (shown when no image)',
-      table: {
-        type: { summary: 'string' },
-      },
-    },
-    initials: {
-      type: 'string',
-      control: { type: 'text' },
-      description: 'Custom initials to display',
-      table: {
-        type: { summary: 'string' },
-      },
-    },
-    size: {
-      type: 'string',
-      control: { type: 'select' },
-      options: ['xs', 'sm', 'md', 'lg', 'xl', '2xl'],
-      description: 'Avatar size',
-      table: {
-        type: { summary: 'string' },
-        defaultValue: { summary: 'md' },
-      },
-    },
-    shape: {
-      type: 'string',
-      control: { type: 'select' },
-      options: ['circle', 'square', 'rounded'],
-      description: 'Avatar shape',
-      table: {
-        type: { summary: 'string' },
-        defaultValue: { summary: 'circle' },
-      },
-    },
-    presence: {
-      type: 'string',
-      control: { type: 'select' },
-      options: ['online', 'offline', 'away', 'busy'],
-      description: 'Presence status',
-      table: {
-        type: { summary: 'string' },
-      },
-    },
-    showPresence: {
-      type: 'boolean',
-      control: { type: 'boolean' },
-      description: 'Show presence indicator',
-      table: {
-        type: { summary: 'boolean' },
-        defaultValue: { summary: 'true' },
-      },
-    },
-    ring: {
-      type: 'boolean',
-      control: { type: 'boolean' },
-      description: 'Show ring around avatar',
-      table: {
-        type: { summary: 'boolean' },
-        defaultValue: { summary: 'false' },
-      },
-    },
-    ringColor: {
-      type: 'string',
-      control: { type: 'select' },
-      options: ['bordered', 'ghost', 'primary', 'secondary', 'accent', 'info', 'success', 'warning', 'error', 'neutral'],
-      description: 'Ring color',
-      table: {
-        type: { summary: 'string' },
-        defaultValue: { summary: 'primary' },
-      },
-    },
-    badge: {
-      type: 'string',
-      control: { type: 'text' },
-      description: 'Badge text to display',
-      table: {
-        type: { summary: 'string' },
-      },
-    },
-    badgeVariant: {
-      type: 'string',
-      control: { type: 'select' },
-      options: ['bordered', 'ghost', 'primary', 'secondary', 'accent', 'info', 'success', 'warning', 'error', 'neutral'],
-      description: 'Badge variant',
-      table: {
-        type: { summary: 'string' },
-        defaultValue: { summary: 'primary' },
-      },
-    },
-    count: {
-      type: 'number',
-      control: { type: 'number' },
-      description: 'Count number to display as badge',
-      table: {
-        type: { summary: 'number' },
-      },
-    },
-    loading: {
-      type: 'boolean',
-      control: { type: 'boolean' },
-      description: 'Show loading state',
-      table: {
-        type: { summary: 'boolean' },
-        defaultValue: { summary: 'false' },
-      },
-    },
-    lazy: {
-      type: 'boolean',
-      control: { type: 'boolean' },
-      description: 'Enable lazy loading for image',
-      table: {
-        type: { summary: 'boolean' },
-        defaultValue: { summary: 'true' },
-      },
-    },
-    fallbackColor: {
-      type: 'string',
-      control: { type: 'select' },
-      options: ['primary', 'secondary', 'accent', 'neutral', 'random'],
-      description: 'Background color for placeholder (random generates color from name)',
-      table: {
-        type: { summary: 'string' },
-        defaultValue: { summary: 'neutral' },
-      },
-    },
-    fallbackIcon: {
-      type: 'string',
-      control: { type: 'text' },
-      description: 'Icon to show when no image, name, or placeholder is provided',
-      table: {
-        type: { summary: 'string' },
-        defaultValue: { summary: 'user' },
-      },
-    },
-  },
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof meta>;
+export default meta
+type Story = StoryObj<typeof meta>
 
 export const WithImage: Story = {
-  args: {
-    src: 'https://i.pravatar.cc/150?img=1',
-    alt: 'User avatar',
-  },
-  render: args => ({
-    components: { Avatar },
-    setup() {
-      return { args };
+    args: {
+        src: 'https://i.pravatar.cc/150?img=1',
+        alt: 'User avatar',
     },
-    template: '<Avatar v-bind="args" />',
-  }),
-};
+    render: args => ({
+        components: { Avatar },
+        setup() {
+            return { args }
+        },
+        template: '<Avatar v-bind="args" />',
+    }),
+}
 
 export const WithPlaceholder: Story = {
-  args: {
-    placeholder: 'JD',
-  },
-  render: args => ({
-    components: { Avatar },
-    setup() {
-      return { args };
+    args: {
+        placeholder: 'JD',
     },
-    template: '<Avatar v-bind="args" />',
-  }),
-};
+    render: args => ({
+        components: { Avatar },
+        setup() {
+            return { args }
+        },
+        template: '<Avatar v-bind="args" />',
+    }),
+}
 
 export const Online: Story = {
-  args: {
-    src: 'https://i.pravatar.cc/150?img=2',
-    alt: 'Online user',
-    presence: 'online',
-  },
-  render: args => ({
-    components: { Avatar },
-    setup() {
-      return { args };
+    args: {
+        src: 'https://i.pravatar.cc/150?img=2',
+        alt: 'Online user',
+        presence: 'online',
     },
-    template: '<Avatar v-bind="args" />',
-  }),
-};
+    render: args => ({
+        components: { Avatar },
+        setup() {
+            return { args }
+        },
+        template: '<Avatar v-bind="args" />',
+    }),
+}
 
 export const Offline: Story = {
-  args: {
-    src: 'https://i.pravatar.cc/150?img=3',
-    alt: 'Offline user',
-    presence: 'offline',
-  },
-  render: args => ({
-    components: { Avatar },
-    setup() {
-      return { args };
+    args: {
+        src: 'https://i.pravatar.cc/150?img=3',
+        alt: 'Offline user',
+        presence: 'offline',
     },
-    template: '<Avatar v-bind="args" />',
-  }),
-};
+    render: args => ({
+        components: { Avatar },
+        setup() {
+            return { args }
+        },
+        template: '<Avatar v-bind="args" />',
+    }),
+}
 
 export const Away: Story = {
-  args: {
-    src: 'https://i.pravatar.cc/150?img=4',
-    alt: 'Away user',
-    presence: 'away',
-  },
-  render: args => ({
-    components: { Avatar },
-    setup() {
-      return { args };
+    args: {
+        src: 'https://i.pravatar.cc/150?img=4',
+        alt: 'Away user',
+        presence: 'away',
     },
-    template: '<Avatar v-bind="args" />',
-  }),
-};
+    render: args => ({
+        components: { Avatar },
+        setup() {
+            return { args }
+        },
+        template: '<Avatar v-bind="args" />',
+    }),
+}
 
 export const Busy: Story = {
-  args: {
-    src: 'https://i.pravatar.cc/150?img=5',
-    alt: 'Busy user',
-    presence: 'busy',
-  },
-  render: args => ({
-    components: { Avatar },
-    setup() {
-      return { args };
+    args: {
+        src: 'https://i.pravatar.cc/150?img=5',
+        alt: 'Busy user',
+        presence: 'busy',
     },
-    template: '<Avatar v-bind="args" />',
-  }),
-};
+    render: args => ({
+        components: { Avatar },
+        setup() {
+            return { args }
+        },
+        template: '<Avatar v-bind="args" />',
+    }),
+}
 
 export const WithRing: Story = {
-  args: {
-    src: 'https://i.pravatar.cc/150?img=6',
-    alt: 'User with ring',
-    ring: true,
-    ringColor: 'primary',
-  },
-  render: args => ({
-    components: { Avatar },
-    setup() {
-      return { args };
+    args: {
+        src: 'https://i.pravatar.cc/150?img=6',
+        alt: 'User with ring',
+        ring: true,
+        ringColor: 'primary',
     },
-    template: '<Avatar v-bind="args" />',
-  }),
-};
+    render: args => ({
+        components: { Avatar },
+        setup() {
+            return { args }
+        },
+        template: '<Avatar v-bind="args" />',
+    }),
+}
 
 export const Square: Story = {
-  args: {
-    src: 'https://i.pravatar.cc/150?img=7',
-    alt: 'Square avatar',
-    shape: 'square',
-  },
-  render: args => ({
-    components: { Avatar },
-    setup() {
-      return { args };
+    args: {
+        src: 'https://i.pravatar.cc/150?img=7',
+        alt: 'Square avatar',
+        shape: 'square',
     },
-    template: '<Avatar v-bind="args" />',
-  }),
-};
+    render: args => ({
+        components: { Avatar },
+        setup() {
+            return { args }
+        },
+        template: '<Avatar v-bind="args" />',
+    }),
+}
 
 export const Large: Story = {
-  args: {
-    src: 'https://i.pravatar.cc/150?img=8',
-    alt: 'Large avatar',
-    size: 'xl',
-  },
-  render: args => ({
-    components: { Avatar },
-    setup() {
-      return { args };
+    args: {
+        src: 'https://i.pravatar.cc/150?img=8',
+        alt: 'Large avatar',
+        size: 'xl',
     },
-    template: '<Avatar v-bind="args" />',
-  }),
-};
+    render: args => ({
+        components: { Avatar },
+        setup() {
+            return { args }
+        },
+        template: '<Avatar v-bind="args" />',
+    }),
+}
 
 export const Small: Story = {
-  args: {
-    src: 'https://i.pravatar.cc/150?img=9',
-    alt: 'Small avatar',
-    size: 'xs',
-  },
-  render: args => ({
-    components: { Avatar },
-    setup() {
-      return { args };
+    args: {
+        src: 'https://i.pravatar.cc/150?img=9',
+        alt: 'Small avatar',
+        size: 'xs',
     },
-    template: '<Avatar v-bind="args" />',
-  }),
-};
+    render: args => ({
+        components: { Avatar },
+        setup() {
+            return { args }
+        },
+        template: '<Avatar v-bind="args" />',
+    }),
+}
 
 export const WithName: Story = {
-  args: {
-    name: 'John Doe',
-  },
-  render: args => ({
-    components: { Avatar },
-    setup() {
-      return { args };
+    args: {
+        name: 'John Doe',
     },
-    template: '<Avatar v-bind="args" />',
-  }),
-};
+    render: args => ({
+        components: { Avatar },
+        setup() {
+            return { args }
+        },
+        template: '<Avatar v-bind="args" />',
+    }),
+}
 
 export const WithBadge: Story = {
-  args: {
-    src: 'https://i.pravatar.cc/150?img=10',
-    alt: 'User with badge',
-    badge: '3',
-    badgeVariant: 'primary',
-  },
-  render: args => ({
-    components: { Avatar },
-    setup() {
-      return { args };
+    args: {
+        src: 'https://i.pravatar.cc/150?img=10',
+        alt: 'User with badge',
+        badge: '3',
+        badgeVariant: 'primary',
     },
-    template: '<Avatar v-bind="args" />',
-  }),
-};
+    render: args => ({
+        components: { Avatar },
+        setup() {
+            return { args }
+        },
+        template: '<Avatar v-bind="args" />',
+    }),
+}
 
 export const WithCount: Story = {
-  args: {
-    src: 'https://i.pravatar.cc/150?img=11',
-    alt: 'User with count',
-    count: 42,
-    badgeVariant: 'success',
-  },
-  render: args => ({
-    components: { Avatar },
-    setup() {
-      return { args };
+    args: {
+        src: 'https://i.pravatar.cc/150?img=11',
+        alt: 'User with count',
+        count: 42,
+        badgeVariant: 'success',
     },
-    template: '<Avatar v-bind="args" />',
-  }),
-};
+    render: args => ({
+        components: { Avatar },
+        setup() {
+            return { args }
+        },
+        template: '<Avatar v-bind="args" />',
+    }),
+}
 
 export const WithLargeCount: Story = {
-  args: {
-    src: 'https://i.pravatar.cc/150?img=12',
-    alt: 'User with large count',
-    count: 999,
-    badgeVariant: 'warning',
-  },
-  render: args => ({
-    components: { Avatar },
-    setup() {
-      return { args };
+    args: {
+        src: 'https://i.pravatar.cc/150?img=12',
+        alt: 'User with large count',
+        count: 999,
+        badgeVariant: 'warning',
     },
-    template: '<Avatar v-bind="args" />',
-  }),
-};
+    render: args => ({
+        components: { Avatar },
+        setup() {
+            return { args }
+        },
+        template: '<Avatar v-bind="args" />',
+    }),
+}
 
 export const Loading: Story = {
-  args: {
-    loading: true,
-  },
-  render: args => ({
-    components: { Avatar },
-    setup() {
-      return { args };
+    args: {
+        loading: true,
     },
-    template: '<Avatar v-bind="args" />',
-  }),
-};
+    render: args => ({
+        components: { Avatar },
+        setup() {
+            return { args }
+        },
+        template: '<Avatar v-bind="args" />',
+    }),
+}
 
 export const WithFallbackColors: Story = {
-  render: () => ({
-    components: { Avatar },
-    template: `
+    render: () => ({
+        components: { Avatar },
+        template: `
       <div class="space-y-4">
         <div class="flex flex-wrap gap-4 items-center">
           <Avatar name="John Doe" fallbackColor="primary" />
@@ -417,13 +417,13 @@ export const WithFallbackColors: Story = {
         </div>
       </div>
     `,
-  }),
-};
+    }),
+}
 
 export const AllVariants: Story = {
-  render: () => ({
-    components: { Avatar },
-    template: `
+    render: () => ({
+        components: { Avatar },
+        template: `
       <div class="space-y-6">
         <div>
           <h3 class="text-lg font-semibold mb-3">Sizes</h3>
@@ -497,5 +497,5 @@ export const AllVariants: Story = {
         </div>
       </div>
     `,
-  }),
-};
+    }),
+}

@@ -1,6 +1,6 @@
 export const indicatorPartMap = {
-    item: 'indicator-item'
-} as const;
+    item: 'indicator-item',
+} as const
 
 export const indicatorPlacementMap = {
     start: 'indicator-start',
@@ -8,7 +8,7 @@ export const indicatorPlacementMap = {
     end: 'indicator-end',
     top: 'indicator-top',
     middle: 'indicator-middle',
-    bottom: 'indicator-bottom'
-} as const;
+    bottom: 'indicator-bottom',
+} as const
 
-export const indicatorBaseClass = 'indicator' as const;
+export const indicatorBaseClass = 'indicator' as const

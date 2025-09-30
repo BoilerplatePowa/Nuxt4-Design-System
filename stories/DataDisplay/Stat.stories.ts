@@ -1,40 +1,40 @@
-import type { Meta, StoryObj } from '@storybook/vue3-vite';
-import Stat from '../../src/runtime/components/DataDisplay/Stat.vue';
+import type { Meta, StoryObj } from '@storybook/vue3-vite'
+import Stat from '../../src/runtime/components/DataDisplay/Stat.vue'
 
 const meta: Meta<typeof Stat> = {
-  title: 'Data Display/Stat',
-  component: Stat,
-  parameters: {
-    layout: 'padded',
-  },
-  argTypes: {
-    variant: {
-      control: { type: 'select' },
-      options: ['default', 'primary', 'secondary', 'accent', 'info', 'success', 'warning', 'error'],
+    title: 'Data Display/Stat',
+    component: Stat,
+    parameters: {
+        layout: 'padded',
     },
-    size: {
-      control: { type: 'select' },
-      options: ['sm', 'md', 'lg'],
+    argTypes: {
+        variant: {
+            control: { type: 'select' },
+            options: ['default', 'primary', 'secondary', 'accent', 'info', 'success', 'warning', 'error'],
+        },
+        size: {
+            control: { type: 'select' },
+            options: ['sm', 'md', 'lg'],
+        },
     },
-  },
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof meta>;
+export default meta
+type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
-  args: {
-    title: 'Total Sales',
-    value: '12,345',
-    description: '↗︎ 400 (22%)',
-    icon: '💰',
-  },
-};
+    args: {
+        title: 'Total Sales',
+        value: '12,345',
+        description: '↗︎ 400 (22%)',
+        icon: '💰',
+    },
+}
 
 export const BasicStats: Story = {
-  render: () => ({
-    components: { Stat },
-    template: `
+    render: () => ({
+        components: { Stat },
+        template: `
       <div class="stats shadow">
         <Stat 
           title="Total Users"
@@ -60,13 +60,13 @@ export const BasicStats: Story = {
         />
       </div>
     `,
-  }),
-};
+    }),
+}
 
 export const WithTrends: Story = {
-  render: () => ({
-    components: { Stat },
-    template: `
+    render: () => ({
+        components: { Stat },
+        template: `
       <div class="stats stats-vertical lg:stats-horizontal shadow">
         <Stat 
           title="Downloads"
@@ -111,13 +111,13 @@ export const WithTrends: Story = {
         </Stat>
       </div>
     `,
-  }),
-};
+    }),
+}
 
 export const Variants: Story = {
-  render: () => ({
-    components: { Stat },
-    template: `
+    render: () => ({
+        components: { Stat },
+        template: `
       <div class="space-y-8">
         <div>
           <h3 class="text-lg font-bold mb-4">Default</h3>
@@ -145,13 +145,13 @@ export const Variants: Story = {
         </div>
       </div>
     `,
-  }),
-};
+    }),
+}
 
 export const Dashboard: Story = {
-  render: () => ({
-    components: { Stat },
-    template: `
+    render: () => ({
+        components: { Stat },
+        template: `
       <div class="space-y-6">
         <!-- Top Row Stats -->
         <div class="stats shadow w-full">
@@ -268,13 +268,13 @@ export const Dashboard: Story = {
         </div>
       </div>
     `,
-  }),
-};
+    }),
+}
 
 export const CustomColors: Story = {
-  render: () => ({
-    components: { Stat },
-    template: `
+    render: () => ({
+        components: { Stat },
+        template: `
       <div class="stats shadow">
         <Stat 
           title="Primary"
@@ -305,5 +305,5 @@ export const CustomColors: Story = {
         />
       </div>
     `,
-  }),
-};
+    }),
+}

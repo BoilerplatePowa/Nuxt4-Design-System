@@ -10,11 +10,11 @@ export const dropdownPlacementMap = {
     bottom: 'dropdown-bottom',
     left: 'dropdown-left',
     right: 'dropdown-right',
-} as const;
+} as const
 
 export const dropdownModifierMap = {
     hover: 'dropdown-hover',
     open: 'dropdown-open',
-} as const;
+} as const
 
-export const dropdownBaseClass = 'dropdown' as const;
+export const dropdownBaseClass = 'dropdown' as const

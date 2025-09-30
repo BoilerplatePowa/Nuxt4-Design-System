@@ -1,6 +1,6 @@
 export const inputStyleMap = {
-    ghost: 'input-ghost'
-} as const;
+    ghost: 'input-ghost',
+} as const
 
 export const inputColorMap = {
     neutral: 'input-neutral',
@@ -10,15 +10,15 @@ export const inputColorMap = {
     info: 'input-info',
     success: 'input-success',
     warning: 'input-warning',
-    error: 'input-error'
-} as const;
+    error: 'input-error',
+} as const
 
 export const inputSizeMap = {
     xs: 'input-xs',
     sm: 'input-sm',
     md: 'input-md',
     lg: 'input-lg',
-    xl: 'input-xl'
-} as const;
+    xl: 'input-xl',
+} as const
 
-export const inputBaseClass = 'input' as const;
+export const inputBaseClass = 'input' as const

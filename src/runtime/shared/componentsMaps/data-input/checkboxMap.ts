@@ -6,15 +6,15 @@ export const checkboxColorMap = {
     success: 'checkbox-success',
     warning: 'checkbox-warning',
     info: 'checkbox-info',
-    error: 'checkbox-error'
-} as const;
+    error: 'checkbox-error',
+} as const
 
 export const checkboxSizeMap = {
     xs: 'checkbox-xs',
     sm: 'checkbox-sm',
     md: 'checkbox-md',
     lg: 'checkbox-lg',
-    xl: 'checkbox-xl'
-} as const;
+    xl: 'checkbox-xl',
+} as const
 
-export const checkboxBaseClass = 'checkbox' as const;
+export const checkboxBaseClass = 'checkbox' as const

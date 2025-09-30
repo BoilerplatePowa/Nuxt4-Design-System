@@ -6,7 +6,7 @@ export const progressColorMap = {
     info: 'progress-info',
     success: 'progress-success',
     warning: 'progress-warning',
-    error: 'progress-error'
-} as const;
+    error: 'progress-error',
+} as const
 
-export const progressBaseClass = 'progress' as const;
+export const progressBaseClass = 'progress' as const

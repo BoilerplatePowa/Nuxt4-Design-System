@@ -1,4 +1,4 @@
-import { iconMap } from './map';
-import type { IconName } from './types.d';
+import { iconMap } from './map'
+import type { IconName } from './types.d'
 
-export const iconNameKeys = Object.keys(iconMap) as IconName[];
+export const iconNameKeys = Object.keys(iconMap) as IconName[]

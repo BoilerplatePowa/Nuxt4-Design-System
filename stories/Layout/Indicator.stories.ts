@@ -1,65 +1,65 @@
-import type { Meta, StoryObj } from '@storybook/vue3-vite';
-import Indicator from '../../src/runtime/components/Layout/Indicator.vue';
+import type { Meta, StoryObj } from '@storybook/vue3-vite'
+import Indicator from '../../src/runtime/components/Layout/Indicator.vue'
 
 const meta: Meta<typeof Indicator> = {
-  title: 'Layout/Indicator',
-  component: Indicator,
-  parameters: {
-    layout: 'centered',
-  },
-  argTypes: {
-    position: {
-      control: { type: 'select' },
-      options: [
-        'top-start',
-        'top-center',
-        'top-end',
-        'middle-start',
-        'middle-center',
-        'middle-end',
-        'bottom-start',
-        'bottom-center',
-        'bottom-end',
-      ],
+    title: 'Layout/Indicator',
+    component: Indicator,
+    parameters: {
+        layout: 'centered',
     },
-    variant: {
-      control: { type: 'select' },
-      options: ['primary', 'secondary', 'accent', 'info', 'success', 'warning', 'error'],
+    argTypes: {
+        position: {
+            control: { type: 'select' },
+            options: [
+                'top-start',
+                'top-center',
+                'top-end',
+                'middle-start',
+                'middle-center',
+                'middle-end',
+                'bottom-start',
+                'bottom-center',
+                'bottom-end',
+            ],
+        },
+        variant: {
+            control: { type: 'select' },
+            options: ['primary', 'secondary', 'accent', 'info', 'success', 'warning', 'error'],
+        },
+        size: {
+            control: { type: 'select' },
+            options: ['xs', 'sm', 'md', 'lg'],
+        },
+        showIndicator: {
+            control: { type: 'boolean' },
+        },
     },
-    size: {
-      control: { type: 'select' },
-      options: ['xs', 'sm', 'md', 'lg'],
-    },
-    showIndicator: {
-      control: { type: 'boolean' },
-    },
-  },
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof meta>;
+export default meta
+type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
-  args: {
-    content: '5',
-  },
-  render: args => ({
-    components: { Indicator },
-    setup() {
-      return { args };
+    args: {
+        content: '5',
     },
-    template: `
+    render: args => ({
+        components: { Indicator },
+        setup() {
+            return { args }
+        },
+        template: `
       <Indicator v-bind="args">
         <button class="btn">Messages</button>
       </Indicator>
     `,
-  }),
-};
+    }),
+}
 
 export const BadgeNotifications: Story = {
-  render: () => ({
-    components: { Indicator },
-    template: `
+    render: () => ({
+        components: { Indicator },
+        template: `
       <div class="flex flex-wrap gap-8 items-center justify-center">
         <Indicator content="3" variant="error">
           <button class="btn btn-primary">Notifications</button>
@@ -78,13 +78,13 @@ export const BadgeNotifications: Story = {
         </Indicator>
       </div>
     `,
-  }),
-};
+    }),
+}
 
 export const Positions: Story = {
-  render: () => ({
-    components: { Indicator },
-    template: `
+    render: () => ({
+        components: { Indicator },
+        template: `
       <div class="grid grid-cols-3 gap-8 items-center justify-items-center">
         <Indicator content="1" position="top-start">
           <div class="w-16 h-16 bg-base-300 rounded-lg flex items-center justify-center">TL</div>
@@ -123,13 +123,13 @@ export const Positions: Story = {
         </Indicator>
       </div>
     `,
-  }),
-};
+    }),
+}
 
 export const Variants: Story = {
-  render: () => ({
-    components: { Indicator },
-    template: `
+    render: () => ({
+        components: { Indicator },
+        template: `
       <div class="flex flex-wrap gap-6 items-center justify-center">
         <Indicator content="1" variant="primary">
           <button class="btn btn-outline">Primary</button>
@@ -160,13 +160,13 @@ export const Variants: Story = {
         </Indicator>
       </div>
     `,
-  }),
-};
+    }),
+}
 
 export const Sizes: Story = {
-  render: () => ({
-    components: { Indicator },
-    template: `
+    render: () => ({
+        components: { Indicator },
+        template: `
       <div class="flex flex-wrap gap-8 items-center justify-center">
         <Indicator content="XS" size="xs" variant="primary">
           <button class="btn">Extra Small</button>
@@ -185,13 +185,13 @@ export const Sizes: Story = {
         </Indicator>
       </div>
     `,
-  }),
-};
+    }),
+}
 
 export const CustomContent: Story = {
-  render: () => ({
-    components: { Indicator },
-    template: `
+    render: () => ({
+        components: { Indicator },
+        template: `
       <div class="flex flex-wrap gap-8 items-center justify-center">
         <Indicator>
           <template #indicator>
@@ -222,13 +222,13 @@ export const CustomContent: Story = {
         </Indicator>
       </div>
     `,
-  }),
-};
+    }),
+}
 
 export const AvatarWithStatus: Story = {
-  render: () => ({
-    components: { Indicator },
-    template: `
+    render: () => ({
+        components: { Indicator },
+        template: `
       <div class="flex gap-8 items-center justify-center">
         <Indicator variant="success" size="sm" position="bottom-end">
           <div class="avatar">
@@ -255,13 +255,13 @@ export const AvatarWithStatus: Story = {
         </Indicator>
       </div>
     `,
-  }),
-};
+    }),
+}
 
 export const ShoppingCart: Story = {
-  render: () => ({
-    components: { Indicator },
-    template: `
+    render: () => ({
+        components: { Indicator },
+        template: `
       <div class="flex gap-8 items-center justify-center">
         <Indicator content="3" variant="error" position="top-end">
           <button class="btn btn-square btn-ghost">
@@ -288,5 +288,5 @@ export const ShoppingCart: Story = {
         </Indicator>
       </div>
     `,
-  }),
-};
+    }),
+}

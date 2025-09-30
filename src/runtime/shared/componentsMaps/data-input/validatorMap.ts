@@ -1,5 +1,5 @@
 export const validatorPartMap = {
-    hint: 'validator-hint'
-} as const;
+    hint: 'validator-hint',
+} as const
 
-export const validatorBaseClass = 'validator' as const;
+export const validatorBaseClass = 'validator' as const

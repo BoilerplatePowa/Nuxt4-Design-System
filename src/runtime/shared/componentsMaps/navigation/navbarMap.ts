@@ -4,7 +4,7 @@
 export const navbarPartMap = {
     start: 'navbar-start',
     center: 'navbar-center',
-    end: 'navbar-end'
-} as const;
+    end: 'navbar-end',
+} as const
 
-export const navbarBaseClass = 'navbar' as const;
+export const navbarBaseClass = 'navbar' as const

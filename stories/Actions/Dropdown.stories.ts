@@ -1,151 +1,151 @@
-import type { Meta, StoryObj } from '@storybook/vue3-vite';
-import Dropdown from '../../src/runtime/components/Actions/Dropdown.vue';
+import type { Meta, StoryObj } from '@storybook/vue3-vite'
+import Dropdown from '../../src/runtime/components/Actions/Dropdown.vue'
 
 const meta: Meta<typeof Dropdown> = {
-  title: 'Actions/Dropdown',
-  component: Dropdown,
-  parameters: {
-    layout: 'centered',
-    docs: {
-      description: {
-        component: 'Interactive dropdown menu component built with Button components for consistent styling and enhanced functionality. Features customizable trigger buttons and menu items with full Button component integration.',
-      },
+    title: 'Actions/Dropdown',
+    component: Dropdown,
+    parameters: {
+        layout: 'centered',
+        docs: {
+            description: {
+                component: 'Interactive dropdown menu component built with Button components for consistent styling and enhanced functionality. Features customizable trigger buttons and menu items with full Button component integration.',
+            },
+        },
     },
-  },
-  argTypes: {
-    items: {
-      control: 'object',
-      description: 'Array of dropdown items with label, value, href, disabled, divider, and active properties',
+    argTypes: {
+        items: {
+            control: 'object',
+            description: 'Array of dropdown items with label, value, href, disabled, divider, and active properties',
+        },
+        triggerText: {
+            control: 'text',
+            description: 'Text for the default trigger button',
+        },
+        position: {
+            control: { type: 'select' },
+            options: ['bottom', 'top', 'left', 'right'],
+            description: 'Position of the dropdown relative to trigger',
+        },
+        align: {
+            control: { type: 'select' },
+            options: ['start', 'end'],
+            description: 'Alignment of the dropdown',
+        },
+        hover: {
+            control: 'boolean',
+            description: 'Open dropdown on hover instead of click',
+        },
+        forceOpen: {
+            control: 'boolean',
+            description: 'Force dropdown to stay open',
+        },
+        disabled: {
+            control: 'boolean',
+            description: 'Disable the dropdown',
+        },
+        size: {
+            control: { type: 'select' },
+            options: ['xs', 'sm', 'md', 'lg'],
+            description: 'Dropdown size',
+        },
+        triggerColor: {
+            control: { type: 'select' },
+            options: ['primary', 'secondary', 'accent', 'neutral', 'info', 'success', 'warning', 'error'],
+            description: 'Trigger button color',
+        },
+        triggerStyle: {
+            control: { type: 'select' },
+            options: ['outline', 'ghost', 'link', 'dash', 'soft'],
+            description: 'Trigger button style',
+        },
+        itemColor: {
+            control: { type: 'select' },
+            options: ['primary', 'secondary', 'accent', 'neutral', 'info', 'success', 'warning', 'error'],
+            description: 'Menu item button color',
+        },
+        closeOnSelect: {
+            control: 'boolean',
+            description: 'Close dropdown when item is selected',
+        },
+        autoFocus: {
+            control: 'boolean',
+            description: 'Auto-focus first item when dropdown opens',
+        },
+        onItemClick: {
+            action: 'item-click',
+            description: 'Item click event',
+        },
+        onOpen: {
+            action: 'open',
+            description: 'Dropdown open event',
+        },
+        onClose: {
+            action: 'close',
+            description: 'Dropdown close event',
+        },
+        onUpdateOpen: {
+            action: 'update:open',
+            description: 'Open state update event',
+        },
     },
-    triggerText: {
-      control: 'text',
-      description: 'Text for the default trigger button',
-    },
-    position: {
-      control: { type: 'select' },
-      options: ['bottom', 'top', 'left', 'right'],
-      description: 'Position of the dropdown relative to trigger',
-    },
-    align: {
-      control: { type: 'select' },
-      options: ['start', 'end'],
-      description: 'Alignment of the dropdown',
-    },
-    hover: {
-      control: 'boolean',
-      description: 'Open dropdown on hover instead of click',
-    },
-    forceOpen: {
-      control: 'boolean',
-      description: 'Force dropdown to stay open',
-    },
-    disabled: {
-      control: 'boolean',
-      description: 'Disable the dropdown',
-    },
-    size: {
-      control: { type: 'select' },
-      options: ['xs', 'sm', 'md', 'lg'],
-      description: 'Dropdown size',
-    },
-    triggerColor: {
-      control: { type: 'select' },
-      options: ['primary', 'secondary', 'accent', 'neutral', 'info', 'success', 'warning', 'error'],
-      description: 'Trigger button color',
-    },
-    triggerStyle: {
-      control: { type: 'select' },
-      options: ['outline', 'ghost', 'link', 'dash', 'soft'],
-      description: 'Trigger button style',
-    },
-    itemColor: {
-      control: { type: 'select' },
-      options: ['primary', 'secondary', 'accent', 'neutral', 'info', 'success', 'warning', 'error'],
-      description: 'Menu item button color',
-    },
-    closeOnSelect: {
-      control: 'boolean',
-      description: 'Close dropdown when item is selected',
-    },
-    autoFocus: {
-      control: 'boolean',
-      description: 'Auto-focus first item when dropdown opens',
-    },
-    onItemClick: {
-      action: 'item-click',
-      description: 'Item click event',
-    },
-    onOpen: {
-      action: 'open',
-      description: 'Dropdown open event',
-    },
-    onClose: {
-      action: 'close',
-      description: 'Dropdown close event',
-    },
-    onUpdateOpen: {
-      action: 'update:open',
-      description: 'Open state update event',
-    },
-  },
-  tags: ['autodocs'],
-};
+    tags: ['autodocs'],
+}
 
-export default meta;
-type Story = StoryObj<typeof meta>;
+export default meta
+type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
-  args: {
-    triggerText: 'Click me',
-    triggerColor: 'primary',
-    itemColor: 'neutral',
-  },
-  render: args => ({
-    components: { Dropdown },
-    setup() {
-      return { args };
+    args: {
+        triggerText: 'Click me',
+        triggerColor: 'primary',
+        itemColor: 'neutral',
     },
-    template: `
+    render: args => ({
+        components: { Dropdown },
+        setup() {
+            return { args }
+        },
+        template: `
       <Dropdown v-bind="args">
         <li><a>Item 1</a></li>
         <li><a>Item 2</a></li>
         <li><a>Item 3</a></li>
       </Dropdown>
     `,
-  }),
-};
+    }),
+}
 
 export const WithItems: Story = {
-  args: {
-    triggerText: 'Select Action',
-    triggerColor: 'primary',
-    itemColor: 'neutral',
-    items: [
-      { label: 'Edit', value: 'edit' },
-      { label: 'Delete', value: 'delete' },
-      { label: 'Archive', value: 'archive', disabled: true },
-      { label: 'Share', value: 'share' },
-    ],
-  },
-  render: args => ({
-    components: { Dropdown },
-    setup() {
-      const handleItemClick = (item: { label: string; value: string }, _event: Event) => {
-        console.log('Item clicked:', item);
-        alert(`Clicked: ${item.label}`);
-      };
-      return { args, handleItemClick };
+    args: {
+        triggerText: 'Select Action',
+        triggerColor: 'primary',
+        itemColor: 'neutral',
+        items: [
+            { label: 'Edit', value: 'edit' },
+            { label: 'Delete', value: 'delete' },
+            { label: 'Archive', value: 'archive', disabled: true },
+            { label: 'Share', value: 'share' },
+        ],
     },
-    template: `
+    render: args => ({
+        components: { Dropdown },
+        setup() {
+            const handleItemClick = (item: { label: string, value: string }, _event: Event) => {
+                console.log('Item clicked:', item)
+                alert(`Clicked: ${item.label}`)
+            }
+            return { args, handleItemClick }
+        },
+        template: `
       <Dropdown v-bind="args" @item-click="handleItemClick" />
     `,
-  }),
-};
+    }),
+}
 
 export const ButtonIntegration: Story = {
-  render: () => ({
-    components: { Dropdown },
-    template: `
+    render: () => ({
+        components: { Dropdown },
+        template: `
       <div class="space-y-6">
         <div>
           <h3 class="text-lg font-semibold mb-4">Button Component Integration</h3>
@@ -199,13 +199,13 @@ export const ButtonIntegration: Story = {
         </div>
       </div>
     `,
-  }),
-};
+    }),
+}
 
 export const AllTriggerColors: Story = {
-  render: () => ({
-    components: { Dropdown },
-    template: `
+    render: () => ({
+        components: { Dropdown },
+        template: `
       <div class="flex gap-4 flex-wrap">
         <Dropdown trigger-color="primary" trigger-text="Primary">
           <li><a>Item 1</a></li>
@@ -248,13 +248,13 @@ export const AllTriggerColors: Story = {
         </Dropdown>
       </div>
     `,
-  }),
-};
+    }),
+}
 
 export const AllTriggerStyles: Story = {
-  render: () => ({
-    components: { Dropdown },
-    template: `
+    render: () => ({
+        components: { Dropdown },
+        template: `
       <div class="flex gap-4 flex-wrap">
         <Dropdown trigger-color="primary" trigger-style="outline" trigger-text="Outline">
           <li><a>Item 1</a></li>
@@ -282,13 +282,13 @@ export const AllTriggerStyles: Story = {
         </Dropdown>
       </div>
     `,
-  }),
-};
+    }),
+}
 
 export const AllSizes: Story = {
-  render: () => ({
-    components: { Dropdown },
-    template: `
+    render: () => ({
+        components: { Dropdown },
+        template: `
       <div class="flex gap-4 flex-wrap items-center">
         <Dropdown size="xs" trigger-text="XS">
           <li><a>Item 1</a></li>
@@ -311,13 +311,13 @@ export const AllSizes: Story = {
         </Dropdown>
       </div>
     `,
-  }),
-};
+    }),
+}
 
 export const AllPositions: Story = {
-  render: () => ({
-    components: { Dropdown },
-    template: `
+    render: () => ({
+        components: { Dropdown },
+        template: `
       <div class="flex gap-4 flex-wrap">
         <Dropdown position="bottom">
           <template #trigger>
@@ -352,13 +352,13 @@ export const AllPositions: Story = {
         </Dropdown>
       </div>
     `,
-  }),
-};
+    }),
+}
 
 export const CustomExamples: Story = {
-  render: () => ({
-    components: { Dropdown },
-    template: `
+    render: () => ({
+        components: { Dropdown },
+        template: `
       <div class="space-y-4">
         <!-- With Icons -->
         <Dropdown>
@@ -402,36 +402,36 @@ export const CustomExamples: Story = {
         </Dropdown>
       </div>
     `,
-  }),
-};
+    }),
+}
 
 export const Playground: Story = {
-  args: {
-    triggerText: 'Customize Me',
-    position: 'bottom',
-    align: 'start',
-    hover: false,
-    forceOpen: false,
-    disabled: false,
-    size: 'md',
-    triggerColor: 'primary',
-    triggerStyle: 'outline',
-    itemColor: 'neutral',
-    closeOnSelect: true,
-    autoFocus: true,
-    items: [
-      { label: 'Edit', value: 'edit' },
-      { label: 'Delete', value: 'delete' },
-      { label: 'Archive', value: 'archive', disabled: true },
-      { label: 'Share', value: 'share' },
-    ],
-  },
-  render: args => ({
-    components: { Dropdown },
-    setup() {
-      return { args };
+    args: {
+        triggerText: 'Customize Me',
+        position: 'bottom',
+        align: 'start',
+        hover: false,
+        forceOpen: false,
+        disabled: false,
+        size: 'md',
+        triggerColor: 'primary',
+        triggerStyle: 'outline',
+        itemColor: 'neutral',
+        closeOnSelect: true,
+        autoFocus: true,
+        items: [
+            { label: 'Edit', value: 'edit' },
+            { label: 'Delete', value: 'delete' },
+            { label: 'Archive', value: 'archive', disabled: true },
+            { label: 'Share', value: 'share' },
+        ],
     },
-    template: `
+    render: args => ({
+        components: { Dropdown },
+        setup() {
+            return { args }
+        },
+        template: `
       <div class="space-y-4">
         <Dropdown v-bind="args" />
         
@@ -440,5 +440,5 @@ export const Playground: Story = {
         </div>
       </div>
     `,
-  }),
-};
+    }),
+}

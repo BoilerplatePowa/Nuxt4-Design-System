@@ -3,7 +3,7 @@ export const kbdSizeMap = {
     sm: 'kbd-sm',
     md: 'kbd-md',
     lg: 'kbd-lg',
-    xl: 'kbd-xl'
-} as const;
+    xl: 'kbd-xl',
+} as const
 
-export const kbdBaseClass = 'kbd' as const;
+export const kbdBaseClass = 'kbd' as const

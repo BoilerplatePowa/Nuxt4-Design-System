@@ -1,52 +1,52 @@
-import type { Meta, StoryObj } from '@storybook/vue3-vite';
-import PhoneMockup from '../../src/runtime/components/Mockup/PhoneMockup.vue';
+import type { Meta, StoryObj } from '@storybook/vue3-vite'
+import PhoneMockup from '../../src/runtime/components/Mockup/PhoneMockup.vue'
 
 const meta: Meta<typeof PhoneMockup> = {
-  title: 'Mockup/PhoneMockup',
-  component: PhoneMockup,
-  parameters: {
-    layout: 'centered',
-    docs: {
-      description: {
-        component:
+    title: 'Mockup/PhoneMockup',
+    component: PhoneMockup,
+    parameters: {
+        layout: 'centered',
+        docs: {
+            description: {
+                component:
           'Mobile device mockup component for showcasing mobile apps and responsive designs.',
-      },
+            },
+        },
     },
-  },
-  argTypes: {
-    color: {
-      control: { type: 'select' },
-      options: ['black', 'white', 'gold', 'silver'],
-      description: 'Phone frame color',
+    argTypes: {
+        color: {
+            control: { type: 'select' },
+            options: ['black', 'white', 'gold', 'silver'],
+            description: 'Phone frame color',
+        },
+        size: {
+            control: { type: 'select' },
+            options: ['sm', 'md', 'lg'],
+            description: 'Phone mockup size',
+        },
+        variant: {
+            control: { type: 'select' },
+            options: ['iphone', 'android', 'modern'],
+            description: 'Phone style variant',
+        },
     },
-    size: {
-      control: { type: 'select' },
-      options: ['sm', 'md', 'lg'],
-      description: 'Phone mockup size',
-    },
-    variant: {
-      control: { type: 'select' },
-      options: ['iphone', 'android', 'modern'],
-      description: 'Phone style variant',
-    },
-  },
-  tags: ['autodocs'],
-};
+    tags: ['autodocs'],
+}
 
-export default meta;
-type Story = StoryObj<typeof meta>;
+export default meta
+type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
-  args: {
-    color: 'black',
-    size: 'md',
-  },
-  render: args => ({
-    components: { PhoneMockup },
-    setup() {
-      return { args };
+    args: {
+        color: 'black',
+        size: 'md',
     },
-    template: `
+    render: args => ({
+        components: { PhoneMockup },
+        setup() {
+            return { args }
+        },
+        template: `
       <PhoneMockup v-bind="args">
         <div class="bg-gradient-to-br from-blue-500 to-purple-600 h-full flex items-center justify-center text-white">
           <div class="text-center">
@@ -56,20 +56,20 @@ export const Default: Story = {
         </div>
       </PhoneMockup>
     `,
-  }),
-};
+    }),
+}
 
 export const AppInterface: Story = {
-  args: {
-    color: 'white',
-    size: 'lg',
-  },
-  render: args => ({
-    components: { PhoneMockup },
-    setup() {
-      return { args };
+    args: {
+        color: 'white',
+        size: 'lg',
     },
-    template: `
+    render: args => ({
+        components: { PhoneMockup },
+        setup() {
+            return { args }
+        },
+        template: `
       <PhoneMockup v-bind="args">
         <div class="bg-white h-full flex flex-col">
           <!-- Status Bar -->
@@ -120,20 +120,20 @@ export const AppInterface: Story = {
         </div>
       </PhoneMockup>
     `,
-  }),
-};
+    }),
+}
 
 export const MusicPlayer: Story = {
-  args: {
-    color: 'black',
-    size: 'md',
-  },
-  render: args => ({
-    components: { PhoneMockup },
-    setup() {
-      return { args };
+    args: {
+        color: 'black',
+        size: 'md',
     },
-    template: `
+    render: args => ({
+        components: { PhoneMockup },
+        setup() {
+            return { args }
+        },
+        template: `
       <PhoneMockup v-bind="args">
         <div class="bg-gradient-to-b from-purple-900 via-blue-900 to-indigo-900 h-full text-white flex flex-col">
           <!-- Header -->
@@ -176,20 +176,20 @@ export const MusicPlayer: Story = {
         </div>
       </PhoneMockup>
     `,
-  }),
-};
+    }),
+}
 
 export const ECommerceApp: Story = {
-  args: {
-    color: 'white',
-    size: 'md',
-  },
-  render: args => ({
-    components: { PhoneMockup },
-    setup() {
-      return { args };
+    args: {
+        color: 'white',
+        size: 'md',
     },
-    template: `
+    render: args => ({
+        components: { PhoneMockup },
+        setup() {
+            return { args }
+        },
+        template: `
       <PhoneMockup v-bind="args">
         <div class="bg-white h-full flex flex-col">
           <!-- Header -->
@@ -288,13 +288,13 @@ export const ECommerceApp: Story = {
         </div>
       </PhoneMockup>
     `,
-  }),
-};
+    }),
+}
 
 export const DifferentSizes: Story = {
-  render: () => ({
-    components: { PhoneMockup },
-    template: `
+    render: () => ({
+        components: { PhoneMockup },
+        template: `
       <div class="flex items-end justify-center space-x-8">
         <PhoneMockup size="sm" color="black">
           <div class="bg-blue-500 h-full flex items-center justify-center text-white">
@@ -324,13 +324,13 @@ export const DifferentSizes: Story = {
         </PhoneMockup>
       </div>
     `,
-  }),
-};
+    }),
+}
 
 export const Colors: Story = {
-  render: () => ({
-    components: { PhoneMockup },
-    template: `
+    render: () => ({
+        components: { PhoneMockup },
+        template: `
       <div class="flex items-center justify-center space-x-6">
         <PhoneMockup color="black">
           <div class="bg-gray-900 h-full flex items-center justify-center text-white">
@@ -369,5 +369,5 @@ export const Colors: Story = {
         </PhoneMockup>
       </div>
     `,
-  }),
-};
+    }),
+}

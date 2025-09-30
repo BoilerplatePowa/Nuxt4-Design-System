@@ -1,6 +1,6 @@
-import { defineConfig } from 'vitest/config';
-import vue from '@vitejs/plugin-vue';
-import { resolve } from 'path';
+import { defineConfig } from 'vitest/config'
+import vue from '@vitejs/plugin-vue'
+import { resolve } from 'node:path'
 
 export default defineConfig({
     plugins: [vue()],
@@ -20,4 +20,4 @@ export default defineConfig({
             exclude: ['node_modules/', 'dist/', '.nuxt/', 'coverage/', '**/*.config.*', '**/*.d.ts'],
         },
     },
-});
+})

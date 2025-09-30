@@ -6,15 +6,15 @@ export const statusColorMap = {
     info: 'status-info',
     success: 'status-success',
     warning: 'status-warning',
-    error: 'status-error'
-} as const;
+    error: 'status-error',
+} as const
 
 export const statusSizeMap = {
     xs: 'status-xs',
     sm: 'status-sm',
     md: 'status-md',
     lg: 'status-lg',
-    xl: 'status-xl'
-} as const;
+    xl: 'status-xl',
+} as const
 
-export const statusBaseClass = 'status' as const;
+export const statusBaseClass = 'status' as const

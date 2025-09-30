@@ -1,6 +1,6 @@
 export const textareaStyleMap = {
-    ghost: 'textarea-ghost'
-} as const;
+    ghost: 'textarea-ghost',
+} as const
 
 export const textareaColorMap = {
     neutral: 'textarea-neutral',
@@ -10,15 +10,15 @@ export const textareaColorMap = {
     info: 'textarea-info',
     success: 'textarea-success',
     warning: 'textarea-warning',
-    error: 'textarea-error'
-} as const;
+    error: 'textarea-error',
+} as const
 
 export const textareaSizeMap = {
     xs: 'textarea-xs',
     sm: 'textarea-sm',
     md: 'textarea-md',
     lg: 'textarea-lg',
-    xl: 'textarea-xl'
-} as const;
+    xl: 'textarea-xl',
+} as const
 
-export const textareaBaseClass = 'textarea' as const;
+export const textareaBaseClass = 'textarea' as const

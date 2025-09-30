@@ -1,12 +1,12 @@
 // Component Maps
-export * from './componentsMaps';
+export * from './componentsMaps'
 
 // Component Types
-export * from './componentsTypes';
+export * from './componentsTypes'
 
 // Utilities
-export * from './utils/classGenerator';
+export * from './utils/classGenerator'
 
 // Existing exports
-export * from './types';
-export * from './map';
+export * from './types'
+export * from './map'

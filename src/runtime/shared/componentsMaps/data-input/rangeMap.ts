@@ -6,15 +6,15 @@ export const rangeColorMap = {
     success: 'range-success',
     warning: 'range-warning',
     info: 'range-info',
-    error: 'range-error'
-} as const;
+    error: 'range-error',
+} as const
 
 export const rangeSizeMap = {
     xs: 'range-xs',
     sm: 'range-sm',
     md: 'range-md',
     lg: 'range-lg',
-    xl: 'range-xl'
-} as const;
+    xl: 'range-xl',
+} as const
 
-export const rangeBaseClass = 'range' as const;
+export const rangeBaseClass = 'range' as const

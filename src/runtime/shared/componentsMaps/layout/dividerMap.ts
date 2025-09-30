@@ -6,17 +6,17 @@ export const dividerColorMap = {
     success: 'divider-success',
     warning: 'divider-warning',
     info: 'divider-info',
-    error: 'divider-error'
-} as const;
+    error: 'divider-error',
+} as const
 
 export const dividerDirectionMap = {
     vertical: 'divider-vertical',
-    horizontal: 'divider-horizontal'
-} as const;
+    horizontal: 'divider-horizontal',
+} as const
 
 export const dividerPlacementMap = {
     start: 'divider-start',
-    end: 'divider-end'
-} as const;
+    end: 'divider-end',
+} as const
 
-export const dividerBaseClass = 'divider' as const;
+export const dividerBaseClass = 'divider' as const

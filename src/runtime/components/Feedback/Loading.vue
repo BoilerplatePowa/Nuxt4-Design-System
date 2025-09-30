@@ -1,57 +1,71 @@
 <template>
-  <div :class="loadingClasses" :aria-label="ariaLabel" role="status">
+<div
+    :class="loadingClasses"
+    :aria-label="ariaLabel"
+    role="status"
+>
     <slot>
-      <span v-if="text" class="loading-text">{{ text }}</span>
+        <span
+            v-if="text"
+            class="loading-text"
+        >{{ text }}</span>
     </slot>
-  </div>
+</div>
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed } from 'vue'
 
 interface Props {
-  variant?: 'spinner' | 'dots' | 'ring' | 'ball' | 'bars' | 'infinity';
-  size?: 'xs' | 'sm' | 'md' | 'lg';
-  text?: string;
-  ariaLabel?: string;
+    variant?: 'spinner' | 'dots' | 'ring' | 'ball' | 'bars' | 'infinity'
+    size?: 'xs' | 'sm' | 'md' | 'lg'
+    text?: string
+    ariaLabel?: string
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  variant: 'spinner',
-  size: 'md',
-  ariaLabel: 'Loading',
-});
+    variant: 'spinner',
+    size: 'md',
+    ariaLabel: 'Loading',
+})
 
 const loadingClasses = computed(() => {
-  const baseClasses = ['loading'];
+    const baseClasses = ['loading']
 
-  // Variant classes
-  if (props.variant === 'spinner') {
-    baseClasses.push('loading-spinner');
-  } else if (props.variant === 'dots') {
-    baseClasses.push('loading-dots');
-  } else if (props.variant === 'ring') {
-    baseClasses.push('loading-ring');
-  } else if (props.variant === 'ball') {
-    baseClasses.push('loading-ball');
-  } else if (props.variant === 'bars') {
-    baseClasses.push('loading-bars');
-  } else if (props.variant === 'infinity') {
-    baseClasses.push('loading-infinity');
-  }
+    // Variant classes
+    if (props.variant === 'spinner') {
+        baseClasses.push('loading-spinner')
+    }
+    else if (props.variant === 'dots') {
+        baseClasses.push('loading-dots')
+    }
+    else if (props.variant === 'ring') {
+        baseClasses.push('loading-ring')
+    }
+    else if (props.variant === 'ball') {
+        baseClasses.push('loading-ball')
+    }
+    else if (props.variant === 'bars') {
+        baseClasses.push('loading-bars')
+    }
+    else if (props.variant === 'infinity') {
+        baseClasses.push('loading-infinity')
+    }
 
-  // Size classes
-  if (props.size === 'xs') {
-    baseClasses.push('loading-xs');
-  } else if (props.size === 'sm') {
-    baseClasses.push('loading-sm');
-  } else if (props.size === 'lg') {
-    baseClasses.push('loading-lg');
-  }
-  // 'md' is default, no additional class needed
+    // Size classes
+    if (props.size === 'xs') {
+        baseClasses.push('loading-xs')
+    }
+    else if (props.size === 'sm') {
+        baseClasses.push('loading-sm')
+    }
+    else if (props.size === 'lg') {
+        baseClasses.push('loading-lg')
+    }
+    // 'md' is default, no additional class needed
 
-  return baseClasses.join(' ');
-});
+    return baseClasses.join(' ')
+})
 </script>
 
 <style scoped lang="postcss">

@@ -1,85 +1,85 @@
-import type { Meta, StoryObj } from '@storybook/vue3-vite';
-import Stack from '../../src/runtime/components/Layout/Stack.vue';
+import type { Meta, StoryObj } from '@storybook/vue3-vite'
+import Stack from '../../src/runtime/components/Layout/Stack.vue'
 
 const meta: Meta<typeof Stack> = {
-  title: 'Layout/Stack',
-  component: Stack,
-  parameters: {
-    layout: 'padded',
-  },
-  argTypes: {
-    direction: {
-      control: { type: 'select' },
-      options: ['horizontal', 'vertical'],
+    title: 'Layout/Stack',
+    component: Stack,
+    parameters: {
+        layout: 'padded',
     },
-    spacing: {
-      control: { type: 'select' },
-      options: ['none', 'xs', 'sm', 'md', 'lg', 'xl'],
+    argTypes: {
+        direction: {
+            control: { type: 'select' },
+            options: ['horizontal', 'vertical'],
+        },
+        spacing: {
+            control: { type: 'select' },
+            options: ['none', 'xs', 'sm', 'md', 'lg', 'xl'],
+        },
+        align: {
+            control: { type: 'select' },
+            options: ['start', 'center', 'end', 'stretch'],
+        },
+        justify: {
+            control: { type: 'select' },
+            options: ['start', 'center', 'end', 'between', 'around', 'evenly'],
+        },
+        wrap: {
+            control: { type: 'boolean' },
+        },
+        reverse: {
+            control: { type: 'boolean' },
+        },
     },
-    align: {
-      control: { type: 'select' },
-      options: ['start', 'center', 'end', 'stretch'],
-    },
-    justify: {
-      control: { type: 'select' },
-      options: ['start', 'center', 'end', 'between', 'around', 'evenly'],
-    },
-    wrap: {
-      control: { type: 'boolean' },
-    },
-    reverse: {
-      control: { type: 'boolean' },
-    },
-  },
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof meta>;
+export default meta
+type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
-  args: {
-    direction: 'vertical',
-    spacing: 'md',
-  },
-  render: args => ({
-    components: { Stack },
-    setup() {
-      return { args };
+    args: {
+        direction: 'vertical',
+        spacing: 'md',
     },
-    template: `
+    render: args => ({
+        components: { Stack },
+        setup() {
+            return { args }
+        },
+        template: `
       <Stack v-bind="args">
         <div class="bg-primary text-primary-content p-4 rounded">Item 1</div>
         <div class="bg-secondary text-secondary-content p-4 rounded">Item 2</div>
         <div class="bg-accent text-accent-content p-4 rounded">Item 3</div>
       </Stack>
     `,
-  }),
-};
+    }),
+}
 
 export const Horizontal: Story = {
-  args: {
-    direction: 'horizontal',
-    spacing: 'md',
-  },
-  render: args => ({
-    components: { Stack },
-    setup() {
-      return { args };
+    args: {
+        direction: 'horizontal',
+        spacing: 'md',
     },
-    template: `
+    render: args => ({
+        components: { Stack },
+        setup() {
+            return { args }
+        },
+        template: `
       <Stack v-bind="args">
         <div class="bg-primary text-primary-content p-4 rounded">Item 1</div>
         <div class="bg-secondary text-secondary-content p-4 rounded">Item 2</div>
         <div class="bg-accent text-accent-content p-4 rounded">Item 3</div>
       </Stack>
     `,
-  }),
-};
+    }),
+}
 
 export const Spacing: Story = {
-  render: () => ({
-    components: { Stack },
-    template: `
+    render: () => ({
+        components: { Stack },
+        template: `
       <div class="space-y-8">
         <div>
           <h3 class="text-lg font-bold mb-4">No Spacing</h3>
@@ -109,13 +109,13 @@ export const Spacing: Story = {
         </div>
       </div>
     `,
-  }),
-};
+    }),
+}
 
 export const Alignment: Story = {
-  render: () => ({
-    components: { Stack },
-    template: `
+    render: () => ({
+        components: { Stack },
+        template: `
       <div class="space-y-8">
         <div>
           <h3 class="text-lg font-bold mb-4">Align Start</h3>
@@ -154,13 +154,13 @@ export const Alignment: Story = {
         </div>
       </div>
     `,
-  }),
-};
+    }),
+}
 
 export const Justify: Story = {
-  render: () => ({
-    components: { Stack },
-    template: `
+    render: () => ({
+        components: { Stack },
+        template: `
       <div class="space-y-8">
         <div>
           <h3 class="text-lg font-bold mb-4">Justify Start</h3>
@@ -208,13 +208,13 @@ export const Justify: Story = {
         </div>
       </div>
     `,
-  }),
-};
+    }),
+}
 
 export const Wrap: Story = {
-  render: () => ({
-    components: { Stack },
-    template: `
+    render: () => ({
+        components: { Stack },
+        template: `
       <div class="space-y-8">
         <div>
           <h3 class="text-lg font-bold mb-4">No Wrap (Default)</h3>
@@ -237,13 +237,13 @@ export const Wrap: Story = {
         </div>
       </div>
     `,
-  }),
-};
+    }),
+}
 
 export const Reverse: Story = {
-  render: () => ({
-    components: { Stack },
-    template: `
+    render: () => ({
+        components: { Stack },
+        template: `
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div>
           <h3 class="text-lg font-bold mb-4">Normal Order (Vertical)</h3>
@@ -282,13 +282,13 @@ export const Reverse: Story = {
         </div>
       </div>
     `,
-  }),
-};
+    }),
+}
 
 export const FormLayout: Story = {
-  render: () => ({
-    components: { Stack },
-    template: `
+    render: () => ({
+        components: { Stack },
+        template: `
       <div class="max-w-md mx-auto bg-base-100 p-6 rounded-lg shadow-lg">
         <h3 class="text-xl font-bold mb-6">Contact Form</h3>
         
@@ -336,13 +336,13 @@ export const FormLayout: Story = {
         </Stack>
       </div>
     `,
-  }),
-};
+    }),
+}
 
 export const CardGrid: Story = {
-  render: () => ({
-    components: { Stack },
-    template: `
+    render: () => ({
+        components: { Stack },
+        template: `
       <div>
         <h3 class="text-xl font-bold mb-6 text-center">Product Grid</h3>
         
@@ -393,5 +393,5 @@ export const CardGrid: Story = {
         </Stack>
       </div>
     `,
-  }),
-};
+    }),
+}

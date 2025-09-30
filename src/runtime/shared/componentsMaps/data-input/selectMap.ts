@@ -1,6 +1,6 @@
 export const selectStyleMap = {
-    ghost: 'select-ghost'
-} as const;
+    ghost: 'select-ghost',
+} as const
 
 export const selectColorMap = {
     neutral: 'select-neutral',
@@ -10,15 +10,15 @@ export const selectColorMap = {
     info: 'select-info',
     success: 'select-success',
     warning: 'select-warning',
-    error: 'select-error'
-} as const;
+    error: 'select-error',
+} as const
 
 export const selectSizeMap = {
     xs: 'select-xs',
     sm: 'select-sm',
     md: 'select-md',
     lg: 'select-lg',
-    xl: 'select-xl'
-} as const;
+    xl: 'select-xl',
+} as const
 
-export const selectBaseClass = 'select' as const;
+export const selectBaseClass = 'select' as const

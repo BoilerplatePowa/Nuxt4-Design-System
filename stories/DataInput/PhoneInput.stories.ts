@@ -1,71 +1,71 @@
-import type { Meta, StoryObj } from '@storybook/vue3-vite';
-import { ref } from 'vue';
-import PhoneInput from '../../src/runtime/components/DataInput/PhoneInput.vue';
+import type { Meta, StoryObj } from '@storybook/vue3-vite'
+import { ref } from 'vue'
+import PhoneInput from '../../src/runtime/components/DataInput/PhoneInput.vue'
 
 const meta: Meta<typeof PhoneInput> = {
-  title: 'Data Input/PhoneInput',
-  component: PhoneInput,
-  parameters: {
-    layout: 'centered',
-  },
-  argTypes: {
-    size: {
-      control: { type: 'select' },
-      options: ['sm', 'md', 'lg'],
+    title: 'Data Input/PhoneInput',
+    component: PhoneInput,
+    parameters: {
+        layout: 'centered',
     },
-    variant: {
-      control: { type: 'select' },
-      options: ['bordered', 'outlined', 'filled'],
+    argTypes: {
+        size: {
+            control: { type: 'select' },
+            options: ['sm', 'md', 'lg'],
+        },
+        variant: {
+            control: { type: 'select' },
+            options: ['bordered', 'outlined', 'filled'],
+        },
+        defaultCountry: {
+            control: { type: 'select' },
+            options: ['US', 'CA', 'GB', 'FR', 'DE', 'IT', 'ES', 'AU', 'JP', 'CN', 'IN', 'BR', 'MX'],
+        },
+        disabled: {
+            control: { type: 'boolean' },
+        },
+        required: {
+            control: { type: 'boolean' },
+        },
+        showValidation: {
+            control: { type: 'boolean' },
+        },
+        showCharCount: {
+            control: { type: 'boolean' },
+        },
     },
-    defaultCountry: {
-      control: { type: 'select' },
-      options: ['US', 'CA', 'GB', 'FR', 'DE', 'IT', 'ES', 'AU', 'JP', 'CN', 'IN', 'BR', 'MX'],
-    },
-    disabled: {
-      control: { type: 'boolean' },
-    },
-    required: {
-      control: { type: 'boolean' },
-    },
-    showValidation: {
-      control: { type: 'boolean' },
-    },
-    showCharCount: {
-      control: { type: 'boolean' },
-    },
-  },
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof meta>;
+export default meta
+type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
-  args: {
-    label: 'Phone Number',
-    placeholder: 'Enter your phone number',
-    helpText: '',
-    defaultCountry: 'FR',
-    showValidation: true,
-    showExampleNumber: true,
-  },
-};
+    args: {
+        label: 'Phone Number',
+        placeholder: 'Enter your phone number',
+        helpText: '',
+        defaultCountry: 'FR',
+        showValidation: true,
+        showExampleNumber: true,
+    },
+}
 
 export const WithValidation: Story = {
-  args: {
-    label: 'Contact Phone',
-    placeholder: 'Enter phone number',
-    helpText: '',
-    defaultCountry: 'FR',
-    showValidation: true,
-    showExampleNumber: true,
-    required: true,
-  },
-  render: args => ({
-    components: { PhoneInput },
-    setup() {
-      return { args };
+    args: {
+        label: 'Contact Phone',
+        placeholder: 'Enter phone number',
+        helpText: '',
+        defaultCountry: 'FR',
+        showValidation: true,
+        showExampleNumber: true,
+        required: true,
     },
-    template: `
+    render: args => ({
+        components: { PhoneInput },
+        setup() {
+            return { args }
+        },
+        template: `
       <div class="space-y-4">
         <PhoneInput v-bind="args" />
         <div class="text-sm opacity-70">
@@ -79,13 +79,13 @@ export const WithValidation: Story = {
         </div>
       </div>
     `,
-  }),
-};
+    }),
+}
 
 export const DifferentCountries: Story = {
-  render: () => ({
-    components: { PhoneInput },
-    template: `
+    render: () => ({
+        components: { PhoneInput },
+        template: `
       <div class="space-y-6">
         <div>
           <h3 class="text-lg font-bold mb-4">France</h3>
@@ -121,13 +121,13 @@ export const DifferentCountries: Story = {
         </div>
       </div>
     `,
-  }),
-};
+    }),
+}
 
 export const Sizes: Story = {
-  render: () => ({
-    components: { PhoneInput },
-    template: `
+    render: () => ({
+        components: { PhoneInput },
+        template: `
       <div class="space-y-6">
         <div>
           <h3 class="text-lg font-bold mb-4">Small</h3>
@@ -160,13 +160,13 @@ export const Sizes: Story = {
         </div>
       </div>
     `,
-  }),
-};
+    }),
+}
 
 export const Variants: Story = {
-  render: () => ({
-    components: { PhoneInput },
-    template: `
+    render: () => ({
+        components: { PhoneInput },
+        template: `
       <div class="space-y-6">
         <div>
           <h3 class="text-lg font-bold mb-4">Bordered</h3>
@@ -199,35 +199,35 @@ export const Variants: Story = {
         </div>
       </div>
     `,
-  }),
-};
+    }),
+}
 
 export const WithCharacterCount: Story = {
-  args: {
-    label: 'Phone Number',
-    placeholder: 'Enter phone number',
-    maxlength: 15,
-    showCharCount: true,
-    showValidation: true,
-    showExampleNumber: true,
-  },
-};
+    args: {
+        label: 'Phone Number',
+        placeholder: 'Enter phone number',
+        maxlength: 15,
+        showCharCount: true,
+        showValidation: true,
+        showExampleNumber: true,
+    },
+}
 
 export const CustomCountries: Story = {
-  args: {
-    label: 'Phone Number',
-    placeholder: 'Enter phone number',
-    helpText: '',
-    showValidation: true,
-    showExampleNumber: true,
-    countriesCodes: ['FR', 'US', 'BE'],
-  },
-  render: args => ({
-    components: { PhoneInput },
-    setup() {
-      return { args };
+    args: {
+        label: 'Phone Number',
+        placeholder: 'Enter phone number',
+        helpText: '',
+        showValidation: true,
+        showExampleNumber: true,
+        countriesCodes: ['FR', 'US', 'BE'],
     },
-    template: `
+    render: args => ({
+        components: { PhoneInput },
+        setup() {
+            return { args }
+        },
+        template: `
       <div class="space-y-4">
         <PhoneInput v-bind="args" />
         <div class="text-sm opacity-70">
@@ -235,53 +235,53 @@ export const CustomCountries: Story = {
         </div>
       </div>
     `,
-  }),
-};
+    }),
+}
 
 export const Disabled: Story = {
-  args: {
-    label: 'Phone Number',
-    placeholder: 'Enter phone number',
-    disabled: true,
-    defaultCountry: 'FR',
-  },
-};
+    args: {
+        label: 'Phone Number',
+        placeholder: 'Enter phone number',
+        disabled: true,
+        defaultCountry: 'FR',
+    },
+}
 
 export const WithEvents: Story = {
-  args: {
-    label: 'Phone Number',
-    placeholder: 'Enter phone number',
-    showValidation: true,
-    showExampleNumber: true,
-  },
-  render: args => ({
-    components: { PhoneInput },
-    setup() {
-      const events = ref<string[]>([]);
-
-      const handleCountryChange = (countryCode: string) => {
-        events.value.push(`Country changed to: ${countryCode}`);
-      };
-
-      const handleValidationChange = (isValid: boolean, phoneNumber?: string) => {
-        events.value.push(
-          `Validation: ${isValid ? 'Valid' : 'Invalid'}${phoneNumber ? ` - ${phoneNumber}` : ''}`
-        );
-      };
-
-      const clearEvents = () => {
-        events.value = [];
-      };
-
-      return {
-        args,
-        events,
-        handleCountryChange,
-        handleValidationChange,
-        clearEvents,
-      };
+    args: {
+        label: 'Phone Number',
+        placeholder: 'Enter phone number',
+        showValidation: true,
+        showExampleNumber: true,
     },
-    template: `
+    render: args => ({
+        components: { PhoneInput },
+        setup() {
+            const events = ref<string[]>([])
+
+            const handleCountryChange = (countryCode: string) => {
+                events.value.push(`Country changed to: ${countryCode}`)
+            }
+
+            const handleValidationChange = (isValid: boolean, phoneNumber?: string) => {
+                events.value.push(
+                    `Validation: ${isValid ? 'Valid' : 'Invalid'}${phoneNumber ? ` - ${phoneNumber}` : ''}`,
+                )
+            }
+
+            const clearEvents = () => {
+                events.value = []
+            }
+
+            return {
+                args,
+                events,
+                handleCountryChange,
+                handleValidationChange,
+                clearEvents,
+            }
+        },
+        template: `
       <div class="space-y-4">
         <PhoneInput 
           v-bind="args"
@@ -310,33 +310,33 @@ export const WithEvents: Story = {
         </div>
       </div>
     `,
-  }),
-};
+    }),
+}
 
 export const FormIntegration: Story = {
-  render: () => ({
-    components: { PhoneInput },
-    setup() {
-      const formData = ref({
-        name: '',
-        email: '',
-        phone: '',
-      });
+    render: () => ({
+        components: { PhoneInput },
+        setup() {
+            const formData = ref({
+                name: '',
+                email: '',
+                phone: '',
+            })
 
-      const isSubmitting = ref(false);
+            const isSubmitting = ref(false)
 
-      const handleSubmit = () => {
-        isSubmitting.value = true;
-        setTimeout(() => {
-          isSubmitting.value = false;
-          alert('Form submitted! Check console for data.');
-          console.log('Form data:', formData.value);
-        }, 1000);
-      };
+            const handleSubmit = () => {
+                isSubmitting.value = true
+                setTimeout(() => {
+                    isSubmitting.value = false
+                    alert('Form submitted! Check console for data.')
+                    console.log('Form data:', formData.value)
+                }, 1000)
+            }
 
-      return { formData, isSubmitting, handleSubmit };
-    },
-    template: `
+            return { formData, isSubmitting, handleSubmit }
+        },
+        template: `
       <div class="max-w-md">
         <form @submit.prevent="handleSubmit" class="space-y-4">
           <div class="form-control">
@@ -390,5 +390,5 @@ export const FormIntegration: Story = {
         </div>
       </div>
     `,
-  }),
-};
+    }),
+}
