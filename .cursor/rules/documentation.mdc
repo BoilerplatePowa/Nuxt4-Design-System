@@ -1,9 +1,5 @@
 ---
-description: |
-  Standards and templates for documenting the Nuxt-Design-System.  
-  Includes Storybook story structure, component API documentation,  
-  README and module docs, API reference, and documentation checklists.  
-  Ensures consistency across public APIs, Storybook stories, and user guides.
+description: Standards and templates for documenting the Nuxt-Design-System. Includes Storybook story structure, component API documentation, README and module docs, API reference, and documentation checklists. Ensures consistency across public APIs, Storybook stories, and user guides.
 globs:
   - "src/components/**/*.{vue,ts}"
   - "src/composables/**/*.ts"

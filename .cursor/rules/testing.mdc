@@ -1,9 +1,5 @@
 ---
-description: |
-  Unified testing guidelines for the Nuxt-Design-System using Vitest and Vue Test Utils.
-  Covers component, composable, store, and utility testing, including fixtures and 
-  test organization. Provides templates for writing reliable, maintainable, and 
-  type-safe tests with a focus on DaisyUI integration, props, events, and theme support.
+description: Unified testing guidelines for the Nuxt-Design-System using Vitest and Vue Test Utils. Covers component, composable, store, and utility testing, including fixtures and test organization. Provides templates for writing reliable, maintainable, and type-safe tests with a focus on DaisyUI integration, props, events, and theme support.
 globs:
   - "tests/**/*.test.ts"
   - "src/components/**/*.vue"

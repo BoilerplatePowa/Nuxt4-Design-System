@@ -1,8 +1,5 @@
 ---
-description: |
-  Guidelines for managing application and component state using Pinia in the Nuxt-Design-System.
-  Includes theme management, module configuration store, and reusable composable state patterns.
-  Focuses on strict TypeScript typing, runtime validation, and safe state updates.
+description: Guidelines for managing application and component state using Pinia in the Nuxt-Design-System. Includes theme management, module configuration store, and reusable composable state patterns. Focuses on strict TypeScript typing, runtime validation, and safe state updates.
 globs:
   - "src/stores/**/*.ts"
   - "src/composables/**/*.ts"

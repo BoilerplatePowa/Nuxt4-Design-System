@@ -1,11 +1,5 @@
 ---
-description: |
-  Guidelines and automated processes for continuous integration, continuous deployment,
-  and release management for the Nuxt-Design-System. Covers GitHub Actions workflows,
-  quality gates, multi-stage testing (unit, integration, E2E), performance monitoring,
-  security scanning, staging and production deployments (including canary strategy),
-  emergency rollbacks, and automated release management with changelog and GitHub release
-  creation.
+description: Guidelines and automated processes for continuous integration, continuous deployment, and release management for the Nuxt-Design-System. Covers GitHub Actions workflows, quality gates, multi-stage testing (unit, integration, E2E), performance monitoring, security scanning, staging and production deployments (including canary strategy), emergency rollbacks, and automated release management with changelog and GitHub release creation.
 globs:
   - ".github/workflows/**/*.yml"
   - "scripts/**/*.ts"

@@ -1,8 +1,5 @@
 ---
-description: |
-  Guidelines for optimizing performance in the Nuxt-Design-System.  
-  Covers bundle size management, dynamic imports, CSS optimization,  
-  runtime performance patterns, event handling, bundle analysis, and component-level performance monitoring.
+description: Guidelines for optimizing performance in the Nuxt-Design-System. Covers bundle size management, dynamic imports, CSS optimization, runtime performance patterns, event handling, bundle analysis, and component-level performance monitoring.
 globs:
   - "src/components/**/*.{vue,ts}"
   - "src/composables/**/*.ts"

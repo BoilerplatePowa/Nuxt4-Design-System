@@ -1,8 +1,5 @@
 ---
-description: |
-  Security guidelines for Nuxt-Design-System components and module configuration.  
-  Covers input validation, XSS prevention, CSS class sanitization, runtime prop validation, 
-  configuration security, content security policy, dependency whitelisting, and safe event handling.
+description: Security guidelines for Nuxt-Design-System components and module configuration. Covers input validation, XSS prevention, CSS class sanitization, runtime prop validation, configuration security, content security policy, dependency whitelisting, and safe event handling.
 globs:
   - "src/components/**/*.{vue,ts}"
   - "src/composables/**/*.ts"

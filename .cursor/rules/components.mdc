@@ -1,9 +1,5 @@
 ---
-description: |
-  Guidelines for developing Vue components using DaisyUI.  
-  Covers structure, categories (Actions, Data Display, Data Input),  
-  prop typing and validation, accessibility, slot documentation,  
-  and consistent coding patterns within `src/components`.
+description: Guidelines for developing Vue components using DaisyUI. Covers structure, categories (Actions, Data Display, Data Input), prop typing and validation, accessibility, slot documentation, and consistent coding patterns within `src/components`.
 globs:
   - "src/components/**/*.vue"
 alwaysApply: true

@@ -1,11 +1,5 @@
 ---
-description: |
-  Centralized Cursor rules configuration for the Nuxt-Design-System project.  
-  Defines included/excluded paths, rule priorities, and project context.  
-  Ensures consistent enforcement of coding, architecture, documentation,  
-  performance, and security standards across the entire codebase.
-  Includes advanced features: error boundaries, monitoring, CI/CD integration,
-  and automated quality gates for enterprise-grade development.
+description: Centralized Cursor rules configuration for the Nuxt-Design-System project. Defines included/excluded paths, rule priorities, and project context. Ensures consistent enforcement of coding, architecture, documentation, performance, and security standards across the entire codebase. Includes advanced features: error boundaries, monitoring, CI/CD integration, and automated quality gates for enterprise-grade development.
 globs:
   - "src/**/*.{ts,vue,js,json}"
   - "playground/**/*.{ts,vue,js,md}"

@@ -1,10 +1,5 @@
 ---
-description: |
-  Guidelines for monitoring, observability, and analytics in the Nuxt-Design-System.
-  Covers performance tracking (Core Web Vitals, component render times, bundle sizes),
-  user analytics and event tracking, error tracking (Sentry integration), real-time 
-  metrics collection, alerting systems, and system health checks for enterprise-grade
-  observability.
+description: Guidelines for monitoring, observability, and analytics in the Nuxt-Design-System. Covers performance tracking (Core Web Vitals, component render times, bundle sizes), user analytics and event tracking, error tracking (Sentry integration), real-time metrics collection, alerting systems, and system health checks for enterprise-grade observability.
 globs:
   - "src/components/**/*.vue"
   - "src/plugins/**/*.ts"

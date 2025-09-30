@@ -1,8 +1,5 @@
 ---
-description: |
-  Code style and naming conventions for components, composables, types, 
-  Vue setup, imports, and general best practices across the project.
-  Ensures consistent and readable code in `src`, `tests`, and `playground`.
+description: Code style and naming conventions for components, composables, types, Vue setup, imports, and general best practices across the project. Ensures consistent and readable code in `src`, `tests`, and `playground`.
 globs:
   - "src/**/*.{ts,vue,js}"
   - "tests/**/*.{ts,vue,js}"

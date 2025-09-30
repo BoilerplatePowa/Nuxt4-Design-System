@@ -1,10 +1,5 @@
 ---
-description: |
-  Comprehensive guidelines for error handling across the Nuxt-Design-System.
-  Includes global and component-level error boundaries, structured logging
-  and monitoring, graceful degradation, user-friendly feedback patterns,
-  automatic retry logic, circuit breaker patterns, input validation with 
-  auto-correction, and strategies for both error recovery and prevention.
+description: Comprehensive guidelines for error handling across the Nuxt-Design-System. Includes global and component-level error boundaries, structured logging and monitoring, graceful degradation, user-friendly feedback patterns, automatic retry logic, circuit breaker patterns, input validation with auto-correction, and strategies for both error recovery and prevention.
 globs:
   - "src/components/**/*.vue"
   - "src/composables/**/*.ts"

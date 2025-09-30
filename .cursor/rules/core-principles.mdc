@@ -1,9 +1,5 @@
 ---
-description: |
-  Core principles and standards for building the Nuxt-Design-System module.  
-  Defines project context, technology stack, priorities, non-negotiables,  
-  and success metrics to ensure a production-ready, maintainable design system  
-  using Nuxt 4, DaisyUI 5, and Tailwind CSS.
+description: Core principles and standards for building the Nuxt-Design-System module. Defines project context, technology stack, priorities, non-negotiables, and success metrics to ensure a production-ready, maintainable design system using Nuxt 4, DaisyUI 5, and Tailwind CSS.
 globs:
   - "src/**/*.{ts,vue,js}"
   - "tests/**/*.{ts,vue,js}"
