@@ -72,7 +72,7 @@ import { computed } from 'vue'
 interface StatAction {
     label: string
     component?: string
-    props?: Record<string, any>
+    props?: Record<string, unknown>
     onClick?: () => void
 }
 

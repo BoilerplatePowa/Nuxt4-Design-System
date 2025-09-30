@@ -166,7 +166,7 @@ import Avatar from '../DataDisplay/Avatar.vue'
 interface WizardStep {
     title: string
     description?: string
-    schema?: any
+    schema?: Record<string, unknown>
     icon?: IconName
     value?: string | number
 }
@@ -175,7 +175,7 @@ interface FormWizardProps {
     // Steps configuration
     steps: WizardStep[]
     // Step data for each step
-    stepData?: Record<string, any>
+    stepData?: Record<string, unknown>
     // Steps display options
     showSteps?: boolean
     stepsVariant?: 'default' | 'vertical'
@@ -222,8 +222,8 @@ const currentStepData = computed(() => {
 
 const emit = defineEmits<{
     'step-change': [step: number, previousStep: number]
-    'step-complete': [step: number, data: any]
-    'wizard-complete': [data: Record<string, any>]
+    'step-complete': [step: number, data: unknown]
+    'wizard-complete': [data: Record<string, unknown>]
     'wizard-cancel': []
 }>()
 
@@ -337,7 +337,7 @@ const goToStep = (stepIndex: number) => {
 }
 
 // Form submission handlers
-const handleStepSubmit = async (values: any) => {
+const handleStepSubmit = async (values: unknown) => {
     isNavigating.value = true
 
     try {

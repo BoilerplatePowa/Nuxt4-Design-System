@@ -299,7 +299,7 @@ const getActionClasses = (action: StatusAction) => {
 const formatTimestamp = (timestamp: Date | string | number) => {
     const date = new Date(timestamp)
 
-    if (isNaN(date.getTime())) {
+    if (Number.isNaN(date.getTime())) {
         return timestamp.toString()
     }
 

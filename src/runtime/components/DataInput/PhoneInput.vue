@@ -176,7 +176,7 @@ const countriesList = computed(() => {
             dialCode: getCountryCallingCode(countryCode),
             name: countries.getName(countryCode, 'en') || countryCode,
         }))
-        .sort((a: any, b: any) => a.name.localeCompare(b.name))
+        .sort((a: { name: string }, b: { name: string }) => a.name.localeCompare(b.name))
 })
 
 // Get selected country calling code
@@ -231,7 +231,7 @@ interface PhoneInputProps {
     // Additional aria-describedby IDs
     ariaDescribedby?: string
     // Yup validation rules
-    rules?: any
+    rules?: Record<string, unknown>
     // Whether to show phone validation feedback
     showValidation?: boolean
     // Array of country codes to show in dropdown (if empty, shows all countries)

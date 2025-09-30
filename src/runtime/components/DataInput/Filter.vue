@@ -248,7 +248,7 @@ interface FilterControl {
     key: string
     label?: string
     type: 'text' | 'select' | 'multiselect' | 'range' | 'daterange' | 'boolean'
-    value?: any
+    value?: unknown
     placeholder?: string
     minPlaceholder?: string
     maxPlaceholder?: string
@@ -265,7 +265,7 @@ interface FilterGroup {
 interface ActiveFilter {
     key: string
     label: string
-    value: any
+    value: unknown
 }
 
 interface Props {
@@ -287,7 +287,7 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 const emit = defineEmits<{
-    filterChange: [filters: Record<string, any>]
+    filterChange: [filters: Record<string, unknown>]
     filterClear: [key: string]
     filterClearAll: []
 }>()
@@ -377,7 +377,7 @@ const activeFilters = computed(() => {
 const activeFiltersCount = computed(() => activeFilters.value.length)
 
 const allFilters = computed(() => {
-    const filters: Record<string, any> = {}
+    const filters: Record<string, unknown> = {}
 
     props.filterGroups.forEach((group) => {
         group.filters.forEach((filter) => {
@@ -468,7 +468,7 @@ const getDateInputClasses = (filter: FilterControl) => {
     return baseClasses.join(' ')
 }
 
-const hasValue = (value: any) => {
+const hasValue = (value: unknown) => {
     if (value === null || value === undefined || value === '') return false
     if (Array.isArray(value)) return value.length > 0
     if (typeof value === 'object') {

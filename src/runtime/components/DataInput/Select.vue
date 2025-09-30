@@ -296,7 +296,7 @@ const getOptionDisabled = (option: Option | string | number): boolean => {
 }
 
 // Event handlers
-const validateSelection = (value: any): boolean => {
+const validateSelection = (value: unknown): boolean => {
     const isValid = !props.required || (value !== '' && value !== null && value !== undefined)
     emit('validate', isValid)
     return isValid

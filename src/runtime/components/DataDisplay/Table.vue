@@ -88,12 +88,12 @@ interface TableColumn {
     align?: 'left' | 'center' | 'right'
     format?: 'text' | 'number' | 'currency' | 'date' | 'boolean'
     component?: string
-    componentProps?: Record<string, any>
+    componentProps?: Record<string, unknown>
 }
 
 interface Props {
     columns: TableColumn[]
-    data?: Record<string, any>[]
+    data?: Record<string, unknown>[]
     size?: 'xs' | 'sm' | 'md' | 'lg'
     variant?: 'default' | 'zebra' | 'compact' | 'bordered'
     selectable?: boolean
@@ -117,7 +117,7 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 const emit = defineEmits<{
-    'row-click': [row: Record<string, any>, index: number, event: Event]
+    'row-click': [row: Record<string, unknown>, index: number, event: Event]
     'sort-change': [column: TableColumn, order: 'asc' | 'desc']
 }>()
 
@@ -213,15 +213,15 @@ const getCellClasses = (column: TableColumn): string => {
     return classes.join(' ')
 }
 
-const getRowKey = (row: Record<string, any>, index: number): string => {
+const getRowKey = (row: Record<string, unknown>, index: number): string => {
     return row[props.rowKey] || index.toString()
 }
 
-const getCellValue = (row: Record<string, any>, column: TableColumn): any => {
+const getCellValue = (row: Record<string, unknown>, column: TableColumn): unknown => {
     return row[column.key]
 }
 
-const formatCellValue = (value: any, column: TableColumn): string => {
+const formatCellValue = (value: unknown, column: TableColumn): string => {
     if (value == null) return ''
 
     switch (column.format) {
@@ -254,7 +254,7 @@ const handleSort = (column: TableColumn) => {
     emit('sort-change', column, sortOrder.value)
 }
 
-const handleRowClick = (row: Record<string, any>, index: number, event: Event) => {
+const handleRowClick = (row: Record<string, unknown>, index: number, event: Event) => {
     if (props.selectable) {
         emit('row-click', row, index, event)
     }

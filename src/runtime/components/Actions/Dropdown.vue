@@ -144,7 +144,7 @@ const triggerRef = ref<HTMLElement>()
 const menuRef = ref<HTMLElement>()
 const itemRefs = ref<(HTMLElement | null)[]>([])
 
-const setItemRef = (el: any, index: number) => {
+const setItemRef = (el: HTMLElement | { $el: HTMLElement } | null, index: number) => {
     if (el && '$el' in el) {
         itemRefs.value[index] = el.$el as HTMLElement
     }

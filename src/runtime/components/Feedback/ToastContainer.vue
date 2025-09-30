@@ -22,11 +22,8 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue'
+import { computed, ref, watch, onUnmounted } from 'vue'
 import Toast from './Toast.vue'
-
-// Cleanup timers when component unmounts
-import { onUnmounted } from 'vue'
 
 export interface ToastItem {
     id: string | number

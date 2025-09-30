@@ -414,7 +414,7 @@ const handleKeydown = (event: KeyboardEvent) => {
     if (!props.disabled && props.interactive) {
         if (event.key === 'Enter' || event.key === ' ') {
             event.preventDefault()
-            emit('click', event as any)
+            emit('click', event)
         }
     }
     emit('keydown', event)

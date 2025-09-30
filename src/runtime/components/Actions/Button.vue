@@ -54,7 +54,7 @@
 
 <script setup lang="ts">
 import { computed, ref, nextTick, onMounted, onUnmounted } from 'vue'
-import type { IconName, Size, BtnColor, BtnStyle, BtnSize, BtnBehavior, BtnModifier } from '../../shared/types.d'
+import type { IconName, Size, BtnColor, BtnStyle, BtnSize, BtnModifier } from '../../shared/types.d'
 import Icon from '../../components/Icons/Icon.vue'
 import { generateBtnClasses } from '../../shared/utils/classGenerator'
 

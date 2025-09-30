@@ -18,15 +18,15 @@
                 :readonly="readonly"
                 :aria-label="ariaLabel"
                 :aria-describedby="ariaDescribedby"
-                @input="handleInput"
                 :aria-invalid="hasError"
-                @focus="handleFocus"
                 role="combobox"
-                @blur="handleBlur"
                 :aria-expanded="isOpen"
-                @keydown="handleKeydown"
                 :aria-haspopup="true"
                 :aria-controls="popoverId"
+                @input="handleInput"
+                @focus="handleFocus"
+                @blur="handleBlur"
+                @keydown="handleKeydown"
             >
 
             <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
@@ -291,7 +291,7 @@ const parseDate = (value: string): Date | null => {
     if (!value) return null
 
     const date = new Date(value)
-    return isNaN(date.getTime()) ? null : date
+    return Number.isNaN(date.getTime()) ? null : date
 }
 
 const handleInput = (event: Event) => {
@@ -397,7 +397,7 @@ watch(
     (newValue) => {
         if (typeof newValue === 'string') {
             const date = new Date(newValue)
-            selectedDate.value = isNaN(date.getTime()) ? null : date
+            selectedDate.value = Number.isNaN(date.getTime()) ? null : date
         }
         else {
             selectedDate.value = newValue || null

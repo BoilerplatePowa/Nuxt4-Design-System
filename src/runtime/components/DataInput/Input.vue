@@ -150,7 +150,7 @@ const showPassword = ref(false)
 const inputRef = ref<HTMLInputElement>()
 
 // IMask instance
-let maskInstance: any = null
+let maskInstance: unknown = null
 
 // Predefined mask configurations
 const maskConfigs = {
@@ -238,9 +238,9 @@ interface InputProps {
     // Additional aria-describedby IDs
     ariaDescribedby?: string
     // Yup validation rules
-    rules?: any
+    rules?: Record<string, unknown>
     // IMask configuration
-    mask?: any
+    mask?: Record<string, unknown>
     // Predefined mask type
     maskType?: MaskType
 }

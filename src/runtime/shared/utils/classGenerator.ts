@@ -228,11 +228,7 @@ import {
     drawerBaseClass,
 } from '../componentsMaps/layout/drawerMap'
 
-import {
-    joinItemBaseClass,
-    joinDirectionMap,
-    joinBaseClass,
-} from '../componentsMaps/layout/joinMap'
+// Join-related imports removed as they are not currently used
 
 import {
     footerPartMap,
@@ -483,7 +479,7 @@ export function generateAvatarClasses(props: {
 /**
  * Generate avatar group classes from props
  */
-export function generateAvatarGroupClasses(props: {}) {
+export function generateAvatarGroupClasses(_props: Record<string, never>) {
     const classes: string[] = [avatarGroupBaseClass]
     return classes.join(' ')
 }
@@ -1329,7 +1325,7 @@ export function generateFieldsetClasses(props: {
 /**
  * Generate label classes from props
  */
-export function generateLabelClasses(props: {}) {
+export function generateLabelClasses(_props: Record<string, never>) {
     const classes: string[] = [labelBaseClass]
     return classes.join(' ')
 }
@@ -1469,7 +1465,7 @@ export function generateListClasses(props: {
 /**
  * Generate list row classes from props
  */
-export function generateListRowClasses(props: {}) {
+export function generateListRowClasses(_props: Record<string, never>) {
     const classes: string[] = [listRowBaseClass]
     return classes.join(' ')
 }
