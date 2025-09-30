@@ -1,23 +1,21 @@
 ---
-description: |
-  Internationalization (i18n) guidelines for Nuxt-Design-System components.  
-  Defines message structure, component integration, and validation error handling  
-  to ensure multilingual support across UI and developer-facing messages.
+description: Comprehensive internationalization (i18n) guidelines for Nuxt-Design-System components. Includes message structure, RTL support, pluralization, date/number formatting, component integration, and validation error handling for enterprise-grade multilingual support.
 globs:
   - "src/components/**/*.{vue,ts}"
   - "src/composables/**/*.ts"
   - "src/validation/**/*.{ts,js}"
   - "i18n/**/*.{ts,json}"
+  - "locales/**/*.{ts,json}"
 alwaysApply: true
 ---
 
 # Internationalization Guidelines
 
-Apply to: Components with text content, validation messages
+Apply to: Components with text content, validation messages, date/number formatting, RTL layouts
 
-## Built-in i18n Support
+## Comprehensive i18n Support
 
-### Message Structure
+### Message Structure with Pluralization
 ```typescript
 // i18n/messages.ts
 export const messages = {
@@ -25,16 +23,110 @@ export const messages = {
     components: {
       button: {
         loading: 'Loading...',
-        disabled: 'Button is disabled'
+        disabled: 'Button is disabled',
+        submit: 'Submit',
+        cancel: 'Cancel'
       },
       input: {
         required: 'This field is required',
         invalid: 'Please enter a valid value',
-        tooLong: 'Input is too long'
+        tooLong: 'Input is too long',
+        minLength: 'Must be at least {min} characters',
+        maxLength: 'Must be no more than {max} characters'
       },
       validation: {
         invalidVariant: 'Invalid variant provided',
-        invalidSize: 'Invalid size provided'
+        invalidSize: 'Invalid size provided',
+        required: 'This field is required',
+        email: 'Please enter a valid email address',
+        url: 'Please enter a valid URL',
+        number: 'Please enter a valid number',
+        integer: 'Please enter a whole number',
+        min: 'Value must be at least {min}',
+        max: 'Value must be no more than {max}'
+      },
+      pagination: {
+        page: 'Page {current} of {total}',
+        items: 'Showing {start} to {end} of {total} items',
+        previous: 'Previous page',
+        next: 'Next page',
+        first: 'First page',
+        last: 'Last page'
+      },
+      table: {
+        sortAsc: 'Sort ascending',
+        sortDesc: 'Sort descending',
+        noData: 'No data available',
+        loading: 'Loading data...',
+        error: 'Error loading data'
+      },
+      modal: {
+        close: 'Close',
+        confirm: 'Confirm',
+        cancel: 'Cancel'
+      },
+      toast: {
+        success: 'Success',
+        error: 'Error',
+        warning: 'Warning',
+        info: 'Information'
+      }
+    },
+    common: {
+      actions: {
+        save: 'Save',
+        delete: 'Delete',
+        edit: 'Edit',
+        create: 'Create',
+        update: 'Update',
+        search: 'Search',
+        filter: 'Filter',
+        clear: 'Clear',
+        reset: 'Reset',
+        submit: 'Submit',
+        cancel: 'Cancel',
+        close: 'Close',
+        back: 'Back',
+        next: 'Next',
+        previous: 'Previous',
+        continue: 'Continue',
+        finish: 'Finish'
+      },
+      time: {
+        now: 'Now',
+        today: 'Today',
+        yesterday: 'Yesterday',
+        tomorrow: 'Tomorrow',
+        thisWeek: 'This week',
+        thisMonth: 'This month',
+        thisYear: 'This year'
+      },
+      status: {
+        active: 'Active',
+        inactive: 'Inactive',
+        pending: 'Pending',
+        completed: 'Completed',
+        failed: 'Failed',
+        loading: 'Loading...',
+        success: 'Success',
+        error: 'Error'
+      }
+    },
+    pluralization: {
+      items: {
+        zero: 'No items',
+        one: 'One item',
+        other: '{count} items'
+      },
+      users: {
+        zero: 'No users',
+        one: 'One user',
+        other: '{count} users'
+      },
+      days: {
+        zero: 'No days',
+        one: 'One day',
+        other: '{count} days'
       }
     }
   },
@@ -42,39 +134,624 @@ export const messages = {
     components: {
       button: {
         loading: 'Chargement...',
-        disabled: 'Bouton désactivé'
+        disabled: 'Bouton désactivé',
+        submit: 'Soumettre',
+        cancel: 'Annuler'
       },
       input: {
         required: 'Ce champ est requis',
         invalid: 'Veuillez entrer une valeur valide',
-        tooLong: 'Saisie trop longue'
+        tooLong: 'Saisie trop longue',
+        minLength: 'Doit contenir au moins {min} caractères',
+        maxLength: 'Ne doit pas dépasser {max} caractères'
+      },
+      validation: {
+        invalidVariant: 'Variante invalide fournie',
+        invalidSize: 'Taille invalide fournie',
+        required: 'Ce champ est requis',
+        email: 'Veuillez entrer une adresse email valide',
+        url: 'Veuillez entrer une URL valide',
+        number: 'Veuillez entrer un nombre valide',
+        integer: 'Veuillez entrer un nombre entier',
+        min: 'La valeur doit être au moins {min}',
+        max: 'La valeur ne doit pas dépasser {max}'
+      },
+      pagination: {
+        page: 'Page {current} sur {total}',
+        items: 'Affichage de {start} à {end} sur {total} éléments',
+        previous: 'Page précédente',
+        next: 'Page suivante',
+        first: 'Première page',
+        last: 'Dernière page'
+      },
+      table: {
+        sortAsc: 'Trier par ordre croissant',
+        sortDesc: 'Trier par ordre décroissant',
+        noData: 'Aucune donnée disponible',
+        loading: 'Chargement des données...',
+        error: 'Erreur lors du chargement des données'
+      },
+      modal: {
+        close: 'Fermer',
+        confirm: 'Confirmer',
+        cancel: 'Annuler'
+      },
+      toast: {
+        success: 'Succès',
+        error: 'Erreur',
+        warning: 'Avertissement',
+        info: 'Information'
+      }
+    },
+    common: {
+      actions: {
+        save: 'Enregistrer',
+        delete: 'Supprimer',
+        edit: 'Modifier',
+        create: 'Créer',
+        update: 'Mettre à jour',
+        search: 'Rechercher',
+        filter: 'Filtrer',
+        clear: 'Effacer',
+        reset: 'Réinitialiser',
+        submit: 'Soumettre',
+        cancel: 'Annuler',
+        close: 'Fermer',
+        back: 'Retour',
+        next: 'Suivant',
+        previous: 'Précédent',
+        continue: 'Continuer',
+        finish: 'Terminer'
+      },
+      time: {
+        now: 'Maintenant',
+        today: 'Aujourd\'hui',
+        yesterday: 'Hier',
+        tomorrow: 'Demain',
+        thisWeek: 'Cette semaine',
+        thisMonth: 'Ce mois',
+        thisYear: 'Cette année'
+      },
+      status: {
+        active: 'Actif',
+        inactive: 'Inactif',
+        pending: 'En attente',
+        completed: 'Terminé',
+        failed: 'Échoué',
+        loading: 'Chargement...',
+        success: 'Succès',
+        error: 'Erreur'
+      }
+    },
+    pluralization: {
+      items: {
+        zero: 'Aucun élément',
+        one: 'Un élément',
+        other: '{count} éléments'
+      },
+      users: {
+        zero: 'Aucun utilisateur',
+        one: 'Un utilisateur',
+        other: '{count} utilisateurs'
+      },
+      days: {
+        zero: 'Aucun jour',
+        one: 'Un jour',
+        other: '{count} jours'
+      }
+    }
+  },
+  ar: {
+    components: {
+      button: {
+        loading: 'جاري التحميل...',
+        disabled: 'الزر معطل',
+        submit: 'إرسال',
+        cancel: 'إلغاء'
+      },
+      input: {
+        required: 'هذا الحقل مطلوب',
+        invalid: 'يرجى إدخال قيمة صحيحة',
+        tooLong: 'الإدخال طويل جداً',
+        minLength: 'يجب أن يكون على الأقل {min} أحرف',
+        maxLength: 'يجب ألا يتجاوز {max} حرف'
+      }
+    },
+    common: {
+      actions: {
+        save: 'حفظ',
+        delete: 'حذف',
+        edit: 'تعديل',
+        create: 'إنشاء',
+        update: 'تحديث',
+        search: 'بحث',
+        filter: 'تصفية',
+        clear: 'مسح',
+        reset: 'إعادة تعيين',
+        submit: 'إرسال',
+        cancel: 'إلغاء',
+        close: 'إغلاق',
+        back: 'رجوع',
+        next: 'التالي',
+        previous: 'السابق',
+        continue: 'متابعة',
+        finish: 'إنهاء'
+      }
+    },
+    pluralization: {
+      items: {
+        zero: 'لا توجد عناصر',
+        one: 'عنصر واحد',
+        other: '{count} عنصر'
       }
     }
   }
 }
 ```
 
-### Component i18n Usage
+### RTL Support Configuration
+```typescript
+// i18n/config.ts
+export interface I18nConfig {
+  defaultLocale: string
+  locales: string[]
+  rtlLocales: string[]
+  fallbackLocale: string
+  dateFormats: Record<string, Intl.DateTimeFormatOptions>
+  numberFormats: Record<string, Intl.NumberFormatOptions>
+}
+
+export const i18nConfig: I18nConfig = {
+  defaultLocale: 'en',
+  locales: ['en', 'fr', 'ar', 'de', 'es', 'ja', 'zh'],
+  rtlLocales: ['ar', 'he', 'fa', 'ur'],
+  fallbackLocale: 'en',
+  dateFormats: {
+    en: {
+      short: { year: 'numeric', month: 'short', day: 'numeric' },
+      long: { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' },
+      time: { hour: '2-digit', minute: '2-digit' },
+      datetime: { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }
+    },
+    fr: {
+      short: { year: 'numeric', month: 'short', day: 'numeric' },
+      long: { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' },
+      time: { hour: '2-digit', minute: '2-digit' },
+      datetime: { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }
+    },
+    ar: {
+      short: { year: 'numeric', month: 'short', day: 'numeric' },
+      long: { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' },
+      time: { hour: '2-digit', minute: '2-digit' },
+      datetime: { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }
+    }
+  },
+  numberFormats: {
+    en: {
+      currency: { style: 'currency', currency: 'USD' },
+      decimal: { style: 'decimal', minimumFractionDigits: 0, maximumFractionDigits: 2 },
+      percent: { style: 'percent', minimumFractionDigits: 0, maximumFractionDigits: 2 }
+    },
+    fr: {
+      currency: { style: 'currency', currency: 'EUR' },
+      decimal: { style: 'decimal', minimumFractionDigits: 0, maximumFractionDigits: 2 },
+      percent: { style: 'percent', minimumFractionDigits: 0, maximumFractionDigits: 2 }
+    },
+    ar: {
+      currency: { style: 'currency', currency: 'SAR' },
+      decimal: { style: 'decimal', minimumFractionDigits: 0, maximumFractionDigits: 2 },
+      percent: { style: 'percent', minimumFractionDigits: 0, maximumFractionDigits: 2 }
+    }
+  }
+}
+```
+
+### Advanced i18n Composables
+```typescript
+// composables/useI18n.ts
+export function useI18n() {
+  const { locale, locales, setLocale } = useI18n()
+  const i18nConfig = useI18nConfig()
+  
+  /**
+   * Get current locale with fallback
+   */
+  const currentLocale = computed(() => locale.value || i18nConfig.defaultLocale)
+  
+  /**
+   * Check if current locale is RTL
+   */
+  const isRTL = computed(() => 
+    i18nConfig.rtlLocales.includes(currentLocale.value)
+  )
+  
+  /**
+   * Get RTL-aware CSS classes
+   */
+  const rtlClasses = computed(() => ({
+    'rtl': isRTL.value,
+    'ltr': !isRTL.value,
+    'text-right': isRTL.value,
+    'text-left': !isRTL.value
+  }))
+  
+  /**
+   * Format date with locale-specific formatting
+   */
+  const formatDate = (date: Date | string, format: 'short' | 'long' | 'time' | 'datetime' = 'short') => {
+    const dateObj = typeof date === 'string' ? new Date(date) : date
+    const formatOptions = i18nConfig.dateFormats[currentLocale.value]?.[format] || 
+                         i18nConfig.dateFormats[i18nConfig.defaultLocale][format]
+    
+    return new Intl.DateTimeFormat(currentLocale.value, formatOptions).format(dateObj)
+  }
+  
+  /**
+   * Format number with locale-specific formatting
+   */
+  const formatNumber = (value: number, format: 'currency' | 'decimal' | 'percent' = 'decimal') => {
+    const formatOptions = i18nConfig.numberFormats[currentLocale.value]?.[format] || 
+                         i18nConfig.numberFormats[i18nConfig.defaultLocale][format]
+    
+    return new Intl.NumberFormat(currentLocale.value, formatOptions).format(value)
+  }
+  
+  /**
+   * Get pluralized message
+   */
+  const pluralize = (key: string, count: number, params: Record<string, unknown> = {}) => {
+    const message = t(key, { count, ...params })
+    
+    // Handle pluralization rules
+    if (count === 0) {
+      return t(`${key}.zero`, { ...params })
+    } else if (count === 1) {
+      return t(`${key}.one`, { count, ...params })
+    } else {
+      return t(`${key}.other`, { count, ...params })
+    }
+  }
+  
+  /**
+   * Get message with interpolation
+   */
+  const t = (key: string, params: Record<string, unknown> = {}) => {
+    const message = useI18n().t(key, params)
+    
+    // Handle missing translations
+    if (message === key && currentLocale.value !== i18nConfig.fallbackLocale) {
+      console.warn(`[DS i18n] Missing translation for key: ${key} in locale: ${currentLocale.value}`)
+      return useI18n().t(key, { locale: i18nConfig.fallbackLocale, ...params })
+    }
+    
+    return message
+  }
+  
+  return {
+    currentLocale,
+    isRTL,
+    rtlClasses,
+    formatDate,
+    formatNumber,
+    pluralize,
+    t,
+    setLocale
+  }
+}
+```
+
+### Component i18n Integration
 ```vue
 <script setup lang="ts">
-const { t } = useI18n()
+import { useI18n } from '~/composables/useI18n'
 
 interface Props {
   loadingText?: string
   isLoading?: boolean
+  itemCount?: number
+  showCount?: boolean
 }
 
-const props = defineProps<Props>()
+const props = withDefaults(defineProps<Props>(), {
+  isLoading: false,
+  showCount: false
+})
 
+const { t, formatNumber, pluralize, isRTL, rtlClasses } = useI18n()
+
+// Computed messages with pluralization
 const loadingMessage = computed(() => 
   props.loadingText || t('components.button.loading')
 )
+
+const itemCountMessage = computed(() => {
+  if (!props.showCount || props.itemCount === undefined) return ''
+  return pluralize('common.pluralization.items', props.itemCount)
+})
+
+// RTL-aware classes
+const componentClasses = computed(() => [
+  'btn',
+  'btn-primary',
+  {
+    'loading': props.isLoading,
+    ...rtlClasses.value
+  }
+])
 </script>
 
 <template>
-  <button class="btn" :aria-label="loadingMessage">
+  <button 
+    :class="componentClasses"
+    :aria-label="loadingMessage"
+    :dir="isRTL ? 'rtl' : 'ltr'"
+  >
+    <span v-if="isLoading" class="loading loading-spinner loading-sm"></span>
     <span v-if="isLoading">{{ loadingMessage }}</span>
     <slot v-else />
+    
+    <!-- Show count if enabled -->
+    <span v-if="showCount && itemCount !== undefined" class="badge badge-sm">
+      {{ formatNumber(itemCount) }}
+    </span>
   </button>
 </template>
+```
+
+### Form Validation with i18n
+```vue
+<script setup lang="ts">
+import { useI18n } from '~/composables/useI18n'
+import * as yup from 'yup'
+
+interface Props {
+  modelValue?: string
+  required?: boolean
+  minLength?: number
+  maxLength?: number
+  type?: 'text' | 'email' | 'url' | 'number'
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  required: false,
+  type: 'text'
+})
+
+const { t } = useI18n()
+
+// Create validation schema with i18n messages
+const createValidationSchema = () => {
+  let schema = yup.string()
+  
+  if (props.required) {
+    schema = schema.required(t('components.validation.required'))
+  }
+  
+  if (props.minLength) {
+    schema = schema.min(props.minLength, t('components.input.minLength', { min: props.minLength }))
+  }
+  
+  if (props.maxLength) {
+    schema = schema.max(props.maxLength, t('components.input.maxLength', { max: props.maxLength }))
+  }
+  
+  switch (props.type) {
+    case 'email':
+      schema = schema.email(t('components.validation.email'))
+      break
+    case 'url':
+      schema = schema.url(t('components.validation.url'))
+      break
+    case 'number':
+      schema = yup.number().typeError(t('components.validation.number'))
+      break
+  }
+  
+  return schema
+}
+
+const validationSchema = computed(() => createValidationSchema())
+const errorMessage = ref<string>('')
+
+const validate = async (value: string) => {
+  try {
+    await validationSchema.value.validate(value)
+    errorMessage.value = ''
+    return true
+  } catch (error) {
+    errorMessage.value = error.message
+    return false
+  }
+}
+</script>
+
+<template>
+  <div class="form-control">
+    <input
+      :type="type"
+      :value="modelValue"
+      :class="['input', { 'input-error': errorMessage }]"
+      @input="validate($event.target.value)"
+    />
+    
+    <div v-if="errorMessage" class="label-text-alt text-error">
+      {{ errorMessage }}
+    </div>
+  </div>
+</template>
+```
+
+### Date/Time Formatting Components
+```vue
+<script setup lang="ts">
+import { useI18n } from '~/composables/useI18n'
+
+interface Props {
+  date: Date | string
+  format?: 'short' | 'long' | 'time' | 'datetime'
+  relative?: boolean
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  format: 'short',
+  relative: false
+})
+
+const { formatDate, t } = useI18n()
+
+const formattedDate = computed(() => {
+  if (props.relative) {
+    return formatRelativeTime(props.date)
+  }
+  return formatDate(props.date, props.format)
+})
+
+function formatRelativeTime(date: Date | string) {
+  const dateObj = typeof date === 'string' ? new Date(date) : date
+  const now = new Date()
+  const diffInSeconds = Math.floor((now.getTime() - dateObj.getTime()) / 1000)
+  
+  if (diffInSeconds < 60) {
+    return t('common.time.now')
+  } else if (diffInSeconds < 3600) {
+    const minutes = Math.floor(diffInSeconds / 60)
+    return t('common.time.minutesAgo', { count: minutes })
+  } else if (diffInSeconds < 86400) {
+    const hours = Math.floor(diffInSeconds / 3600)
+    return t('common.time.hoursAgo', { count: hours })
+  } else {
+    return formatDate(dateObj, 'short')
+  }
+}
+</script>
+
+<template>
+  <time :datetime="date" :title="formatDate(date, 'long')">
+    {{ formattedDate }}
+  </time>
+</template>
+```
+
+### RTL Layout Support
+```vue
+<script setup lang="ts">
+import { useI18n } from '~/composables/useI18n'
+
+const { isRTL, rtlClasses } = useI18n()
+
+// RTL-aware grid classes
+const gridClasses = computed(() => [
+  'grid',
+  'grid-cols-3',
+  'gap-4',
+  {
+    'grid-flow-col': isRTL.value,
+    'grid-flow-row': !isRTL.value
+  },
+  ...Object.values(rtlClasses.value)
+])
+
+// RTL-aware flex classes
+const flexClasses = computed(() => [
+  'flex',
+  'items-center',
+  'justify-between',
+  {
+    'flex-row-reverse': isRTL.value,
+    'flex-row': !isRTL.value
+  }
+])
+</script>
+
+<template>
+  <div :class="gridClasses">
+    <div :class="flexClasses">
+      <slot name="start" />
+      <slot name="end" />
+    </div>
+  </div>
+</template>
+```
+
+### i18n Module Configuration
+```typescript
+// module.ts - i18n integration
+export default defineNuxtModule({
+  setup(options, nuxt) {
+    // Configure i18n module
+    nuxt.options.modules = nuxt.options.modules || []
+    nuxt.options.modules.push('@nuxtjs/i18n')
+    
+    nuxt.options.i18n = {
+      defaultLocale: 'en',
+      locales: [
+        { code: 'en', name: 'English', dir: 'ltr' },
+        { code: 'fr', name: 'Français', dir: 'ltr' },
+        { code: 'ar', name: 'العربية', dir: 'rtl' },
+        { code: 'he', name: 'עברית', dir: 'rtl' }
+      ],
+      strategy: 'prefix_except_default',
+      detectBrowserLanguage: {
+        useCookie: true,
+        cookieKey: 'i18n_redirected',
+        redirectOn: 'root'
+      },
+      vueI18n: {
+        legacy: false,
+        locale: 'en',
+        fallbackLocale: 'en',
+        messages: {
+          en: messages.en,
+          fr: messages.fr,
+          ar: messages.ar
+        }
+      }
+    }
+    
+    // Add RTL support
+    nuxt.options.css = nuxt.options.css || []
+    nuxt.options.css.push('@/assets/css/rtl.css')
+  }
+})
+```
+
+### RTL CSS Support
+```css
+/* assets/css/rtl.css */
+[dir="rtl"] {
+  /* RTL-specific overrides */
+}
+
+[dir="rtl"] .btn {
+  text-align: right;
+}
+
+[dir="rtl"] .card {
+  text-align: right;
+}
+
+[dir="rtl"] .input {
+  text-align: right;
+}
+
+/* RTL-aware spacing */
+[dir="rtl"] .ml-4 {
+  margin-left: 0;
+  margin-right: 1rem;
+}
+
+[dir="rtl"] .mr-4 {
+  margin-right: 0;
+  margin-left: 1rem;
+}
+
+/* RTL-aware flexbox */
+[dir="rtl"] .flex-row {
+  flex-direction: row-reverse;
+}
+
+/* RTL-aware grid */
+[dir="rtl"] .grid-cols-3 {
+  direction: rtl;
+}
 ```
