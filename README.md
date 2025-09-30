@@ -9,24 +9,26 @@ Find and replace all on all files (CMD+SHIFT+F):
 
 # Nuxt4-Design-System
 
-A production-ready Nuxt module providing a comprehensive design system based on DaisyUI 5.0.54.
+A comprehensive Nuxt 4 module providing a complete design system based on DaisyUI 5.1.5 with TypeScript support, Storybook documentation, and extensive component library.
 
 ## Quick Start
 
 ### Installation
 ```bash
-npm install @nuxt-design-system/core @nuxt-design-system/tokens
+npm install @boilerplatepowa/nuxt4-design-system
 ```
 
 ### Basic Setup
 ```typescript
 // nuxt.config.ts
 export default defineNuxtConfig({
-  modules: ['@nuxt-design-system/core'],
-  designSystem: {
-    theme: 'light',
+  modules: ['@boilerplatepowa/nuxt4-design-system'],
+  nuxtDesignSystem: {
+    prefix: 'Bp',
     components: true,
-    prefix: 'DS'
+    css: true,
+    composables: true,
+    tailwind: true
   }
 })
 ```
@@ -35,185 +37,193 @@ export default defineNuxtConfig({
 ```vue
 <template>
   <div>
-    <DSButtonPrimary variant="primary" @click="handleClick">
+    <BpButton color="primary" size="lg" @click="handleClick">
       Click me
-    </DSButtonPrimary>
+    </BpButton>
     
-    <DSCardContent title="Welcome">
-      <p>Content goes here</p>
-      
-      <template #actions>
-        <DSButtonPrimary variant="accent">Action</DSButtonPrimary>
-      </template>
-    </DSCardContent>
+    <BpCard>
+      <div class="card-body">
+        <h2 class="card-title">Welcome</h2>
+        <p>Content goes here</p>
+        
+        <div class="card-actions justify-end">
+          <BpButton color="accent">Action</BpButton>
+        </div>
+      </div>
+    </BpCard>
   </div>
 </template>
 ```
 
-## Button Component with btnMap Integration
+## Features
 
-The Button component has been updated to use the `btnMap` structure for consistent DaisyUI class mapping and better TypeScript support.
+### 🎨 **Comprehensive Component Library**
+- **60+ Components** across 6 categories (Actions, DataDisplay, DataInput, Feedback, Layout, Navigation)
+- **Full DaisyUI 5.1.5 Integration** with proper class mapping
+- **TypeScript Support** with strict typing and IntelliSense
+- **Accessibility First** with WCAG 2.1 AA compliance
 
-### New Props Structure
+### 🧩 **Advanced Component System**
+- **Smart Class Generation** using component maps for consistent styling
+- **Flexible Props API** with color, style, size, and modifier combinations
+- **Icon Integration** with Lucide Vue Next icons
+- **Loading States** and interactive feedback
+- **Form Validation** with VeeValidate and Yup schemas
 
-#### Color Variants (btnColorMap)
+### 📚 **Developer Experience**
+- **Storybook Documentation** with interactive examples
+- **Auto-import Support** with configurable component prefix
+- **Hot Reload** in development
+- **Comprehensive Testing** with Vitest and Vue Test Utils
+
+## Component Categories
+
+### Actions (5 components)
+- **Button** - Advanced button with color/style/size variants, loading states, icons
+- **Dropdown** - Flexible dropdown menus with placement options
+- **Modal** - Accessible modal dialogs with backdrop and positioning
+- **Swap** - Toggle between two elements with smooth transitions
+- **ThemeController** - Theme switching with persistence
+
+### Data Display (17 components)
+- **Accordion** - Collapsible content sections
+- **Avatar** - User profile images with status indicators
+- **Badge** - Status indicators and labels
+- **Card** - Content containers with headers, bodies, and actions
+- **Carousel** - Image/content carousels with navigation
+- **ChatBubble** - Chat message components
+- **Collapse** - Expandable content areas
+- **Countdown** - Animated countdown timers
+- **Kbd** - Keyboard shortcut displays
+- **List** - Structured data lists
+- **Stat** - Statistical data displays
+- **Status** - Status indicators
+- **Table** - Data tables with sorting and styling
+- **Tabs** - Tabbed content navigation
+- **TextDiff** - Side-by-side text comparison
+- **Timeline** - Event timeline displays
+
+### Data Input (17 components)
+- **Calendar** - Date picker with range selection
+- **Checkbox** - Form checkboxes with validation
+- **Fieldset** - Form field grouping
+- **FileInput** - File upload with drag & drop
+- **Filter** - Data filtering controls
+- **FormWizard** - Multi-step form navigation
+- **Input** - Text inputs with validation
+- **Label** - Form labels with floating support
+- **PhoneInput** - International phone number input
+- **Radio** - Radio button groups
+- **Range** - Slider input controls
+- **Rating** - Star rating components
+- **Select** - Dropdown select inputs
+- **Textarea** - Multi-line text inputs
+- **Toggle** - Switch toggle controls
+- **Validator** - Form validation feedback
+
+### Feedback (8 components)
+- **Alert** - Notification messages
+- **Loading** - Loading spinners and indicators
+- **Progress** - Progress bars
+- **RadialProgress** - Circular progress indicators
+- **Skeleton** - Content loading placeholders
+- **Toast** - Toast notifications
+- **ToastContainer** - Toast management
+- **Tooltip** - Contextual help tooltips
+
+### Layout (8 components)
+- **Divider** - Content separators
+- **Drawer** - Side navigation drawers
+- **Footer** - Page footers
+- **Hero** - Hero sections
+- **Indicator** - Position indicators
+- **Join** - Connected form elements
+- **Mask** - Image shape masks
+- **Stack** - Layered content
+
+### Navigation (7 components)
+- **Breadcrumbs** - Navigation breadcrumbs
+- **Dock** - Bottom navigation dock
+- **Link** - Styled navigation links
+- **Menu** - Navigation menus
+- **Navbar** - Top navigation bars
+- **Pagination** - Page navigation
+- **Steps** - Step-by-step navigation
+
+## Button Component Examples
+
+### Color Variants
 ```vue
 <template>
-  <!-- Color variants from btnColorMap -->
-  <BpButton color="primary">Primary</BpButton>
-  <BpButton color="secondary">Secondary</BpButton>
-  <BpButton color="accent">Accent</BpButton>
-  <BpButton color="neutral">Neutral</BpButton>
-  <BpButton color="info">Info</BpButton>
-  <BpButton color="success">Success</BpButton>
-  <BpButton color="warning">Warning</BpButton>
-  <BpButton color="error">Error</BpButton>
+  <div class="flex gap-2">
+    <BpButton color="primary">Primary</BpButton>
+    <BpButton color="secondary">Secondary</BpButton>
+    <BpButton color="accent">Accent</BpButton>
+    <BpButton color="neutral">Neutral</BpButton>
+    <BpButton color="info">Info</BpButton>
+    <BpButton color="success">Success</BpButton>
+    <BpButton color="warning">Warning</BpButton>
+    <BpButton color="error">Error</BpButton>
+  </div>
 </template>
 ```
 
-#### Style Variants (btnStyleMap)
+### Style Variants
 ```vue
 <template>
-  <!-- Style variants from btnStyleMap -->
-  <BpButton style="outline">Outline</BpButton>
-  <BpButton style="dash">Dash</BpButton>
-  <BpButton style="soft">Soft</BpButton>
-  <BpButton style="ghost">Ghost</BpButton>
-  <BpButton style="link">Link</BpButton>
+  <div class="flex gap-2">
+    <BpButton btn-style="outline">Outline</BpButton>
+    <BpButton btn-style="dash">Dash</BpButton>
+    <BpButton btn-style="soft">Soft</BpButton>
+    <BpButton btn-style="ghost">Ghost</BpButton>
+    <BpButton btn-style="link">Link</BpButton>
+  </div>
 </template>
 ```
 
-#### Combined Color + Style
+### Size Variants
 ```vue
 <template>
-  <!-- Combine color and style for rich variants -->
-  <BpButton color="primary" style="outline">Primary Outline</BpButton>
-  <BpButton color="secondary" style="ghost">Secondary Ghost</BpButton>
-  <BpButton color="accent" style="soft">Accent Soft</BpButton>
-  <BpButton color="success" style="link">Success Link</BpButton>
+  <div class="flex gap-2 items-center">
+    <BpButton size="xs">Extra Small</BpButton>
+    <BpButton size="sm">Small</BpButton>
+    <BpButton size="md">Medium</BpButton>
+    <BpButton size="lg">Large</BpButton>
+    <BpButton size="xl">Extra Large</BpButton>
+  </div>
 </template>
 ```
 
-#### Size Variants (btnSizeMap)
-```vue
-<template>
-  <!-- Size variants from btnSizeMap -->
-  <BpButton size="xs">Extra Small</BpButton>
-  <BpButton size="sm">Small</BpButton>
-  <BpButton size="md">Medium</BpButton>
-  <BpButton size="lg">Large</BpButton>
-  <BpButton size="xl">Extra Large</BpButton>
-</template>
-```
-
-#### Modifiers (btnModifierMap)
-```vue
-<template>
-  <!-- Modifiers from btnModifierMap -->
-  <BpButton wide>Wide Button</BpButton>
-  <BpButton block>Block Button</BpButton>
-  <BpButton square>Square</BpButton>
-  <BpButton circle>Circle</BpButton>
-</template>
-```
-
-#### Behavior States (btnBehaviorMap)
-```vue
-<template>
-  <!-- Behavior states from btnBehaviorMap -->
-  <BpButton active>Active Button</BpButton>
-  <BpButton disabled>Disabled Button</BpButton>
-</template>
-```
-
-### Backward Compatibility
-
-The old `variant` prop still works for backward compatibility:
-
-```vue
-<template>
-  <!-- Legacy variant prop still works -->
-  <BpButton variant="primary">Primary (legacy)</BpButton>
-  <BpButton variant="ghost">Ghost (legacy)</BpButton>
-  <BpButton variant="outline">Outline (legacy)</BpButton>
-</template>
-```
-
-### Complete Example
-
+### Advanced Features
 ```vue
 <template>
   <div class="space-y-4">
-    <!-- Basic usage with new props -->
-    <BpButton 
-      color="primary" 
-      size="lg" 
-      :loading="isLoading"
-      @click="handleSubmit"
-    >
+    <!-- Loading state -->
+    <BpButton :loading="isLoading" color="primary">
       Submit Form
     </BpButton>
     
-    <!-- Combined variants -->
-    <BpButton 
-      color="success" 
-      style="outline" 
-      size="md"
-      wide
-      iconLeft="check"
-    >
-      Success Action
+    <!-- With icons -->
+    <BpButton icon-left="heart" icon-right="arrow-right" color="accent">
+      Like & Continue
     </BpButton>
     
-    <!-- Icon buttons -->
-    <BpButton 
-      circle 
-      color="accent" 
-      iconLeft="heart"
-      :active="isLiked"
-    />
+    <!-- Shape modifiers -->
+    <BpButton circle icon-left="settings" color="neutral" />
+    <BpButton square icon-left="plus" color="success" />
+    <BpButton wide color="info">Wide Button</BpButton>
+    <BpButton block color="warning">Block Button</BpButton>
     
-    <!-- Block button -->
+    <!-- Confirmation dialog -->
     <BpButton 
-      color="secondary" 
-      block 
-      iconLeft="download"
+      confirm-action 
+      confirm-text="Are you sure?" 
+      color="error"
     >
-      Download All Files
+      Delete Item
     </BpButton>
   </div>
 </template>
-
-<script setup>
-const isLoading = ref(false)
-const isLiked = ref(false)
-
-const handleSubmit = async () => {
-  isLoading.value = true
-  // ... submit logic
-  isLoading.value = false
-}
-</script>
-```
-
-### TypeScript Support
-
-The component provides full TypeScript support with proper types based on the btnMap:
-
-```typescript
-import type { BtnColor, BtnStyle, BtnSize, BtnModifier } from '@nuxt-design-system/core'
-
-interface ButtonProps {
-  color?: BtnColor        // 'primary' | 'secondary' | 'accent' | 'neutral' | 'info' | 'success' | 'warning' | 'error'
-  style?: BtnStyle        // 'outline' | 'dash' | 'soft' | 'ghost' | 'link'
-  size?: BtnSize          // 'xs' | 'sm' | 'md' | 'lg' | 'xl'
-  wide?: boolean          // btn-wide modifier
-  block?: boolean         // btn-block modifier
-  square?: boolean        // btn-square modifier
-  circle?: boolean        // btn-circle modifier
-  active?: boolean        // btn-active behavior
-  // ... other props
-}
 ```
 
 ## Configuration
@@ -221,54 +231,84 @@ interface ButtonProps {
 ### Module Options
 | Option | Type | Default | Description |
 |-----|---|---|----|
-| `theme` | `DaisyUITheme \| boolean` | `'light'` | Theme configuration |
+| `prefix` | `string` | `'Bp'` | Component prefix for auto-imports |
 | `components` | `boolean` | `true` | Enable component auto-imports |
-| `prefix` | `string` | `'DS'` | Component prefix for auto-imports |
-| `validation` | `boolean` | `true` | Enable runtime prop validation |
+| `css` | `boolean` | `true` | Include default CSS styles |
+| `composables` | `boolean` | `true` | Enable composable auto-imports |
+| `tailwind` | `boolean` | `true` | Enable Tailwind CSS integration |
 
-### Theme Configuration
+### Advanced Configuration
 ```typescript
 // nuxt.config.ts
 export default defineNuxtConfig({
-  designSystem: {
-    theme: {
-      default: 'corporate',
-      available: ['light', 'dark', 'corporate'],
-      persistence: true
-    }
+  modules: ['@boilerplatepowa/nuxt4-design-system'],
+  nuxtDesignSystem: {
+    prefix: 'Bp',
+    components: true,
+    css: true,
+    composables: true,
+    tailwind: true
   }
 })
 ```
 
-## Components
+## Development
 
-### Available Categories
-- **Actions**: ButtonPrimary, DropdownMenu, ModalDialog
-- **Data Display**: AlertMessage, CardContent, BadgeLabel  
-- **Data Input**: InputText, CheckboxInput, SelectDropdown
-- **Feedback**: LoadingSpinner, ProgressBar, ToastMessage
-- **Layout**: DividerLine, NavbarHeader, FooterContent
-- **Navigation**: BreadcrumbTrail, LinkButton, MenuList
+### Storybook
+```bash
+npm run storybook
+```
+Interactive component documentation with live examples and controls.
+
+### Testing
+```bash
+npm run test
+npm run test:watch
+```
+Comprehensive test suite with Vitest and Vue Test Utils.
+
+### Development Server
+```bash
+npm run dev
+```
+Hot reload development server with playground.
+
+## TypeScript Support
 
 ### Component Props
-All components follow DaisyUI conventions and support:
-- Theme-aware variants
-- Standard size scales (xs, sm, md, lg, xl)
-- Loading and disabled states
-- Custom CSS class override
-- Full TypeScript support
+All components include full TypeScript definitions:
 
-## Composables
-
-### useTheme()
 ```typescript
-const { currentTheme, setTheme, availableThemes } = useTheme()
+import type { BtnColor, BtnStyle, BtnSize } from '@boilerplatepowa/nuxt4-design-system'
+
+interface ButtonProps {
+  color?: BtnColor        // 'primary' | 'secondary' | 'accent' | 'neutral' | 'info' | 'success' | 'warning' | 'error'
+  btnStyle?: BtnStyle     // 'outline' | 'dash' | 'soft' | 'ghost' | 'link'
+  size?: BtnSize          // 'xs' | 'sm' | 'md' | 'lg' | 'xl'
+  wide?: boolean          // btn-wide modifier
+  block?: boolean         // btn-block modifier
+  square?: boolean        // btn-square modifier
+  circle?: boolean        // btn-circle modifier
+  active?: boolean        // btn-active behavior
+  disabled?: boolean      // disabled state
+  loading?: boolean       // loading state
+  // ... more props
+}
 ```
 
-### useDesignTokens()
+### Class Generation
+Smart class generation using component maps:
+
 ```typescript
-const tokens = useDesignTokens()
-// Access: tokens.colors.primary, tokens.spacing.md, etc.
+import { generateBtnClasses } from '@boilerplatepowa/nuxt4-design-system'
+
+const classes = generateBtnClasses({
+  color: 'primary',
+  style: 'outline',
+  size: 'lg',
+  modifiers: ['wide']
+})
+// Returns: 'btn btn-primary btn-outline btn-lg btn-wide'
 ```
 
 ## Migration Guide
@@ -282,26 +322,96 @@ const tokens = useDesignTokens()
 <BpButton color="primary" size="lg">Click</BpButton>
 ```
 
-### From Old Button Component
+### From Other Design Systems
 ```vue
-<!-- Before (old variant prop) -->
-<BpButton variant="primary" size="lg">Click</BpButton>
+<!-- Material UI -->
+<Button variant="contained" size="large">Click</Button>
 
-<!-- After (new color prop) -->
+<!-- Ant Design -->
+<a-button type="primary" size="large">Click</a-button>
+
+<!-- Our System -->
 <BpButton color="primary" size="lg">Click</BpButton>
-
-<!-- Or combine with style -->
-<BpButton color="primary" style="outline" size="lg">Click</BpButton>
 ```
+
+## Project Status
+
+### ✅ **Completed Features**
+- 60+ Vue components with full DaisyUI integration
+- Comprehensive TypeScript support
+- Storybook documentation with interactive examples
+- Vitest testing suite with 400+ test cases
+- Smart class generation system
+- Auto-import support with configurable prefix
+- Form validation with VeeValidate and Yup
+- Icon integration with Lucide Vue Next
+- Accessibility features (WCAG 2.1 AA)
+
+### 🚧 **In Development**
+- Theme management system
+- Advanced composables
+- Performance monitoring
+- Bundle optimization
+- Internationalization support
+
+### 📋 **Roadmap**
+- [ ] Theme switching with persistence
+- [ ] Advanced form validation
+- [ ] Performance monitoring
+- [ ] Bundle size optimization
+- [ ] Internationalization (i18n)
+- [ ] Advanced animations
+- [ ] Mobile-first responsive utilities
+- [ ] Dark mode enhancements
 
 ## Contributing
 
-1. Fork the repository
-2. Create feature branch: `git checkout -b feature/new-component`
-3. Follow conventional commits: `feat: add ButtonSecondary component`
-4. Add tests and documentation
-5. Submit pull request
+We welcome contributions! Please follow these guidelines:
+
+1. **Fork the repository**
+2. **Create a feature branch**: `git checkout -b feature/amazing-feature`
+3. **Follow conventional commits**: `feat: add amazing feature`
+4. **Add tests**: Ensure 100% test coverage for new features
+5. **Update documentation**: Add Storybook stories and README updates
+6. **Submit a pull request**
+
+### Development Setup
+```bash
+# Clone the repository
+git clone https://github.com/BoilerplatePowa/Nuxt4-Design-System.git
+cd Nuxt4-Design-System
+
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+
+# Run tests
+npm run test
+
+# Start Storybook
+npm run storybook
+```
+
+### Code Style
+- Use TypeScript for all new code
+- Follow Vue 3 Composition API patterns
+- Use DaisyUI class naming conventions
+- Write comprehensive tests
+- Document all public APIs
 
 ## License
 
-MIT License - see LICENSE file for details
+MIT License - see [LICENSE](LICENSE) file for details
+
+## Support
+
+- 📖 **Documentation**: [Storybook](http://localhost:6006) (run `npm run storybook`)
+- 🐛 **Issues**: [GitHub Issues](https://github.com/BoilerplatePowa/Nuxt4-Design-System/issues)
+- 💬 **Discussions**: [GitHub Discussions](https://github.com/BoilerplatePowa/Nuxt4-Design-System/discussions)
+- 📧 **Contact**: [Your Email/Contact Info]
+
+---
+
+**Built with ❤️ using Nuxt 4, DaisyUI 5.1.5, and TypeScript**
