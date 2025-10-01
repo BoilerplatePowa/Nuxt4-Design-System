@@ -1,5 +1,6 @@
 // @ts-check
 import { createConfigForNuxt } from '@nuxt/eslint-config/flat'
+import eslintPluginPrettier from 'eslint-plugin-prettier/recommended'
 
 // Run `npx @eslint/config-inspector` to inspect the resolved config interactively
 export default createConfigForNuxt({
@@ -13,36 +14,22 @@ export default createConfigForNuxt({
         src: ['./playground'],
     },
 })
+    .append(eslintPluginPrettier)
     .append({
         rules: {
-            // Configure indentation to use 4 spaces
-            '@stylistic/indent': ['error', 4],
-            '@stylistic/indent-binary-ops': ['error', 4],
-            '@stylistic/jsx-indent-props': ['error', 4],
-            // Vue-specific indentation rules
-            'vue/script-indent': [
-                'error',
-                4,
-                {
-                    baseIndent: 0,
-                    switchCase: 1,
-                    ignores: [],
-                },
-            ],
-            'vue/html-indent': [
-                'error',
-                4,
-                {
-                    attribute: 1,
-                    baseIndent: 0,
-                    closeBracket: 0,
-                    alignAttributesVertically: true,
-                    ignores: [],
-                },
-            ],
-            // Disable conflicting rules
+            // Disable stylistic rules that conflict with Prettier
+            '@stylistic/indent': 'off',
+            '@stylistic/indent-binary-ops': 'off',
+            '@stylistic/jsx-indent-props': 'off',
+            'vue/script-indent': 'off',
+            'vue/html-indent': 'off',
             indent: 'off',
+
+            // Component naming
             'vue/multi-word-component-names': 'off',
+
+            // Prettier handles all formatting
+            'prettier/prettier': 'error',
         },
     })
     .append({
