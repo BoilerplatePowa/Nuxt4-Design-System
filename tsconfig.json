@@ -11,6 +11,7 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "preserve",
+    "jsxImportSource": "vue",
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
@@ -19,7 +20,8 @@
     "paths": {
       "~/*": ["./src/runtime/*"],
       "@/*": ["./src/runtime/*"]
-    }
+    },
+    "types": ["node", "vite/client"]
   },
   "include": [
     "src/**/*",

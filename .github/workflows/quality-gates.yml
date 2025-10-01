@@ -31,8 +31,9 @@ jobs:
       - name: Run ESLint
         run: npm run lint
         
-      - name: Check TypeScript
-        run: npm run test:types
+      - name: Check TypeScript (Module only)
+        # Skip playground type checking in CI - playground requires .nuxt generation
+        run: npm run test:types:module
         
       - name: Check formatting
         run: |
