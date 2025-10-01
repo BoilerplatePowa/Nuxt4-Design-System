@@ -160,7 +160,7 @@ import Steps from '../Navigation/Steps.vue'
 import Button from '../Actions/Button.vue'
 import Icon from '../Icons/Icon.vue'
 import Progress from '../Feedback/Progress.vue'
-import type { IconName, Variant } from '@/shared/types.d'
+import type { IconName, Variant } from '../../shared/types.d'
 import Avatar from '../DataDisplay/Avatar.vue'
 
 interface WizardStep {

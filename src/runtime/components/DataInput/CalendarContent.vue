@@ -415,7 +415,7 @@ const isDateDisabled = (date: Date): boolean => {
     return false
 }
 
-const dayClasses = (day: { isCurrentMonth: boolean, isToday: boolean, isSelected: boolean, isDisabled: boolean }) => {
+const dayClasses = (day: { isCurrentMonth: boolean, isToday: boolean, isSelected: boolean, isInRange: boolean, disabled: boolean }) => {
     const baseClasses = ['btn', 'btn-sm', 'h-8', 'w-8', 'p-0', 'text-xs']
 
     if (!day.isCurrentMonth) {

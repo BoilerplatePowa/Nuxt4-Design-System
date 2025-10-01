@@ -203,7 +203,7 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 const emit = defineEmits<{
-    click: [event: MouseEvent]
+    click: [event: MouseEvent | KeyboardEvent]
     mouseenter: [event: MouseEvent]
     mouseleave: [event: MouseEvent]
     keydown: [event: KeyboardEvent]

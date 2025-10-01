@@ -77,7 +77,7 @@
             class="carousel-pagination-numbers"
         >
             <a
-                v-for="(item, index) in items"
+                v-for="(_item, index) in items"
                 :key="`pagination-${index}`"
                 :href="`#carousel-item-${index}`"
                 :class="getPaginationClasses(index)"
@@ -93,7 +93,7 @@
             class="carousel-pagination-dots"
         >
             <a
-                v-for="(item, index) in items"
+                v-for="(_item, index) in items"
                 :key="`pagination-${index}`"
                 :href="`#carousel-item-${index}`"
                 :class="getDotClasses(index)"
@@ -110,7 +110,7 @@
         >
             <div class="pagination-line-container">
                 <div
-                    v-for="(item, index) in items"
+                    v-for="(_item, index) in items"
                     :key="`pagination-${index}`"
                     :class="getLineClasses(index)"
                     @click="goToSlide(index)"
@@ -151,7 +151,7 @@
                 class="carousel-pagination-numbers"
             >
                 <a
-                    v-for="(item, index) in items"
+                    v-for="(_item, index) in items"
                     :key="`pagination-${index}`"
                     :href="`#carousel-item-${index}`"
                     :class="getPaginationClasses(index)"
@@ -167,7 +167,7 @@
                 class="carousel-pagination-dots"
             >
                 <a
-                    v-for="(item, index) in items"
+                    v-for="(_item, index) in items"
                     :key="`pagination-${index}`"
                     :href="`#carousel-item-${index}`"
                     :class="getDotClasses(index)"
@@ -184,7 +184,7 @@
             >
                 <div class="pagination-line-container">
                     <div
-                        v-for="(item, index) in items"
+                        v-for="(_item, index) in items"
                         :key="`pagination-${index}`"
                         :class="getLineClasses(index)"
                         @click="goToSlide(index)"

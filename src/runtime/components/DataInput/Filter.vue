@@ -171,7 +171,7 @@
                         >{{ filter.label }}</label>
                         <div class="flex items-center gap-2">
                             <input
-                                v-model="filter.value.min"
+                                v-model="(filter.value as RangeValue).min"
                                 type="number"
                                 :placeholder="filter.minPlaceholder || 'Min'"
                                 :class="getRangeInputClasses(filter)"
@@ -179,7 +179,7 @@
                             >
                             <span class="text-sm">to</span>
                             <input
-                                v-model="filter.value.max"
+                                v-model="(filter.value as RangeValue).max"
                                 type="number"
                                 :placeholder="filter.maxPlaceholder || 'Max'"
                                 :class="getRangeInputClasses(filter)"
@@ -199,14 +199,14 @@
                         >{{ filter.label }}</label>
                         <div class="flex items-center gap-2">
                             <input
-                                v-model="filter.value.start"
+                                v-model="(filter.value as DateRangeValue).start"
                                 type="date"
                                 :class="getDateInputClasses(filter)"
                                 @change="handleFilterChange"
                             >
                             <span class="text-sm">to</span>
                             <input
-                                v-model="filter.value.end"
+                                v-model="(filter.value as DateRangeValue).end"
                                 type="date"
                                 :class="getDateInputClasses(filter)"
                                 @change="handleFilterChange"
@@ -244,11 +244,21 @@ interface FilterOption {
     value: string | number
 }
 
+interface RangeValue {
+    min?: number
+    max?: number
+}
+
+interface DateRangeValue {
+    start?: string
+    end?: string
+}
+
 interface FilterControl {
     key: string
     label?: string
     type: 'text' | 'select' | 'multiselect' | 'range' | 'daterange' | 'boolean'
-    value?: unknown
+    value?: unknown | RangeValue | DateRangeValue | string | number | boolean | string[]
     placeholder?: string
     minPlaceholder?: string
     maxPlaceholder?: string
@@ -471,8 +481,8 @@ const getDateInputClasses = (filter: FilterControl) => {
 const hasValue = (value: unknown) => {
     if (value === null || value === undefined || value === '') return false
     if (Array.isArray(value)) return value.length > 0
-    if (typeof value === 'object') {
-        return Object.values(value).some(v => v !== null && v !== undefined && v !== '')
+    if (typeof value === 'object' && value !== null) {
+        return Object.values(value as Record<string, unknown>).some(v => v !== null && v !== undefined && v !== '')
     }
     return true
 }
@@ -481,11 +491,13 @@ const formatFilterValue = (filter: FilterControl) => {
     if (filter.type === 'multiselect' && Array.isArray(filter.value)) {
         return filter.value.join(', ')
     }
-    else if (filter.type === 'range' && typeof filter.value === 'object') {
-        return `${filter.value.min || ''} - ${filter.value.max || ''}`
+    else if (filter.type === 'range' && typeof filter.value === 'object' && filter.value !== null) {
+        const rangeValue = filter.value as RangeValue
+        return `${rangeValue.min || ''} - ${rangeValue.max || ''}`
     }
-    else if (filter.type === 'daterange' && typeof filter.value === 'object') {
-        return `${filter.value.start || ''} to ${filter.value.end || ''}`
+    else if (filter.type === 'daterange' && typeof filter.value === 'object' && filter.value !== null) {
+        const dateRangeValue = filter.value as DateRangeValue
+        return `${dateRangeValue.start || ''} to ${dateRangeValue.end || ''}`
     }
     else if (filter.type === 'boolean') {
         return filter.value ? 'Yes' : 'No'

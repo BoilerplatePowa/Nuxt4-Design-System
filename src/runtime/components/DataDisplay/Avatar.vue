@@ -81,7 +81,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import Badge from './Badge.vue'
-import type { Variant, IconName } from '~/shared/types.d'
+import type { Variant, IconName } from '../../shared/types.d'
 import Status from '../DataDisplay/Status.vue'
 import Icon from '../Icons/Icon.vue'
 

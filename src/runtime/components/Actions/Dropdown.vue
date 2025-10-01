@@ -148,8 +148,8 @@ const setItemRef = (el: HTMLElement | { $el: HTMLElement } | null, index: number
     if (el && '$el' in el) {
         itemRefs.value[index] = el.$el as HTMLElement
     }
-    else if (el) {
-        itemRefs.value[index] = el as HTMLElement
+    else if (el instanceof HTMLElement) {
+        itemRefs.value[index] = el
     }
 }
 

@@ -50,7 +50,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import type { IconName, Variant } from '~/shared/types.d'
+import type { IconName, Variant } from '../../shared/types.d'
 import Icon from '../Icons/Icon.vue'
 
 interface Step {

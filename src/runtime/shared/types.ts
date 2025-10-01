@@ -1,4 +1,24 @@
 import { iconMap } from './map'
-import type { IconName } from './types.d'
 
-export const iconNameKeys = Object.keys(iconMap) as IconName[]
+// Re-export all types from types.d.ts
+export type {
+    IconName,
+    InputType,
+    Size,
+    Fill,
+    Variant,
+    Placement,
+    Direction,
+    Alignment,
+    Justification,
+    FlexDirection,
+    ThemeColor,
+    MaskType,
+    BtnColor,
+    BtnStyle,
+    BtnSize,
+    BtnBehavior,
+    BtnModifier,
+} from './types.d'
+
+export const iconNameKeys = Object.keys(iconMap) as Array<keyof typeof iconMap>

@@ -9,7 +9,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import type { Size, Variant } from '~/shared/types.d'
+import type { Size, Variant } from '../../shared/types.d'
 
 interface Props {
     variant?: Variant

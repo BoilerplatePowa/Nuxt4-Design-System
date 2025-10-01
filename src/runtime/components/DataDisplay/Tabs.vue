@@ -150,7 +150,7 @@ const isActiveTab = (tab: Tab, index: number): boolean => {
     return index === activeIndex.value
 }
 
-const selectTab = (tab: Tab, index: number, event: Event) => {
+const selectTab = (tab: Tab, _index: number, event: Event) => {
     if (tab.disabled || props.disabled) {
         event.preventDefault()
         return

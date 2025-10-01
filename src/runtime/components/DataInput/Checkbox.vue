@@ -63,7 +63,7 @@
 <script setup lang="ts">
 import { computed, nextTick, watch } from 'vue'
 import { useField } from 'vee-validate'
-import type { Size, Variant } from '~/shared/types.d'
+import type { Size, Variant } from '../../shared/types.d'
 
 // Simple ID generator with better uniqueness
 let idCounter = 0

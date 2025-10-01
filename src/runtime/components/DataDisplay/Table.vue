@@ -166,8 +166,11 @@ const sortedData = computed(() => {
 
         let comparison = 0
 
-        if (aVal < bVal) comparison = -1
-        if (aVal > bVal) comparison = 1
+        // Handle unknown types with type guards
+        if (aVal !== null && aVal !== undefined && bVal !== null && bVal !== undefined) {
+            if (aVal < bVal) comparison = -1
+            if (aVal > bVal) comparison = 1
+        }
 
         return sortOrder.value === 'desc' ? -comparison : comparison
     })
@@ -214,7 +217,8 @@ const getCellClasses = (column: TableColumn): string => {
 }
 
 const getRowKey = (row: Record<string, unknown>, index: number): string => {
-    return row[props.rowKey] || index.toString()
+    const key = row[props.rowKey]
+    return key !== null && key !== undefined ? String(key) : index.toString()
 }
 
 const getCellValue = (row: Record<string, unknown>, column: TableColumn): unknown => {

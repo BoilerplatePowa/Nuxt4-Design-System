@@ -7,7 +7,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import type { Variant } from '~/shared/types.d'
+import type { Variant } from '../../shared/types.d'
 
 interface StatusProps {
     variant?: Variant

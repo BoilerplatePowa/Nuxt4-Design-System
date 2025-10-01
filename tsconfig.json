@@ -17,14 +17,12 @@
     "noFallthroughCasesInSwitch": true,
     "baseUrl": ".",
     "paths": {
-      "~/*": ["./src/*"],
-      "@/*": ["./src/*"]
+      "~/*": ["./src/runtime/*"],
+      "@/*": ["./src/runtime/*"]
     }
   },
   "include": [
     "src/**/*",
-    "stories/**/*",
-    "test/**/*",
     "scripts/**/*"
   ],
   "exclude": [
@@ -33,6 +31,8 @@
     "playground",
     ".nuxt",
     ".output",
-    "storybook-static"
+    "storybook-static",
+    "stories",
+    "test"
   ]
 }

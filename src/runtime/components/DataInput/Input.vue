@@ -131,7 +131,7 @@ import { computed, ref, onMounted, onUnmounted, watch } from 'vue'
 import { Field } from 'vee-validate'
 import Icon from '../Icons/Icon.vue'
 import Swap from '../Actions/Swap.vue'
-import type { InputType, Size, Variant, IconName, MaskType } from '@/shared/types.d'
+import type { InputType, Size, Variant, IconName, MaskType } from '../../shared/types.d'
 import IMask from 'imask'
 
 // Unique ID generator with timestamp and random component
@@ -149,7 +149,7 @@ const showPassword = ref(false)
 // Input element reference
 const inputRef = ref<HTMLInputElement>()
 
-// IMask instance
+// IMask instance - typed as unknown to handle IMask's complex types
 let maskInstance: unknown = null
 
 // Predefined mask configurations
@@ -287,15 +287,16 @@ const initMask = (element: HTMLInputElement) => {
             : props.mask
 
     if (maskConfig && element) {
-        maskInstance = IMask(element, {
-            ...maskConfig,
-            onAccept: (value: string) => {
-                model.value = value
-            },
-            onComplete: (value: string) => {
-                model.value = value
-            },
-        })
+        maskInstance = IMask(element, maskConfig as unknown)
+        // Listen to mask events
+        if (maskInstance) {
+            maskInstance.on('accept', () => {
+                model.value = maskInstance.value
+            })
+            maskInstance.on('complete', () => {
+                model.value = maskInstance.value
+            })
+        }
     }
 }
 
