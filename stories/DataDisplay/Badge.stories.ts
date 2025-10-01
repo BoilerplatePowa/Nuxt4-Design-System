@@ -2,162 +2,162 @@ import type { Meta, StoryObj } from '@storybook/vue3-vite'
 import Badge from '../../src/runtime/components/DataDisplay/Badge.vue'
 
 const meta: Meta<typeof Badge> = {
-    title: 'Data Display/Badge',
-    component: Badge,
-    parameters: {
-        layout: 'centered',
-        docs: {
-            description: {
-                component: 'A flexible badge component for labels, tags, and status indicators.',
-            },
-        },
+  title: 'Data Display/Badge',
+  component: Badge,
+  parameters: {
+    layout: 'centered',
+    docs: {
+      description: {
+        component: 'A flexible badge component for labels, tags, and status indicators.',
+      },
     },
-    tags: ['autodocs'],
-    argTypes: {
-        variant: {
-            control: { type: 'select' },
-            options: [
-                'neutral',
-                'primary',
-                'secondary',
-                'accent',
-                'ghost',
-                'info',
-                'success',
-                'warning',
-                'error',
-            ],
-            description: 'Badge variant',
-        },
-        size: {
-            control: { type: 'select' },
-            options: ['xs', 'sm', 'md', 'lg'],
-            description: 'Badge size',
-        },
-        outline: {
-            control: { type: 'boolean' },
-            description: 'Outline style',
-        },
-        tag: {
-            control: { type: 'select' },
-            options: ['span', 'div', 'p', 'label'],
-            description: 'HTML element to render',
-        },
+  },
+  tags: ['autodocs'],
+  argTypes: {
+    variant: {
+      control: { type: 'select' },
+      options: [
+        'neutral',
+        'primary',
+        'secondary',
+        'accent',
+        'ghost',
+        'info',
+        'success',
+        'warning',
+        'error',
+      ],
+      description: 'Badge variant',
     },
+    size: {
+      control: { type: 'select' },
+      options: ['xs', 'sm', 'md', 'lg'],
+      description: 'Badge size',
+    },
+    outline: {
+      control: { type: 'boolean' },
+      description: 'Outline style',
+    },
+    tag: {
+      control: { type: 'select' },
+      options: ['span', 'div', 'p', 'label'],
+      description: 'HTML element to render',
+    },
+  },
 }
 
 export default meta
 type Story = StoryObj<typeof meta>
 
 export const Primary: Story = {
-    args: {
-        variant: 'primary',
+  args: {
+    variant: 'primary',
+  },
+  render: (args) => ({
+    components: { Badge },
+    setup() {
+      return { args }
     },
-    render: args => ({
-        components: { Badge },
-        setup() {
-            return { args }
-        },
-        template: '<Badge v-bind="args">Primary</Badge>',
-    }),
+    template: '<Badge v-bind="args">Primary</Badge>',
+  }),
 }
 
 export const Secondary: Story = {
-    args: {
-        variant: 'secondary',
+  args: {
+    variant: 'secondary',
+  },
+  render: (args) => ({
+    components: { Badge },
+    setup() {
+      return { args }
     },
-    render: args => ({
-        components: { Badge },
-        setup() {
-            return { args }
-        },
-        template: '<Badge v-bind="args">Secondary</Badge>',
-    }),
+    template: '<Badge v-bind="args">Secondary</Badge>',
+  }),
 }
 
 export const Accent: Story = {
-    args: {
-        variant: 'accent',
+  args: {
+    variant: 'accent',
+  },
+  render: (args) => ({
+    components: { Badge },
+    setup() {
+      return { args }
     },
-    render: args => ({
-        components: { Badge },
-        setup() {
-            return { args }
-        },
-        template: '<Badge v-bind="args">Accent</Badge>',
-    }),
+    template: '<Badge v-bind="args">Accent</Badge>',
+  }),
 }
 
 export const Success: Story = {
-    args: {
-        variant: 'success',
+  args: {
+    variant: 'success',
+  },
+  render: (args) => ({
+    components: { Badge },
+    setup() {
+      return { args }
     },
-    render: args => ({
-        components: { Badge },
-        setup() {
-            return { args }
-        },
-        template: '<Badge v-bind="args">Success</Badge>',
-    }),
+    template: '<Badge v-bind="args">Success</Badge>',
+  }),
 }
 
 export const Error: Story = {
-    args: {
-        variant: 'error',
+  args: {
+    variant: 'error',
+  },
+  render: (args) => ({
+    components: { Badge },
+    setup() {
+      return { args }
     },
-    render: args => ({
-        components: { Badge },
-        setup() {
-            return { args }
-        },
-        template: '<Badge v-bind="args">Error</Badge>',
-    }),
+    template: '<Badge v-bind="args">Error</Badge>',
+  }),
 }
 
 export const Outline: Story = {
-    args: {
-        variant: 'primary',
-        outline: true,
+  args: {
+    variant: 'primary',
+    outline: true,
+  },
+  render: (args) => ({
+    components: { Badge },
+    setup() {
+      return { args }
     },
-    render: args => ({
-        components: { Badge },
-        setup() {
-            return { args }
-        },
-        template: '<Badge v-bind="args">Outline</Badge>',
-    }),
+    template: '<Badge v-bind="args">Outline</Badge>',
+  }),
 }
 
 export const Large: Story = {
-    args: {
-        size: 'lg',
+  args: {
+    size: 'lg',
+  },
+  render: (args) => ({
+    components: { Badge },
+    setup() {
+      return { args }
     },
-    render: args => ({
-        components: { Badge },
-        setup() {
-            return { args }
-        },
-        template: '<Badge v-bind="args">Large Badge</Badge>',
-    }),
+    template: '<Badge v-bind="args">Large Badge</Badge>',
+  }),
 }
 
 export const Small: Story = {
-    args: {
-        size: 'xs',
+  args: {
+    size: 'xs',
+  },
+  render: (args) => ({
+    components: { Badge },
+    setup() {
+      return { args }
     },
-    render: args => ({
-        components: { Badge },
-        setup() {
-            return { args }
-        },
-        template: '<Badge v-bind="args">XS</Badge>',
-    }),
+    template: '<Badge v-bind="args">XS</Badge>',
+  }),
 }
 
 export const DifferentTags: Story = {
-    render: () => ({
-        components: { Badge },
-        template: `
+  render: () => ({
+    components: { Badge },
+    template: `
       <div class="space-y-4">
         <div>
           <h3 class="text-lg font-semibold mb-3">Different HTML Elements</h3>
@@ -170,13 +170,13 @@ export const DifferentTags: Story = {
         </div>
       </div>
     `,
-    }),
+  }),
 }
 
 export const AllVariants: Story = {
-    render: () => ({
-        components: { Badge },
-        template: `
+  render: () => ({
+    components: { Badge },
+    template: `
       <div class="space-y-6">
         <div>
           <h3 class="text-lg font-semibold mb-3">Colors</h3>
@@ -227,5 +227,5 @@ export const AllVariants: Story = {
         </div>
       </div>
     `,
-    }),
+  }),
 }

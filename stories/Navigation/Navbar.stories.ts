@@ -2,72 +2,72 @@ import type { Meta, StoryObj } from '@storybook/vue3-vite'
 import Navbar from '../../src/runtime/components/Navigation/Navbar.vue'
 
 const meta: Meta<typeof Navbar> = {
-    title: 'Navigation/Navbar',
-    component: Navbar,
-    parameters: {
-        layout: 'fullscreen',
-        docs: {
-            description: {
-                component:
+  title: 'Navigation/Navbar',
+  component: Navbar,
+  parameters: {
+    layout: 'fullscreen',
+    docs: {
+      description: {
+        component:
           'Navigation bar component with responsive design and customizable brand, menu items, and actions.',
-            },
-        },
+      },
     },
-    argTypes: {
-        title: {
-            control: 'text',
-            description: 'Brand title text',
-        },
-        logo: {
-            control: 'text',
-            description: 'Logo image URL',
-        },
-        logoAlt: {
-            control: 'text',
-            description: 'Logo alt text',
-        },
-        logoHref: {
-            control: 'text',
-            description: 'Logo link URL',
-        },
-        variant: {
-            control: { type: 'select' },
-            options: ['default', 'sticky', 'glass'],
-            description: 'Navbar style variant',
-        },
-        shadow: {
-            control: 'boolean',
-            description: 'Show navbar shadow',
-        },
-        showMobileMenu: {
-            control: 'boolean',
-            description: 'Show mobile hamburger menu',
-        },
+  },
+  argTypes: {
+    title: {
+      control: 'text',
+      description: 'Brand title text',
     },
-    tags: ['autodocs'],
+    logo: {
+      control: 'text',
+      description: 'Logo image URL',
+    },
+    logoAlt: {
+      control: 'text',
+      description: 'Logo alt text',
+    },
+    logoHref: {
+      control: 'text',
+      description: 'Logo link URL',
+    },
+    variant: {
+      control: { type: 'select' },
+      options: ['default', 'sticky', 'glass'],
+      description: 'Navbar style variant',
+    },
+    shadow: {
+      control: 'boolean',
+      description: 'Show navbar shadow',
+    },
+    showMobileMenu: {
+      control: 'boolean',
+      description: 'Show mobile hamburger menu',
+    },
+  },
+  tags: ['autodocs'],
 }
 
 export default meta
 type Story = StoryObj<typeof meta>
 
 const menuItems = [
-    { label: 'Home', href: '#home', active: true },
-    { label: 'Products', href: '#products' },
-    { label: 'Solutions', href: '#solutions' },
-    { label: 'Pricing', href: '#pricing' },
-    { label: 'About', href: '#about' },
+  { label: 'Home', href: '#home', active: true },
+  { label: 'Products', href: '#products' },
+  { label: 'Solutions', href: '#solutions' },
+  { label: 'Pricing', href: '#pricing' },
+  { label: 'About', href: '#about' },
 ]
 
 export const Default: Story = {
-    args: {
-        title: 'Your Brand',
+  args: {
+    title: 'Your Brand',
+  },
+  render: (args) => ({
+    components: { Navbar },
+    setup() {
+      return { args, menuItems }
     },
-    render: args => ({
-        components: { Navbar },
-        setup() {
-            return { args, menuItems }
-        },
-        template: `
+    template: `
       <Navbar v-bind="args">
         <template #menu>
           <ul class="menu menu-horizontal px-1">
@@ -84,16 +84,16 @@ export const Default: Story = {
         </template>
       </Navbar>
     `,
-    }),
+  }),
 }
 
 export const WithLogo: Story = {
-    render: args => ({
-        components: { Navbar },
-        setup() {
-            return { args, menuItems }
-        },
-        template: `
+  render: (args) => ({
+    components: { Navbar },
+    setup() {
+      return { args, menuItems }
+    },
+    template: `
       <Navbar v-bind="args">
         <template #brand>
           <div class="flex items-center">
@@ -133,23 +133,23 @@ export const WithLogo: Story = {
         </template>
       </Navbar>
     `,
-    }),
-    args: {
-        title: 'Logo Brand',
-    },
+  }),
+  args: {
+    title: 'Logo Brand',
+  },
 }
 
 export const Glass: Story = {
-    args: {
-        title: 'Glass Nav',
-        variant: 'glass',
+  args: {
+    title: 'Glass Nav',
+    variant: 'glass',
+  },
+  render: (args) => ({
+    components: { Navbar },
+    setup() {
+      return { args, menuItems }
     },
-    render: args => ({
-        components: { Navbar },
-        setup() {
-            return { args, menuItems }
-        },
-        template: `
+    template: `
       <div>
         <Navbar v-bind="args">
           <template #menu>
@@ -178,16 +178,16 @@ export const Glass: Story = {
         </div>
       </div>
     `,
-    }),
+  }),
 }
 
 export const Responsive: Story = {
-    render: args => ({
-        components: { Navbar },
-        setup() {
-            return { args, menuItems }
-        },
-        template: `
+  render: (args) => ({
+    components: { Navbar },
+    setup() {
+      return { args, menuItems }
+    },
+    template: `
       <Navbar v-bind="args">
         <template #brand>
           <div class="flex items-center">
@@ -234,19 +234,19 @@ export const Responsive: Story = {
         </template>
       </Navbar>
     `,
-    }),
-    args: {
-        title: 'Responsive Nav',
-    },
+  }),
+  args: {
+    title: 'Responsive Nav',
+  },
 }
 
 export const ECommerce: Story = {
-    render: args => ({
-        components: { Navbar },
-        setup() {
-            return { args }
-        },
-        template: `
+  render: (args) => ({
+    components: { Navbar },
+    setup() {
+      return { args }
+    },
+    template: `
       <Navbar v-bind="args">
         <template #brand>
           <div class="flex items-center">
@@ -316,19 +316,19 @@ export const ECommerce: Story = {
         </template>
       </Navbar>
     `,
-    }),
-    args: {
-        title: 'ShopMart',
-    },
+  }),
+  args: {
+    title: 'ShopMart',
+  },
 }
 
 export const Dashboard: Story = {
-    render: args => ({
-        components: { Navbar },
-        setup() {
-            return { args }
-        },
-        template: `
+  render: (args) => ({
+    components: { Navbar },
+    setup() {
+      return { args }
+    },
+    template: `
       <Navbar v-bind="args">
         <template #brand>
           <div class="flex items-center">
@@ -400,9 +400,9 @@ export const Dashboard: Story = {
         </template>
       </Navbar>
     `,
-    }),
-    args: {
-        title: 'Admin Panel',
-        variant: 'sticky',
-    },
+  }),
+  args: {
+    title: 'Admin Panel',
+    variant: 'sticky',
+  },
 }

@@ -4,43 +4,43 @@ import Input from '../../src/runtime/components/DataInput/Input.vue'
 import Select from '../../src/runtime/components/DataInput/Select.vue'
 
 const meta: Meta<typeof Fieldset> = {
-    title: 'Data Input/Fieldset',
-    component: Fieldset,
-    parameters: {
-        layout: 'padded',
+  title: 'Data Input/Fieldset',
+  component: Fieldset,
+  parameters: {
+    layout: 'padded',
+  },
+  argTypes: {
+    variant: {
+      control: { type: 'select' },
+      options: ['default', 'bordered', 'outlined', 'filled'],
     },
-    argTypes: {
-        variant: {
-            control: { type: 'select' },
-            options: ['default', 'bordered', 'outlined', 'filled'],
-        },
-        size: {
-            control: { type: 'select' },
-            options: ['sm', 'md', 'lg'],
-        },
-        disabled: {
-            control: { type: 'boolean' },
-        },
-        required: {
-            control: { type: 'boolean' },
-        },
+    size: {
+      control: { type: 'select' },
+      options: ['sm', 'md', 'lg'],
     },
+    disabled: {
+      control: { type: 'boolean' },
+    },
+    required: {
+      control: { type: 'boolean' },
+    },
+  },
 }
 
 export default meta
 type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
-    args: {
-        legend: 'Personal Information',
-        description: 'Please provide your basic details',
+  args: {
+    legend: 'Personal Information',
+    description: 'Please provide your basic details',
+  },
+  render: (args) => ({
+    components: { Fieldset, Input },
+    setup() {
+      return { args }
     },
-    render: args => ({
-        components: { Fieldset, Input },
-        setup() {
-            return { args }
-        },
-        template: `
+    template: `
       <Fieldset v-bind="args">
         <div class="grid grid-cols-2 gap-4">
           <Input
@@ -65,20 +65,20 @@ export const Default: Story = {
         </div>
       </Fieldset>
     `,
-    }),
+  }),
 }
 
 export const Bordered: Story = {
-    args: {
-        legend: 'Contact Information',
-        variant: 'bordered',
+  args: {
+    legend: 'Contact Information',
+    variant: 'bordered',
+  },
+  render: (args) => ({
+    components: { Fieldset, Input },
+    setup() {
+      return { args }
     },
-    render: args => ({
-        components: { Fieldset, Input },
-        setup() {
-            return { args }
-        },
-        template: `
+    template: `
       <Fieldset v-bind="args">
         <Input
           label="Phone"
@@ -88,20 +88,20 @@ export const Bordered: Story = {
         />
       </Fieldset>
     `,
-    }),
+  }),
 }
 
 export const Outlined: Story = {
-    args: {
-        legend: 'Preferences',
-        variant: 'outlined',
+  args: {
+    legend: 'Preferences',
+    variant: 'outlined',
+  },
+  render: (args) => ({
+    components: { Fieldset },
+    setup() {
+      return { args }
     },
-    render: args => ({
-        components: { Fieldset },
-        setup() {
-            return { args }
-        },
-        template: `
+    template: `
       <Fieldset v-bind="args">
         <div class="space-y-2">
           <label class="flex items-center gap-2 cursor-pointer">
@@ -115,20 +115,20 @@ export const Outlined: Story = {
         </div>
       </Fieldset>
     `,
-    }),
+  }),
 }
 
 export const Filled: Story = {
-    args: {
-        legend: 'Settings',
-        variant: 'filled',
+  args: {
+    legend: 'Settings',
+    variant: 'filled',
+  },
+  render: (args) => ({
+    components: { Fieldset, Select },
+    setup() {
+      return { args }
     },
-    render: args => ({
-        components: { Fieldset, Select },
-        setup() {
-            return { args }
-        },
-        template: `
+    template: `
       <Fieldset v-bind="args">
         <Select
           label="Theme"
@@ -141,21 +141,21 @@ export const Filled: Story = {
         />
       </Fieldset>
     `,
-    }),
+  }),
 }
 
 export const Small: Story = {
-    args: {
-        legend: 'Quick Info',
-        size: 'sm',
-        variant: 'bordered',
+  args: {
+    legend: 'Quick Info',
+    size: 'sm',
+    variant: 'bordered',
+  },
+  render: (args) => ({
+    components: { Fieldset, Input },
+    setup() {
+      return { args }
     },
-    render: args => ({
-        components: { Fieldset, Input },
-        setup() {
-            return { args }
-        },
-        template: `
+    template: `
       <Fieldset v-bind="args">
         <Input
           label="Name"
@@ -165,21 +165,21 @@ export const Small: Story = {
         />
       </Fieldset>
     `,
-    }),
+  }),
 }
 
 export const Large: Story = {
-    args: {
-        legend: 'Detailed Information',
-        size: 'lg',
-        variant: 'bordered',
+  args: {
+    legend: 'Detailed Information',
+    size: 'lg',
+    variant: 'bordered',
+  },
+  render: (args) => ({
+    components: { Fieldset, Input },
+    setup() {
+      return { args }
     },
-    render: args => ({
-        components: { Fieldset, Input },
-        setup() {
-            return { args }
-        },
-        template: `
+    template: `
       <Fieldset v-bind="args">
         <Input
           label="Name"
@@ -189,22 +189,22 @@ export const Large: Story = {
         />
       </Fieldset>
     `,
-    }),
+  }),
 }
 
 export const WithError: Story = {
-    args: {
-        legend: 'Payment Information',
-        variant: 'bordered',
-        error: 'Please correct the errors below',
-        required: true,
+  args: {
+    legend: 'Payment Information',
+    variant: 'bordered',
+    error: 'Please correct the errors below',
+    required: true,
+  },
+  render: (args) => ({
+    components: { Fieldset, Input },
+    setup() {
+      return { args }
     },
-    render: args => ({
-        components: { Fieldset, Input },
-        setup() {
-            return { args }
-        },
-        template: `
+    template: `
       <Fieldset v-bind="args">
         <div class="grid grid-cols-2 gap-4">
           <Input
@@ -222,22 +222,22 @@ export const WithError: Story = {
         </div>
       </Fieldset>
     `,
-    }),
+  }),
 }
 
 export const Disabled: Story = {
-    args: {
-        legend: 'Account Settings',
-        variant: 'bordered',
-        disabled: true,
-        description: 'These settings are currently locked',
+  args: {
+    legend: 'Account Settings',
+    variant: 'bordered',
+    disabled: true,
+    description: 'These settings are currently locked',
+  },
+  render: (args) => ({
+    components: { Fieldset, Input, Select },
+    setup() {
+      return { args }
     },
-    render: args => ({
-        components: { Fieldset, Input, Select },
-        setup() {
-            return { args }
-        },
-        template: `
+    template: `
       <Fieldset v-bind="args">
         <div class="space-y-4">
           <Input
@@ -261,19 +261,19 @@ export const Disabled: Story = {
         </div>
       </Fieldset>
     `,
-    }),
+  }),
 }
 
 export const WithCustomSlots: Story = {
-    args: {
-        variant: 'bordered',
+  args: {
+    variant: 'bordered',
+  },
+  render: (args) => ({
+    components: { Fieldset, Input },
+    setup() {
+      return { args }
     },
-    render: args => ({
-        components: { Fieldset, Input },
-        setup() {
-            return { args }
-        },
-        template: `
+    template: `
       <Fieldset v-bind="args">
         <template #legend>
           <div class="flex items-center gap-2">
@@ -312,21 +312,21 @@ export const WithCustomSlots: Story = {
         </template>
       </Fieldset>
     `,
-    }),
+  }),
 }
 
 export const Nested: Story = {
-    args: {
-        legend: 'User Profile',
-        variant: 'bordered',
-        size: 'lg',
+  args: {
+    legend: 'User Profile',
+    variant: 'bordered',
+    size: 'lg',
+  },
+  render: (args) => ({
+    components: { Fieldset, Input },
+    setup() {
+      return { args }
     },
-    render: args => ({
-        components: { Fieldset, Input },
-        setup() {
-            return { args }
-        },
-        template: `
+    template: `
       <div class="max-w-2xl">
         <Fieldset v-bind="args">
           <Fieldset legend="Personal Details" variant="outlined" size="md">
@@ -363,5 +363,5 @@ export const Nested: Story = {
         </Fieldset>
       </div>
     `,
-    }),
+  }),
 }

@@ -2,65 +2,65 @@ import type { Meta, StoryObj } from '@storybook/vue3-vite'
 import Breadcrumbs from '../../src/runtime/components/Navigation/Breadcrumbs.vue'
 
 const meta: Meta<typeof Breadcrumbs> = {
-    title: 'Navigation/Breadcrumbs',
-    component: Breadcrumbs,
-    parameters: {
-        layout: 'padded',
+  title: 'Navigation/Breadcrumbs',
+  component: Breadcrumbs,
+  parameters: {
+    layout: 'padded',
+  },
+  argTypes: {
+    size: {
+      control: { type: 'select' },
+      options: ['xs', 'sm', 'md', 'lg'],
     },
-    argTypes: {
-        size: {
-            control: { type: 'select' },
-            options: ['xs', 'sm', 'md', 'lg'],
-        },
-        separator: {
-            control: { type: 'text' },
-        },
-        maxItems: {
-            control: { type: 'number' },
-        },
+    separator: {
+      control: { type: 'text' },
     },
+    maxItems: {
+      control: { type: 'number' },
+    },
+  },
 }
 
 export default meta
 type Story = StoryObj<typeof meta>
 
 const basicItems = [
-    { label: 'Home', href: '/' },
-    { label: 'Products', href: '/products' },
-    { label: 'Electronics', href: '/products/electronics' },
-    { label: 'Smartphones' },
+  { label: 'Home', href: '/' },
+  { label: 'Products', href: '/products' },
+  { label: 'Electronics', href: '/products/electronics' },
+  { label: 'Smartphones' },
 ]
 
 const itemsWithIcons = [
-    { label: 'Home', href: '/', icon: '🏠' },
-    { label: 'Dashboard', href: '/dashboard', icon: '📊' },
-    { label: 'Analytics', href: '/analytics', icon: '📈' },
-    { label: 'Reports', icon: '📄' },
+  { label: 'Home', href: '/', icon: '🏠' },
+  { label: 'Dashboard', href: '/dashboard', icon: '📊' },
+  { label: 'Analytics', href: '/analytics', icon: '📈' },
+  { label: 'Reports', icon: '📄' },
 ]
 
 export const Default: Story = {
-    args: {
-        items: basicItems,
-    },
+  args: {
+    items: basicItems,
+  },
 }
 
 export const WithIcons: Story = {
-    args: {
-        items: itemsWithIcons,
-    },
+  args: {
+    items: itemsWithIcons,
+  },
 }
 
 export const CustomSeparator: Story = {
-    args: {
-        items: basicItems,
-        separator: '→',
-    },
+  args: {
+    items: basicItems,
+    separator: '→',
+  },
 }
 
 export const Sizes: Story = {
-    render: () => ({
-        components: { Breadcrumbs },
-        template: `
+  render: () => ({
+    components: { Breadcrumbs },
+    template: `
       <div class="space-y-6">
         <div>
           <h3 class="text-lg font-bold mb-2">Extra Small</h3>
@@ -111,46 +111,58 @@ export const Sizes: Story = {
         </div>
       </div>
     `,
-    }),
+  }),
 }
 
 export const LongPath: Story = {
-    args: {
-        items: [
-            { label: 'Home', href: '/' },
-            { label: 'Categories', href: '/categories' },
-            { label: 'Electronics', href: '/categories/electronics' },
-            { label: 'Computers', href: '/categories/electronics/computers' },
-            { label: 'Laptops', href: '/categories/electronics/computers/laptops' },
-            { label: 'Gaming', href: '/categories/electronics/computers/laptops/gaming' },
-            {
-                label: 'High Performance',
-                href: '/categories/electronics/computers/laptops/gaming/high-performance',
-            },
-            { label: 'Current Product' },
-        ],
-    },
+  args: {
+    items: [
+      { label: 'Home', href: '/' },
+      { label: 'Categories', href: '/categories' },
+      { label: 'Electronics', href: '/categories/electronics' },
+      { label: 'Computers', href: '/categories/electronics/computers' },
+      {
+        label: 'Laptops',
+        href: '/categories/electronics/computers/laptops',
+      },
+      {
+        label: 'Gaming',
+        href: '/categories/electronics/computers/laptops/gaming',
+      },
+      {
+        label: 'High Performance',
+        href: '/categories/electronics/computers/laptops/gaming/high-performance',
+      },
+      { label: 'Current Product' },
+    ],
+  },
 }
 
 export const WithMaxItems: Story = {
-    args: {
-        items: [
-            { label: 'Home', href: '/' },
-            { label: 'Categories', href: '/categories' },
-            { label: 'Electronics', href: '/categories/electronics' },
-            { label: 'Computers', href: '/categories/electronics/computers' },
-            { label: 'Laptops', href: '/categories/electronics/computers/laptops' },
-            { label: 'Gaming', href: '/categories/electronics/computers/laptops/gaming' },
-            { label: 'Current Product' },
-        ],
-        maxItems: 4,
-    },
+  args: {
+    items: [
+      { label: 'Home', href: '/' },
+      { label: 'Categories', href: '/categories' },
+      { label: 'Electronics', href: '/categories/electronics' },
+      { label: 'Computers', href: '/categories/electronics/computers' },
+      {
+        label: 'Laptops',
+        href: '/categories/electronics/computers/laptops',
+      },
+      {
+        label: 'Gaming',
+        href: '/categories/electronics/computers/laptops/gaming',
+      },
+      { label: 'Current Product' },
+    ],
+    maxItems: 4,
+  },
 }
 
 export const CustomContent: Story = {
-    render: () => ({
-        components: { Breadcrumbs },
-        template: `
+  render: () => ({
+    components: { Breadcrumbs },
+    template: `
       <Breadcrumbs>
         <li>
           <a href="/" class="flex items-center gap-2">
@@ -178,13 +190,13 @@ export const CustomContent: Story = {
         </li>
       </Breadcrumbs>
     `,
-    }),
+  }),
 }
 
 export const EcommercePath: Story = {
-    render: () => ({
-        components: { Breadcrumbs },
-        template: `
+  render: () => ({
+    components: { Breadcrumbs },
+    template: `
       <div class="space-y-8">
         <div class="bg-base-200 p-6 rounded-lg">
           <h3 class="text-lg font-bold mb-4">E-commerce Product Page</h3>
@@ -239,5 +251,5 @@ export const EcommercePath: Story = {
         </div>
       </div>
     `,
-    }),
+  }),
 }

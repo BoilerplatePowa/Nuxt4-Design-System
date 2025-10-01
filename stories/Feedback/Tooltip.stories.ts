@@ -2,50 +2,50 @@ import type { Meta, StoryObj } from '@storybook/vue3-vite'
 import Tooltip from '../../src/runtime/components/Feedback/Tooltip.vue'
 
 const meta: Meta<typeof Tooltip> = {
-    title: 'Feedback/Tooltip',
-    component: Tooltip,
-    parameters: {
-        layout: 'centered',
+  title: 'Feedback/Tooltip',
+  component: Tooltip,
+  parameters: {
+    layout: 'centered',
+  },
+  argTypes: {
+    position: {
+      control: { type: 'select' },
+      options: ['top', 'bottom', 'left', 'right'],
     },
-    argTypes: {
-        position: {
-            control: { type: 'select' },
-            options: ['top', 'bottom', 'left', 'right'],
-        },
-        variant: {
-            control: { type: 'select' },
-            options: ['primary', 'secondary', 'accent', 'info', 'success', 'warning', 'error'],
-        },
-        open: {
-            control: { type: 'boolean' },
-        },
+    variant: {
+      control: { type: 'select' },
+      options: ['primary', 'secondary', 'accent', 'info', 'success', 'warning', 'error'],
     },
+    open: {
+      control: { type: 'boolean' },
+    },
+  },
 }
 
 export default meta
 type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
-    args: {
-        tip: 'This is a tooltip',
+  args: {
+    tip: 'This is a tooltip',
+  },
+  render: (args) => ({
+    components: { Tooltip },
+    setup() {
+      return { args }
     },
-    render: args => ({
-        components: { Tooltip },
-        setup() {
-            return { args }
-        },
-        template: `
+    template: `
       <Tooltip v-bind="args">
         <button class="btn">Hover me</button>
       </Tooltip>
     `,
-    }),
+  }),
 }
 
 export const Positions: Story = {
-    render: () => ({
-        components: { Tooltip },
-        template: `
+  render: () => ({
+    components: { Tooltip },
+    template: `
       <div class="flex flex-col gap-8 items-center">
         <Tooltip tip="Top tooltip" position="top">
           <button class="btn">Top</button>
@@ -66,13 +66,13 @@ export const Positions: Story = {
         </Tooltip>
       </div>
     `,
-    }),
+  }),
 }
 
 export const Variants: Story = {
-    render: () => ({
-        components: { Tooltip },
-        template: `
+  render: () => ({
+    components: { Tooltip },
+    template: `
       <div class="flex flex-wrap gap-4">
         <Tooltip tip="Primary tooltip" variant="primary">
           <button class="btn btn-primary">Primary</button>
@@ -103,40 +103,40 @@ export const Variants: Story = {
         </Tooltip>
       </div>
     `,
-    }),
+  }),
 }
 
 export const AlwaysOpen: Story = {
-    args: {
-        tip: 'This tooltip is always visible',
-        open: true,
+  args: {
+    tip: 'This tooltip is always visible',
+    open: true,
+  },
+  render: (args) => ({
+    components: { Tooltip },
+    setup() {
+      return { args }
     },
-    render: args => ({
-        components: { Tooltip },
-        setup() {
-            return { args }
-        },
-        template: `
+    template: `
       <Tooltip v-bind="args">
         <button class="btn">Always visible tooltip</button>
       </Tooltip>
     `,
-    }),
+  }),
 }
 
 export const LongText: Story = {
-    args: {
-        tip: 'This is a very long tooltip text that demonstrates how tooltips handle longer content gracefully',
+  args: {
+    tip: 'This is a very long tooltip text that demonstrates how tooltips handle longer content gracefully',
+  },
+  render: (args) => ({
+    components: { Tooltip },
+    setup() {
+      return { args }
     },
-    render: args => ({
-        components: { Tooltip },
-        setup() {
-            return { args }
-        },
-        template: `
+    template: `
       <Tooltip v-bind="args">
         <button class="btn">Long tooltip</button>
       </Tooltip>
     `,
-    }),
+  }),
 }

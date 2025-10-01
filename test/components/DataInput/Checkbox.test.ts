@@ -3,186 +3,186 @@ import { mount } from '@vue/test-utils'
 import Checkbox from '../../../src/runtime/components/DataInput/Checkbox.vue'
 
 describe('Checkbox', () => {
-    it('renders correctly with default props', () => {
-        const wrapper = mount(Checkbox, {
-            props: {
-                modelValue: false,
-                label: 'Test checkbox',
-            },
-        })
-
-        expect(wrapper.find('input[type="checkbox"]').exists()).toBe(true)
-        expect(wrapper.find('label').text()).toBe('Test checkbox')
-        expect(wrapper.classes()).toContain('form-control')
+  it('renders correctly with default props', () => {
+    const wrapper = mount(Checkbox, {
+      props: {
+        modelValue: false,
+        label: 'Test checkbox',
+      },
     })
 
-    it('is checked when modelValue is true', () => {
-        const wrapper = mount(Checkbox, {
-            props: {
-                modelValue: true,
-                label: 'Checked checkbox',
-            },
-        })
+    expect(wrapper.find('input[type="checkbox"]').exists()).toBe(true)
+    expect(wrapper.find('label').text()).toBe('Test checkbox')
+    expect(wrapper.classes()).toContain('form-control')
+  })
 
-        const checkbox = wrapper.find('input[type="checkbox"]')
-        expect((checkbox.element as HTMLInputElement).checked).toBe(true)
+  it('is checked when modelValue is true', () => {
+    const wrapper = mount(Checkbox, {
+      props: {
+        modelValue: true,
+        label: 'Checked checkbox',
+      },
     })
 
-    it('is unchecked when modelValue is false', () => {
-        const wrapper = mount(Checkbox, {
-            props: {
-                modelValue: false,
-                label: 'Unchecked checkbox',
-            },
-        })
+    const checkbox = wrapper.find('input[type="checkbox"]')
+    expect((checkbox.element as HTMLInputElement).checked).toBe(true)
+  })
 
-        const checkbox = wrapper.find('input[type="checkbox"]')
-        expect((checkbox.element as HTMLInputElement).checked).toBe(false)
+  it('is unchecked when modelValue is false', () => {
+    const wrapper = mount(Checkbox, {
+      props: {
+        modelValue: false,
+        label: 'Unchecked checkbox',
+      },
     })
 
-    it('applies variant classes correctly', () => {
-        const variants = [
-            'primary',
-            'secondary',
-            'accent',
-            'success',
-            'warning',
-            'info',
-            'error',
-        ] as const
+    const checkbox = wrapper.find('input[type="checkbox"]')
+    expect((checkbox.element as HTMLInputElement).checked).toBe(false)
+  })
 
-        variants.forEach((variant) => {
-            const wrapper = mount(Checkbox, {
-                props: {
-                    modelValue: false,
-                    variant,
-                    label: 'Test',
-                },
-            })
+  it('applies variant classes correctly', () => {
+    const variants = [
+      'primary',
+      'secondary',
+      'accent',
+      'success',
+      'warning',
+      'info',
+      'error',
+    ] as const
 
-            expect(wrapper.find('input').classes()).toContain(`checkbox-${variant}`)
-        })
+    variants.forEach((variant) => {
+      const wrapper = mount(Checkbox, {
+        props: {
+          modelValue: false,
+          variant,
+          label: 'Test',
+        },
+      })
+
+      expect(wrapper.find('input').classes()).toContain(`checkbox-${variant}`)
+    })
+  })
+
+  it('applies size classes correctly', () => {
+    const sizes = ['xs', 'sm', 'md', 'lg'] as const
+
+    sizes.forEach((size) => {
+      const wrapper = mount(Checkbox, {
+        props: {
+          modelValue: false,
+          size,
+          label: 'Test',
+        },
+      })
+
+      if (size !== 'md') {
+        expect(wrapper.find('input').classes()).toContain(`checkbox-${size}`)
+      }
+    })
+  })
+
+  it('emits update:modelValue when clicked', async () => {
+    const wrapper = mount(Checkbox, {
+      props: {
+        modelValue: false,
+        label: 'Test checkbox',
+      },
     })
 
-    it('applies size classes correctly', () => {
-        const sizes = ['xs', 'sm', 'md', 'lg'] as const
+    const checkbox = wrapper.find('input[type="checkbox"]')
+    await checkbox.setValue(true)
 
-        sizes.forEach((size) => {
-            const wrapper = mount(Checkbox, {
-                props: {
-                    modelValue: false,
-                    size,
-                    label: 'Test',
-                },
-            })
+    expect(wrapper.emitted('update:modelValue')).toBeTruthy()
+    expect(wrapper.emitted('update:modelValue')?.[0]).toEqual([true])
+  })
 
-            if (size !== 'md') {
-                expect(wrapper.find('input').classes()).toContain(`checkbox-${size}`)
-            }
-        })
+  it('is disabled when disabled prop is true', () => {
+    const wrapper = mount(Checkbox, {
+      props: {
+        modelValue: false,
+        disabled: true,
+        label: 'Disabled checkbox',
+      },
     })
 
-    it('emits update:modelValue when clicked', async () => {
-        const wrapper = mount(Checkbox, {
-            props: {
-                modelValue: false,
-                label: 'Test checkbox',
-            },
-        })
+    const checkbox = wrapper.find('input[type="checkbox"]')
+    expect(checkbox.attributes('disabled')).toBeDefined()
+    expect(checkbox.classes()).toContain('checkbox-disabled')
+  })
 
-        const checkbox = wrapper.find('input[type="checkbox"]')
-        await checkbox.setValue(true)
-
-        expect(wrapper.emitted('update:modelValue')).toBeTruthy()
-        expect(wrapper.emitted('update:modelValue')?.[0]).toEqual([true])
+  it('shows indeterminate state correctly', () => {
+    const wrapper = mount(Checkbox, {
+      props: {
+        modelValue: false,
+        indeterminate: true,
+        label: 'Indeterminate checkbox',
+      },
     })
 
-    it('is disabled when disabled prop is true', () => {
-        const wrapper = mount(Checkbox, {
-            props: {
-                modelValue: false,
-                disabled: true,
-                label: 'Disabled checkbox',
-            },
-        })
+    const checkbox = wrapper.find('input[type="checkbox"]')
+    expect((checkbox.element as HTMLInputElement).indeterminate).toBe(true)
+  })
 
-        const checkbox = wrapper.find('input[type="checkbox"]')
-        expect(checkbox.attributes('disabled')).toBeDefined()
-        expect(checkbox.classes()).toContain('checkbox-disabled')
+  it('shows error message when provided', () => {
+    const wrapper = mount(Checkbox, {
+      props: {
+        modelValue: false,
+        label: 'Test checkbox',
+        errorMessage: 'This field is required',
+      },
     })
 
-    it('shows indeterminate state correctly', () => {
-        const wrapper = mount(Checkbox, {
-            props: {
-                modelValue: false,
-                indeterminate: true,
-                label: 'Indeterminate checkbox',
-            },
-        })
+    expect(wrapper.text()).toContain('This field is required')
+    expect(wrapper.find('.text-error').exists()).toBe(true)
+  })
 
-        const checkbox = wrapper.find('input[type="checkbox"]')
-        expect((checkbox.element as HTMLInputElement).indeterminate).toBe(true)
+  it('applies error state classes when error message is present', () => {
+    const wrapper = mount(Checkbox, {
+      props: {
+        modelValue: false,
+        label: 'Test checkbox',
+        errorMessage: 'Error',
+      },
     })
 
-    it('shows error message when provided', () => {
-        const wrapper = mount(Checkbox, {
-            props: {
-                modelValue: false,
-                label: 'Test checkbox',
-                errorMessage: 'This field is required',
-            },
-        })
+    expect(wrapper.find('input').classes()).toContain('checkbox-error')
+  })
 
-        expect(wrapper.text()).toContain('This field is required')
-        expect(wrapper.find('.text-error').exists()).toBe(true)
+  it('renders without label when not provided', () => {
+    const wrapper = mount(Checkbox, {
+      props: {
+        modelValue: false,
+      },
     })
 
-    it('applies error state classes when error message is present', () => {
-        const wrapper = mount(Checkbox, {
-            props: {
-                modelValue: false,
-                label: 'Test checkbox',
-                errorMessage: 'Error',
-            },
-        })
+    expect(wrapper.find('label span').exists()).toBe(false)
+  })
 
-        expect(wrapper.find('input').classes()).toContain('checkbox-error')
+  it('handles keyboard events correctly', async () => {
+    const wrapper = mount(Checkbox, {
+      props: {
+        modelValue: false,
+        label: 'Test checkbox',
+      },
     })
 
-    it('renders without label when not provided', () => {
-        const wrapper = mount(Checkbox, {
-            props: {
-                modelValue: false,
-            },
-        })
+    const checkbox = wrapper.find('input[type="checkbox"]')
+    await checkbox.setValue(true)
 
-        expect(wrapper.find('label span').exists()).toBe(false)
+    expect(wrapper.emitted('update:modelValue')).toBeTruthy()
+  })
+
+  it('sets correct ARIA attributes', () => {
+    const wrapper = mount(Checkbox, {
+      props: {
+        modelValue: false,
+        label: 'Accessible checkbox',
+        errorMessage: 'Error message',
+      },
     })
 
-    it('handles keyboard events correctly', async () => {
-        const wrapper = mount(Checkbox, {
-            props: {
-                modelValue: false,
-                label: 'Test checkbox',
-            },
-        })
-
-        const checkbox = wrapper.find('input[type="checkbox"]')
-        await checkbox.setValue(true)
-
-        expect(wrapper.emitted('update:modelValue')).toBeTruthy()
-    })
-
-    it('sets correct ARIA attributes', () => {
-        const wrapper = mount(Checkbox, {
-            props: {
-                modelValue: false,
-                label: 'Accessible checkbox',
-                errorMessage: 'Error message',
-            },
-        })
-
-        const checkbox = wrapper.find('input[type="checkbox"]')
-        expect(checkbox.attributes('aria-describedby')).toBeTruthy()
-    })
+    const checkbox = wrapper.find('input[type="checkbox"]')
+    expect(checkbox.attributes('aria-describedby')).toBeTruthy()
+  })
 })

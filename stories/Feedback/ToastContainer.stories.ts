@@ -3,71 +3,71 @@ import ToastContainer from '../../src/runtime/components/Feedback/ToastContainer
 import { useToast } from '../../src/runtime/composables/useToast'
 
 const meta: Meta<typeof ToastContainer> = {
-    title: 'Feedback/ToastContainer',
-    component: ToastContainer,
-    parameters: {
-        layout: 'fullscreen',
-        docs: {
-            description: {
-                component:
+  title: 'Feedback/ToastContainer',
+  component: ToastContainer,
+  parameters: {
+    layout: 'fullscreen',
+    docs: {
+      description: {
+        component:
           'Toast container that manages stacking multiple toasts with automatic ordering and limits.',
-            },
-        },
+      },
     },
-    argTypes: {
-        position: {
-            control: { type: 'select' },
-            options: [
-                'top-right',
-                'top-left',
-                'bottom-right',
-                'bottom-left',
-                'top-center',
-                'bottom-center',
-            ],
-            description: 'Position of the toast stack',
-        },
-        maxToasts: {
-            control: { type: 'number', min: 1, max: 10 },
-            description: 'Maximum number of toasts to display simultaneously',
-        },
-        toasts: {
-            control: 'object',
-            description: 'Array of toast items to display',
-        },
+  },
+  argTypes: {
+    position: {
+      control: { type: 'select' },
+      options: [
+        'top-right',
+        'top-left',
+        'bottom-right',
+        'bottom-left',
+        'top-center',
+        'bottom-center',
+      ],
+      description: 'Position of the toast stack',
     },
-    tags: ['autodocs'],
+    maxToasts: {
+      control: { type: 'number', min: 1, max: 10 },
+      description: 'Maximum number of toasts to display simultaneously',
+    },
+    toasts: {
+      control: 'object',
+      description: 'Array of toast items to display',
+    },
+  },
+  tags: ['autodocs'],
 }
 
 export default meta
 type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
-    render: args => ({
-        components: { ToastContainer },
-        setup() {
-            const { toasts, addToast, removeToast, clearAll } = useToast()
+  render: (args) => ({
+    components: { ToastContainer },
+    setup() {
+      const { toasts, addToast, removeToast, clearAll } = useToast()
 
-            const addSampleToast = (type: 'info' | 'success' | 'warning' | 'error') => {
-                const messages = {
-                    info: 'This is an informational message',
-                    success: 'Operation completed successfully!',
-                    warning: 'Please check your input',
-                    error: 'Something went wrong',
-                }
+      const addSampleToast = (type: 'info' | 'success' | 'warning' | 'error') => {
+        const messages = {
+          info: 'This is an informational message',
+          success: 'Operation completed successfully!',
+          warning: 'Please check your input',
+          error: 'Something went wrong',
+        }
 
-                addToast(messages[type], { type })
-            }
+        addToast(messages[type], { type })
+      }
 
-            return {
-                args,
-                toasts,
-                addSampleToast,
-                removeToast,
-                clearAll,
-            }
-        },
-        template: `
+      return {
+        args,
+        toasts,
+        addSampleToast,
+        removeToast,
+        clearAll,
+      }
+    },
+    template: `
       <div>
         <div class="p-8 space-y-4">
           <h3 class="text-lg font-semibold">Toast Container Demo</h3>
@@ -104,49 +104,49 @@ export const Default: Story = {
         />
       </div>
     `,
-    }),
-    args: {
-        position: 'top-right',
-        maxToasts: 5,
-    },
+  }),
+  args: {
+    position: 'top-right',
+    maxToasts: 5,
+  },
 }
 
 export const MaximumLimit: Story = {
-    render: () => ({
-        components: { ToastContainer },
-        data() {
-            return {
-                toasts: [],
-                nextId: 1,
-                maxToasts: 3,
-            }
-        },
-        methods: {
-            addToast() {
-                const types = ['info', 'success', 'warning', 'error']
-                const type = types[Math.floor(Math.random() * types.length)]
+  render: () => ({
+    components: { ToastContainer },
+    data() {
+      return {
+        toasts: [],
+        nextId: 1,
+        maxToasts: 3,
+      }
+    },
+    methods: {
+      addToast() {
+        const types = ['info', 'success', 'warning', 'error']
+        const type = types[Math.floor(Math.random() * types.length)]
 
-                this.toasts.push({
-                    id: this.nextId++,
-                    type,
-                    message: `Toast #${this.nextId - 1} - ${type}`,
-                    timestamp: Date.now(),
-                    closable: true,
-                })
-            },
-            removeToast(id: string | number) {
-                const index = this.toasts.findIndex((toast: any) => toast.id === id)
-                if (index > -1) {
-                    this.toasts.splice(index, 1)
-                }
-            },
-            addMultiple() {
-                for (let i = 0; i < 8; i++) {
-                    setTimeout(() => this.addToast(), i * 200)
-                }
-            },
-        },
-        template: `
+        this.toasts.push({
+          id: this.nextId++,
+          type,
+          message: `Toast #${this.nextId - 1} - ${type}`,
+          timestamp: Date.now(),
+          closable: true,
+        })
+      },
+      removeToast(id: string | number) {
+        const index = this.toasts.findIndex((toast: any) => toast.id === id)
+        if (index > -1) {
+          this.toasts.splice(index, 1)
+        }
+      },
+      addMultiple() {
+        for (let i = 0; i < 8; i++) {
+          setTimeout(() => this.addToast(), i * 200)
+        }
+      },
+    },
+    template: `
       <div>
         <div class="p-8 space-y-4">
           <h3 class="text-lg font-semibold">Maximum Limit Demo (3 toasts)</h3>
@@ -178,48 +178,48 @@ export const MaximumLimit: Story = {
         />
       </div>
     `,
-    }),
+  }),
 }
 
 export const DifferentPositions: Story = {
-    render: () => ({
-        components: { ToastContainer },
-        data() {
-            return {
-                position: 'top-right',
-                toasts: [],
-                nextId: 1,
-                positions: [
-                    { key: 'top-left', label: 'Top Left' },
-                    { key: 'top-center', label: 'Top Center' },
-                    { key: 'top-right', label: 'Top Right' },
-                    { key: 'bottom-left', label: 'Bottom Left' },
-                    { key: 'bottom-center', label: 'Bottom Center' },
-                    { key: 'bottom-right', label: 'Bottom Right' },
-                ],
-            }
-        },
-        methods: {
-            addToast() {
-                this.toasts.push({
-                    id: this.nextId++,
-                    type: 'info',
-                    message: `Toast at ${this.position}`,
-                    timestamp: Date.now(),
-                    closable: true,
-                })
-            },
-            removeToast(id: string | number) {
-                const index = this.toasts.findIndex((toast: any) => toast.id === id)
-                if (index > -1) {
-                    this.toasts.splice(index, 1)
-                }
-            },
-            changePosition(newPosition: string) {
-                this.position = newPosition
-            },
-        },
-        template: `
+  render: () => ({
+    components: { ToastContainer },
+    data() {
+      return {
+        position: 'top-right',
+        toasts: [],
+        nextId: 1,
+        positions: [
+          { key: 'top-left', label: 'Top Left' },
+          { key: 'top-center', label: 'Top Center' },
+          { key: 'top-right', label: 'Top Right' },
+          { key: 'bottom-left', label: 'Bottom Left' },
+          { key: 'bottom-center', label: 'Bottom Center' },
+          { key: 'bottom-right', label: 'Bottom Right' },
+        ],
+      }
+    },
+    methods: {
+      addToast() {
+        this.toasts.push({
+          id: this.nextId++,
+          type: 'info',
+          message: `Toast at ${this.position}`,
+          timestamp: Date.now(),
+          closable: true,
+        })
+      },
+      removeToast(id: string | number) {
+        const index = this.toasts.findIndex((toast: any) => toast.id === id)
+        if (index > -1) {
+          this.toasts.splice(index, 1)
+        }
+      },
+      changePosition(newPosition: string) {
+        this.position = newPosition
+      },
+    },
+    template: `
       <div>
         <div class="p-8 space-y-4">
           <h3 class="text-lg font-semibold">Position Demo</h3>
@@ -258,47 +258,47 @@ export const DifferentPositions: Story = {
         />
       </div>
     `,
-    }),
+  }),
 }
 
 export const AutoDismiss: Story = {
-    render: () => ({
-        components: { ToastContainer },
-        data() {
-            return {
-                toasts: [],
-                nextId: 1,
-            }
-        },
-        methods: {
-            addPersistentToast() {
-                this.toasts.push({
-                    id: this.nextId++,
-                    type: 'info',
-                    message: 'This toast stays until you close it',
-                    timestamp: Date.now(),
-                    closable: true,
-                    duration: 0, // Won't auto-dismiss
-                })
-            },
-            addTimedToast(duration: number) {
-                this.toasts.push({
-                    id: this.nextId++,
-                    type: 'success',
-                    message: `Auto-dismiss in ${duration / 1000}s`,
-                    timestamp: Date.now(),
-                    closable: true,
-                    duration,
-                })
-            },
-            removeToast(id: string | number) {
-                const index = this.toasts.findIndex((toast: any) => toast.id === id)
-                if (index > -1) {
-                    this.toasts.splice(index, 1)
-                }
-            },
-        },
-        template: `
+  render: () => ({
+    components: { ToastContainer },
+    data() {
+      return {
+        toasts: [],
+        nextId: 1,
+      }
+    },
+    methods: {
+      addPersistentToast() {
+        this.toasts.push({
+          id: this.nextId++,
+          type: 'info',
+          message: 'This toast stays until you close it',
+          timestamp: Date.now(),
+          closable: true,
+          duration: 0, // Won't auto-dismiss
+        })
+      },
+      addTimedToast(duration: number) {
+        this.toasts.push({
+          id: this.nextId++,
+          type: 'success',
+          message: `Auto-dismiss in ${duration / 1000}s`,
+          timestamp: Date.now(),
+          closable: true,
+          duration,
+        })
+      },
+      removeToast(id: string | number) {
+        const index = this.toasts.findIndex((toast: any) => toast.id === id)
+        if (index > -1) {
+          this.toasts.splice(index, 1)
+        }
+      },
+    },
+    template: `
       <div>
         <div class="p-8 space-y-4">
           <h3 class="text-lg font-semibold">Auto-Dismiss Demo</h3>
@@ -329,40 +329,40 @@ export const AutoDismiss: Story = {
         />
       </div>
     `,
-    }),
+  }),
 }
 
 export const StackingOrder: Story = {
-    render: () => ({
-        components: { ToastContainer },
-        data() {
-            return {
-                toasts: [],
-                nextId: 1,
-            }
-        },
-        methods: {
-            addToast() {
-                this.toasts.push({
-                    id: this.nextId++,
-                    type: 'info',
-                    message: `Toast #${this.nextId - 1} - ${new Date().toLocaleTimeString()}`,
-                    timestamp: Date.now(),
-                    closable: true,
-                    duration: 0, // Persistent for demo
-                })
-            },
-            removeToast(id: string | number) {
-                const index = this.toasts.findIndex((toast: any) => toast.id === id)
-                if (index > -1) {
-                    this.toasts.splice(index, 1)
-                }
-            },
-            clearAll() {
-                this.toasts = []
-            },
-        },
-        template: `
+  render: () => ({
+    components: { ToastContainer },
+    data() {
+      return {
+        toasts: [],
+        nextId: 1,
+      }
+    },
+    methods: {
+      addToast() {
+        this.toasts.push({
+          id: this.nextId++,
+          type: 'info',
+          message: `Toast #${this.nextId - 1} - ${new Date().toLocaleTimeString()}`,
+          timestamp: Date.now(),
+          closable: true,
+          duration: 0, // Persistent for demo
+        })
+      },
+      removeToast(id: string | number) {
+        const index = this.toasts.findIndex((toast: any) => toast.id === id)
+        if (index > -1) {
+          this.toasts.splice(index, 1)
+        }
+      },
+      clearAll() {
+        this.toasts = []
+      },
+    },
+    template: `
       <div>
         <div class="p-8 space-y-4">
           <h3 class="text-lg font-semibold">Stacking Order Demo</h3>
@@ -391,5 +391,5 @@ export const StackingOrder: Story = {
         />
       </div>
     `,
-    }),
+  }),
 }

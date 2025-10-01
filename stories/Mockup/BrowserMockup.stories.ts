@@ -2,35 +2,35 @@ import type { Meta, StoryObj } from '@storybook/vue3-vite'
 import BrowserMockup from '../../src/runtime/components/Mockup/BrowserMockup.vue'
 
 const meta: Meta<typeof BrowserMockup> = {
-    title: 'Mockup/BrowserMockup',
-    component: BrowserMockup,
-    parameters: {
-        layout: 'padded',
+  title: 'Mockup/BrowserMockup',
+  component: BrowserMockup,
+  parameters: {
+    layout: 'padded',
+  },
+  argTypes: {
+    variant: {
+      control: { type: 'select' },
+      options: ['default', 'border', 'bg'],
     },
-    argTypes: {
-        variant: {
-            control: { type: 'select' },
-            options: ['default', 'border', 'bg'],
-        },
-        url: {
-            control: { type: 'text' },
-        },
+    url: {
+      control: { type: 'text' },
     },
+  },
 }
 
 export default meta
 type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
-    args: {
-        url: 'https://example.com',
+  args: {
+    url: 'https://example.com',
+  },
+  render: (args) => ({
+    components: { BrowserMockup },
+    setup() {
+      return { args }
     },
-    render: args => ({
-        components: { BrowserMockup },
-        setup() {
-            return { args }
-        },
-        template: `
+    template: `
       <BrowserMockup v-bind="args">
         <div class="p-8 bg-gradient-to-br from-blue-50 to-indigo-100 min-h-96 flex items-center justify-center">
           <div class="text-center">
@@ -43,13 +43,13 @@ export const Default: Story = {
         </div>
       </BrowserMockup>
     `,
-    }),
+  }),
 }
 
 export const Variants: Story = {
-    render: () => ({
-        components: { BrowserMockup },
-        template: `
+  render: () => ({
+    components: { BrowserMockup },
+    template: `
       <div class="space-y-8">
         <div>
           <h3 class="text-lg font-bold mb-4">Default</h3>
@@ -82,13 +82,13 @@ export const Variants: Story = {
         </div>
       </div>
     `,
-    }),
+  }),
 }
 
 export const WebsiteShowcase: Story = {
-    render: () => ({
-        components: { BrowserMockup },
-        template: `
+  render: () => ({
+    components: { BrowserMockup },
+    template: `
       <BrowserMockup url="https://my-awesome-app.com">
         <div class="min-h-96">
           <!-- Navigation -->
@@ -162,13 +162,13 @@ export const WebsiteShowcase: Story = {
         </div>
       </BrowserMockup>
     `,
-    }),
+  }),
 }
 
 export const Dashboard: Story = {
-    render: () => ({
-        components: { BrowserMockup },
-        template: `
+  render: () => ({
+    components: { BrowserMockup },
+    template: `
       <BrowserMockup url="https://admin.myapp.com/dashboard">
         <div class="flex h-96">
           <!-- Sidebar -->
@@ -221,13 +221,13 @@ export const Dashboard: Story = {
         </div>
       </BrowserMockup>
     `,
-    }),
+  }),
 }
 
 export const EcommerceSite: Story = {
-    render: () => ({
-        components: { BrowserMockup },
-        template: `
+  render: () => ({
+    components: { BrowserMockup },
+    template: `
       <BrowserMockup url="https://shop.example.com/products/laptop">
         <div class="bg-white min-h-96">
           <!-- Header -->
@@ -295,5 +295,5 @@ export const EcommerceSite: Story = {
         </div>
       </BrowserMockup>
     `,
-    }),
+  }),
 }

@@ -2,46 +2,46 @@ import type { Meta, StoryObj } from '@storybook/vue3-vite'
 import Icon from '../../src/runtime/components/Icons/Icon.vue'
 
 const meta: Meta<typeof Icon> = {
-    title: 'Icons/Icon',
-    component: Icon,
-    parameters: {
-        layout: 'centered',
-        docs: {
-            description: {
-                component:
+  title: 'Icons/Icon',
+  component: Icon,
+  parameters: {
+    layout: 'centered',
+    docs: {
+      description: {
+        component:
           'A flexible icon component that wraps Lucide icons with consistent styling and props.',
-            },
-        },
+      },
     },
-    tags: ['autodocs'],
-    argTypes: {
-        name: {
-            control: { type: 'text' },
-            description: 'Icon name from Lucide library',
-        },
-        size: {
-            control: { type: 'select' },
-            options: ['xs', 'sm', 'md', 'lg', 'xl', '2xl'],
-            description: 'Icon size',
-        },
-        strokeWidth: {
-            control: { type: 'number', min: 0.5, max: 3, step: 0.5 },
-            description: 'Stroke width of the icon',
-        },
-        color: {
-            control: { type: 'select' },
-            options: ['primary', 'secondary', 'accent', 'neutral', 'info', 'success', 'warning', 'error'],
-            description: 'Text color class',
-        },
-        ariaLabel: {
-            control: { type: 'text' },
-            description: 'Accessibility label',
-        },
-        ariaHidden: {
-            control: { type: 'boolean' },
-            description: 'Hide from screen readers',
-        },
+  },
+  tags: ['autodocs'],
+  argTypes: {
+    name: {
+      control: { type: 'text' },
+      description: 'Icon name from Lucide library',
     },
+    size: {
+      control: { type: 'select' },
+      options: ['xs', 'sm', 'md', 'lg', 'xl', '2xl'],
+      description: 'Icon size',
+    },
+    strokeWidth: {
+      control: { type: 'number', min: 0.5, max: 3, step: 0.5 },
+      description: 'Stroke width of the icon',
+    },
+    color: {
+      control: { type: 'select' },
+      options: ['primary', 'secondary', 'accent', 'neutral', 'info', 'success', 'warning', 'error'],
+      description: 'Text color class',
+    },
+    ariaLabel: {
+      control: { type: 'text' },
+      description: 'Accessibility label',
+    },
+    ariaHidden: {
+      control: { type: 'boolean' },
+      description: 'Hide from screen readers',
+    },
+  },
 }
 
 export default meta
@@ -49,24 +49,24 @@ type Story = StoryObj<typeof meta>
 
 // Default icon for playground
 export const Default: Story = {
-    args: {
-        name: 'heart',
-        size: 'md',
+  args: {
+    name: 'heart',
+    size: 'md',
+  },
+  render: (args) => ({
+    components: { Icon },
+    setup() {
+      return { args }
     },
-    render: args => ({
-        components: { Icon },
-        setup() {
-            return { args }
-        },
-        template: '<Icon v-bind="args" />',
-    }),
+    template: '<Icon v-bind="args" />',
+  }),
 }
 
 // Sizes showcase
 export const Sizes: Story = {
-    render: () => ({
-        components: { Icon },
-        template: `
+  render: () => ({
+    components: { Icon },
+    template: `
       <div class="space-y-3">
         <h3 class="text-lg font-semibold mb-2">Size Variants</h3>
         <div class="flex items-center gap-3">
@@ -79,14 +79,14 @@ export const Sizes: Story = {
         </div>
       </div>
     `,
-    }),
+  }),
 }
 
 // Colors showcase
 export const Colors: Story = {
-    render: () => ({
-        components: { Icon },
-        template: `
+  render: () => ({
+    components: { Icon },
+    template: `
       <div class="space-y-3">
         <h3 class="text-lg font-semibold mb-2">Color Variants</h3>
         <div class="flex items-center gap-3">
@@ -100,14 +100,14 @@ export const Colors: Story = {
         </div>
       </div>
     `,
-    }),
+  }),
 }
 
 // Icon collection
 export const IconCollection: Story = {
-    render: () => ({
-        components: { Icon },
-        template: `
+  render: () => ({
+    components: { Icon },
+    template: `
       <div class="space-y-3">
         <h3 class="text-lg font-semibold mb-2">Common Icons</h3>
         <div class="grid grid-cols-8 gap-3 p-2">
@@ -138,23 +138,23 @@ export const IconCollection: Story = {
         </div>
       </div>
     `,
-    }),
+  }),
 }
 
 // Interactive playground
 export const Playground: Story = {
-    args: {
-        name: 'heart',
-        size: 'md',
-        color: undefined,
-        strokeWidth: 2,
+  args: {
+    name: 'heart',
+    size: 'md',
+    color: undefined,
+    strokeWidth: 2,
+  },
+  render: (args) => ({
+    components: { Icon },
+    setup() {
+      return { args }
     },
-    render: args => ({
-        components: { Icon },
-        setup() {
-            return { args }
-        },
-        template: `
+    template: `
       <div class="space-y-3">
         <Icon v-bind="args" />
         <div class="text-sm text-gray-600">
@@ -162,5 +162,5 @@ export const Playground: Story = {
         </div>
       </div>
     `,
-    }),
+  }),
 }

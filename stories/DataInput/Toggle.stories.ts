@@ -2,94 +2,94 @@ import type { Meta, StoryObj } from '@storybook/vue3-vite'
 import Toggle from '../../src/runtime/components/DataInput/Toggle.vue'
 
 const meta: Meta<typeof Toggle> = {
-    title: 'Data Input/Toggle',
-    component: Toggle,
-    parameters: {
-        layout: 'centered',
-        docs: {
-            description: {
-                component:
+  title: 'Data Input/Toggle',
+  component: Toggle,
+  parameters: {
+    layout: 'centered',
+    docs: {
+      description: {
+        component:
           'Toggle switch component for binary on/off states with customizable styling. Uses Vue 3.4+ `defineModel()` for optimal v-model support.',
-            },
-        },
+      },
     },
-    argTypes: {
-        modelValue: {
-            control: 'boolean',
-            description: 'Toggle state (on/off) - uses Vue 3.4 defineModel()',
-        },
-        label: {
-            control: 'text',
-            description: 'Label text for the toggle',
-        },
-        variant: {
-            control: { type: 'select' },
-            options: ['primary', 'secondary', 'accent', 'success', 'warning', 'info', 'error'],
-            description: 'Color variant of the toggle',
-        },
-        size: {
-            control: { type: 'select' },
-            options: ['xs', 'sm', 'md', 'lg'],
-            description: 'Size of the toggle',
-        },
-        disabled: {
-            control: 'boolean',
-            description: 'Disable the toggle',
-        },
-        errorMessage: {
-            control: 'text',
-            description: 'Error message to display',
-        },
-        helpText: {
-            control: 'text',
-            description: 'Help text to display below the toggle',
-        },
+  },
+  argTypes: {
+    modelValue: {
+      control: 'boolean',
+      description: 'Toggle state (on/off) - uses Vue 3.4 defineModel()',
     },
-    tags: ['autodocs'],
+    label: {
+      control: 'text',
+      description: 'Label text for the toggle',
+    },
+    variant: {
+      control: { type: 'select' },
+      options: ['primary', 'secondary', 'accent', 'success', 'warning', 'info', 'error'],
+      description: 'Color variant of the toggle',
+    },
+    size: {
+      control: { type: 'select' },
+      options: ['xs', 'sm', 'md', 'lg'],
+      description: 'Size of the toggle',
+    },
+    disabled: {
+      control: 'boolean',
+      description: 'Disable the toggle',
+    },
+    errorMessage: {
+      control: 'text',
+      description: 'Error message to display',
+    },
+    helpText: {
+      control: 'text',
+      description: 'Help text to display below the toggle',
+    },
+  },
+  tags: ['autodocs'],
 }
 
 export default meta
 type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
-    args: {
-        label: 'Enable notifications',
-        modelValue: false,
-    },
+  args: {
+    label: 'Enable notifications',
+    modelValue: false,
+  },
 }
 
 export const On: Story = {
-    args: {
-        label: 'This toggle is on',
-        modelValue: true,
-    },
+  args: {
+    label: 'This toggle is on',
+    modelValue: true,
+  },
 }
 
 export const WithHelpText: Story = {
-    args: {
-        label: 'Enable dark mode',
-        modelValue: false,
-        helpText: 'Switch between light and dark themes',
-    },
+  args: {
+    label: 'Enable dark mode',
+    modelValue: false,
+    helpText: 'Switch between light and dark themes',
+  },
 }
 
 export const Variants: Story = {
-    render: () => ({
-        components: { Toggle },
-        data() {
-            return {
-                values: {
-                    primary: true,
-                    secondary: true,
-                    accent: true,
-                    success: true,
-                    warning: true,
-                    info: true,
-                    error: true,
-                },
-            }
+  render: () => ({
+    components: { Toggle },
+    data() {
+      return {
+        values: {
+          primary: true,
+          secondary: true,
+          accent: true,
+          success: true,
+          warning: true,
+          info: true,
+          error: true,
         },
-        template: `
+      }
+    },
+    template: `
       <div class="space-y-4">
         <Toggle v-model="values.primary" variant="primary" label="Primary toggle" />
         <Toggle v-model="values.secondary" variant="secondary" label="Secondary toggle" />
@@ -100,23 +100,23 @@ export const Variants: Story = {
         <Toggle v-model="values.error" variant="error" label="Error toggle" />
       </div>
     `,
-    }),
+  }),
 }
 
 export const Sizes: Story = {
-    render: () => ({
-        components: { Toggle },
-        data() {
-            return {
-                values: {
-                    xs: true,
-                    sm: true,
-                    md: true,
-                    lg: true,
-                },
-            }
+  render: () => ({
+    components: { Toggle },
+    data() {
+      return {
+        values: {
+          xs: true,
+          sm: true,
+          md: true,
+          lg: true,
         },
-        template: `
+      }
+    },
+    template: `
       <div class="space-y-4">
         <Toggle v-model="values.xs" size="xs" label="Extra small toggle" />
         <Toggle v-model="values.sm" size="sm" label="Small toggle" />
@@ -124,19 +124,19 @@ export const Sizes: Story = {
         <Toggle v-model="values.lg" size="lg" label="Large toggle" />
       </div>
     `,
-    }),
+  }),
 }
 
 export const States: Story = {
-    render: () => ({
-        components: { Toggle },
-        data() {
-            return {
-                on: true,
-                off: false,
-            }
-        },
-        template: `
+  render: () => ({
+    components: { Toggle },
+    data() {
+      return {
+        on: true,
+        off: false,
+      }
+    },
+    template: `
       <div class="space-y-4">
         <Toggle v-model="on" label="Enabled toggle" />
         <Toggle v-model="off" label="Disabled toggle" />
@@ -144,30 +144,30 @@ export const States: Story = {
         <Toggle v-model="off" disabled label="Disabled (off)" />
       </div>
     `,
-    }),
+  }),
 }
 
 export const WithError: Story = {
-    args: {
-        label: 'You must accept the terms',
-        modelValue: false,
-        errorMessage: 'This field is required',
-        variant: 'error',
-    },
+  args: {
+    label: 'You must accept the terms',
+    modelValue: false,
+    errorMessage: 'This field is required',
+    variant: 'error',
+  },
 }
 
 export const DefineModelExample: Story = {
-    render: () => ({
-        components: { Toggle },
-        data() {
-            return {
-                // Demonstrates the Vue 3.4 defineModel() behavior
-                simpleToggle: false,
-                requiredToggle: true,
-                defaultToggle: undefined, // Will use the default value from defineModel
-            }
-        },
-        template: `
+  render: () => ({
+    components: { Toggle },
+    data() {
+      return {
+        // Demonstrates the Vue 3.4 defineModel() behavior
+        simpleToggle: false,
+        requiredToggle: true,
+        defaultToggle: undefined, // Will use the default value from defineModel
+      }
+    },
+    template: `
       <div class="space-y-6">
         <div class="p-4 bg-base-200 rounded-lg">
           <h3 class="font-semibold mb-3">Vue 3.4 defineModel() Examples</h3>
@@ -201,25 +201,25 @@ export const DefineModelExample: Story = {
         </div>
       </div>
     `,
-    }),
+  }),
 }
 
 export const SettingsPanel: Story = {
-    render: () => ({
-        components: { Toggle },
-        data() {
-            return {
-                settings: {
-                    notifications: true,
-                    darkMode: false,
-                    autoSave: true,
-                    soundEffects: false,
-                    emailAlerts: true,
-                    twoFactor: false,
-                },
-            }
+  render: () => ({
+    components: { Toggle },
+    data() {
+      return {
+        settings: {
+          notifications: true,
+          darkMode: false,
+          autoSave: true,
+          soundEffects: false,
+          emailAlerts: true,
+          twoFactor: false,
         },
-        template: `
+      }
+    },
+    template: `
       <div class="max-w-md p-6 bg-base-100 rounded-lg shadow">
         <h3 class="text-lg font-semibold mb-6">Settings</h3>
         
@@ -279,33 +279,33 @@ export const SettingsPanel: Story = {
         </div>
       </div>
     `,
-    }),
+  }),
 }
 
 export const PermissionsToggle: Story = {
-    render: () => ({
-        components: { Toggle },
-        data() {
-            return {
-                permissions: {
-                    camera: false,
-                    microphone: false,
-                    location: true,
-                    notifications: true,
-                    contacts: false,
-                    storage: true,
-                },
-            }
+  render: () => ({
+    components: { Toggle },
+    data() {
+      return {
+        permissions: {
+          camera: false,
+          microphone: false,
+          location: true,
+          notifications: true,
+          contacts: false,
+          storage: true,
         },
-        computed: {
-            grantedCount() {
-                return Object.values(this.permissions).filter(Boolean).length
-            },
-            totalCount() {
-                return Object.keys(this.permissions).length
-            },
-        },
-        template: `
+      }
+    },
+    computed: {
+      grantedCount() {
+        return Object.values(this.permissions).filter(Boolean).length
+      },
+      totalCount() {
+        return Object.keys(this.permissions).length
+      },
+    },
+    template: `
       <div class="max-w-md p-6 bg-base-100 rounded-lg shadow">
         <div class="flex items-center justify-between mb-6">
           <h3 class="text-lg font-semibold">App Permissions</h3>
@@ -381,23 +381,23 @@ export const PermissionsToggle: Story = {
         </div>
       </div>
     `,
-    }),
+  }),
 }
 
 export const FeatureFlags: Story = {
-    render: () => ({
-        components: { Toggle },
-        data() {
-            return {
-                features: {
-                    newDashboard: false,
-                    betaFeatures: true,
-                    advancedMode: false,
-                    debugMode: false,
-                },
-            }
+  render: () => ({
+    components: { Toggle },
+    data() {
+      return {
+        features: {
+          newDashboard: false,
+          betaFeatures: true,
+          advancedMode: false,
+          debugMode: false,
         },
-        template: `
+      }
+    },
+    template: `
       <div class="max-w-md p-6 bg-base-100 rounded-lg shadow">
         <h3 class="text-lg font-semibold mb-4">Feature Flags</h3>
         
@@ -449,5 +449,5 @@ export const FeatureFlags: Story = {
         </div>
       </div>
     `,
-    }),
+  }),
 }

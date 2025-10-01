@@ -1,24 +1,20 @@
 <template>
-<div :class="containerClasses">
-    <TransitionGroup
-        :name="transitionName"
-        tag="div"
-        class="space-y-2"
-    >
-        <Toast
-            v-for="(toast, index) in visibleToasts"
-            :key="toast.id"
-            :type="toast.type"
-            :title="toast.title"
-            :message="toast.message"
-            :closable="toast.closable"
-            :persistent="true"
-            :fixed="false"
-            :style="{ zIndex: maxToasts - index }"
-            @close="removeToast(toast.id)"
-        />
+  <div :class="containerClasses">
+    <TransitionGroup :name="transitionName" tag="div" class="space-y-2">
+      <Toast
+        v-for="(toast, index) in visibleToasts"
+        :key="toast.id"
+        :type="toast.type"
+        :title="toast.title"
+        :message="toast.message"
+        :closable="toast.closable"
+        :persistent="true"
+        :fixed="false"
+        :style="{ zIndex: maxToasts - index }"
+        @close="removeToast(toast.id)"
+      />
     </TransitionGroup>
-</div>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -26,137 +22,135 @@ import { computed, ref, watch, onUnmounted } from 'vue'
 import Toast from './Toast.vue'
 
 export interface ToastItem {
-    id: string | number
-    type?: 'success' | 'error' | 'warning' | 'info'
-    title?: string
-    message: string
-    duration?: number
-    closable?: boolean
-    timestamp: number
+  id: string | number
+  type?: 'success' | 'error' | 'warning' | 'info'
+  title?: string
+  message: string
+  duration?: number
+  closable?: boolean
+  timestamp: number
 }
 
 interface Props {
-    toasts?: ToastItem[]
-    position?:
-        | 'top-right'
-        | 'top-left'
-        | 'bottom-right'
-        | 'bottom-left'
-        | 'top-center'
-        | 'bottom-center'
-    maxToasts?: number
+  toasts?: ToastItem[]
+  position?:
+    | 'top-right'
+    | 'top-left'
+    | 'bottom-right'
+    | 'bottom-left'
+    | 'top-center'
+    | 'bottom-center'
+  maxToasts?: number
 }
 
 const props = withDefaults(defineProps<Props>(), {
-    toasts: () => [],
-    position: 'top-right',
-    maxToasts: 5,
+  toasts: () => [],
+  position: 'top-right',
+  maxToasts: 5,
 })
 
 const emit = defineEmits<{
-    'remove-toast': [id: string | number]
+  'remove-toast': [id: string | number]
 }>()
 
 const timers = ref<Map<string | number, ReturnType<typeof setTimeout>>>(new Map())
 
 // Sort toasts by timestamp (oldest first) and limit to maxToasts
 const visibleToasts = computed(() => {
-    return [...props.toasts]
-        .sort((a, b) => a.timestamp - b.timestamp) // Oldest first (will appear at top)
-        .slice(0, props.maxToasts)
+  return [...props.toasts]
+    .sort((a, b) => a.timestamp - b.timestamp) // Oldest first (will appear at top)
+    .slice(0, props.maxToasts)
 })
 
 const containerClasses = computed(() => {
-    const baseClasses = [
-        'toast-container',
-        'fixed',
-        'z-50',
-        'flex',
-        'flex-col',
-        'pointer-events-none',
-    ]
+  const baseClasses = [
+    'toast-container',
+    'fixed',
+    'z-50',
+    'flex',
+    'flex-col',
+    'pointer-events-none',
+  ]
 
-    // Position classes
-    switch (props.position) {
-        case 'top-right':
-            baseClasses.push('top-4', 'right-4')
-            break
-        case 'top-left':
-            baseClasses.push('top-4', 'left-4')
-            break
-        case 'bottom-right':
-            baseClasses.push('bottom-4', 'right-4')
-            break
-        case 'bottom-left':
-            baseClasses.push('bottom-4', 'left-4')
-            break
-        case 'top-center':
-            baseClasses.push('top-4', 'left-1/2', 'transform', '-translate-x-1/2')
-            break
-        case 'bottom-center':
-            baseClasses.push('bottom-4', 'left-1/2', 'transform', '-translate-x-1/2')
-            break
-    }
+  // Position classes
+  switch (props.position) {
+    case 'top-right':
+      baseClasses.push('top-4', 'right-4')
+      break
+    case 'top-left':
+      baseClasses.push('top-4', 'left-4')
+      break
+    case 'bottom-right':
+      baseClasses.push('bottom-4', 'right-4')
+      break
+    case 'bottom-left':
+      baseClasses.push('bottom-4', 'left-4')
+      break
+    case 'top-center':
+      baseClasses.push('top-4', 'left-1/2', 'transform', '-translate-x-1/2')
+      break
+    case 'bottom-center':
+      baseClasses.push('bottom-4', 'left-1/2', 'transform', '-translate-x-1/2')
+      break
+  }
 
-    // Reverse order for bottom positions (newest at bottom)
-    if (props.position.includes('bottom')) {
-        baseClasses.push('flex-col-reverse')
-    }
+  // Reverse order for bottom positions (newest at bottom)
+  if (props.position.includes('bottom')) {
+    baseClasses.push('flex-col-reverse')
+  }
 
-    return baseClasses.join(' ')
+  return baseClasses.join(' ')
 })
 
 const transitionName = computed(() => {
-    if (props.position.includes('right')) {
-        return 'toast-stack-right'
-    }
-    else if (props.position.includes('left')) {
-        return 'toast-stack-left'
-    }
-    else {
-        return 'toast-stack-center'
-    }
+  if (props.position.includes('right')) {
+    return 'toast-stack-right'
+  } else if (props.position.includes('left')) {
+    return 'toast-stack-left'
+  } else {
+    return 'toast-stack-center'
+  }
 })
 
 const removeToast = (id: string | number) => {
-    // Clear timer if exists
-    const timer = timers.value.get(id)
-    if (timer) {
-        clearTimeout(timer)
-        timers.value.delete(id)
-    }
+  // Clear timer if exists
+  const timer = timers.value.get(id)
+  if (timer) {
+    clearTimeout(timer)
+    timers.value.delete(id)
+  }
 
-    emit('remove-toast', id)
+  emit('remove-toast', id)
 }
 
 const startTimer = (toast: ToastItem) => {
-    if (toast.duration && toast.duration > 0) {
-        const timer = setTimeout(() => {
-            removeToast(toast.id)
-        }, toast.duration)
+  if (toast.duration && toast.duration > 0) {
+    const timer = setTimeout(() => {
+      removeToast(toast.id)
+    }, toast.duration)
 
-        timers.value.set(toast.id, timer)
-    }
+    timers.value.set(toast.id, timer)
+  }
 }
 
 // Watch for new toasts and start their timers
 watch(
-    () => props.toasts,
-    (newToasts, oldToasts) => {
-        // Find newly added toasts
-        const oldIds = new Set(oldToasts?.map(t => t.id) || [])
-        const newItems = newToasts.filter(t => !oldIds.has(t.id))
+  () => props.toasts,
+  (newToasts, oldToasts) => {
+    // Find newly added toasts
+    const oldIds = new Set(oldToasts?.map((t) => t.id) || [])
+    const newItems = newToasts.filter((t) => !oldIds.has(t.id))
 
-        // Start timers for new toasts
-        newItems.forEach((toast) => {
-            startTimer(toast)
-        })
-    },
-    { immediate: true, deep: true },
+    // Start timers for new toasts
+    newItems.forEach((toast) => {
+      startTimer(toast)
+    })
+  },
+  { immediate: true, deep: true }
 )
 onUnmounted(() => {
-    timers.value.forEach(timer => clearTimeout(timer))
-    timers.value.clear()
+  timers.value.forEach((timer) => clearTimeout(timer))
+  timers.value.clear()
 })
 </script>
 

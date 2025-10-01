@@ -3,77 +3,77 @@ import { ref } from 'vue'
 import Collapse from '../../src/runtime/components/DataDisplay/Collapse.vue'
 
 const meta: Meta<typeof Collapse> = {
-    title: 'Data Display/Collapse',
-    component: Collapse,
-    parameters: {
-        layout: 'centered',
-        docs: {
-            description: {
-                component:
+  title: 'Data Display/Collapse',
+  component: Collapse,
+  parameters: {
+    layout: 'centered',
+    docs: {
+      description: {
+        component:
           'Expandable content container with smooth animations and customizable styling. Uses Vue 3.4 defineModel for v-model support.',
-            },
-        },
+      },
     },
-    argTypes: {
-        title: {
-            control: 'text',
-            description: 'Title displayed in the collapse header',
-        },
-        modelValue: {
-            control: 'boolean',
-            description: 'Whether the collapse is open (v-model)',
-        },
-        forceOpen: {
-            control: 'boolean',
-            description: 'Force the collapse to stay open',
-        },
-        disabled: {
-            control: 'boolean',
-            description: 'Disable the collapse interaction',
-        },
-        variant: {
-            control: { type: 'select' },
-            options: ['default', 'arrow', 'plus', 'bordered', 'ghost'],
-            description: 'Visual style variant',
-        },
+  },
+  argTypes: {
+    title: {
+      control: 'text',
+      description: 'Title displayed in the collapse header',
     },
-    tags: ['autodocs'],
+    modelValue: {
+      control: 'boolean',
+      description: 'Whether the collapse is open (v-model)',
+    },
+    forceOpen: {
+      control: 'boolean',
+      description: 'Force the collapse to stay open',
+    },
+    disabled: {
+      control: 'boolean',
+      description: 'Disable the collapse interaction',
+    },
+    variant: {
+      control: { type: 'select' },
+      options: ['default', 'arrow', 'plus', 'bordered', 'ghost'],
+      description: 'Visual style variant',
+    },
+  },
+  tags: ['autodocs'],
 }
 
 export default meta
 type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
-    args: {
-        title: 'Click to expand',
-        modelValue: false,
+  args: {
+    title: 'Click to expand',
+    modelValue: false,
+  },
+  render: (args) => ({
+    components: { Collapse },
+    setup() {
+      return { args }
     },
-    render: args => ({
-        components: { Collapse },
-        setup() {
-            return { args }
-        },
-        template: `
+    template: `
       <div class="w-96">
         <Collapse v-bind="args">
           <p>This is the collapsible content. It can contain any type of content including text, images, forms, or other components.</p>
         </Collapse>
       </div>
     `,
-    }),
+  }),
 }
 
 export const OpenByDefault: Story = {
-    args: {
-        title: 'This is open by default',
-        modelValue: true,
+  args: {
+    title: 'This is open by default',
+    modelValue: true,
+  },
+  render: (args) => ({
+    components: { Collapse },
+    setup() {
+      return { args }
     },
-    render: args => ({
-        components: { Collapse },
-        setup() {
-            return { args }
-        },
-        template: `
+    template: `
       <div class="w-96">
         <Collapse v-bind="args">
           <div class="space-y-4">
@@ -85,17 +85,17 @@ export const OpenByDefault: Story = {
         </Collapse>
       </div>
     `,
-    }),
+  }),
 }
 
 export const ReactiveVModel: Story = {
-    render: () => ({
-        components: { Collapse },
-        setup() {
-            const isOpen = ref(false)
-            return { isOpen }
-        },
-        template: `
+  render: () => ({
+    components: { Collapse },
+    setup() {
+      const isOpen = ref(false)
+      return { isOpen }
+    },
+    template: `
       <div class="w-96 space-y-4">
         <div class="flex gap-2">
           <button class="btn btn-primary btn-sm" @click="isOpen = !isOpen">
@@ -115,13 +115,13 @@ export const ReactiveVModel: Story = {
         </Collapse>
       </div>
     `,
-    }),
+  }),
 }
 
 export const Variants: Story = {
-    render: () => ({
-        components: { Collapse },
-        template: `
+  render: () => ({
+    components: { Collapse },
+    template: `
       <div class="space-y-4 w-96">
         <Collapse title="Default Variant" variant="default">
           <p>This is the default collapse variant with standard styling.</p>
@@ -136,13 +136,13 @@ export const Variants: Story = {
         </Collapse>
       </div>
     `,
-    }),
+  }),
 }
 
 export const NestedCollapses: Story = {
-    render: () => ({
-        components: { Collapse },
-        template: `
+  render: () => ({
+    components: { Collapse },
+    template: `
       <div class="w-96">
         <Collapse title="Main Category">
           <div class="space-y-2">
@@ -164,20 +164,20 @@ export const NestedCollapses: Story = {
         </Collapse>
       </div>
     `,
-    }),
+  }),
 }
 
 export const WithRichContent: Story = {
-    args: {
-        title: '📊 Project Statistics',
-        modelValue: true,
+  args: {
+    title: '📊 Project Statistics',
+    modelValue: true,
+  },
+  render: (args) => ({
+    components: { Collapse },
+    setup() {
+      return { args }
     },
-    render: args => ({
-        components: { Collapse },
-        setup() {
-            return { args }
-        },
-        template: `
+    template: `
       <div class="w-96">
         <Collapse v-bind="args">
           <div class="space-y-4">
@@ -202,13 +202,13 @@ export const WithRichContent: Story = {
         </Collapse>
       </div>
     `,
-    }),
+  }),
 }
 
 export const FAQ: Story = {
-    render: () => ({
-        components: { Collapse },
-        template: `
+  render: () => ({
+    components: { Collapse },
+    template: `
       <div class="space-y-2 w-96">
         <h3 class="text-lg font-semibold mb-4">Frequently Asked Questions</h3>
         
@@ -240,25 +240,25 @@ export const FAQ: Story = {
         </Collapse>
       </div>
     `,
-    }),
+  }),
 }
 
 export const Disabled: Story = {
-    args: {
-        title: 'This collapse is disabled',
-        disabled: true,
+  args: {
+    title: 'This collapse is disabled',
+    disabled: true,
+  },
+  render: (args) => ({
+    components: { Collapse },
+    setup() {
+      return { args }
     },
-    render: args => ({
-        components: { Collapse },
-        setup() {
-            return { args }
-        },
-        template: `
+    template: `
       <div class="w-96">
         <Collapse v-bind="args">
           <p>This content cannot be accessed because the collapse is disabled.</p>
         </Collapse>
       </div>
     `,
-    }),
+  }),
 }

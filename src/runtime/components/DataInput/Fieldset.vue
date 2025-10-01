@@ -1,179 +1,155 @@
 <template>
-<fieldset
-    :class="fieldsetClasses"
-    :disabled="disabled"
->
+  <fieldset :class="fieldsetClasses" :disabled="disabled">
     <!-- Legend -->
-    <legend
-        v-if="legend || $slots.legend"
-        :class="legendClasses"
-    >
-        <slot name="legend">
-            {{ legend }}
-        </slot>
+    <legend v-if="legend || $slots.legend" :class="legendClasses">
+      <slot name="legend">
+        {{ legend }}
+      </slot>
     </legend>
 
     <!-- Content -->
     <div :class="contentClasses">
-        <slot />
+      <slot />
     </div>
 
     <!-- Description -->
-    <div
-        v-if="description || $slots.description"
-        :class="descriptionClasses"
-    >
-        <slot name="description">
-            {{ description }}
-        </slot>
+    <div v-if="description || $slots.description" :class="descriptionClasses">
+      <slot name="description">
+        {{ description }}
+      </slot>
     </div>
 
     <!-- Error message -->
-    <div
-        v-if="error || $slots.error"
-        :class="errorClasses"
-    >
-        <slot name="error">
-            {{ error }}
-        </slot>
+    <div v-if="error || $slots.error" :class="errorClasses">
+      <slot name="error">
+        {{ error }}
+      </slot>
     </div>
-</fieldset>
+  </fieldset>
 </template>
 
 <script setup lang="ts">
 import { computed } from 'vue'
 
 interface Props {
-    legend?: string
-    description?: string
-    error?: string
-    disabled?: boolean
-    variant?: 'default' | 'bordered' | 'outlined' | 'filled'
-    size?: 'sm' | 'md' | 'lg'
-    required?: boolean
+  legend?: string
+  description?: string
+  error?: string
+  disabled?: boolean
+  variant?: 'default' | 'bordered' | 'outlined' | 'filled'
+  size?: 'sm' | 'md' | 'lg'
+  required?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
-    variant: 'default',
-    size: 'md',
-    disabled: false,
-    required: false,
+  variant: 'default',
+  size: 'md',
+  disabled: false,
+  required: false,
 })
 
 const fieldsetClasses = computed(() => {
-    const baseClasses = ['fieldset']
+  const baseClasses = ['fieldset']
 
-    // Variant styling
-    if (props.variant === 'bordered') {
-        baseClasses.push('border-2', 'border-base-300', 'rounded-lg')
-    }
-    else if (props.variant === 'outlined') {
-        baseClasses.push('border', 'border-base-300', 'rounded-md')
-    }
-    else if (props.variant === 'filled') {
-        baseClasses.push('bg-base-200', 'border', 'border-base-300', 'rounded-md')
-    }
+  // Variant styling
+  if (props.variant === 'bordered') {
+    baseClasses.push('border-2', 'border-base-300', 'rounded-lg')
+  } else if (props.variant === 'outlined') {
+    baseClasses.push('border', 'border-base-300', 'rounded-md')
+  } else if (props.variant === 'filled') {
+    baseClasses.push('bg-base-200', 'border', 'border-base-300', 'rounded-md')
+  }
 
-    // Size-based padding
-    if (props.size === 'sm') {
-        baseClasses.push('p-3')
-    }
-    else if (props.size === 'lg') {
-        baseClasses.push('p-6')
-    }
-    else {
-        baseClasses.push('p-4')
-    }
+  // Size-based padding
+  if (props.size === 'sm') {
+    baseClasses.push('p-3')
+  } else if (props.size === 'lg') {
+    baseClasses.push('p-6')
+  } else {
+    baseClasses.push('p-4')
+  }
 
-    // Error state
-    if (props.error) {
-        baseClasses.push('border-error')
-    }
+  // Error state
+  if (props.error) {
+    baseClasses.push('border-error')
+  }
 
-    // Disabled state
-    if (props.disabled) {
-        baseClasses.push('opacity-60', 'cursor-not-allowed')
-    }
+  // Disabled state
+  if (props.disabled) {
+    baseClasses.push('opacity-60', 'cursor-not-allowed')
+  }
 
-    return baseClasses.join(' ')
+  return baseClasses.join(' ')
 })
 
 const legendClasses = computed(() => {
-    const baseClasses = ['fieldset-legend', 'font-semibold', 'text-base-content']
+  const baseClasses = ['fieldset-legend', 'font-semibold', 'text-base-content']
 
-    // Size
-    if (props.size === 'sm') {
-        baseClasses.push('text-sm', 'px-2')
-    }
-    else if (props.size === 'lg') {
-        baseClasses.push('text-lg', 'px-3')
-    }
-    else {
-        baseClasses.push('text-base', 'px-2')
-    }
+  // Size
+  if (props.size === 'sm') {
+    baseClasses.push('text-sm', 'px-2')
+  } else if (props.size === 'lg') {
+    baseClasses.push('text-lg', 'px-3')
+  } else {
+    baseClasses.push('text-base', 'px-2')
+  }
 
-    // Required indicator
-    if (props.required) {
-        baseClasses.push('after:content-["*"]', 'after:text-error', 'after:ml-1')
-    }
+  // Required indicator
+  if (props.required) {
+    baseClasses.push('after:content-["*"]', 'after:text-error', 'after:ml-1')
+  }
 
-    // Error state
-    if (props.error) {
-        baseClasses.push('text-error')
-    }
+  // Error state
+  if (props.error) {
+    baseClasses.push('text-error')
+  }
 
-    return baseClasses.join(' ')
+  return baseClasses.join(' ')
 })
 
 const contentClasses = computed(() => {
-    const baseClasses = ['fieldset-content']
+  const baseClasses = ['fieldset-content']
 
-    // Size-based spacing
-    if (props.size === 'sm') {
-        baseClasses.push('space-y-2')
-    }
-    else if (props.size === 'lg') {
-        baseClasses.push('space-y-4')
-    }
-    else {
-        baseClasses.push('space-y-3')
-    }
+  // Size-based spacing
+  if (props.size === 'sm') {
+    baseClasses.push('space-y-2')
+  } else if (props.size === 'lg') {
+    baseClasses.push('space-y-4')
+  } else {
+    baseClasses.push('space-y-3')
+  }
 
-    return baseClasses.join(' ')
+  return baseClasses.join(' ')
 })
 
 const descriptionClasses = computed(() => {
-    const baseClasses = ['fieldset-description', 'opacity-70']
+  const baseClasses = ['fieldset-description', 'opacity-70']
 
-    // Size
-    if (props.size === 'sm') {
-        baseClasses.push('text-xs', 'mt-1')
-    }
-    else if (props.size === 'lg') {
-        baseClasses.push('text-base', 'mt-3')
-    }
-    else {
-        baseClasses.push('text-sm', 'mt-2')
-    }
+  // Size
+  if (props.size === 'sm') {
+    baseClasses.push('text-xs', 'mt-1')
+  } else if (props.size === 'lg') {
+    baseClasses.push('text-base', 'mt-3')
+  } else {
+    baseClasses.push('text-sm', 'mt-2')
+  }
 
-    return baseClasses.join(' ')
+  return baseClasses.join(' ')
 })
 
 const errorClasses = computed(() => {
-    const baseClasses = ['fieldset-error', 'text-error']
+  const baseClasses = ['fieldset-error', 'text-error']
 
-    // Size
-    if (props.size === 'sm') {
-        baseClasses.push('text-xs', 'mt-1')
-    }
-    else if (props.size === 'lg') {
-        baseClasses.push('text-base', 'mt-3')
-    }
-    else {
-        baseClasses.push('text-sm', 'mt-2')
-    }
+  // Size
+  if (props.size === 'sm') {
+    baseClasses.push('text-xs', 'mt-1')
+  } else if (props.size === 'lg') {
+    baseClasses.push('text-base', 'mt-3')
+  } else {
+    baseClasses.push('text-sm', 'mt-2')
+  }
 
-    return baseClasses.join(' ')
+  return baseClasses.join(' ')
 })
 </script>
 

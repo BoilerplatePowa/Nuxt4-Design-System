@@ -2,59 +2,59 @@ import type { Meta, StoryObj } from '@storybook/vue3-vite'
 import StatusBox from '../../src/runtime/components/DataDisplay/StatusBox.vue'
 
 interface NotificationItem {
-    id: number
-    variant: 'success' | 'error' | 'warning' | 'info' | 'pending' | 'neutral'
-    title: string
-    message: string
-    visible: boolean
-    timestamp?: Date
-    actions?: Array<{
-        label: string
-        variant: 'primary' | 'secondary' | 'accent' | 'ghost' | 'outline'
-        size: 'xs' | 'sm' | 'md'
-    }>
-    dismissible?: boolean
+  id: number
+  variant: 'success' | 'error' | 'warning' | 'info' | 'pending' | 'neutral'
+  title: string
+  message: string
+  visible: boolean
+  timestamp?: Date
+  actions?: Array<{
+    label: string
+    variant: 'primary' | 'secondary' | 'accent' | 'ghost' | 'outline'
+    size: 'xs' | 'sm' | 'md'
+  }>
+  dismissible?: boolean
 }
 
 const meta: Meta<typeof StatusBox> = {
-    title: 'Data Display/StatusBox',
-    component: StatusBox,
-    parameters: {
-        layout: 'centered',
+  title: 'Data Display/StatusBox',
+  component: StatusBox,
+  parameters: {
+    layout: 'centered',
+  },
+  argTypes: {
+    variant: {
+      control: { type: 'select' },
+      options: ['success', 'error', 'warning', 'info', 'pending', 'neutral'],
     },
-    argTypes: {
-        variant: {
-            control: { type: 'select' },
-            options: ['success', 'error', 'warning', 'info', 'pending', 'neutral'],
-        },
-        size: {
-            control: { type: 'select' },
-            options: ['sm', 'md', 'lg'],
-        },
-        showIndicator: {
-            control: { type: 'boolean' },
-        },
-        dismissible: {
-            control: { type: 'boolean' },
-        },
+    size: {
+      control: { type: 'select' },
+      options: ['sm', 'md', 'lg'],
     },
+    showIndicator: {
+      control: { type: 'boolean' },
+    },
+    dismissible: {
+      control: { type: 'boolean' },
+    },
+  },
 }
 
 export default meta
 type Story = StoryObj<typeof StatusBox>
 
 export const Default: Story = {
-    args: {
-        variant: 'success',
-        title: 'Success',
-        message: 'Your action completed successfully.',
-    },
+  args: {
+    variant: 'success',
+    title: 'Success',
+    message: 'Your action completed successfully.',
+  },
 }
 
 export const Variants: Story = {
-    render: () => ({
-        components: { StatusBox },
-        template: `
+  render: () => ({
+    components: { StatusBox },
+    template: `
       <div class="space-y-4 max-w-md">
         <StatusBox 
           variant="success" 
@@ -93,13 +93,13 @@ export const Variants: Story = {
         />
       </div>
     `,
-    }),
+  }),
 }
 
 export const Sizes: Story = {
-    render: () => ({
-        components: { StatusBox },
-        template: `
+  render: () => ({
+    components: { StatusBox },
+    template: `
       <div class="space-y-4">
         <div>
           <h3 class="text-lg font-bold mb-2">Small</h3>
@@ -132,21 +132,21 @@ export const Sizes: Story = {
         </div>
       </div>
     `,
-    }),
+  }),
 }
 
 export const WithTimestamp: Story = {
-    render: () => ({
-        components: { StatusBox },
-        data() {
-            return {
-                now: new Date(),
-                fiveMinutesAgo: new Date(Date.now() - 5 * 60 * 1000),
-                oneHourAgo: new Date(Date.now() - 60 * 60 * 1000),
-                yesterdayDate: new Date(Date.now() - 24 * 60 * 60 * 1000),
-            }
-        },
-        template: `
+  render: () => ({
+    components: { StatusBox },
+    data() {
+      return {
+        now: new Date(),
+        fiveMinutesAgo: new Date(Date.now() - 5 * 60 * 1000),
+        oneHourAgo: new Date(Date.now() - 60 * 60 * 1000),
+        yesterdayDate: new Date(Date.now() - 24 * 60 * 60 * 1000),
+      }
+    },
+    template: `
       <div class="space-y-4 max-w-lg">
         <StatusBox 
           variant="success" 
@@ -177,49 +177,67 @@ export const WithTimestamp: Story = {
         />
       </div>
     `,
-    }),
+  }),
 }
 
 export const WithActions: Story = {
-    render: () => ({
-        components: { StatusBox },
-        data() {
-            return {
-                statusItems: [
-                    {
-                        variant: 'error',
-                        title: 'Payment Failed',
-                        message: 'Your payment could not be processed. Please check your payment method.',
-                        actions: [
-                            { label: 'Retry', variant: 'primary', size: 'sm' },
-                            { label: 'Change Method', variant: 'outline', size: 'sm' },
-                        ],
-                    },
-                    {
-                        variant: 'warning',
-                        title: 'Storage Almost Full',
-                        message: 'You have used 95% of your storage space.',
-                        actions: [
-                            { label: 'Upgrade', variant: 'primary', size: 'sm' },
-                            { label: 'Manage Files', variant: 'ghost', size: 'sm' },
-                        ],
-                    },
-                    {
-                        variant: 'info',
-                        title: 'New Feature Available',
-                        message: 'Try our new collaboration tools to improve team productivity.',
-                        actions: [{ label: 'Learn More', variant: 'outline', size: 'sm' }],
-                    },
-                ],
-            }
-        },
-        methods: {
-            handleActionClick(action: { label: string }, _event: Event) {
-                console.log('Action clicked:', action.label)
-                alert(`${action.label} clicked!`)
-            },
-        },
-        template: `
+  render: () => ({
+    components: { StatusBox },
+    data() {
+      return {
+        statusItems: [
+          {
+            variant: 'error',
+            title: 'Payment Failed',
+            message: 'Your payment could not be processed. Please check your payment method.',
+            actions: [
+              { label: 'Retry', variant: 'primary', size: 'sm' },
+              {
+                label: 'Change Method',
+                variant: 'outline',
+                size: 'sm',
+              },
+            ],
+          },
+          {
+            variant: 'warning',
+            title: 'Storage Almost Full',
+            message: 'You have used 95% of your storage space.',
+            actions: [
+              {
+                label: 'Upgrade',
+                variant: 'primary',
+                size: 'sm',
+              },
+              {
+                label: 'Manage Files',
+                variant: 'ghost',
+                size: 'sm',
+              },
+            ],
+          },
+          {
+            variant: 'info',
+            title: 'New Feature Available',
+            message: 'Try our new collaboration tools to improve team productivity.',
+            actions: [
+              {
+                label: 'Learn More',
+                variant: 'outline',
+                size: 'sm',
+              },
+            ],
+          },
+        ],
+      }
+    },
+    methods: {
+      handleActionClick(action: { label: string }, _event: Event) {
+        console.log('Action clicked:', action.label)
+        alert(`${action.label} clicked!`)
+      },
+    },
+    template: `
       <div class="space-y-4 max-w-lg">
         <StatusBox 
           v-for="(item, index) in statusItems"
@@ -232,49 +250,49 @@ export const WithActions: Story = {
         />
       </div>
     `,
-    }),
+  }),
 }
 
 export const Dismissible: Story = {
-    render: () => ({
-        components: { StatusBox },
-        data() {
-            return {
-                notifications: [
-                    {
-                        id: 1,
-                        variant: 'success',
-                        title: 'Profile Updated',
-                        message: 'Your profile has been successfully updated.',
-                        visible: true,
-                    },
-                    {
-                        id: 2,
-                        variant: 'info',
-                        title: 'New Message',
-                        message: 'You have received a new message from John.',
-                        visible: true,
-                    },
-                    {
-                        id: 3,
-                        variant: 'warning',
-                        title: 'Session Expiring',
-                        message: 'Your session will expire in 5 minutes.',
-                        visible: true,
-                    },
-                ] as NotificationItem[],
-            }
-        },
-        methods: {
-            handleDismiss(id: number) {
-                const notification = this.notifications.find((n: NotificationItem) => n.id === id)
-                if (notification) {
-                    notification.visible = false
-                }
-                console.log('Dismissed notification:', id)
-            },
-        },
-        template: `
+  render: () => ({
+    components: { StatusBox },
+    data() {
+      return {
+        notifications: [
+          {
+            id: 1,
+            variant: 'success',
+            title: 'Profile Updated',
+            message: 'Your profile has been successfully updated.',
+            visible: true,
+          },
+          {
+            id: 2,
+            variant: 'info',
+            title: 'New Message',
+            message: 'You have received a new message from John.',
+            visible: true,
+          },
+          {
+            id: 3,
+            variant: 'warning',
+            title: 'Session Expiring',
+            message: 'Your session will expire in 5 minutes.',
+            visible: true,
+          },
+        ] as NotificationItem[],
+      }
+    },
+    methods: {
+      handleDismiss(id: number) {
+        const notification = this.notifications.find((n: NotificationItem) => n.id === id)
+        if (notification) {
+          notification.visible = false
+        }
+        console.log('Dismissed notification:', id)
+      },
+    },
+    template: `
       <div class="space-y-4 max-w-lg">
         <h3 class="text-lg font-bold">Dismissible Notifications</h3>
         
@@ -294,13 +312,13 @@ export const Dismissible: Story = {
         </div>
       </div>
     `,
-    }),
+  }),
 }
 
 export const CustomIndicators: Story = {
-    render: () => ({
-        components: { StatusBox },
-        template: `
+  render: () => ({
+    components: { StatusBox },
+    template: `
       <div class="space-y-4 max-w-lg">
         <StatusBox variant="success" title="Custom Success Icon" message="With a checkmark icon">
           <template #indicator>
@@ -346,79 +364,89 @@ export const CustomIndicators: Story = {
         <StatusBox variant="warning" title="No Indicator" message="Status without indicator" :show-indicator="false" />
       </div>
     `,
-    }),
+  }),
 }
 
 export const NotificationCenter: Story = {
-    render: () => ({
-        components: { StatusBox },
-        data() {
-            return {
-                notifications: [
-                    {
-                        id: 1,
-                        variant: 'success',
-                        title: 'Backup Complete',
-                        message: 'Your data has been successfully backed up.',
-                        timestamp: new Date(Date.now() - 2 * 60 * 1000),
-                        dismissible: true,
-                        visible: true,
-                    },
-                    {
-                        id: 2,
-                        variant: 'info',
-                        title: 'System Update',
-                        message: 'A new system update is available for installation.',
-                        timestamp: new Date(Date.now() - 30 * 60 * 1000),
-                        actions: [
-                            { label: 'Install', variant: 'primary', size: 'xs' },
-                            { label: 'Later', variant: 'ghost', size: 'xs' },
-                        ],
-                        dismissible: true,
-                        visible: true,
-                    },
-                    {
-                        id: 3,
-                        variant: 'warning',
-                        title: 'High CPU Usage',
-                        message: 'CPU usage is at 85%. Consider closing unnecessary applications.',
-                        timestamp: new Date(Date.now() - 60 * 60 * 1000),
-                        actions: [{ label: 'View Details', variant: 'outline', size: 'xs' }],
-                        dismissible: true,
-                        visible: true,
-                    },
-                    {
-                        id: 4,
-                        variant: 'error',
-                        title: 'Connection Failed',
-                        message: 'Unable to connect to the remote server.',
-                        timestamp: new Date(Date.now() - 2 * 60 * 60 * 1000),
-                        actions: [
-                            { label: 'Retry', variant: 'primary', size: 'xs' },
-                            { label: 'Settings', variant: 'ghost', size: 'xs' },
-                        ],
-                        dismissible: true,
-                        visible: true,
-                    },
-                ] as NotificationItem[],
-            }
-        },
-        methods: {
-            handleDismiss(id: number) {
-                const notification = this.notifications.find((n: NotificationItem) => n.id === id)
-                if (notification) {
-                    notification.visible = false
-                }
-            },
-            handleActionClick(action: { label: string }, _event: Event) {
-                console.log('Action clicked:', action.label)
-                alert(`${action.label} clicked!`)
-            },
-            clearAll() {
-                this.notifications.forEach((n: NotificationItem) => (n.visible = false))
-            },
-        },
-        template: `
+  render: () => ({
+    components: { StatusBox },
+    data() {
+      return {
+        notifications: [
+          {
+            id: 1,
+            variant: 'success',
+            title: 'Backup Complete',
+            message: 'Your data has been successfully backed up.',
+            timestamp: new Date(Date.now() - 2 * 60 * 1000),
+            dismissible: true,
+            visible: true,
+          },
+          {
+            id: 2,
+            variant: 'info',
+            title: 'System Update',
+            message: 'A new system update is available for installation.',
+            timestamp: new Date(Date.now() - 30 * 60 * 1000),
+            actions: [
+              {
+                label: 'Install',
+                variant: 'primary',
+                size: 'xs',
+              },
+              { label: 'Later', variant: 'ghost', size: 'xs' },
+            ],
+            dismissible: true,
+            visible: true,
+          },
+          {
+            id: 3,
+            variant: 'warning',
+            title: 'High CPU Usage',
+            message: 'CPU usage is at 85%. Consider closing unnecessary applications.',
+            timestamp: new Date(Date.now() - 60 * 60 * 1000),
+            actions: [
+              {
+                label: 'View Details',
+                variant: 'outline',
+                size: 'xs',
+              },
+            ],
+            dismissible: true,
+            visible: true,
+          },
+          {
+            id: 4,
+            variant: 'error',
+            title: 'Connection Failed',
+            message: 'Unable to connect to the remote server.',
+            timestamp: new Date(Date.now() - 2 * 60 * 60 * 1000),
+            actions: [
+              { label: 'Retry', variant: 'primary', size: 'xs' },
+              { label: 'Settings', variant: 'ghost', size: 'xs' },
+            ],
+            dismissible: true,
+            visible: true,
+          },
+        ] as NotificationItem[],
+      }
+    },
+    methods: {
+      handleDismiss(id: number) {
+        const notification = this.notifications.find((n: NotificationItem) => n.id === id)
+        if (notification) {
+          notification.visible = false
+        }
+      },
+      handleActionClick(action: { label: string }, _event: Event) {
+        console.log('Action clicked:', action.label)
+        alert(`${action.label} clicked!`)
+      },
+      clearAll() {
+        this.notifications.forEach((n: NotificationItem) => (n.visible = false))
+      },
+    },
+    template: `
       <div class="max-w-md mx-auto">
         <div class="flex justify-between items-center mb-4">
           <h3 class="text-lg font-bold">Notification Center</h3>
@@ -454,5 +482,5 @@ export const NotificationCenter: Story = {
         </div>
       </div>
     `,
-    }),
+  }),
 }

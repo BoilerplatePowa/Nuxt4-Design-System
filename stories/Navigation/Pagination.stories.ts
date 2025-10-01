@@ -2,92 +2,92 @@ import type { Meta, StoryObj } from '@storybook/vue3-vite'
 import Pagination from '../../src/runtime/components/Navigation/Pagination.vue'
 
 const meta: Meta<typeof Pagination> = {
-    title: 'Navigation/Pagination',
-    component: Pagination,
-    parameters: {
-        layout: 'centered',
+  title: 'Navigation/Pagination',
+  component: Pagination,
+  parameters: {
+    layout: 'centered',
+  },
+  argTypes: {
+    size: {
+      control: { type: 'select' },
+      options: ['xs', 'sm', 'md', 'lg'],
     },
-    argTypes: {
-        size: {
-            control: { type: 'select' },
-            options: ['xs', 'sm', 'md', 'lg'],
-        },
-        variant: {
-            control: { type: 'select' },
-            options: ['default', 'bordered', 'ghost'],
-        },
-        showLabels: {
-            control: { type: 'boolean' },
-        },
-        showPageNumbers: {
-            control: { type: 'boolean' },
-        },
-        showFirstLast: {
-            control: { type: 'boolean' },
-        },
-        maxVisiblePages: {
-            control: { type: 'number' },
-        },
-        disabled: {
-            control: { type: 'boolean' },
-        },
+    variant: {
+      control: { type: 'select' },
+      options: ['default', 'bordered', 'ghost'],
     },
+    showLabels: {
+      control: { type: 'boolean' },
+    },
+    showPageNumbers: {
+      control: { type: 'boolean' },
+    },
+    showFirstLast: {
+      control: { type: 'boolean' },
+    },
+    maxVisiblePages: {
+      control: { type: 'number' },
+    },
+    disabled: {
+      control: { type: 'boolean' },
+    },
+  },
 }
 
 export default meta
 type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
-    args: {
-        currentPage: 3,
-        totalPages: 10,
+  args: {
+    currentPage: 3,
+    totalPages: 10,
+  },
+  render: (args) => ({
+    components: { Pagination },
+    setup() {
+      return { args }
     },
-    render: args => ({
-        components: { Pagination },
-        setup() {
-            return { args }
-        },
-        template: `
+    template: `
       <Pagination 
         v-bind="args"
         @page-change="(page) => { args.currentPage = page; }"
       />
     `,
-    }),
+  }),
 }
 
 export const WithLabels: Story = {
-    args: {
-        currentPage: 5,
-        totalPages: 20,
-        showLabels: true,
+  args: {
+    currentPage: 5,
+    totalPages: 20,
+    showLabels: true,
+  },
+  render: (args) => ({
+    components: { Pagination },
+    setup() {
+      return { args }
     },
-    render: args => ({
-        components: { Pagination },
-        setup() {
-            return { args }
-        },
-        template: `
+    template: `
       <Pagination 
         v-bind="args"
         @page-change="(page) => { args.currentPage = page; }"
       />
     `,
-    }),
+  }),
 }
 
 export const Sizes: Story = {
-    render: () => ({
-        components: { Pagination },
-        data() {
-            return {
-                page1: 2,
-                page2: 3,
-                page3: 4,
-                page4: 5,
-            }
-        },
-        template: `
+  render: () => ({
+    components: { Pagination },
+    data() {
+      return {
+        page1: 2,
+        page2: 3,
+        page3: 4,
+        page4: 5,
+      }
+    },
+    template: `
       <div class="space-y-8">
         <div class="text-center">
           <h3 class="text-lg font-bold mb-4">Extra Small</h3>
@@ -131,20 +131,20 @@ export const Sizes: Story = {
         </div>
       </div>
     `,
-    }),
+  }),
 }
 
 export const Variants: Story = {
-    render: () => ({
-        components: { Pagination },
-        data() {
-            return {
-                page1: 3,
-                page2: 3,
-                page3: 3,
-            }
-        },
-        template: `
+  render: () => ({
+    components: { Pagination },
+    data() {
+      return {
+        page1: 3,
+        page2: 3,
+        page3: 3,
+      }
+    },
+    template: `
       <div class="space-y-8">
         <div class="text-center">
           <h3 class="text-lg font-bold mb-4">Default</h3>
@@ -177,18 +177,18 @@ export const Variants: Story = {
         </div>
       </div>
     `,
-    }),
+  }),
 }
 
 export const LargeDataset: Story = {
-    render: () => ({
-        components: { Pagination },
-        data() {
-            return {
-                currentPage: 25,
-            }
-        },
-        template: `
+  render: () => ({
+    components: { Pagination },
+    data() {
+      return {
+        currentPage: 25,
+      }
+    },
+    template: `
       <div class="text-center">
         <h3 class="text-lg font-bold mb-4">Large Dataset (100 pages)</h3>
         <Pagination 
@@ -204,18 +204,18 @@ export const LargeDataset: Story = {
         </p>
       </div>
     `,
-    }),
+  }),
 }
 
 export const CustomIcons: Story = {
-    render: () => ({
-        components: { Pagination },
-        data() {
-            return {
-                currentPage: 4,
-            }
-        },
-        template: `
+  render: () => ({
+    components: { Pagination },
+    data() {
+      return {
+        currentPage: 4,
+      }
+    },
+    template: `
       <div class="text-center">
         <h3 class="text-lg font-bold mb-4">Custom Icons</h3>
         <Pagination 
@@ -250,18 +250,18 @@ export const CustomIcons: Story = {
         </Pagination>
       </div>
     `,
-    }),
+  }),
 }
 
 export const MinimalPagination: Story = {
-    render: () => ({
-        components: { Pagination },
-        data() {
-            return {
-                currentPage: 1,
-            }
-        },
-        template: `
+  render: () => ({
+    components: { Pagination },
+    data() {
+      return {
+        currentPage: 1,
+      }
+    },
+    template: `
       <div class="text-center">
         <h3 class="text-lg font-bold mb-4">Minimal - Previous/Next Only</h3>
         <Pagination 
@@ -278,13 +278,13 @@ export const MinimalPagination: Story = {
         </p>
       </div>
     `,
-    }),
+  }),
 }
 
 export const DisabledState: Story = {
-    render: () => ({
-        components: { Pagination },
-        template: `
+  render: () => ({
+    components: { Pagination },
+    template: `
       <div class="space-y-8">
         <div class="text-center">
           <h3 class="text-lg font-bold mb-4">Normal State</h3>
@@ -306,31 +306,31 @@ export const DisabledState: Story = {
         </div>
       </div>
     `,
-    }),
+  }),
 }
 
 export const TablePagination: Story = {
-    render: () => ({
-        components: { Pagination },
-        data() {
-            return {
-                currentPage: 1,
-                itemsPerPage: 10,
-                totalItems: 247,
-            }
-        },
-        computed: {
-            totalPages() {
-                return Math.ceil(this.totalItems / this.itemsPerPage)
-            },
-            startItem() {
-                return (this.currentPage - 1) * this.itemsPerPage + 1
-            },
-            endItem() {
-                return Math.min(this.currentPage * this.itemsPerPage, this.totalItems)
-            },
-        },
-        template: `
+  render: () => ({
+    components: { Pagination },
+    data() {
+      return {
+        currentPage: 1,
+        itemsPerPage: 10,
+        totalItems: 247,
+      }
+    },
+    computed: {
+      totalPages() {
+        return Math.ceil(this.totalItems / this.itemsPerPage)
+      },
+      startItem() {
+        return (this.currentPage - 1) * this.itemsPerPage + 1
+      },
+      endItem() {
+        return Math.min(this.currentPage * this.itemsPerPage, this.totalItems)
+      },
+    },
+    template: `
       <div class="bg-base-100 rounded-lg shadow-lg overflow-hidden">
         <!-- Table Header -->
         <div class="bg-base-200 px-6 py-4">
@@ -387,5 +387,5 @@ export const TablePagination: Story = {
         </div>
       </div>
     `,
-    }),
+  }),
 }

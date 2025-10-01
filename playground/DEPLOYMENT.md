@@ -12,6 +12,7 @@ This guide covers various deployment options for the Nuxt Design System document
 #### Setup Steps
 
 1. **Push to GitHub**
+
    ```bash
    git add .
    git commit -m "feat: add documentation website"
@@ -29,6 +30,7 @@ This guide covers various deployment options for the Nuxt Design System document
      - **Node version**: `18` (or higher)
 
 3. **Environment Variables** (Optional)
+
    ```bash
    NODE_VERSION=18
    NPM_VERSION=9
@@ -84,11 +86,13 @@ Create `playground/netlify.toml`:
 #### Setup Steps
 
 1. **Install Vercel CLI**
+
    ```bash
    npm i -g vercel
    ```
 
 2. **Deploy**
+
    ```bash
    cd playground
    vercel
@@ -154,43 +158,43 @@ name: Deploy Documentation
 
 on:
   push:
-    branches: [ main ]
-    paths: [ 'playground/**' ]
+    branches: [main]
+    paths: ['playground/**']
   pull_request:
-    branches: [ main ]
-    paths: [ 'playground/**' ]
+    branches: [main]
+    paths: ['playground/**']
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    
+
     steps:
-    - name: Checkout
-      uses: actions/checkout@v4
-      
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '18'
-        cache: 'npm'
-        
-    - name: Install dependencies
-      run: |
-        npm ci
-        cd playground && npm ci
-        
-    - name: Build documentation
-      run: |
-        cd playground
-        npm run generate
-        
-    - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3
-      if: github.ref == 'refs/heads/main'
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./playground/.output/public
-        cname: your-domain.com  # Optional: custom domain
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: |
+          npm ci
+          cd playground && npm ci
+
+      - name: Build documentation
+        run: |
+          cd playground
+          npm run generate
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        if: github.ref == 'refs/heads/main'
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./playground/.output/public
+          cname: your-domain.com # Optional: custom domain
 ```
 
 2. **Enable GitHub Pages**
@@ -214,12 +218,14 @@ jobs:
 #### Setup Steps
 
 1. **Create S3 Bucket**
+
    ```bash
    aws s3 mb s3://your-docs-bucket-name
    aws s3 website s3://your-docs-bucket-name --index-document index.html --error-document error.html
    ```
 
 2. **Configure Bucket Policy**
+
    ```json
    {
      "Version": "2012-10-17",
@@ -236,6 +242,7 @@ jobs:
    ```
 
 3. **Deploy**
+
    ```bash
    cd playground
    npm run generate
@@ -258,14 +265,14 @@ export default defineNuxtConfig({
   modules: ['../src/module'],
   nuxtDesignSystem: {},
   devtools: { enabled: true },
-  
+
   // Static generation
   ssr: false,
   nitro: {
     prerender: {
-      routes: ['/']
-    }
-  }
+      routes: ['/'],
+    },
+  },
 })
 ```
 
@@ -277,12 +284,12 @@ export default defineNuxtConfig({
   modules: ['../src/module'],
   nuxtDesignSystem: {},
   devtools: { enabled: true },
-  
+
   // SSR
   ssr: true,
   nitro: {
-    preset: 'node-server'
-  }
+    preset: 'node-server',
+  },
 })
 ```
 
@@ -291,6 +298,7 @@ export default defineNuxtConfig({
 ### Custom Domain Setup
 
 1. **DNS Configuration**
+
    ```
    Type: CNAME
    Name: docs (or @ for root domain)
@@ -333,21 +341,19 @@ imagemin playground/public/images/* --out-dir=playground/public/images/
 // playground/nuxt.config.ts
 export default defineNuxtConfig({
   // ... other config
-  
+
   app: {
-    baseURL: process.env.NODE_ENV === 'production' 
-      ? 'https://your-cdn.com' 
-      : '/'
+    baseURL: process.env.NODE_ENV === 'production' ? 'https://your-cdn.com' : '/',
   },
-  
+
   nitro: {
     storage: {
       redis: {
         driver: 'redis',
-        url: process.env.REDIS_URL
-      }
-    }
-  }
+        url: process.env.REDIS_URL,
+      },
+    },
+  },
 })
 ```
 
@@ -359,7 +365,7 @@ export default defineNuxtConfig({
 // playground/nuxt.config.ts
 export default defineNuxtConfig({
   // ... other config
-  
+
   nitro: {
     routeRules: {
       '/**': {
@@ -368,11 +374,11 @@ export default defineNuxtConfig({
           'X-Frame-Options': 'DENY',
           'X-XSS-Protection': '1; mode=block',
           'Referrer-Policy': 'strict-origin-when-cross-origin',
-          'Permissions-Policy': 'camera=(), microphone=(), geolocation=()'
-        }
-      }
-    }
-  }
+          'Permissions-Policy': 'camera=(), microphone=(), geolocation=()',
+        },
+      },
+    },
+  },
 })
 ```
 
@@ -382,7 +388,7 @@ export default defineNuxtConfig({
 // playground/nuxt.config.ts
 export default defineNuxtConfig({
   // ... other config
-  
+
   nitro: {
     routeRules: {
       '/**': {
@@ -397,12 +403,12 @@ export default defineNuxtConfig({
             "media-src 'self'",
             "object-src 'none'",
             "base-uri 'self'",
-            "form-action 'self'"
-          ].join('; ')
-        }
-      }
-    }
-  }
+            "form-action 'self'",
+          ].join('; '),
+        },
+      },
+    },
+  },
 })
 ```
 
@@ -414,17 +420,17 @@ export default defineNuxtConfig({
 // playground/nuxt.config.ts
 export default defineNuxtConfig({
   // ... other config
-  
+
   app: {
     head: {
       script: [
         {
           src: 'https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID',
-          async: true
-        }
-      ]
-    }
-  }
+          async: true,
+        },
+      ],
+    },
+  },
 })
 ```
 
@@ -442,10 +448,12 @@ export default defineNuxtPlugin({
           console.log('[Performance]', entry.name, entry.startTime)
         })
       })
-      
-      observer.observe({ entryTypes: ['largest-contentful-paint', 'first-input', 'layout-shift'] })
+
+      observer.observe({
+        entryTypes: ['largest-contentful-paint', 'first-input', 'layout-shift'],
+      })
     }
-  }
+  },
 })
 ```
 
@@ -454,6 +462,7 @@ export default defineNuxtPlugin({
 ### Common Issues
 
 1. **Build Failures**
+
    ```bash
    # Clear cache
    rm -rf playground/.nuxt playground/.output playground/node_modules
@@ -520,41 +529,41 @@ name: Deploy Documentation
 
 on:
   push:
-    branches: [ main, develop ]
+    branches: [main, develop]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-node@v4
-      with:
-        node-version: '18'
-        cache: 'npm'
-    - run: npm ci
-    - run: npm run test
-    - run: cd playground && npm ci
-    - run: cd playground && npm run build
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+      - run: npm ci
+      - run: npm run test
+      - run: cd playground && npm ci
+      - run: cd playground && npm run build
 
   deploy:
     needs: test
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
     steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-node@v4
-      with:
-        node-version: '18'
-        cache: 'npm'
-    - run: npm ci
-    - run: cd playground && npm ci
-    - run: cd playground && npm run generate
-    - name: Deploy to hosting
-      # Add your deployment step here
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+      - run: npm ci
+      - run: cd playground && npm ci
+      - run: cd playground && npm run generate
+      - name: Deploy to hosting
+        # Add your deployment step here
 ```
 
 ---
 
-*This deployment guide covers the most common deployment scenarios. For specific hosting providers or custom requirements, refer to their official documentation.*
+_This deployment guide covers the most common deployment scenarios. For specific hosting providers or custom requirements, refer to their official documentation._

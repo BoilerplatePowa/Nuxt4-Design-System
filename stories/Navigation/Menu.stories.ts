@@ -2,124 +2,129 @@ import type { Meta, StoryObj } from '@storybook/vue3-vite'
 import Menu from '../../src/runtime/components/Navigation/Menu.vue'
 
 const meta: Meta<typeof Menu> = {
-    title: 'Navigation/Menu',
-    component: Menu,
-    parameters: {
-        layout: 'padded',
+  title: 'Navigation/Menu',
+  component: Menu,
+  parameters: {
+    layout: 'padded',
+  },
+  argTypes: {
+    variant: {
+      control: { type: 'select' },
+      options: ['default', 'compact', 'horizontal'],
     },
-    argTypes: {
-        variant: {
-            control: { type: 'select' },
-            options: ['default', 'compact', 'horizontal'],
-        },
-        size: {
-            control: { type: 'select' },
-            options: ['xs', 'sm', 'md', 'lg'],
-        },
-        rounded: {
-            control: { type: 'boolean' },
-        },
+    size: {
+      control: { type: 'select' },
+      options: ['xs', 'sm', 'md', 'lg'],
     },
+    rounded: {
+      control: { type: 'boolean' },
+    },
+  },
 }
 
 export default meta
 type Story = StoryObj<typeof meta>
 
 const sampleMenuItems = [
-    { label: 'Dashboard', href: '/dashboard', icon: '📊' },
-    { label: 'Users', href: '/users', icon: '👥', badge: '12' },
-    { label: 'Products', href: '/products', icon: '📦' },
-    { divider: true },
-    { title: 'Settings' },
-    { label: 'Profile', href: '/profile', icon: '👤' },
-    { label: 'Account', href: '/account', icon: '⚙️' },
-    { label: 'Logout', href: '/logout', icon: '🚪' },
+  { label: 'Dashboard', href: '/dashboard', icon: '📊' },
+  { label: 'Users', href: '/users', icon: '👥', badge: '12' },
+  { label: 'Products', href: '/products', icon: '📦' },
+  { divider: true },
+  { title: 'Settings' },
+  { label: 'Profile', href: '/profile', icon: '👤' },
+  { label: 'Account', href: '/account', icon: '⚙️' },
+  { label: 'Logout', href: '/logout', icon: '🚪' },
 ]
 
 const hierarchicalMenu = [
-    { label: 'Home', href: '/', icon: '🏠' },
-    {
-        label: 'Products',
-        icon: '📦',
-        children: [
-            { label: 'Electronics', href: '/products/electronics' },
-            { label: 'Clothing', href: '/products/clothing' },
-            { label: 'Books', href: '/products/books' },
-        ],
-    },
-    {
-        label: 'Services',
-        icon: '🛠️',
-        children: [
-            { label: 'Consulting', href: '/services/consulting' },
-            { label: 'Support', href: '/services/support' },
-            { label: 'Training', href: '/services/training' },
-        ],
-    },
-    { label: 'About', href: '/about', icon: 'ℹ️' },
-    { label: 'Contact', href: '/contact', icon: '📞' },
+  { label: 'Home', href: '/', icon: '🏠' },
+  {
+    label: 'Products',
+    icon: '📦',
+    children: [
+      { label: 'Electronics', href: '/products/electronics' },
+      { label: 'Clothing', href: '/products/clothing' },
+      { label: 'Books', href: '/products/books' },
+    ],
+  },
+  {
+    label: 'Services',
+    icon: '🛠️',
+    children: [
+      { label: 'Consulting', href: '/services/consulting' },
+      { label: 'Support', href: '/services/support' },
+      { label: 'Training', href: '/services/training' },
+    ],
+  },
+  { label: 'About', href: '/about', icon: 'ℹ️' },
+  { label: 'Contact', href: '/contact', icon: '📞' },
 ]
 
 export const Default: Story = {
-    args: {
-        items: sampleMenuItems,
-    },
+  args: {
+    items: sampleMenuItems,
+  },
 }
 
 export const Compact: Story = {
-    args: {
-        items: sampleMenuItems,
-        variant: 'compact',
-    },
+  args: {
+    items: sampleMenuItems,
+    variant: 'compact',
+  },
 }
 
 export const Horizontal: Story = {
-    args: {
-        items: [
-            { label: 'Home', href: '/' },
-            { label: 'Products', href: '/products' },
-            { label: 'Services', href: '/services' },
-            { label: 'About', href: '/about' },
-            { label: 'Contact', href: '/contact' },
-        ],
-        variant: 'horizontal',
-    },
+  args: {
+    items: [
+      { label: 'Home', href: '/' },
+      { label: 'Products', href: '/products' },
+      { label: 'Services', href: '/services' },
+      { label: 'About', href: '/about' },
+      { label: 'Contact', href: '/contact' },
+    ],
+    variant: 'horizontal',
+  },
 }
 
 export const WithIcons: Story = {
-    args: {
-        items: [
-            { label: 'Dashboard', href: '/dashboard', icon: '📊' },
-            { label: 'Analytics', href: '/analytics', icon: '📈' },
-            { label: 'Reports', href: '/reports', icon: '📄' },
-            { label: 'Settings', href: '/settings', icon: '⚙️' },
-            { label: 'Help', href: '/help', icon: '❓' },
-        ],
-    },
+  args: {
+    items: [
+      { label: 'Dashboard', href: '/dashboard', icon: '📊' },
+      { label: 'Analytics', href: '/analytics', icon: '📈' },
+      { label: 'Reports', href: '/reports', icon: '📄' },
+      { label: 'Settings', href: '/settings', icon: '⚙️' },
+      { label: 'Help', href: '/help', icon: '❓' },
+    ],
+  },
 }
 
 export const WithBadges: Story = {
-    args: {
-        items: [
-            { label: 'Inbox', href: '/inbox', icon: '📧', badge: '5' },
-            { label: 'Messages', href: '/messages', icon: '💬', badge: '12' },
-            { label: 'Notifications', href: '/notifications', icon: '🔔', badge: '3' },
-            { label: 'Tasks', href: '/tasks', icon: '✅', badge: '8' },
-            { label: 'Archive', href: '/archive', icon: '📁' },
-        ],
-    },
+  args: {
+    items: [
+      { label: 'Inbox', href: '/inbox', icon: '📧', badge: '5' },
+      { label: 'Messages', href: '/messages', icon: '💬', badge: '12' },
+      {
+        label: 'Notifications',
+        href: '/notifications',
+        icon: '🔔',
+        badge: '3',
+      },
+      { label: 'Tasks', href: '/tasks', icon: '✅', badge: '8' },
+      { label: 'Archive', href: '/archive', icon: '📁' },
+    ],
+  },
 }
 
 export const Hierarchical: Story = {
-    args: {
-        items: hierarchicalMenu,
-    },
+  args: {
+    items: hierarchicalMenu,
+  },
 }
 
 export const Sizes: Story = {
-    render: () => ({
-        components: { Menu },
-        template: `
+  render: () => ({
+    components: { Menu },
+    template: `
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div>
           <h3 class="text-lg font-bold mb-4">Extra Small</h3>
@@ -170,13 +175,13 @@ export const Sizes: Story = {
         </div>
       </div>
     `,
-    }),
+  }),
 }
 
 export const CustomContent: Story = {
-    render: () => ({
-        components: { Menu },
-        template: `
+  render: () => ({
+    components: { Menu },
+    template: `
       <Menu>
         <li><a class="active">Dashboard</a></li>
         <li><a>Users</a></li>
@@ -194,13 +199,13 @@ export const CustomContent: Story = {
         <li><a disabled>Coming Soon</a></li>
       </Menu>
     `,
-    }),
+  }),
 }
 
 export const SidebarLayout: Story = {
-    render: () => ({
-        components: { Menu },
-        template: `
+  render: () => ({
+    components: { Menu },
+    template: `
       <div class="flex h-96">
         <div class="w-64 bg-base-200 p-4">
           <div class="mb-6">
@@ -233,13 +238,13 @@ export const SidebarLayout: Story = {
         </div>
       </div>
     `,
-    }),
+  }),
 }
 
 export const DropdownMenu: Story = {
-    render: () => ({
-        components: { Menu },
-        template: `
+  render: () => ({
+    components: { Menu },
+    template: `
       <div class="flex gap-4">
         <div class="dropdown">
           <div tabindex="0" role="button" class="btn">
@@ -286,5 +291,5 @@ export const DropdownMenu: Story = {
         </div>
       </div>
     `,
-    }),
+  }),
 }

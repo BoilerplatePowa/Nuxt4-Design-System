@@ -2,40 +2,40 @@ import type { Meta, StoryObj } from '@storybook/vue3-vite'
 import CodeMockup from '../../src/runtime/components/Mockup/CodeMockup.vue'
 
 const meta: Meta<typeof CodeMockup> = {
-    title: 'Mockup/CodeMockup',
-    component: CodeMockup,
-    parameters: {
-        layout: 'padded',
+  title: 'Mockup/CodeMockup',
+  component: CodeMockup,
+  parameters: {
+    layout: 'padded',
+  },
+  argTypes: {
+    variant: {
+      control: { type: 'select' },
+      options: ['default', 'border', 'bg'],
     },
-    argTypes: {
-        variant: {
-            control: { type: 'select' },
-            options: ['default', 'border', 'bg'],
-        },
-        language: {
-            control: { type: 'text' },
-        },
-        showLineNumbers: {
-            control: { type: 'boolean' },
-        },
+    language: {
+      control: { type: 'text' },
     },
+    showLineNumbers: {
+      control: { type: 'boolean' },
+    },
+  },
 }
 
 export default meta
 type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
-    args: {
-        code: `function hello() {
+  args: {
+    code: `function hello() {
   console.log("Hello, World!");
 }`,
-    },
+  },
 }
 
 export const JavaScript: Story = {
-    args: {
-        language: 'javascript',
-        code: `// Vue 3 Composition API Example
+  args: {
+    language: 'javascript',
+    code: `// Vue 3 Composition API Example
 import { ref, computed } from 'vue'
 
 export default {
@@ -54,13 +54,13 @@ export default {
     }
   }
 }`,
-    },
+  },
 }
 
 export const TypeScript: Story = {
-    args: {
-        language: 'typescript',
-        code: `interface User {
+  args: {
+    language: 'typescript',
+    code: `interface User {
   id: number
   name: string
   email: string
@@ -82,13 +82,13 @@ class UserService {
     return this.users.filter(user => user.isActive)
   }
 }`,
-    },
+  },
 }
 
 export const HTML: Story = {
-    args: {
-        language: 'html',
-        code: `<!DOCTYPE html>
+  args: {
+    language: 'html',
+    code: `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -112,13 +112,13 @@ export const HTML: Story = {
   <script src="/src/main.js"></script>
 </body>
 </html>`,
-    },
+  },
 }
 
 export const CSS: Story = {
-    args: {
-        language: 'css',
-        code: `.container {
+  args: {
+    language: 'css',
+    code: `.container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 1rem;
@@ -148,13 +148,13 @@ export const CSS: Story = {
     padding: 0 0.5rem;
   }
 }`,
-    },
+  },
 }
 
 export const Variants: Story = {
-    render: () => ({
-        components: { CodeMockup },
-        template: `
+  render: () => ({
+    components: { CodeMockup },
+    template: `
       <div class="space-y-8">
         <div>
           <h3 class="text-lg font-bold mb-4">Default</h3>
@@ -203,14 +203,14 @@ npm test\`"
         </div>
       </div>
     `,
-    }),
+  }),
 }
 
 export const WithLineNumbers: Story = {
-    args: {
-        language: 'vue',
-        showLineNumbers: true,
-        code: `<template>
+  args: {
+    language: 'vue',
+    showLineNumbers: true,
+    code: `<template>
   <div class="user-profile">
     <img :src="user.avatar" :alt="user.name" class="avatar" />
     <div class="user-info">
@@ -274,13 +274,13 @@ function toggleFollow() {
   flex: 1;
 }
 </style>`,
-    },
+  },
 }
 
 export const MultipleLanguages: Story = {
-    render: () => ({
-        components: { CodeMockup },
-        template: `
+  render: () => ({
+    components: { CodeMockup },
+    template: `
       <div class="space-y-6">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <div>
@@ -376,13 +376,13 @@ INSERT INTO todos (text) VALUES
         </div>
       </div>
     `,
-    }),
+  }),
 }
 
 export const CodeTutorial: Story = {
-    render: () => ({
-        components: { CodeMockup },
-        template: `
+  render: () => ({
+    components: { CodeMockup },
+    template: `
       <div class="max-w-4xl mx-auto space-y-8">
         <div class="text-center">
           <h2 class="text-2xl font-bold mb-4">Building a Vue Component</h2>
@@ -497,5 +497,5 @@ function handleClick() {
         </div>
       </div>
     `,
-    }),
+  }),
 }

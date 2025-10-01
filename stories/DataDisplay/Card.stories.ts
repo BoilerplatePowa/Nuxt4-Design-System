@@ -5,76 +5,76 @@ import Alert from '../../src/runtime/components/Feedback/Alert.vue'
 import { ref } from 'vue'
 
 const meta: Meta<typeof Card> = {
-    title: 'Data Display/Card',
-    component: Card,
-    parameters: {
-        layout: 'centered',
-        docs: {
-            description: {
-                component: 'A flexible card component with optional header, body and footer.',
-            },
-        },
+  title: 'Data Display/Card',
+  component: Card,
+  parameters: {
+    layout: 'centered',
+    docs: {
+      description: {
+        component: 'A flexible card component with optional header, body and footer.',
+      },
     },
-    tags: ['autodocs'],
-    argTypes: {
-        title: {
-            control: { type: 'text' },
-            description: 'Card title',
-        },
-        variant: {
-            control: { type: 'select' },
-            options: ['normal', 'bordered', 'compact', 'side', 'outline'],
-            description: 'Card variant',
-        },
-        shadow: {
-            control: { type: 'select' },
-            options: ['none', 'sm', 'md', 'lg', 'xl', '2xl'],
-            description: 'Card shadow size',
-        },
-        glass: {
-            control: 'boolean',
-            description: 'Glass effect',
-        },
-        imageFull: {
-            control: 'boolean',
-            description: 'Full image layout',
-        },
+  },
+  tags: ['autodocs'],
+  argTypes: {
+    title: {
+      control: { type: 'text' },
+      description: 'Card title',
     },
+    variant: {
+      control: { type: 'select' },
+      options: ['normal', 'bordered', 'compact', 'side', 'outline'],
+      description: 'Card variant',
+    },
+    shadow: {
+      control: { type: 'select' },
+      options: ['none', 'sm', 'md', 'lg', 'xl', '2xl'],
+      description: 'Card shadow size',
+    },
+    glass: {
+      control: 'boolean',
+      description: 'Glass effect',
+    },
+    imageFull: {
+      control: 'boolean',
+      description: 'Full image layout',
+    },
+  },
 }
 
 export default meta
 type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
-    render: args => ({
-        components: { Card },
-        setup() {
-            return { args }
-        },
-        template: '<Card v-bind="args">Card content with simple text.</Card>',
-    }),
+  render: (args) => ({
+    components: { Card },
+    setup() {
+      return { args }
+    },
+    template: '<Card v-bind="args">Card content with simple text.</Card>',
+  }),
 }
 
 export const WithTitle: Story = {
-    args: {
-        title: 'Card Title',
+  args: {
+    title: 'Card Title',
+  },
+  render: (args) => ({
+    components: { Card },
+    setup() {
+      return { args }
     },
-    render: args => ({
-        components: { Card },
-        setup() {
-            return { args }
-        },
-        template: '<Card v-bind="args">This card has a title defined via the title prop.</Card>',
-    }),
+    template: '<Card v-bind="args">This card has a title defined via the title prop.</Card>',
+  }),
 }
 
 export const CustomHeader: Story = {
-    render: args => ({
-        components: { Card },
-        setup() {
-            return { args }
-        },
-        template: `
+  render: (args) => ({
+    components: { Card },
+    setup() {
+      return { args }
+    },
+    template: `
       <Card v-bind="args">
         <template #header>
           <div class="flex items-center justify-between">
@@ -85,16 +85,16 @@ export const CustomHeader: Story = {
         Card content with custom header.
       </Card>
     `,
-    }),
+  }),
 }
 
 export const WithFooter: Story = {
-    render: args => ({
-        components: { Card, Button },
-        setup() {
-            return { args }
-        },
-        template: `
+  render: (args) => ({
+    components: { Card, Button },
+    setup() {
+      return { args }
+    },
+    template: `
       <Card v-bind="args">
         This card has a footer with actions.
         <template #footer>
@@ -103,122 +103,122 @@ export const WithFooter: Story = {
         </template>
       </Card>
     `,
-    }),
+  }),
 }
 
 export const Bordered: Story = {
-    args: {
-        variant: 'bordered',
-        title: 'Bordered Card',
+  args: {
+    variant: 'bordered',
+    title: 'Bordered Card',
+  },
+  render: (args) => ({
+    components: { Card },
+    setup() {
+      return { args }
     },
-    render: args => ({
-        components: { Card },
-        setup() {
-            return { args }
-        },
-        template:
+    template:
       '<Card v-bind="args">This card uses the bordered variant with a visible border.</Card>',
-    }),
+  }),
 }
 
 export const Outline: Story = {
-    args: {
-        variant: 'outline',
-        title: 'Outline Card',
+  args: {
+    variant: 'outline',
+    title: 'Outline Card',
+  },
+  render: (args) => ({
+    components: { Card },
+    setup() {
+      return { args }
     },
-    render: args => ({
-        components: { Card },
-        setup() {
-            return { args }
-        },
-        template:
+    template:
       '<Card v-bind="args">This card uses the outline variant with a transparent background and prominent border.</Card>',
-    }),
+  }),
 }
 
 export const Glass: Story = {
-    args: {
-        glass: true,
-        title: 'Glass Card',
+  args: {
+    glass: true,
+    title: 'Glass Card',
+  },
+  render: (args) => ({
+    components: { Card },
+    setup() {
+      return { args }
     },
-    render: args => ({
-        components: { Card },
-        setup() {
-            return { args }
-        },
-        template: `
+    template: `
       <div class="min-h-screen bg-gradient-to-br from-blue-400 via-purple-500 to-pink-500 p-8">
         <div class="max-w-md mx-auto">
           <Card v-bind="args">This card uses the glass variant with a transparency effect. The background shows through the card.</Card>
         </div>
       </div>
     `,
-    }),
+  }),
 }
 
 export const NoShadow: Story = {
-    args: {
-        shadow: 'none',
-        title: 'No Shadow',
+  args: {
+    shadow: 'none',
+    title: 'No Shadow',
+  },
+  render: (args) => ({
+    components: { Card },
+    setup() {
+      return { args }
     },
-    render: args => ({
-        components: { Card },
-        setup() {
-            return { args }
-        },
-        template: '<Card v-bind="args">This card has no shadow.</Card>',
-    }),
+    template: '<Card v-bind="args">This card has no shadow.</Card>',
+  }),
 }
 
 export const WithShadow: Story = {
-    args: {
-        shadow: '2xl',
-        title: 'With Shadow',
+  args: {
+    shadow: '2xl',
+    title: 'With Shadow',
+  },
+  render: (args) => ({
+    components: { Card },
+    setup() {
+      return { args }
     },
-    render: args => ({
-        components: { Card },
-        setup() {
-            return { args }
-        },
-        template: '<Card v-bind="args">This card has a very pronounced shadow.</Card>',
-    }),
+    template: '<Card v-bind="args">This card has a very pronounced shadow.</Card>',
+  }),
 }
 
 export const Compact: Story = {
-    args: {
-        variant: 'compact',
-        title: 'Compact Card',
+  args: {
+    variant: 'compact',
+    title: 'Compact Card',
+  },
+  render: (args) => ({
+    components: { Card },
+    setup() {
+      return { args }
     },
-    render: args => ({
-        components: { Card },
-        setup() {
-            return { args }
-        },
-        template: '<Card v-bind="args">This card uses compact variant with reduced padding.</Card>',
-    }),
+    template: '<Card v-bind="args">This card uses compact variant with reduced padding.</Card>',
+  }),
 }
 
 export const SideCard: Story = {
-    args: {
-        variant: 'side',
-        title: 'Side Card',
+  args: {
+    variant: 'side',
+    title: 'Side Card',
+  },
+  render: (args) => ({
+    components: { Card },
+    setup() {
+      return { args }
     },
-    render: args => ({
-        components: { Card },
-        setup() {
-            return { args }
-        },
-        template: '<Card v-bind="args">This card uses side layout variant.</Card>',
-    }),
+    template: '<Card v-bind="args">This card uses side layout variant.</Card>',
+  }),
 }
 
 export const ComplexCard: Story = {
-    render: args => ({
-        components: { Card, Button },
-        setup() {
-            return { args }
-        },
-        template: `
+  render: (args) => ({
+    components: { Card, Button },
+    setup() {
+      return { args }
+    },
+    template: `
       <Card v-bind="args" title="User Profile" variant="bordered" badge="Online" badgeVariant="success">
         <template #header>
           <div class="flex items-center space-x-3">
@@ -253,13 +253,13 @@ export const ComplexCard: Story = {
         </template>
       </Card>
     `,
-    }),
+  }),
 }
 
 export const AllVariants: Story = {
-    render: () => ({
-        components: { Card },
-        template: `
+  render: () => ({
+    components: { Card },
+    template: `
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         <Card title="Normal" variant="normal">
           Normal card
@@ -278,13 +278,13 @@ export const AllVariants: Story = {
         </Card>
       </div>
     `,
-    }),
+  }),
 }
 
 export const ShadowVariants: Story = {
-    render: () => ({
-        components: { Card },
-        template: `
+  render: () => ({
+    components: { Card },
+    template: `
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         <Card title="No Shadow" shadow="none">
           Card without shadow
@@ -311,13 +311,13 @@ export const ShadowVariants: Story = {
         </Card>
       </div>
     `,
-    }),
+  }),
 }
 
 export const WithAllSections: Story = {
-    render: () => ({
-        components: { Card, Button },
-        template: `
+  render: () => ({
+    components: { Card, Button },
+    template: `
       <Card title="Complete Card Example" subtitle="With all sections" variant="bordered" badge="Premium" badgeVariant="warning">
         <template #header>
           <div class="flex items-center justify-between w-full">
@@ -359,19 +359,19 @@ export const WithAllSections: Story = {
         </template>
       </Card>
     `,
-    }),
+  }),
 }
 
 export const OutlineWithSections: Story = {
-    args: {
-        variant: 'outline',
+  args: {
+    variant: 'outline',
+  },
+  render: (args) => ({
+    components: { Card, Button },
+    setup() {
+      return { args }
     },
-    render: args => ({
-        components: { Card, Button },
-        setup() {
-            return { args }
-        },
-        template: `
+    template: `
       <Card v-bind="args" title="Outline Card" subtitle="With transparent background" badge="Outline" badgeVariant="secondary">
         <template #header>
           <div class="flex items-center justify-between w-full">
@@ -411,29 +411,29 @@ export const OutlineWithSections: Story = {
         </template>
       </Card>
     `,
-    }),
+  }),
 }
 
 export const WithBadge: Story = {
-    args: {
-        title: 'Card with Badge',
-        badge: 'New',
-        badgeVariant: 'primary',
+  args: {
+    title: 'Card with Badge',
+    badge: 'New',
+    badgeVariant: 'primary',
+  },
+  render: (args) => ({
+    components: { Card },
+    setup() {
+      return { args }
     },
-    render: args => ({
-        components: { Card },
-        setup() {
-            return { args }
-        },
-        template:
+    template:
       '<Card v-bind="args">This card has a badge positioned above the title for better visual hierarchy.</Card>',
-    }),
+  }),
 }
 
 export const BadgeWithHeaderActions: Story = {
-    render: () => ({
-        components: { Card, Button },
-        template: `
+  render: () => ({
+    components: { Card, Button },
+    template: `
       <div class="space-y-4">
         <Card title="Card with Badge and Actions" badge="Featured" badgeVariant="success">
           <template #headerActions>
@@ -474,13 +474,13 @@ export const BadgeWithHeaderActions: Story = {
         </Card>
       </div>
     `,
-    }),
+  }),
 }
 
 export const CustomBadgePosition: Story = {
-    render: () => ({
-        components: { Card },
-        template: `
+  render: () => ({
+    components: { Card },
+    template: `
       <div class="space-y-4">
         <Card title="Badge Above Title" badge="Featured" badgeVariant="success">
           This card has a badge positioned above the title for better visual hierarchy.
@@ -501,13 +501,13 @@ export const CustomBadgePosition: Story = {
         </Card>
       </div>
     `,
-    }),
+  }),
 }
 
 export const AllCardVariants: Story = {
-    render: () => ({
-        components: { Card, Button },
-        template: `
+  render: () => ({
+    components: { Card, Button },
+    template: `
       <div class="space-y-8">
         <div class="text-center mb-6">
           <h2 class="text-2xl font-bold mb-2">All Card Variants</h2>
@@ -584,13 +584,13 @@ export const AllCardVariants: Story = {
         </div>
       </div>
     `,
-    }),
+  }),
 }
 
 export const SideVariant: Story = {
-    render: () => ({
-        components: { Card, Button },
-        template: `
+  render: () => ({
+    components: { Card, Button },
+    template: `
       <div class="space-y-6">
         <div class="text-center mb-6">
           <h2 class="text-xl font-bold mb-2">Side Variant Examples</h2>
@@ -670,13 +670,13 @@ export const SideVariant: Story = {
         </div>
       </div>
     `,
-    }),
+  }),
 }
 
 export const GlassEffects: Story = {
-    render: () => ({
-        components: { Card, Button },
-        template: `
+  render: () => ({
+    components: { Card, Button },
+    template: `
       <div class="space-y-8">
         <div class="text-center mb-6">
           <h2 class="text-2xl font-bold mb-2">Glass Effect Examples</h2>
@@ -766,64 +766,64 @@ export const GlassEffects: Story = {
         </div>
       </div>
     `,
-    }),
+  }),
 }
 
 export const InteractiveCards: Story = {
-    render: () => ({
-        components: { Card, Button, Alert },
-        setup() {
-            const selectedCard = ref('card-1')
-            const clickCount = ref(0)
-            const lastClicked = ref('')
-            const showAlert = ref(false)
-            const alertMessage = ref('')
-            const alertType = ref('info')
+  render: () => ({
+    components: { Card, Button, Alert },
+    setup() {
+      const selectedCard = ref('card-1')
+      const clickCount = ref(0)
+      const lastClicked = ref('')
+      const showAlert = ref(false)
+      const alertMessage = ref('')
+      const alertType = ref('info')
 
-            const handleCardClick = (cardId: string) => {
-                selectedCard.value = cardId
-                clickCount.value++
-                lastClicked.value = cardId
-                console.log(`Card ${cardId} clicked! Total clicks: ${clickCount.value}`)
-            }
+      const handleCardClick = (cardId: string) => {
+        selectedCard.value = cardId
+        clickCount.value++
+        lastClicked.value = cardId
+        console.log(`Card ${cardId} clicked! Total clicks: ${clickCount.value}`)
+      }
 
-            const handleAlertCardClick = () => {
-                showAlert.value = true
-                alertMessage.value = 'This is an alert triggered by clicking the card!'
-                alertType.value = 'success'
-                handleCardClick('alert-card')
+      const handleAlertCardClick = () => {
+        showAlert.value = true
+        alertMessage.value = 'This is an alert triggered by clicking the card!'
+        alertType.value = 'success'
+        handleCardClick('alert-card')
 
-                // Auto-hide alert after 3 seconds
-                setTimeout(() => {
-                    showAlert.value = false
-                }, 3000)
-            }
+        // Auto-hide alert after 3 seconds
+        setTimeout(() => {
+          showAlert.value = false
+        }, 3000)
+      }
 
-            const handleErrorCardClick = () => {
-                showAlert.value = true
-                alertMessage.value = 'Something went wrong! This is an error alert.'
-                alertType.value = 'error'
-                handleCardClick('error-card')
+      const handleErrorCardClick = () => {
+        showAlert.value = true
+        alertMessage.value = 'Something went wrong! This is an error alert.'
+        alertType.value = 'error'
+        handleCardClick('error-card')
 
-                // Auto-hide alert after 5 seconds
-                setTimeout(() => {
-                    showAlert.value = false
-                }, 5000)
-            }
+        // Auto-hide alert after 5 seconds
+        setTimeout(() => {
+          showAlert.value = false
+        }, 5000)
+      }
 
-            return {
-                selectedCard,
-                clickCount,
-                lastClicked,
-                showAlert,
-                alertMessage,
-                alertType,
-                handleCardClick,
-                handleAlertCardClick,
-                handleErrorCardClick,
-            }
-        },
-        template: `
+      return {
+        selectedCard,
+        clickCount,
+        lastClicked,
+        showAlert,
+        alertMessage,
+        alertType,
+        handleCardClick,
+        handleAlertCardClick,
+        handleErrorCardClick,
+      }
+    },
+    template: `
       <div class="space-y-8">
         <div class="text-center mb-6">
           <h2 class="text-2xl font-bold mb-2">Interactive Cards</h2>
@@ -1094,5 +1094,5 @@ export const InteractiveCards: Story = {
         </div>
       </div>
     `,
-    }),
+  }),
 }

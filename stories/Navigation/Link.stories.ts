@@ -2,53 +2,53 @@ import type { Meta, StoryObj } from '@storybook/vue3-vite'
 import Link from '../../src/runtime/components/Navigation/Link.vue'
 
 const meta: Meta<typeof Link> = {
-    title: 'Navigation/Link',
-    component: Link,
-    parameters: {
-        layout: 'padded',
+  title: 'Navigation/Link',
+  component: Link,
+  parameters: {
+    layout: 'padded',
+  },
+  argTypes: {
+    variant: {
+      control: { type: 'select' },
+      options: ['default', 'primary', 'secondary', 'accent', 'neutral', 'hover'],
     },
-    argTypes: {
-        variant: {
-            control: { type: 'select' },
-            options: ['default', 'primary', 'secondary', 'accent', 'neutral', 'hover'],
-        },
-        target: {
-            control: { type: 'select' },
-            options: ['_blank', '_self', '_parent', '_top'],
-        },
-        disabled: {
-            control: { type: 'boolean' },
-        },
-        external: {
-            control: { type: 'boolean' },
-        },
+    target: {
+      control: { type: 'select' },
+      options: ['_blank', '_self', '_parent', '_top'],
     },
+    disabled: {
+      control: { type: 'boolean' },
+    },
+    external: {
+      control: { type: 'boolean' },
+    },
+  },
 }
 
 export default meta
 type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
-    args: {
-        href: '#',
+  args: {
+    href: '#',
+  },
+  render: (args) => ({
+    components: { Link },
+    setup() {
+      return { args }
     },
-    render: args => ({
-        components: { Link },
-        setup() {
-            return { args }
-        },
-        template: `
+    template: `
       <Link v-bind="args">
         Default Link
       </Link>
     `,
-    }),
+  }),
 }
 
 export const Variants: Story = {
-    render: () => ({
-        components: { Link },
-        template: `
+  render: () => ({
+    components: { Link },
+    template: `
       <div class="space-y-4">
         <div class="flex flex-wrap gap-4 items-center">
           <Link href="#" variant="default">Default Link</Link>
@@ -64,13 +64,13 @@ export const Variants: Story = {
         </div>
       </div>
     `,
-    }),
+  }),
 }
 
 export const WithIcons: Story = {
-    render: () => ({
-        components: { Link },
-        template: `
+  render: () => ({
+    components: { Link },
+    template: `
       <div class="space-y-4">
         <div class="flex flex-wrap gap-4 items-center">
           <Link href="#" variant="primary">
@@ -107,13 +107,13 @@ export const WithIcons: Story = {
         </div>
       </div>
     `,
-    }),
+  }),
 }
 
 export const ExternalLinks: Story = {
-    render: () => ({
-        components: { Link },
-        template: `
+  render: () => ({
+    components: { Link },
+    template: `
       <div class="space-y-4">
         <div class="flex flex-wrap gap-4 items-center">
           <Link href="https://github.com" external variant="primary">
@@ -154,13 +154,13 @@ export const ExternalLinks: Story = {
         </div>
       </div>
     `,
-    }),
+  }),
 }
 
 export const States: Story = {
-    render: () => ({
-        components: { Link },
-        template: `
+  render: () => ({
+    components: { Link },
+    template: `
       <div class="space-y-6">
         <div>
           <h3 class="text-lg font-bold mb-4">Normal State</h3>
@@ -185,13 +185,13 @@ export const States: Story = {
         </div>
       </div>
     `,
-    }),
+  }),
 }
 
 export const Navigation: Story = {
-    render: () => ({
-        components: { Link },
-        template: `
+  render: () => ({
+    components: { Link },
+    template: `
       <div class="bg-base-200 p-6 rounded-lg">
         <h3 class="text-xl font-bold mb-6">Website Navigation</h3>
         
@@ -266,13 +266,13 @@ export const Navigation: Story = {
         </div>
       </div>
     `,
-    }),
+  }),
 }
 
 export const InlineText: Story = {
-    render: () => ({
-        components: { Link },
-        template: `
+  render: () => ({
+    components: { Link },
+    template: `
       <div class="prose max-w-none">
         <h3>Article with Inline Links</h3>
         
@@ -296,5 +296,5 @@ export const InlineText: Story = {
         </p>
       </div>
     `,
-    }),
+  }),
 }

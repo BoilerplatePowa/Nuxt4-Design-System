@@ -2,48 +2,48 @@ import type { Meta, StoryObj } from '@storybook/vue3-vite'
 import Loading from '../../src/runtime/components/Feedback/Loading.vue'
 
 const meta: Meta<typeof Loading> = {
-    title: 'Feedback/Loading',
-    component: Loading,
-    parameters: {
-        layout: 'centered',
+  title: 'Feedback/Loading',
+  component: Loading,
+  parameters: {
+    layout: 'centered',
+  },
+  argTypes: {
+    variant: {
+      control: { type: 'select' },
+      options: ['spinner', 'dots', 'ring', 'ball', 'bars', 'infinity'],
     },
-    argTypes: {
-        variant: {
-            control: { type: 'select' },
-            options: ['spinner', 'dots', 'ring', 'ball', 'bars', 'infinity'],
-        },
-        size: {
-            control: { type: 'select' },
-            options: ['xs', 'sm', 'md', 'lg'],
-        },
-        text: {
-            control: { type: 'text' },
-        },
+    size: {
+      control: { type: 'select' },
+      options: ['xs', 'sm', 'md', 'lg'],
     },
+    text: {
+      control: { type: 'text' },
+    },
+  },
 }
 
 export default meta
 type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
-    args: {
-        variant: 'spinner',
-        size: 'md',
-    },
+  args: {
+    variant: 'spinner',
+    size: 'md',
+  },
 }
 
 export const WithText: Story = {
-    args: {
-        variant: 'spinner',
-        size: 'md',
-        text: 'Loading...',
-    },
+  args: {
+    variant: 'spinner',
+    size: 'md',
+    text: 'Loading...',
+  },
 }
 
 export const Variants: Story = {
-    render: () => ({
-        components: { Loading },
-        template: `
+  render: () => ({
+    components: { Loading },
+    template: `
       <div class="flex flex-wrap gap-8 items-center justify-center">
         <div class="text-center">
           <Loading variant="spinner" />
@@ -76,13 +76,13 @@ export const Variants: Story = {
         </div>
       </div>
     `,
-    }),
+  }),
 }
 
 export const Sizes: Story = {
-    render: () => ({
-        components: { Loading },
-        template: `
+  render: () => ({
+    components: { Loading },
+    template: `
       <div class="flex gap-8 items-center justify-center">
         <div class="text-center">
           <Loading variant="spinner" size="xs" />
@@ -105,13 +105,13 @@ export const Sizes: Story = {
         </div>
       </div>
     `,
-    }),
+  }),
 }
 
 export const InContext: Story = {
-    render: () => ({
-        components: { Loading },
-        template: `
+  render: () => ({
+    components: { Loading },
+    template: `
       <div class="space-y-8">
         <!-- Button Loading -->
         <div class="text-center">
@@ -155,5 +155,5 @@ export const InContext: Story = {
         </div>
       </div>
     `,
-    }),
+  }),
 }

@@ -14,6 +14,7 @@ git push origin main
 ```
 
 This triggers the GitHub Actions workflow that:
+
 - ✅ Builds Storybook
 - ✅ Deploys to GitHub Pages
 - ✅ Creates preview links for PRs
@@ -21,11 +22,13 @@ This triggers the GitHub Actions workflow that:
 ### **Manual Deployment**
 
 #### Using npm script:
+
 ```bash
 npm run storybook:deploy
 ```
 
 #### Using the custom script:
+
 ```bash
 npm run storybook:deploy:script
 ```
@@ -46,6 +49,7 @@ npm run storybook:deploy:script
 ### Required Permissions
 
 The workflow requires these permissions (already configured):
+
 - `contents: read`
 - `pages: write`
 - `id-token: write`
@@ -78,11 +82,13 @@ npm run storybook:deploy
 ## 🌐 Access Your Storybook
 
 ### Production URL
+
 ```
 https://boilerplatepowa.github.io/Nuxt4-Design-System/
 ```
 
 ### PR Preview URLs
+
 - Each PR gets a preview deployment
 - URL is commented on the PR automatically
 - Perfect for reviewing component changes
@@ -90,12 +96,14 @@ https://boilerplatepowa.github.io/Nuxt4-Design-System/
 ## 📊 What's Included
 
 ### **Component Documentation**
+
 - All your component stories
 - Interactive controls
 - Documentation
 - Accessibility testing
 
 ### **Features**
+
 - ✅ Responsive design
 - ✅ Dark/light theme support
 - ✅ Search functionality
@@ -132,15 +140,17 @@ export default {
 ### Common Issues
 
 1. **Build Failed**
+
    ```bash
    # Check Storybook configuration
    npm run storybook:preview
-   
+
    # Verify stories exist
    find stories -name "*.stories.ts"
    ```
 
 2. **Deployment Failed**
+
    ```bash
    # Check GitHub Pages settings
    # Repository Settings → Pages → Source: GitHub Actions
@@ -207,17 +217,17 @@ export default {
   parameters: {
     docs: {
       description: {
-        component: 'Primary button component with DaisyUI styling'
-      }
-    }
-  }
+        component: 'Primary button component with DaisyUI styling',
+      },
+    },
+  },
 }
 
 export const Default = {
   args: {
     variant: 'primary',
-    children: 'Click me'
-  }
+    children: 'Click me',
+  },
 }
 ```
 
@@ -265,4 +275,4 @@ export default {
 
 ---
 
-*Your Storybook is now automatically deployed to GitHub Pages with every push to main! 🚀*
+_Your Storybook is now automatically deployed to GitHub Pages with every push to main! 🚀_

@@ -6,354 +6,354 @@ import Input from '../../../src/runtime/components/DataInput/Input.vue'
 
 // Mock VeeValidate components
 vi.mock('vee-validate', () => ({
-    Form: {
-        name: 'Form',
-        template: '<form><slot /></form>',
-        props: ['validationSchema'],
-    },
-    Field: {
-        name: 'Field',
-        template:
+  Form: {
+    name: 'Form',
+    template: '<form><slot /></form>',
+    props: ['validationSchema'],
+  },
+  Field: {
+    name: 'Field',
+    template:
       '<div><slot :field="{ value: modelValue, onChange: handleChange }" :errorMessage="errorMessage" :meta="{ touched: true, valid: !errorMessage }" /></div>',
-        props: ['name', 'value'],
-        setup(props: any) {
-            const errorMessage = props.value === 'invalid' ? 'This field is invalid' : ''
-            return { errorMessage }
-        },
+    props: ['name', 'value'],
+    setup(props: any) {
+      const errorMessage = props.value === 'invalid' ? 'This field is invalid' : ''
+      return { errorMessage }
     },
+  },
 }))
 
 describe('Input', () => {
-    it('renders correctly with basic props', () => {
-        const wrapper = mount(Input, {
-            props: {
-                label: 'Test Input',
-                placeholder: 'Enter text',
-                modelValue: '',
-            },
-        })
-
-        expect(wrapper.find('label').text()).toContain('Test Input')
-        expect(wrapper.find('input').attributes('placeholder')).toBe('Enter text')
+  it('renders correctly with basic props', () => {
+    const wrapper = mount(Input, {
+      props: {
+        label: 'Test Input',
+        placeholder: 'Enter text',
+        modelValue: '',
+      },
     })
 
-    it('emits update:modelValue when input changes', async () => {
-        const wrapper = mount(Input, {
-            props: {
-                modelValue: '',
-            },
-        })
+    expect(wrapper.find('label').text()).toContain('Test Input')
+    expect(wrapper.find('input').attributes('placeholder')).toBe('Enter text')
+  })
 
-        const input = wrapper.find('input')
-        await input.setValue('test value')
-
-        expect(wrapper.emitted('update:modelValue')).toBeTruthy()
-        expect(wrapper.emitted('update:modelValue')?.[0]).toEqual(['test value'])
+  it('emits update:modelValue when input changes', async () => {
+    const wrapper = mount(Input, {
+      props: {
+        modelValue: '',
+      },
     })
 
-    it('applies correct size classes', () => {
-        const sizes = ['xs', 'sm', 'md', 'lg', 'xl'] as const
+    const input = wrapper.find('input')
+    await input.setValue('test value')
 
-        sizes.forEach((size) => {
-            const wrapper = mount(Input, {
-                props: { size },
-            })
+    expect(wrapper.emitted('update:modelValue')).toBeTruthy()
+    expect(wrapper.emitted('update:modelValue')?.[0]).toEqual(['test value'])
+  })
 
-            const input = wrapper.find('input')
-            if (size !== 'md') {
-                expect(input.classes()).toContain(`input-${size}`)
-            }
-        })
+  it('applies correct size classes', () => {
+    const sizes = ['xs', 'sm', 'md', 'lg', 'xl'] as const
+
+    sizes.forEach((size) => {
+      const wrapper = mount(Input, {
+        props: { size },
+      })
+
+      const input = wrapper.find('input')
+      if (size !== 'md') {
+        expect(input.classes()).toContain(`input-${size}`)
+      }
+    })
+  })
+
+  it('applies correct variant classes', () => {
+    const variants = [
+      'bordered',
+      'ghost',
+      'primary',
+      'secondary',
+      'accent',
+      'info',
+      'success',
+      'warning',
+      'error',
+      'neutral',
+    ] as const
+
+    variants.forEach((variant) => {
+      const wrapper = mount(Input, {
+        props: { variant },
+      })
+
+      const input = wrapper.find('input')
+      expect(input.classes()).toContain(`input-${variant}`)
+    })
+  })
+
+  it('renders left icon when provided', () => {
+    const wrapper = mount(Input, {
+      props: {
+        leftIcon: 'search',
+      },
     })
 
-    it('applies correct variant classes', () => {
-        const variants = [
-            'bordered',
-            'ghost',
-            'primary',
-            'secondary',
-            'accent',
-            'info',
-            'success',
-            'warning',
-            'error',
-            'neutral',
-        ] as const
+    expect(wrapper.findComponent({ name: 'Icon' }).exists()).toBe(true)
+    expect(wrapper.findComponent({ name: 'Icon' }).props('name')).toBe('search')
+  })
 
-        variants.forEach((variant) => {
-            const wrapper = mount(Input, {
-                props: { variant },
-            })
-
-            const input = wrapper.find('input')
-            expect(input.classes()).toContain(`input-${variant}`)
-        })
+  it('renders right icon when provided', () => {
+    const wrapper = mount(Input, {
+      props: {
+        rightIcon: 'eye',
+      },
     })
 
-    it('renders left icon when provided', () => {
-        const wrapper = mount(Input, {
-            props: {
-                leftIcon: 'search',
-            },
-        })
+    const icons = wrapper.findAllComponents({ name: 'Icon' })
+    expect(icons.length).toBeGreaterThan(0)
 
-        expect(wrapper.findComponent({ name: 'Icon' }).exists()).toBe(true)
-        expect(wrapper.findComponent({ name: 'Icon' }).props('name')).toBe('search')
+    // Find the right icon by checking if it has the right positioning class
+    const rightIcon = icons.find((icon) => icon.classes().includes('right-3'))
+    expect(rightIcon).toBeDefined()
+    expect(rightIcon?.props('name')).toBe('eye')
+  })
+
+  it('applies icon padding classes when icons are present', () => {
+    const wrapper = mount(Input, {
+      props: {
+        leftIcon: 'search',
+        rightIcon: 'eye',
+      },
     })
 
-    it('renders right icon when provided', () => {
-        const wrapper = mount(Input, {
-            props: {
-                rightIcon: 'eye',
-            },
-        })
+    const input = wrapper.find('input')
+    expect(input.classes()).toContain('pl-10')
+    expect(input.classes()).toContain('pr-10')
+  })
 
-        const icons = wrapper.findAllComponents({ name: 'Icon' })
-        expect(icons.length).toBeGreaterThan(0)
-
-        // Find the right icon by checking if it has the right positioning class
-        const rightIcon = icons.find(icon => icon.classes().includes('right-3'))
-        expect(rightIcon).toBeDefined()
-        expect(rightIcon?.props('name')).toBe('eye')
+  it('shows character count when enabled', () => {
+    const wrapper = mount(Input, {
+      props: {
+        modelValue: 'test',
+        maxlength: 10,
+        showCharCount: true,
+      },
     })
 
-    it('applies icon padding classes when icons are present', () => {
-        const wrapper = mount(Input, {
-            props: {
-                leftIcon: 'search',
-                rightIcon: 'eye',
-            },
-        })
+    expect(wrapper.text()).toContain('4/10')
+  })
 
-        const input = wrapper.find('input')
-        expect(input.classes()).toContain('pl-10')
-        expect(input.classes()).toContain('pr-10')
+  it('shows help text when provided', () => {
+    const wrapper = mount(Input, {
+      props: {
+        helpText: 'This is help text',
+      },
     })
 
-    it('shows character count when enabled', () => {
-        const wrapper = mount(Input, {
-            props: {
-                modelValue: 'test',
-                maxlength: 10,
-                showCharCount: true,
-            },
-        })
+    expect(wrapper.text()).toContain('This is help text')
+  })
 
-        expect(wrapper.text()).toContain('4/10')
+  it('shows required indicator when required', () => {
+    const wrapper = mount(Input, {
+      props: {
+        label: 'Test',
+        required: true,
+      },
     })
 
-    it('shows help text when provided', () => {
-        const wrapper = mount(Input, {
-            props: {
-                helpText: 'This is help text',
-            },
-        })
+    expect(wrapper.find('.text-error').exists()).toBe(true)
+  })
 
-        expect(wrapper.text()).toContain('This is help text')
+  it('applies disabled state correctly', () => {
+    const wrapper = mount(Input, {
+      props: {
+        disabled: true,
+      },
     })
 
-    it('shows required indicator when required', () => {
-        const wrapper = mount(Input, {
-            props: {
-                label: 'Test',
-                required: true,
-            },
-        })
+    const input = wrapper.find('input')
+    expect(input.attributes('disabled')).toBeDefined()
+  })
 
-        expect(wrapper.find('.text-error').exists()).toBe(true)
+  it('applies readonly state correctly', () => {
+    const wrapper = mount(Input, {
+      props: {
+        readonly: true,
+      },
     })
 
-    it('applies disabled state correctly', () => {
-        const wrapper = mount(Input, {
-            props: {
-                disabled: true,
-            },
-        })
+    const input = wrapper.find('input')
+    expect(input.attributes('readonly')).toBeDefined()
+  })
 
-        const input = wrapper.find('input')
-        expect(input.attributes('disabled')).toBeDefined()
+  it('emits focus and blur events', async () => {
+    const wrapper = mount(Input)
+
+    const input = wrapper.find('input')
+
+    await input.trigger('focus')
+    expect(wrapper.emitted('focus')).toBeTruthy()
+
+    await input.trigger('blur')
+    expect(wrapper.emitted('blur')).toBeTruthy()
+  })
+
+  it('emits change event', async () => {
+    const wrapper = mount(Input)
+
+    const input = wrapper.find('input')
+    await input.trigger('change')
+
+    expect(wrapper.emitted('change')).toBeTruthy()
+  })
+
+  it('generates unique IDs for multiple instances', () => {
+    const wrapper1 = mount(Input)
+    const wrapper2 = mount(Input)
+
+    const id1 = wrapper1.find('input').attributes('id')
+    const id2 = wrapper2.find('input').attributes('id')
+
+    expect(id1).not.toBe(id2)
+  })
+
+  it('applies correct input type', () => {
+    const types = ['text', 'email', 'password', 'url', 'tel', 'number', 'search'] as const
+
+    types.forEach((type) => {
+      const wrapper = mount(Input, {
+        props: { type },
+      })
+
+      const input = wrapper.find('input')
+      expect(input.attributes('type')).toBe(type)
+    })
+  })
+
+  it('applies maxlength attribute when provided', () => {
+    const wrapper = mount(Input, {
+      props: {
+        maxlength: 50,
+      },
     })
 
-    it('applies readonly state correctly', () => {
-        const wrapper = mount(Input, {
-            props: {
-                readonly: true,
-            },
-        })
+    const input = wrapper.find('input')
+    expect(input.attributes('maxlength')).toBe('50')
+  })
 
-        const input = wrapper.find('input')
-        expect(input.attributes('readonly')).toBeDefined()
+  it('applies aria-describedby when help text is present', () => {
+    const wrapper = mount(Input, {
+      props: {
+        helpText: 'Help text',
+      },
     })
 
-    it('emits focus and blur events', async () => {
-        const wrapper = mount(Input)
+    const input = wrapper.find('input')
+    const describedBy = input.attributes('aria-describedby')
+    expect(describedBy).toMatch(/input-\d+-[a-z0-9]+-help/)
+  })
 
-        const input = wrapper.find('input')
-
-        await input.trigger('focus')
-        expect(wrapper.emitted('focus')).toBeTruthy()
-
-        await input.trigger('blur')
-        expect(wrapper.emitted('blur')).toBeTruthy()
+  it('applies aria-invalid when validation fails', () => {
+    const wrapper = mount(Input, {
+      props: {
+        modelValue: 'invalid',
+        name: 'test',
+      },
     })
 
-    it('emits change event', async () => {
-        const wrapper = mount(Input)
+    const input = wrapper.find('input')
+    expect(input.attributes('aria-invalid')).toBe('true')
+  })
 
-        const input = wrapper.find('input')
-        await input.trigger('change')
-
-        expect(wrapper.emitted('change')).toBeTruthy()
+  it('works with VeeValidate Form and Field', async () => {
+    const schema = yup.object({
+      email: yup.string().email('Invalid email').required('Required'),
     })
 
-    it('generates unique IDs for multiple instances', () => {
-        const wrapper1 = mount(Input)
-        const wrapper2 = mount(Input)
-
-        const id1 = wrapper1.find('input').attributes('id')
-        const id2 = wrapper2.find('input').attributes('id')
-
-        expect(id1).not.toBe(id2)
-    })
-
-    it('applies correct input type', () => {
-        const types = ['text', 'email', 'password', 'url', 'tel', 'number', 'search'] as const
-
-        types.forEach((type) => {
-            const wrapper = mount(Input, {
-                props: { type },
-            })
-
-            const input = wrapper.find('input')
-            expect(input.attributes('type')).toBe(type)
-        })
-    })
-
-    it('applies maxlength attribute when provided', () => {
-        const wrapper = mount(Input, {
-            props: {
-                maxlength: 50,
-            },
-        })
-
-        const input = wrapper.find('input')
-        expect(input.attributes('maxlength')).toBe('50')
-    })
-
-    it('applies aria-describedby when help text is present', () => {
-        const wrapper = mount(Input, {
-            props: {
-                helpText: 'Help text',
-            },
-        })
-
-        const input = wrapper.find('input')
-        const describedBy = input.attributes('aria-describedby')
-        expect(describedBy).toMatch(/input-\d+-[a-z0-9]+-help/)
-    })
-
-    it('applies aria-invalid when validation fails', () => {
-        const wrapper = mount(Input, {
-            props: {
-                modelValue: 'invalid',
-                name: 'test',
-            },
-        })
-
-        const input = wrapper.find('input')
-        expect(input.attributes('aria-invalid')).toBe('true')
-    })
-
-    it('works with VeeValidate Form and Field', async () => {
-        const schema = yup.object({
-            email: yup.string().email('Invalid email').required('Required'),
-        })
-
-        const wrapper = mount({
-            components: { Input, Form, Field },
-            template: `
+    const wrapper = mount({
+      components: { Input, Form, Field },
+      template: `
         <Form :validation-schema="schema" v-slot="{ handleSubmit }">
           <form @submit="handleSubmit">
             <Input name="email" label="Email" type="email" />
           </form>
         </Form>
       `,
-            setup() {
-                return { schema }
-            },
-        })
-
-        expect(wrapper.findComponent(Form).exists()).toBe(true)
-        expect(wrapper.findComponent(Field).exists()).toBe(true)
+      setup() {
+        return { schema }
+      },
     })
 
-    it('passes rules prop to Field component', () => {
-        const rules = yup.string().required('This field is required')
+    expect(wrapper.findComponent(Form).exists()).toBe(true)
+    expect(wrapper.findComponent(Field).exists()).toBe(true)
+  })
 
-        const wrapper = mount(Input, {
-            props: {
-                name: 'test',
-                rules,
-            },
-        })
+  it('passes rules prop to Field component', () => {
+    const rules = yup.string().required('This field is required')
 
-        // Check that the Field component exists and the Input component receives rules
-        const field = wrapper.findComponent(Field)
-        expect(field.exists()).toBe(true)
-        expect(wrapper.props('rules')).toStrictEqual(rules)
+    const wrapper = mount(Input, {
+      props: {
+        name: 'test',
+        rules,
+      },
     })
 
-    it('works with inline validation rules', () => {
-        const emailRules = yup.string().email('Invalid email').required('Required')
+    // Check that the Field component exists and the Input component receives rules
+    const field = wrapper.findComponent(Field)
+    expect(field.exists()).toBe(true)
+    expect(wrapper.props('rules')).toStrictEqual(rules)
+  })
 
-        const wrapper = mount(Input, {
-            props: {
-                name: 'email',
-                type: 'email',
-                rules: emailRules,
-            },
-        })
+  it('works with inline validation rules', () => {
+    const emailRules = yup.string().email('Invalid email').required('Required')
 
-        // Check that the Field component exists and the Input component receives rules
-        const field = wrapper.findComponent(Field)
-        expect(field.exists()).toBe(true)
-        expect(wrapper.props('rules')).toStrictEqual(emailRules)
+    const wrapper = mount(Input, {
+      props: {
+        name: 'email',
+        type: 'email',
+        rules: emailRules,
+      },
     })
 
-    it('handles different icon sizes correctly', () => {
-        const sizeMap = {
-            xs: 'xs',
-            sm: 'sm',
-            md: 'md',
-            lg: 'lg',
-            xl: 'xl',
-        }
+    // Check that the Field component exists and the Input component receives rules
+    const field = wrapper.findComponent(Field)
+    expect(field.exists()).toBe(true)
+    expect(wrapper.props('rules')).toStrictEqual(emailRules)
+  })
 
-        Object.entries(sizeMap).forEach(([inputSize, iconSize]) => {
-            const wrapper = mount(Input, {
-                props: {
-                    size: inputSize as any,
-                    leftIcon: 'search',
-                },
-            })
+  it('handles different icon sizes correctly', () => {
+    const sizeMap = {
+      xs: 'xs',
+      sm: 'sm',
+      md: 'md',
+      lg: 'lg',
+      xl: 'xl',
+    }
 
-            const icon = wrapper.findComponent({ name: 'Icon' })
-            expect(icon.props('size')).toBe(iconSize)
-        })
+    Object.entries(sizeMap).forEach(([inputSize, iconSize]) => {
+      const wrapper = mount(Input, {
+        props: {
+          size: inputSize as any,
+          leftIcon: 'search',
+        },
+      })
+
+      const icon = wrapper.findComponent({ name: 'Icon' })
+      expect(icon.props('size')).toBe(iconSize)
+    })
+  })
+
+  it('updates character count when modelValue changes', async () => {
+    const wrapper = mount(Input, {
+      props: {
+        modelValue: 'initial',
+        maxlength: 10,
+        showCharCount: true,
+      },
     })
 
-    it('updates character count when modelValue changes', async () => {
-        const wrapper = mount(Input, {
-            props: {
-                modelValue: 'initial',
-                maxlength: 10,
-                showCharCount: true,
-            },
-        })
+    expect(wrapper.text()).toContain('7/10')
 
-        expect(wrapper.text()).toContain('7/10')
-
-        await wrapper.setProps({ modelValue: 'updated' })
-        expect(wrapper.text()).toContain('7/10')
-    })
+    await wrapper.setProps({ modelValue: 'updated' })
+    expect(wrapper.text()).toContain('7/10')
+  })
 })

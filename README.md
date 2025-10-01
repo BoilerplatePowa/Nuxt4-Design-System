@@ -14,11 +14,13 @@ A comprehensive Nuxt 4 module providing a complete design system based on DaisyU
 ## Quick Start
 
 ### Installation
+
 ```bash
 npm install @boilerplatepowa/nuxt4-design-system
 ```
 
 ### Basic Setup
+
 ```typescript
 // nuxt.config.ts
 export default defineNuxtConfig({
@@ -28,24 +30,23 @@ export default defineNuxtConfig({
     components: true,
     css: true,
     composables: true,
-    tailwind: true
-  }
+    tailwind: true,
+  },
 })
 ```
 
 ### Usage
+
 ```vue
 <template>
   <div>
-    <BpButton color="primary" size="lg" @click="handleClick">
-      Click me
-    </BpButton>
-    
+    <BpButton color="primary" size="lg" @click="handleClick"> Click me </BpButton>
+
     <BpCard>
       <div class="card-body">
         <h2 class="card-title">Welcome</h2>
         <p>Content goes here</p>
-        
+
         <div class="card-actions justify-end">
           <BpButton color="accent">Action</BpButton>
         </div>
@@ -58,12 +59,14 @@ export default defineNuxtConfig({
 ## Features
 
 ### 🎨 **Comprehensive Component Library**
+
 - **60+ Components** across 6 categories (Actions, DataDisplay, DataInput, Feedback, Layout, Navigation)
 - **Full DaisyUI 5.1.5 Integration** with proper class mapping
 - **TypeScript Support** with strict typing and IntelliSense
 - **Accessibility First** with WCAG 2.1 AA compliance
 
 ### 🧩 **Advanced Component System**
+
 - **Smart Class Generation** using component maps for consistent styling
 - **Flexible Props API** with color, style, size, and modifier combinations
 - **Icon Integration** with Lucide Vue Next icons
@@ -71,6 +74,7 @@ export default defineNuxtConfig({
 - **Form Validation** with VeeValidate and Yup schemas
 
 ### 📚 **Developer Experience**
+
 - **Storybook Documentation** with interactive examples
 - **Auto-import Support** with configurable component prefix
 - **Hot Reload** in development
@@ -79,6 +83,7 @@ export default defineNuxtConfig({
 ## Component Categories
 
 ### Actions (5 components)
+
 - **Button** - Advanced button with color/style/size variants, loading states, icons
 - **Dropdown** - Flexible dropdown menus with placement options
 - **Modal** - Accessible modal dialogs with backdrop and positioning
@@ -86,6 +91,7 @@ export default defineNuxtConfig({
 - **ThemeController** - Theme switching with persistence
 
 ### Data Display (17 components)
+
 - **Accordion** - Collapsible content sections
 - **Avatar** - User profile images with status indicators
 - **Badge** - Status indicators and labels
@@ -104,6 +110,7 @@ export default defineNuxtConfig({
 - **Timeline** - Event timeline displays
 
 ### Data Input (17 components)
+
 - **Calendar** - Date picker with range selection
 - **Checkbox** - Form checkboxes with validation
 - **Fieldset** - Form field grouping
@@ -122,6 +129,7 @@ export default defineNuxtConfig({
 - **Validator** - Form validation feedback
 
 ### Feedback (8 components)
+
 - **Alert** - Notification messages
 - **Loading** - Loading spinners and indicators
 - **Progress** - Progress bars
@@ -132,6 +140,7 @@ export default defineNuxtConfig({
 - **Tooltip** - Contextual help tooltips
 
 ### Layout (8 components)
+
 - **Divider** - Content separators
 - **Drawer** - Side navigation drawers
 - **Footer** - Page footers
@@ -142,6 +151,7 @@ export default defineNuxtConfig({
 - **Stack** - Layered content
 
 ### Navigation (7 components)
+
 - **Breadcrumbs** - Navigation breadcrumbs
 - **Dock** - Bottom navigation dock
 - **Link** - Styled navigation links
@@ -153,6 +163,7 @@ export default defineNuxtConfig({
 ## Button Component Examples
 
 ### Color Variants
+
 ```vue
 <template>
   <div class="flex gap-2">
@@ -169,6 +180,7 @@ export default defineNuxtConfig({
 ```
 
 ### Style Variants
+
 ```vue
 <template>
   <div class="flex gap-2">
@@ -182,6 +194,7 @@ export default defineNuxtConfig({
 ```
 
 ### Size Variants
+
 ```vue
 <template>
   <div class="flex gap-2 items-center">
@@ -195,33 +208,24 @@ export default defineNuxtConfig({
 ```
 
 ### Advanced Features
+
 ```vue
 <template>
   <div class="space-y-4">
     <!-- Loading state -->
-    <BpButton :loading="isLoading" color="primary">
-      Submit Form
-    </BpButton>
-    
+    <BpButton :loading="isLoading" color="primary"> Submit Form </BpButton>
+
     <!-- With icons -->
-    <BpButton icon-left="heart" icon-right="arrow-right" color="accent">
-      Like & Continue
-    </BpButton>
-    
+    <BpButton icon-left="heart" icon-right="arrow-right" color="accent"> Like & Continue </BpButton>
+
     <!-- Shape modifiers -->
     <BpButton circle icon-left="settings" color="neutral" />
     <BpButton square icon-left="plus" color="success" />
     <BpButton wide color="info">Wide Button</BpButton>
     <BpButton block color="warning">Block Button</BpButton>
-    
+
     <!-- Confirmation dialog -->
-    <BpButton 
-      confirm-action 
-      confirm-text="Are you sure?" 
-      color="error"
-    >
-      Delete Item
-    </BpButton>
+    <BpButton confirm-action confirm-text="Are you sure?" color="error"> Delete Item </BpButton>
   </div>
 </template>
 ```
@@ -229,15 +233,17 @@ export default defineNuxtConfig({
 ## Configuration
 
 ### Module Options
-| Option | Type | Default | Description |
-|-----|---|---|----|
-| `prefix` | `string` | `'Bp'` | Component prefix for auto-imports |
-| `components` | `boolean` | `true` | Enable component auto-imports |
-| `css` | `boolean` | `true` | Include default CSS styles |
-| `composables` | `boolean` | `true` | Enable composable auto-imports |
-| `tailwind` | `boolean` | `true` | Enable Tailwind CSS integration |
+
+| Option        | Type      | Default | Description                       |
+| ------------- | --------- | ------- | --------------------------------- |
+| `prefix`      | `string`  | `'Bp'`  | Component prefix for auto-imports |
+| `components`  | `boolean` | `true`  | Enable component auto-imports     |
+| `css`         | `boolean` | `true`  | Include default CSS styles        |
+| `composables` | `boolean` | `true`  | Enable composable auto-imports    |
+| `tailwind`    | `boolean` | `true`  | Enable Tailwind CSS integration   |
 
 ### Advanced Configuration
+
 ```typescript
 // nuxt.config.ts
 export default defineNuxtConfig({
@@ -247,56 +253,64 @@ export default defineNuxtConfig({
     components: true,
     css: true,
     composables: true,
-    tailwind: true
-  }
+    tailwind: true,
+  },
 })
 ```
 
 ## Development
 
 ### Storybook
+
 ```bash
 npm run storybook
 ```
+
 Interactive component documentation with live examples and controls.
 
 ### Testing
+
 ```bash
 npm run test
 npm run test:watch
 ```
+
 Comprehensive test suite with Vitest and Vue Test Utils.
 
 ### Development Server
+
 ```bash
 npm run dev
 ```
+
 Hot reload development server with playground.
 
 ## TypeScript Support
 
 ### Component Props
+
 All components include full TypeScript definitions:
 
 ```typescript
 import type { BtnColor, BtnStyle, BtnSize } from '@boilerplatepowa/nuxt4-design-system'
 
 interface ButtonProps {
-  color?: BtnColor        // 'primary' | 'secondary' | 'accent' | 'neutral' | 'info' | 'success' | 'warning' | 'error'
-  btnStyle?: BtnStyle     // 'outline' | 'dash' | 'soft' | 'ghost' | 'link'
-  size?: BtnSize          // 'xs' | 'sm' | 'md' | 'lg' | 'xl'
-  wide?: boolean          // btn-wide modifier
-  block?: boolean         // btn-block modifier
-  square?: boolean        // btn-square modifier
-  circle?: boolean        // btn-circle modifier
-  active?: boolean        // btn-active behavior
-  disabled?: boolean      // disabled state
-  loading?: boolean       // loading state
+  color?: BtnColor // 'primary' | 'secondary' | 'accent' | 'neutral' | 'info' | 'success' | 'warning' | 'error'
+  btnStyle?: BtnStyle // 'outline' | 'dash' | 'soft' | 'ghost' | 'link'
+  size?: BtnSize // 'xs' | 'sm' | 'md' | 'lg' | 'xl'
+  wide?: boolean // btn-wide modifier
+  block?: boolean // btn-block modifier
+  square?: boolean // btn-square modifier
+  circle?: boolean // btn-circle modifier
+  active?: boolean // btn-active behavior
+  disabled?: boolean // disabled state
+  loading?: boolean // loading state
   // ... more props
 }
 ```
 
 ### Class Generation
+
 Smart class generation using component maps:
 
 ```typescript
@@ -306,7 +320,7 @@ const classes = generateBtnClasses({
   color: 'primary',
   style: 'outline',
   size: 'lg',
-  modifiers: ['wide']
+  modifiers: ['wide'],
 })
 // Returns: 'btn btn-primary btn-outline btn-lg btn-wide'
 ```
@@ -314,6 +328,7 @@ const classes = generateBtnClasses({
 ## Migration Guide
 
 ### From DaisyUI Direct Usage
+
 ```vue
 <!-- Before -->
 <button class="btn btn-primary btn-lg">Click</button>
@@ -323,6 +338,7 @@ const classes = generateBtnClasses({
 ```
 
 ### From Other Design Systems
+
 ```vue
 <!-- Material UI -->
 <Button variant="contained" size="large">Click</Button>
@@ -337,6 +353,7 @@ const classes = generateBtnClasses({
 ## Project Status
 
 ### ✅ **Completed Features**
+
 - 60+ Vue components with full DaisyUI integration
 - Comprehensive TypeScript support
 - Storybook documentation with interactive examples
@@ -348,6 +365,7 @@ const classes = generateBtnClasses({
 - Accessibility features (WCAG 2.1 AA)
 
 ### 🚧 **In Development**
+
 - Theme management system
 - Advanced composables
 - Performance monitoring
@@ -355,6 +373,7 @@ const classes = generateBtnClasses({
 - Internationalization support
 
 ### 📋 **Roadmap**
+
 - [ ] Theme switching with persistence
 - [ ] Advanced form validation
 - [ ] Performance monitoring
@@ -376,6 +395,7 @@ We welcome contributions! Please follow these guidelines:
 6. **Submit a pull request**
 
 ### Development Setup
+
 ```bash
 # Clone the repository
 git clone https://github.com/BoilerplatePowa/Nuxt4-Design-System.git
@@ -395,6 +415,7 @@ npm run storybook
 ```
 
 ### Code Style
+
 - Use TypeScript for all new code
 - Follow Vue 3 Composition API patterns
 - Use DaisyUI class naming conventions

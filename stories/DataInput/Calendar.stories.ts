@@ -3,97 +3,97 @@ import { ref } from 'vue'
 import Calendar from '../../src/runtime/components/DataInput/Calendar.vue'
 
 const meta: Meta<typeof Calendar> = {
-    title: 'Data Input/Calendar',
-    component: Calendar,
-    parameters: {
-        layout: 'centered',
-        docs: {
-            description: {
-                component:
+  title: 'Data Input/Calendar',
+  component: Calendar,
+  parameters: {
+    layout: 'centered',
+    docs: {
+      description: {
+        component:
           'A comprehensive calendar component with date selection, range selection, time picker, and full accessibility support. Built with DaisyUI and Tailwind CSS. Uses Vue 3.4 defineModel() for optimal v-model handling.',
-            },
-        },
+      },
     },
-    argTypes: {
-        mode: {
-            control: 'select',
-            options: ['input', 'inline'],
-            description: 'Display mode - input with popover or inline calendar',
-        },
-        range: {
-            control: 'boolean',
-            description: 'Enable date range selection',
-        },
-        size: {
-            control: 'select',
-            options: ['sm', 'md', 'lg'],
-            description: 'Size of the calendar component',
-        },
-        variant: {
-            control: 'select',
-            options: ['default', 'bordered', 'filled'],
-            description: 'Visual variant of the component',
-        },
-        showTime: {
-            control: 'boolean',
-            description: 'Show time picker in addition to date selection',
-        },
-        allowMonthSelect: {
-            control: 'boolean',
-            description: 'Show month selector dropdown',
-        },
-        allowYearSelect: {
-            control: 'boolean',
-            description: 'Show year selector dropdown',
-        },
-        disabled: {
-            control: 'boolean',
-            description: 'Disable the calendar component',
-        },
-        readonly: {
-            control: 'boolean',
-            description: 'Make the calendar read-only',
-        },
-        placeholder: {
-            control: 'text',
-            description: 'Placeholder text for input mode',
-        },
-        locale: {
-            control: 'text',
-            description: 'Locale for date formatting',
-        },
-        timeStep: {
-            control: 'number',
-            description: 'Time step in minutes for time picker',
-        },
+  },
+  argTypes: {
+    mode: {
+      control: 'select',
+      options: ['input', 'inline'],
+      description: 'Display mode - input with popover or inline calendar',
     },
+    range: {
+      control: 'boolean',
+      description: 'Enable date range selection',
+    },
+    size: {
+      control: 'select',
+      options: ['sm', 'md', 'lg'],
+      description: 'Size of the calendar component',
+    },
+    variant: {
+      control: 'select',
+      options: ['default', 'bordered', 'filled'],
+      description: 'Visual variant of the component',
+    },
+    showTime: {
+      control: 'boolean',
+      description: 'Show time picker in addition to date selection',
+    },
+    allowMonthSelect: {
+      control: 'boolean',
+      description: 'Show month selector dropdown',
+    },
+    allowYearSelect: {
+      control: 'boolean',
+      description: 'Show year selector dropdown',
+    },
+    disabled: {
+      control: 'boolean',
+      description: 'Disable the calendar component',
+    },
+    readonly: {
+      control: 'boolean',
+      description: 'Make the calendar read-only',
+    },
+    placeholder: {
+      control: 'text',
+      description: 'Placeholder text for input mode',
+    },
+    locale: {
+      control: 'text',
+      description: 'Locale for date formatting',
+    },
+    timeStep: {
+      control: 'number',
+      description: 'Time step in minutes for time picker',
+    },
+  },
 }
 
 export default meta
 type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
-    args: {
-        mode: 'input',
-        size: 'md',
-        variant: 'default',
-        placeholder: 'Select a date...',
-        locale: 'fr-FR',
-        allowMonthSelect: true,
-        allowYearSelect: true,
+  args: {
+    mode: 'input',
+    size: 'md',
+    variant: 'default',
+    placeholder: 'Select a date...',
+    locale: 'fr-FR',
+    allowMonthSelect: true,
+    allowYearSelect: true,
+  },
+  render: (args) => ({
+    components: { Calendar },
+    setup() {
+      const selectedDate = ref<Date | null>(null)
+
+      const handleSelect = (date: Date) => {
+        console.log('Date selected:', date)
+      }
+
+      return { args, selectedDate, handleSelect }
     },
-    render: args => ({
-        components: { Calendar },
-        setup() {
-            const selectedDate = ref<Date | null>(null)
-
-            const handleSelect = (date: Date) => {
-                console.log('Date selected:', date)
-            }
-
-            return { args, selectedDate, handleSelect }
-        },
-        template: `
+    template: `
       <div class="space-y-4">
         <Calendar 
           v-bind="args" 
@@ -110,25 +110,25 @@ export const Default: Story = {
         </div>
       </div>
     `,
-    }),
+  }),
 }
 
 export const Inline: Story = {
-    args: {
-        mode: 'inline',
-        size: 'md',
-        variant: 'bordered',
-        allowMonthSelect: true,
-        allowYearSelect: true,
-    },
-    render: args => ({
-        components: { Calendar },
-        setup() {
-            const selectedDate = ref<Date | null>(null)
+  args: {
+    mode: 'inline',
+    size: 'md',
+    variant: 'bordered',
+    allowMonthSelect: true,
+    allowYearSelect: true,
+  },
+  render: (args) => ({
+    components: { Calendar },
+    setup() {
+      const selectedDate = ref<Date | null>(null)
 
-            return { args, selectedDate }
-        },
-        template: `
+      return { args, selectedDate }
+    },
+    template: `
       <div class="space-y-4">
         <Calendar v-bind="args" v-model="selectedDate" />
         <div class="text-sm text-center opacity-70">
@@ -138,27 +138,27 @@ export const Inline: Story = {
         </div>
       </div>
     `,
-    }),
+  }),
 }
 
 export const DateRange: Story = {
-    args: {
-        mode: 'input',
-        range: true,
-        size: 'md',
-        variant: 'bordered',
-        placeholder: 'Select date range...',
-        allowMonthSelect: true,
-        allowYearSelect: true,
-    },
-    render: args => ({
-        components: { Calendar },
-        setup() {
-            const selectedRange = ref<Date[] | null>(null)
+  args: {
+    mode: 'input',
+    range: true,
+    size: 'md',
+    variant: 'bordered',
+    placeholder: 'Select date range...',
+    allowMonthSelect: true,
+    allowYearSelect: true,
+  },
+  render: (args) => ({
+    components: { Calendar },
+    setup() {
+      const selectedRange = ref<Date[] | null>(null)
 
-            return { args, selectedRange }
-        },
-        template: `
+      return { args, selectedRange }
+    },
+    template: `
       <div class="space-y-4">
         <Calendar v-bind="args" v-model="selectedRange" />
         <div v-if="selectedRange && selectedRange.length === 2" class="text-sm text-center opacity-70">
@@ -171,28 +171,28 @@ export const DateRange: Story = {
         </div>
       </div>
     `,
-    }),
+  }),
 }
 
 export const WithTimePicker: Story = {
-    args: {
-        mode: 'input',
-        showTime: true,
-        timeStep: 15,
-        size: 'md',
-        variant: 'bordered',
-        placeholder: 'Select date and time...',
-        allowMonthSelect: true,
-        allowYearSelect: true,
-    },
-    render: args => ({
-        components: { Calendar },
-        setup() {
-            const selectedDateTime = ref<Date | null>(null)
+  args: {
+    mode: 'input',
+    showTime: true,
+    timeStep: 15,
+    size: 'md',
+    variant: 'bordered',
+    placeholder: 'Select date and time...',
+    allowMonthSelect: true,
+    allowYearSelect: true,
+  },
+  render: (args) => ({
+    components: { Calendar },
+    setup() {
+      const selectedDateTime = ref<Date | null>(null)
 
-            return { args, selectedDateTime }
-        },
-        template: `
+      return { args, selectedDateTime }
+    },
+    template: `
       <div class="space-y-4">
         <Calendar v-bind="args" v-model="selectedDateTime" />
         <div v-if="selectedDateTime" class="text-sm text-center opacity-70">
@@ -205,22 +205,22 @@ export const WithTimePicker: Story = {
         </div>
       </div>
     `,
-    }),
+  }),
 }
 
 export const DifferentSizes: Story = {
-    render: () => ({
-        components: { Calendar },
-        setup() {
-            const dates = ref({
-                small: null,
-                medium: null,
-                large: null,
-            })
+  render: () => ({
+    components: { Calendar },
+    setup() {
+      const dates = ref({
+        small: null,
+        medium: null,
+        large: null,
+      })
 
-            return { dates }
-        },
-        template: `
+      return { dates }
+    },
+    template: `
       <div class="space-y-6">
         <div class="text-center">
           <h3 class="font-semibold mb-2">Small Size</h3>
@@ -256,22 +256,22 @@ export const DifferentSizes: Story = {
         </div>
       </div>
     `,
-    }),
+  }),
 }
 
 export const Variants: Story = {
-    render: () => ({
-        components: { Calendar },
-        setup() {
-            const dates = ref({
-                default: null,
-                bordered: null,
-                filled: null,
-            })
+  render: () => ({
+    components: { Calendar },
+    setup() {
+      const dates = ref({
+        default: null,
+        bordered: null,
+        filled: null,
+      })
 
-            return { dates }
-        },
-        template: `
+      return { dates }
+    },
+    template: `
       <div class="space-y-6">
         <div class="text-center">
           <h3 class="font-semibold mb-2">Default Variant</h3>
@@ -304,33 +304,33 @@ export const Variants: Story = {
         </div>
       </div>
     `,
-    }),
+  }),
 }
 
 export const WithConstraints: Story = {
-    args: {
-        mode: 'input',
-        size: 'md',
-        variant: 'bordered',
-        placeholder: 'Select date...',
-        minDate: new Date('2024-01-01'),
-        maxDate: new Date('2024-12-31'),
-        disabledDates: [
-            new Date('2024-01-01'), // New Year
-            new Date('2024-07-04'), // Independence Day
-            new Date('2024-12-25'), // Christmas
-        ],
-        allowMonthSelect: true,
-        allowYearSelect: true,
-    },
-    render: args => ({
-        components: { Calendar },
-        setup() {
-            const selectedDate = ref<Date | null>(null)
+  args: {
+    mode: 'input',
+    size: 'md',
+    variant: 'bordered',
+    placeholder: 'Select date...',
+    minDate: new Date('2024-01-01'),
+    maxDate: new Date('2024-12-31'),
+    disabledDates: [
+      new Date('2024-01-01'), // New Year
+      new Date('2024-07-04'), // Independence Day
+      new Date('2024-12-25'), // Christmas
+    ],
+    allowMonthSelect: true,
+    allowYearSelect: true,
+  },
+  render: (args) => ({
+    components: { Calendar },
+    setup() {
+      const selectedDate = ref<Date | null>(null)
 
-            return { args, selectedDate }
-        },
-        template: `
+      return { args, selectedDate }
+    },
+    template: `
       <div class="space-y-4">
         <Calendar v-bind="args" v-model="selectedDate" />
         <div class="text-sm text-center opacity-70">
@@ -340,38 +340,38 @@ export const WithConstraints: Story = {
         </div>
       </div>
     `,
-    }),
+  }),
 }
 
 export const Accessibility: Story = {
-    args: {
-        mode: 'input',
-        size: 'md',
-        variant: 'bordered',
-        placeholder: 'Select date...',
-        allowMonthSelect: true,
-        allowYearSelect: true,
+  args: {
+    mode: 'input',
+    size: 'md',
+    variant: 'bordered',
+    placeholder: 'Select date...',
+    allowMonthSelect: true,
+    allowYearSelect: true,
+  },
+  render: (args) => ({
+    components: { Calendar },
+    setup() {
+      const selectedDate = ref<Date | null>(null)
+
+      const handleFocus = (event: FocusEvent) => {
+        console.log('Calendar focused')
+      }
+
+      const handleBlur = (event: FocusEvent) => {
+        console.log('Calendar blurred')
+      }
+
+      const handleClose = () => {
+        console.log('Calendar closed')
+      }
+
+      return { args, selectedDate, handleFocus, handleBlur, handleClose }
     },
-    render: args => ({
-        components: { Calendar },
-        setup() {
-            const selectedDate = ref<Date | null>(null)
-
-            const handleFocus = (event: FocusEvent) => {
-                console.log('Calendar focused')
-            }
-
-            const handleBlur = (event: FocusEvent) => {
-                console.log('Calendar blurred')
-            }
-
-            const handleClose = () => {
-                console.log('Calendar closed')
-            }
-
-            return { args, selectedDate, handleFocus, handleBlur, handleClose }
-        },
-        template: `
+    template: `
       <div class="space-y-4">
         <Calendar 
           v-bind="args" 
@@ -388,22 +388,22 @@ export const Accessibility: Story = {
         </div>
       </div>
     `,
-    }),
+  }),
 }
 
 export const Localization: Story = {
-    render: () => ({
-        components: { Calendar },
-        setup() {
-            const dates = ref({
-                english: null,
-                french: null,
-                spanish: null,
-            })
+  render: () => ({
+    components: { Calendar },
+    setup() {
+      const dates = ref({
+        english: null,
+        french: null,
+        spanish: null,
+      })
 
-            return { dates }
-        },
-        template: `
+      return { dates }
+    },
+    template: `
       <div class="space-y-6">
         <div class="text-center">
           <h3 class="font-semibold mb-2">English (en-US)</h3>
@@ -439,24 +439,24 @@ export const Localization: Story = {
         </div>
       </div>
     `,
-    }),
+  }),
 }
 
 export const Vue34DefineModel: Story = {
-    render: () => ({
-        components: { Calendar },
-        setup() {
-            const date1 = ref<Date | null>(null)
-            const date2 = ref<Date | null>(null)
-            const date3 = ref<Date | null>(null)
+  render: () => ({
+    components: { Calendar },
+    setup() {
+      const date1 = ref<Date | null>(null)
+      const date2 = ref<Date | null>(null)
+      const date3 = ref<Date | null>(null)
 
-            const handleDateChange = (value: Date | null, label: string) => {
-                console.log(`${label} changed to:`, value)
-            }
+      const handleDateChange = (value: Date | null, label: string) => {
+        console.log(`${label} changed to:`, value)
+      }
 
-            return { date1, date2, date3, handleDateChange }
-        },
-        template: `
+      return { date1, date2, date3, handleDateChange }
+    },
+    template: `
       <div class="space-y-6">
         <div class="text-center">
           <h3 class="font-semibold mb-2">Vue 3.4 defineModel() Demo</h3>
@@ -512,23 +512,23 @@ export const Vue34DefineModel: Story = {
         </div>
       </div>
     `,
-    }),
+  }),
 }
 
 export const States: Story = {
-    render: () => ({
-        components: { Calendar },
-        setup() {
-            const dates = ref({
-                normal: null,
-                disabled: null,
-                readonly: null,
-                error: null,
-            })
+  render: () => ({
+    components: { Calendar },
+    setup() {
+      const dates = ref({
+        normal: null,
+        disabled: null,
+        readonly: null,
+        error: null,
+      })
 
-            return { dates }
-        },
-        template: `
+      return { dates }
+    },
+    template: `
       <div class="space-y-6">
         <div class="text-center">
           <h3 class="font-semibold mb-2">Normal State</h3>
@@ -574,5 +574,5 @@ export const States: Story = {
         </div>
       </div>
     `,
-    }),
+  }),
 }

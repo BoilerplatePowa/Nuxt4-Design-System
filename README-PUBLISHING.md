@@ -15,6 +15,7 @@ git push origin v1.0.0
 ```
 
 This will trigger the GitHub Actions workflow that:
+
 - ✅ Runs all tests
 - ✅ Builds the package
 - ✅ Publishes to GitHub Packages
@@ -23,11 +24,13 @@ This will trigger the GitHub Actions workflow that:
 ### 2. **Manual Publishing**
 
 #### Using npm script:
+
 ```bash
 npm run publish:github
 ```
 
 #### Using the custom script:
+
 ```bash
 npm run publish:github:script
 ```
@@ -115,12 +118,14 @@ npm install @boilerplatepowa/nuxt4-design-system
 ### Common Issues
 
 1. **Authentication Failed**
+
    ```bash
    # Ensure GITHUB_TOKEN is available in workflow
    # Check repository secrets
    ```
 
 2. **Package Already Exists**
+
    ```bash
    # Update version in package.json
    npm version patch
@@ -149,6 +154,7 @@ npm publish --dry-run
 ## 📊 Package Analytics
 
 View package statistics at:
+
 - **GitHub**: Repository → Packages tab
 - **Downloads**: Package page → Download statistics
 - **Versions**: Package page → Version history
@@ -177,6 +183,7 @@ npm version major
 ## 📝 Release Notes
 
 The automated release includes:
+
 - ✅ All quality gates passed
 - ✅ Package published to GitHub Packages
 - ✅ Automated changelog generation
@@ -191,4 +198,4 @@ The automated release includes:
 
 ---
 
-*This publishing setup is optimized for GitHub Packages and provides a streamlined workflow for your Nuxt Design System.*
+_This publishing setup is optimized for GitHub Packages and provides a streamlined workflow for your Nuxt Design System._

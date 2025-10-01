@@ -2,66 +2,66 @@ import type { Meta, StoryObj } from '@storybook/vue3-vite'
 import Divider from '../../src/runtime/components/Layout/Divider.vue'
 
 const meta: Meta<typeof Divider> = {
-    title: 'Layout/Divider',
-    component: Divider,
-    parameters: {
-        layout: 'padded',
+  title: 'Layout/Divider',
+  component: Divider,
+  parameters: {
+    layout: 'padded',
+  },
+  argTypes: {
+    orientation: {
+      control: { type: 'select' },
+      options: ['horizontal', 'vertical'],
     },
-    argTypes: {
-        orientation: {
-            control: { type: 'select' },
-            options: ['horizontal', 'vertical'],
-        },
-        variant: {
-            control: { type: 'select' },
-            options: ['neutral', 'primary', 'secondary', 'accent', 'success', 'warning', 'info', 'error'],
-        },
-        position: {
-            control: { type: 'select' },
-            options: ['start', 'center', 'end'],
-        },
+    variant: {
+      control: { type: 'select' },
+      options: ['neutral', 'primary', 'secondary', 'accent', 'success', 'warning', 'info', 'error'],
     },
+    position: {
+      control: { type: 'select' },
+      options: ['start', 'center', 'end'],
+    },
+  },
 }
 
 export default meta
 type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
-    render: () => ({
-        components: { Divider },
-        template: `
+  render: () => ({
+    components: { Divider },
+    template: `
       <div>
         <p>Content above the divider</p>
         <Divider />
         <p>Content below the divider</p>
       </div>
     `,
-    }),
+  }),
 }
 
 export const WithText: Story = {
-    args: {
-        text: 'OR',
+  args: {
+    text: 'OR',
+  },
+  render: (args) => ({
+    components: { Divider },
+    setup() {
+      return { args }
     },
-    render: args => ({
-        components: { Divider },
-        setup() {
-            return { args }
-        },
-        template: `
+    template: `
       <div>
         <p>Login with your account</p>
         <Divider v-bind="args" />
         <p>Create a new account</p>
       </div>
     `,
-    }),
+  }),
 }
 
 export const Vertical: Story = {
-    render: () => ({
-        components: { Divider },
-        template: `
+  render: () => ({
+    components: { Divider },
+    template: `
       <div class="flex items-center h-32">
         <div class="flex-1 text-center">
           <p>Left content</p>
@@ -72,13 +72,13 @@ export const Vertical: Story = {
         </div>
       </div>
     `,
-    }),
+  }),
 }
 
 export const VerticalWithText: Story = {
-    render: () => ({
-        components: { Divider },
-        template: `
+  render: () => ({
+    components: { Divider },
+    template: `
       <div class="flex items-center h-32">
         <div class="flex-1 text-center">
           <p>Section A</p>
@@ -89,13 +89,13 @@ export const VerticalWithText: Story = {
         </div>
       </div>
     `,
-    }),
+  }),
 }
 
 export const Positions: Story = {
-    render: () => ({
-        components: { Divider },
-        template: `
+  render: () => ({
+    components: { Divider },
+    template: `
       <div class="space-y-8">
         <div>
           <p>Content above</p>
@@ -116,13 +116,13 @@ export const Positions: Story = {
         </div>
       </div>
     `,
-    }),
+  }),
 }
 
 export const Variants: Story = {
-    render: () => ({
-        components: { Divider },
-        template: `
+  render: () => ({
+    components: { Divider },
+    template: `
       <div class="space-y-6">
         <div>
           <Divider text="Primary" variant="primary" />
@@ -147,13 +147,13 @@ export const Variants: Story = {
         </div>
       </div>
     `,
-    }),
+  }),
 }
 
 export const CustomContent: Story = {
-    render: () => ({
-        components: { Divider },
-        template: `
+  render: () => ({
+    components: { Divider },
+    template: `
       <div>
         <p>Custom content in divider</p>
         <Divider>
@@ -162,5 +162,5 @@ export const CustomContent: Story = {
         <p>More content below</p>
       </div>
     `,
-    }),
+  }),
 }

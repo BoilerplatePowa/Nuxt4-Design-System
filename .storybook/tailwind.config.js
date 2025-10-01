@@ -5,9 +5,7 @@ module.exports = {
     '../stories/**/*.{vue,js,ts,jsx,tsx}',
     './**/*.{vue,js,ts,jsx,tsx}',
   ],
-  plugins: [
-    require('daisyui'),
-  ],
+  plugins: [require('daisyui')],
   daisyui: {
     themes: [
       'light',

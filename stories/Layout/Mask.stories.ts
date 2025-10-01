@@ -2,68 +2,68 @@ import type { Meta, StoryObj } from '@storybook/vue3-vite'
 import Mask from '../../src/runtime/components/Layout/Mask.vue'
 
 const meta: Meta<typeof Mask> = {
-    title: 'Layout/Mask',
-    component: Mask,
-    parameters: {
-        layout: 'centered',
+  title: 'Layout/Mask',
+  component: Mask,
+  parameters: {
+    layout: 'centered',
+  },
+  argTypes: {
+    variant: {
+      control: { type: 'select' },
+      options: [
+        'squircle',
+        'heart',
+        'hexagon',
+        'hexagon-2',
+        'decagon',
+        'pentagon',
+        'diamond',
+        'square',
+        'circle',
+        'parallelogram',
+        'parallelogram-2',
+        'parallelogram-3',
+        'parallelogram-4',
+        'star',
+        'star-2',
+        'triangle',
+        'triangle-2',
+        'triangle-3',
+        'triangle-4',
+      ],
     },
-    argTypes: {
-        variant: {
-            control: { type: 'select' },
-            options: [
-                'squircle',
-                'heart',
-                'hexagon',
-                'hexagon-2',
-                'decagon',
-                'pentagon',
-                'diamond',
-                'square',
-                'circle',
-                'parallelogram',
-                'parallelogram-2',
-                'parallelogram-3',
-                'parallelogram-4',
-                'star',
-                'star-2',
-                'triangle',
-                'triangle-2',
-                'triangle-3',
-                'triangle-4',
-            ],
-        },
-        size: {
-            control: { type: 'select' },
-            options: ['xs', 'sm', 'md', 'lg', 'xl'],
-        },
+    size: {
+      control: { type: 'select' },
+      options: ['xs', 'sm', 'md', 'lg', 'xl'],
     },
+  },
 }
 
 export default meta
 type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
-    args: {
-        variant: 'squircle',
-        size: 'md',
+  args: {
+    variant: 'squircle',
+    size: 'md',
+  },
+  render: (args) => ({
+    components: { Mask },
+    setup() {
+      return { args }
     },
-    render: args => ({
-        components: { Mask },
-        setup() {
-            return { args }
-        },
-        template: `
+    template: `
       <Mask v-bind="args">
         <img src="https://via.placeholder.com/200x200/3B82F6/FFFFFF?text=Image" alt="Masked Image" />
       </Mask>
     `,
-    }),
+  }),
 }
 
 export const BasicShapes: Story = {
-    render: () => ({
-        components: { Mask },
-        template: `
+  render: () => ({
+    components: { Mask },
+    template: `
       <div class="grid grid-cols-3 gap-8 items-center justify-items-center">
         <div class="text-center">
           <Mask variant="circle">
@@ -108,13 +108,13 @@ export const BasicShapes: Story = {
         </div>
       </div>
     `,
-    }),
+  }),
 }
 
 export const Stars: Story = {
-    render: () => ({
-        components: { Mask },
-        template: `
+  render: () => ({
+    components: { Mask },
+    template: `
       <div class="flex gap-8 items-center justify-center">
         <div class="text-center">
           <Mask variant="star">
@@ -138,13 +138,13 @@ export const Stars: Story = {
         </div>
       </div>
     `,
-    }),
+  }),
 }
 
 export const Triangles: Story = {
-    render: () => ({
-        components: { Mask },
-        template: `
+  render: () => ({
+    components: { Mask },
+    template: `
       <div class="grid grid-cols-2 md:grid-cols-4 gap-8 items-center justify-items-center">
         <div class="text-center">
           <Mask variant="triangle">
@@ -175,13 +175,13 @@ export const Triangles: Story = {
         </div>
       </div>
     `,
-    }),
+  }),
 }
 
 export const Parallelograms: Story = {
-    render: () => ({
-        components: { Mask },
-        template: `
+  render: () => ({
+    components: { Mask },
+    template: `
       <div class="grid grid-cols-2 md:grid-cols-4 gap-8 items-center justify-items-center">
         <div class="text-center">
           <Mask variant="parallelogram">
@@ -212,13 +212,13 @@ export const Parallelograms: Story = {
         </div>
       </div>
     `,
-    }),
+  }),
 }
 
 export const Sizes: Story = {
-    render: () => ({
-        components: { Mask },
-        template: `
+  render: () => ({
+    components: { Mask },
+    template: `
       <div class="flex flex-wrap gap-8 items-center justify-center">
         <div class="text-center">
           <Mask variant="circle" size="xs">
@@ -256,13 +256,13 @@ export const Sizes: Story = {
         </div>
       </div>
     `,
-    }),
+  }),
 }
 
 export const ProfileGallery: Story = {
-    render: () => ({
-        components: { Mask },
-        template: `
+  render: () => ({
+    components: { Mask },
+    template: `
       <div class="bg-base-200 p-8 rounded-lg">
         <h3 class="text-xl font-bold mb-6 text-center">Team Gallery</h3>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-6 justify-items-center">
@@ -300,13 +300,13 @@ export const ProfileGallery: Story = {
         </div>
       </div>
     `,
-    }),
+  }),
 }
 
 export const CreativeShowcase: Story = {
-    render: () => ({
-        components: { Mask },
-        template: `
+  render: () => ({
+    components: { Mask },
+    template: `
       <div class="space-y-8">
         <div class="text-center">
           <h3 class="text-xl font-bold mb-6">Creative Image Masks</h3>
@@ -339,5 +339,5 @@ export const CreativeShowcase: Story = {
         </div>
       </div>
     `,
-    }),
+  }),
 }

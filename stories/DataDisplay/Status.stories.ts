@@ -2,66 +2,66 @@ import type { Meta, StoryObj } from '@storybook/vue3-vite'
 import Status from '../../src/runtime/components/DataDisplay/Status.vue'
 
 const meta: Meta<typeof Status> = {
-    title: 'Data Display/Status',
-    component: Status,
-    parameters: {
-        layout: 'centered',
-        docs: {
-            description: {
-                component:
+  title: 'Data Display/Status',
+  component: Status,
+  parameters: {
+    layout: 'centered',
+    docs: {
+      description: {
+        component:
           'A status indicator component for showing online/offline states and other status information.',
-            },
-        },
+      },
     },
-    tags: ['autodocs'],
-    argTypes: {
-        variant: {
-            control: { type: 'select' },
-            options: ['primary', 'secondary', 'accent', 'neutral', 'info', 'success', 'warning', 'error'],
-            description: 'Status variant color',
-        },
-        animation: {
-            control: { type: 'select' },
-            options: ['pulse', 'bounce', 'none'],
-            description: 'Animation type',
-        },
-        size: {
-            control: { type: 'select' },
-            options: ['xs', 'sm', 'md', 'lg', 'xl'],
-            description: 'Status size',
-        },
-        ariaLabel: {
-            control: { type: 'text' },
-            description: 'Accessibility label',
-        },
+  },
+  tags: ['autodocs'],
+  argTypes: {
+    variant: {
+      control: { type: 'select' },
+      options: ['primary', 'secondary', 'accent', 'neutral', 'info', 'success', 'warning', 'error'],
+      description: 'Status variant color',
     },
+    animation: {
+      control: { type: 'select' },
+      options: ['pulse', 'bounce', 'none'],
+      description: 'Animation type',
+    },
+    size: {
+      control: { type: 'select' },
+      options: ['xs', 'sm', 'md', 'lg', 'xl'],
+      description: 'Status size',
+    },
+    ariaLabel: {
+      control: { type: 'text' },
+      description: 'Accessibility label',
+    },
+  },
 }
 
 export default meta
 type Story = StoryObj<typeof Status>
 
 export const Default: Story = {
-    render: args => ({
-        components: { Status },
-        setup() {
-            return { args }
-        },
-        template: `
+  render: (args) => ({
+    components: { Status },
+    setup() {
+      return { args }
+    },
+    template: `
       <Status v-bind="args" />
     `,
-    }),
-    args: {
-        variant: 'neutral',
-        animation: 'none',
-        size: 'md',
-        ariaLabel: 'status',
-    },
+  }),
+  args: {
+    variant: 'neutral',
+    animation: 'none',
+    size: 'md',
+    ariaLabel: 'status',
+  },
 }
 
 export const AllVariants: Story = {
-    render: () => ({
-        components: { Status },
-        template: `
+  render: () => ({
+    components: { Status },
+    template: `
       <div class="space-y-4">
         <div class="flex flex-wrap gap-4">
           <Status variant="primary" aria-label="status" />
@@ -77,13 +77,13 @@ export const AllVariants: Story = {
         </div>
       </div>
     `,
-    }),
+  }),
 }
 
 export const AllSizes: Story = {
-    render: () => ({
-        components: { Status },
-        template: `
+  render: () => ({
+    components: { Status },
+    template: `
       <div class="space-y-4">
         <h3 class="text-lg font-bold mb-2">All Sizes</h3>
         <div class="flex flex-wrap items-center gap-4">
@@ -110,13 +110,13 @@ export const AllSizes: Story = {
         </div>
       </div>
     `,
-    }),
+  }),
 }
 
 export const AllAnimations: Story = {
-    render: () => ({
-        components: { Status },
-        template: `
+  render: () => ({
+    components: { Status },
+    template: `
       <div class="space-y-4">
         <h3 class="text-lg font-bold mb-2">All Animations</h3>
         <div class="flex flex-wrap gap-4">
@@ -136,13 +136,13 @@ export const AllAnimations: Story = {
         </div>
       </div>
     `,
-    }),
+  }),
 }
 
 export const SimpleExamples: Story = {
-    render: () => ({
-        components: { Status },
-        template: `
+  render: () => ({
+    components: { Status },
+    template: `
       <div class="space-y-4">
         <div>
           <h3 class="text-lg font-bold mb-2">Basic Status Indicators</h3>
@@ -165,13 +165,13 @@ export const SimpleExamples: Story = {
         </div>
       </div>
     `,
-    }),
+  }),
 }
 
 export const Interactive: Story = {
-    render: () => ({
-        components: { Status },
-        template: `
+  render: () => ({
+    components: { Status },
+    template: `
       <div class="space-y-4">
         <h3 class="text-lg font-bold mb-2">Interactive Status Indicators</h3>
         <div class="flex flex-wrap gap-4">
@@ -182,13 +182,13 @@ export const Interactive: Story = {
         </div>
       </div>
     `,
-    }),
+  }),
 }
 
 export const CombinedVariants: Story = {
-    render: () => ({
-        components: { Status },
-        template: `
+  render: () => ({
+    components: { Status },
+    template: `
       <div class="space-y-6">
         <div>
           <h3 class="text-lg font-bold mb-2">Different Sizes with Animations</h3>
@@ -212,5 +212,5 @@ export const CombinedVariants: Story = {
         </div>
       </div>
     `,
-    }),
+  }),
 }
