@@ -248,7 +248,7 @@
                                     Accent
                                 </BpButton>
                                 <BpButton
-                                    color="ghost"
+                                    style="ghost"
                                     size="sm"
                                 >
                                     Ghost

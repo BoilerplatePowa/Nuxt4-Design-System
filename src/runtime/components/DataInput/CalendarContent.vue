@@ -496,7 +496,7 @@ const handleTimeInput = (event: Event) => {
     selectedTime.value = target.value
 
     if (model.value) {
-        const timeParts = target.value.split(':'))
+        const timeParts = target.value.split(':')
         const hours = Number(timeParts[0] || 0)
         const minutes = Number(timeParts[1] || 0)
         const dateValue = Array.isArray(model.value) ? model.value[0] : model.value
@@ -505,7 +505,7 @@ const handleTimeInput = (event: Event) => {
         newDate.setHours(hours, minutes)
 
         if (props.range && Array.isArray(model.value)) {
-            model.value = [newDate, model.value[1]]
+            const secondDate = model.value[1]; if (secondDate) model.value = [newDate, secondDate]
         }
         else {
             model.value = newDate
@@ -547,6 +547,7 @@ watch(
     (newValue) => {
         if (newValue) {
             const date = Array.isArray(newValue) ? newValue[0] : newValue
+            if (!date) return
             currentMonth.value = date.getMonth()
             currentYear.value = date.getFullYear()
         }

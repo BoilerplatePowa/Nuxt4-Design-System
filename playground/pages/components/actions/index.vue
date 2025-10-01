@@ -280,7 +280,7 @@
                                 Submit
                             </BpButton>
                             <BpButton
-                                color="ghost"
+                                style="ghost"
                                 size="sm"
                             >
                                 Cancel
@@ -322,13 +322,13 @@
                                 Next
                             </BpButton>
                             <BpButton
-                                color="ghost"
+                                style="ghost"
                                 size="sm"
                             >
                                 Back
                             </BpButton>
                             <BpButton
-                                color="link"
+                                style="link"
                                 size="sm"
                             >
                                 Skip

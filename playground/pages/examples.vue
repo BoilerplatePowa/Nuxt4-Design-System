@@ -116,7 +116,7 @@
                             <div class="mockup-code text-left">
                                 <pre
                                     v-for="line in getButtonCode()"
-                                    :key="line"
+                                    :key="line.code"
                                     :data-prefix="line.prefix"
                                 >
                     <code>{{ line.code }}</code>
@@ -159,7 +159,7 @@
                                             @click="selectIcon(icon.name)"
                                         >
                                             <BpIcon
-                                                :name="icon.name"
+                                                :name="icon.name as any"
                                                 :class="icon.class"
                                             />
                                             <span class="text-xs mt-1">{{ icon.name }}</span>
@@ -279,7 +279,7 @@
                                             Submit
                                         </BpButton>
                                         <BpButton
-                                            color="ghost"
+                                            style="ghost"
                                             size="sm"
                                         >
                                             Reset
@@ -457,7 +457,6 @@
 </template>
 
 <script setup lang="ts">
-// Page metadata
 definePageMeta({
     title: 'Examples',
     description: 'Interactive examples and code snippets for Nuxt Design System components',
@@ -466,15 +465,15 @@ definePageMeta({
 // Reactive state
 const isLoading = ref(false)
 const isDisabled = ref(false)
-const selectedIcon = ref('')
+const selectedIcon = ref<(typeof iconExamples)[number]['name']>('heart')
 const activeButtonTab = ref('colors')
 const playgroundCode = ref('')
 const previewError = ref('')
 const compiledPreview = ref('')
 
 // Button examples data
-const buttonColors = ['primary', 'secondary', 'accent', 'ghost', 'link', 'info', 'success', 'warning', 'error']
-const buttonSizes = ['xs', 'sm', 'md', 'lg']
+const buttonColors = ['primary', 'secondary', 'accent', 'info', 'success', 'warning', 'error', 'neutral'] as const
+const buttonSizes = ['xs', 'sm', 'md', 'lg', 'xl'] as const
 
 const buttonTabs = [
     { id: 'colors', label: 'Colors' },
@@ -523,7 +522,7 @@ function toggleDisabled() {
     isDisabled.value = !isDisabled.value
 }
 
-function selectIcon(iconName: string) {
+function selectIcon(iconName: typeof iconExamples[number]['name']) {
     selectedIcon.value = iconName
 }
 
@@ -570,7 +569,7 @@ function runCode() {
         previewError.value = ''
     }
     catch (error) {
-        previewError.value = `Error: ${error.message}`
+        previewError.value = `Error: ${(error as Error).message}`
     }
 }
 
