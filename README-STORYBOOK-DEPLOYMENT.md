@@ -38,13 +38,13 @@ npm run storybook:deploy:script
 ### GitHub Repository Settings
 
 1. **Enable GitHub Pages**:
-   - Go to repository **Settings** → **Pages**
-   - Source: **GitHub Actions**
-   - Save settings
+    - Go to repository **Settings** → **Pages**
+    - Source: **GitHub Actions**
+    - Save settings
 
 2. **Configure Pages Environment**:
-   - The workflow automatically creates the `github-pages` environment
-   - No additional configuration needed
+    - The workflow automatically creates the `github-pages` environment
+    - No additional configuration needed
 
 ### Required Permissions
 
@@ -119,9 +119,9 @@ Your Storybook is configured for GitHub Pages:
 ```typescript
 // .storybook/main.ts
 export default {
-  // ... existing config
-  outputDir: 'storybook-static',
-  publicPath: '/Nuxt4-Design-System/',
+    // ... existing config
+    outputDir: 'storybook-static',
+    publicPath: '/Nuxt4-Design-System/',
 }
 ```
 
@@ -132,7 +132,7 @@ export default {
 - name: Deploy to GitHub Pages
   uses: actions/deploy-pages@v4
   with:
-    path: storybook-static/
+      path: storybook-static/
 ```
 
 ## 🔍 Troubleshooting
@@ -141,26 +141,26 @@ export default {
 
 1. **Build Failed**
 
-   ```bash
-   # Check Storybook configuration
-   npm run storybook:preview
+    ```bash
+    # Check Storybook configuration
+    npm run storybook:preview
 
-   # Verify stories exist
-   find stories -name "*.stories.ts"
-   ```
+    # Verify stories exist
+    find stories -name "*.stories.ts"
+    ```
 
 2. **Deployment Failed**
 
-   ```bash
-   # Check GitHub Pages settings
-   # Repository Settings → Pages → Source: GitHub Actions
-   ```
+    ```bash
+    # Check GitHub Pages settings
+    # Repository Settings → Pages → Source: GitHub Actions
+    ```
 
 3. **404 on GitHub Pages**
-   ```bash
-   # Check base path configuration
-   # Ensure .nojekyll file exists
-   ```
+    ```bash
+    # Check base path configuration
+    # Ensure .nojekyll file exists
+    ```
 
 ### Debug Commands
 
@@ -212,22 +212,22 @@ stories/
 ```typescript
 // Example: Button.stories.ts
 export default {
-  title: 'Actions/Button',
-  component: ButtonPrimary,
-  parameters: {
-    docs: {
-      description: {
-        component: 'Primary button component with DaisyUI styling',
-      },
+    title: 'Actions/Button',
+    component: ButtonPrimary,
+    parameters: {
+        docs: {
+            description: {
+                component: 'Primary button component with DaisyUI styling',
+            },
+        },
     },
-  },
 }
 
 export const Default = {
-  args: {
-    variant: 'primary',
-    children: 'Click me',
-  },
+    args: {
+        variant: 'primary',
+        children: 'Click me',
+    },
 }
 ```
 
@@ -259,8 +259,8 @@ gh workflow run storybook-deploy.yml
 ```typescript
 // .storybook/main.ts
 export default {
-  // ... config
-  publicPath: '/your-custom-path/',
+    // ... config
+    publicPath: '/your-custom-path/',
 }
 ```
 

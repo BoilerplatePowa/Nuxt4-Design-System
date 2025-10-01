@@ -52,10 +52,10 @@ The package is already configured for GitHub Packages:
 
 ```json
 {
-  "name": "@boilerplatepowa/nuxt4-design-system",
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
-  }
+    "name": "@boilerplatepowa/nuxt4-design-system",
+    "publishConfig": {
+        "registry": "https://npm.pkg.github.com"
+    }
 }
 ```
 
@@ -119,24 +119,24 @@ npm install @boilerplatepowa/nuxt4-design-system
 
 1. **Authentication Failed**
 
-   ```bash
-   # Ensure GITHUB_TOKEN is available in workflow
-   # Check repository secrets
-   ```
+    ```bash
+    # Ensure GITHUB_TOKEN is available in workflow
+    # Check repository secrets
+    ```
 
 2. **Package Already Exists**
 
-   ```bash
-   # Update version in package.json
-   npm version patch
-   ```
+    ```bash
+    # Update version in package.json
+    npm version patch
+    ```
 
 3. **Build Failed**
-   ```bash
-   # Run locally first
-   npm run test:ci
-   npm run build
-   ```
+    ```bash
+    # Run locally first
+    npm run test:ci
+    npm run build
+    ```
 
 ### Debug Commands
 

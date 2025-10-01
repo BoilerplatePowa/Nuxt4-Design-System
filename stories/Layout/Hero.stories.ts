@@ -2,90 +2,90 @@ import type { Meta, StoryObj } from '@storybook/vue3-vite'
 import Hero from '../../src/runtime/components/Layout/Hero.vue'
 
 const meta: Meta<typeof Hero> = {
-  title: 'Layout/Hero',
-  component: Hero,
-  parameters: {
-    layout: 'fullscreen',
-    docs: {
-      description: {
-        component:
-          'Hero section component for creating impactful landing page headers with customizable layouts.',
-      },
+    title: 'Layout/Hero',
+    component: Hero,
+    parameters: {
+        layout: 'fullscreen',
+        docs: {
+            description: {
+                component:
+                    'Hero section component for creating impactful landing page headers with customizable layouts.',
+            },
+        },
     },
-  },
-  argTypes: {
-    title: {
-      control: 'text',
-      description: 'Main hero title',
+    argTypes: {
+        title: {
+            control: 'text',
+            description: 'Main hero title',
+        },
+        subtitle: {
+            control: 'text',
+            description: 'Hero subtitle or description',
+        },
+        backgroundImage: {
+            control: 'text',
+            description: 'Background image URL',
+        },
+        overlay: {
+            control: 'boolean',
+            description: 'Add dark overlay for better text readability',
+        },
+        minHeight: {
+            control: { type: 'select' },
+            options: ['sm', 'md', 'lg', 'xl', 'screen'],
+            description: 'Hero section height',
+        },
+        overlayOpacity: {
+            control: { type: 'select' },
+            options: ['light', 'medium', 'dark'],
+            description: 'Overlay opacity level',
+        },
+        textColor: {
+            control: { type: 'select' },
+            options: ['default', 'neutral', 'primary', 'white'],
+            description: 'Text color theme',
+        },
     },
-    subtitle: {
-      control: 'text',
-      description: 'Hero subtitle or description',
-    },
-    backgroundImage: {
-      control: 'text',
-      description: 'Background image URL',
-    },
-    overlay: {
-      control: 'boolean',
-      description: 'Add dark overlay for better text readability',
-    },
-    minHeight: {
-      control: { type: 'select' },
-      options: ['sm', 'md', 'lg', 'xl', 'screen'],
-      description: 'Hero section height',
-    },
-    overlayOpacity: {
-      control: { type: 'select' },
-      options: ['light', 'medium', 'dark'],
-      description: 'Overlay opacity level',
-    },
-    textColor: {
-      control: { type: 'select' },
-      options: ['default', 'neutral', 'primary', 'white'],
-      description: 'Text color theme',
-    },
-  },
-  tags: ['autodocs'],
+    tags: ['autodocs'],
 }
 
 export default meta
 type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
-  args: {
-    title: 'Welcome to Our Platform',
-    subtitle: 'Discover amazing features and build something great',
-    minHeight: 'lg',
-  },
+    args: {
+        title: 'Welcome to Our Platform',
+        subtitle: 'Discover amazing features and build something great',
+        minHeight: 'lg',
+    },
 }
 
 export const WithBackground: Story = {
-  args: {
-    title: 'Adventure Awaits',
-    subtitle: 'Explore the world with our comprehensive travel guides and booking platform',
-    backgroundImage:
-      'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&h=1080&fit=crop',
-    overlay: true,
-    minHeight: 'xl',
-  },
+    args: {
+        title: 'Adventure Awaits',
+        subtitle: 'Explore the world with our comprehensive travel guides and booking platform',
+        backgroundImage:
+            'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&h=1080&fit=crop',
+        overlay: true,
+        minHeight: 'xl',
+    },
 }
 
 export const Gradient: Story = {
-  args: {
-    title: 'Build the Future',
-    subtitle: 'Join thousands of developers creating amazing applications',
-    minHeight: 'lg',
-  },
+    args: {
+        title: 'Build the Future',
+        subtitle: 'Join thousands of developers creating amazing applications',
+        minHeight: 'lg',
+    },
 }
 
 export const WithActions: Story = {
-  render: (args) => ({
-    components: { Hero },
-    setup() {
-      return { args }
-    },
-    template: `
+    render: (args) => ({
+        components: { Hero },
+        setup() {
+            return { args }
+        },
+        template: `
       <Hero v-bind="args">
         <template #actions>
           <div class="flex flex-col sm:flex-row gap-4">
@@ -95,21 +95,21 @@ export const WithActions: Story = {
         </template>
       </Hero>
     `,
-  }),
-  args: {
-    title: 'Ready to Transform Your Business?',
-    subtitle: 'Our platform helps you streamline operations and boost productivity',
-    minHeight: 'lg',
-  },
+    }),
+    args: {
+        title: 'Ready to Transform Your Business?',
+        subtitle: 'Our platform helps you streamline operations and boost productivity',
+        minHeight: 'lg',
+    },
 }
 
 export const LeftAligned: Story = {
-  render: (args) => ({
-    components: { Hero },
-    setup() {
-      return { args }
-    },
-    template: `
+    render: (args) => ({
+        components: { Hero },
+        setup() {
+            return { args }
+        },
+        template: `
       <Hero v-bind="args">
         <template #actions>
           <div class="flex flex-col sm:flex-row gap-4">
@@ -119,22 +119,22 @@ export const LeftAligned: Story = {
         </template>
       </Hero>
     `,
-  }),
-  args: {
-    title: 'Powerful Analytics for Modern Teams',
-    subtitle:
-      'Make data-driven decisions with our comprehensive analytics platform. Track performance, understand your users, and grow your business.',
-    minHeight: 'lg',
-  },
+    }),
+    args: {
+        title: 'Powerful Analytics for Modern Teams',
+        subtitle:
+            'Make data-driven decisions with our comprehensive analytics platform. Track performance, understand your users, and grow your business.',
+        minHeight: 'lg',
+    },
 }
 
 export const Minimal: Story = {
-  render: (args) => ({
-    components: { Hero },
-    setup() {
-      return { args }
-    },
-    template: `
+    render: (args) => ({
+        components: { Hero },
+        setup() {
+            return { args }
+        },
+        template: `
       <Hero v-bind="args">
         <template #actions>
           <div class="flex items-center gap-6">
@@ -144,21 +144,21 @@ export const Minimal: Story = {
         </template>
       </Hero>
     `,
-  }),
-  args: {
-    title: 'Simple. Powerful. Effective.',
-    subtitle: 'The easiest way to manage your projects',
-    minHeight: 'md',
-  },
+    }),
+    args: {
+        title: 'Simple. Powerful. Effective.',
+        subtitle: 'The easiest way to manage your projects',
+        minHeight: 'md',
+    },
 }
 
 export const ProductLaunch: Story = {
-  render: (args) => ({
-    components: { Hero },
-    setup() {
-      return { args }
-    },
-    template: `
+    render: (args) => ({
+        components: { Hero },
+        setup() {
+            return { args }
+        },
+        template: `
       <Hero v-bind="args">
         <template #content>
           <div class="text-center max-w-4xl mx-auto">
@@ -201,21 +201,21 @@ export const ProductLaunch: Story = {
         </template>
       </Hero>
     `,
-  }),
-  args: {
-    title: 'NextGen Platform',
-    subtitle: 'The all-in-one solution for modern businesses',
-    minHeight: 'xl',
-  },
+    }),
+    args: {
+        title: 'NextGen Platform',
+        subtitle: 'The all-in-one solution for modern businesses',
+        minHeight: 'xl',
+    },
 }
 
 export const AppShowcase: Story = {
-  render: (args) => ({
-    components: { Hero },
-    setup() {
-      return { args }
-    },
-    template: `
+    render: (args) => ({
+        components: { Hero },
+        setup() {
+            return { args }
+        },
+        template: `
       <Hero v-bind="args">
         <template #content>
           <div class="grid lg:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
@@ -271,21 +271,21 @@ export const AppShowcase: Story = {
         </template>
       </Hero>
     `,
-  }),
-  args: {
-    title: 'Your Productivity Companion',
-    subtitle: 'Manage tasks, track time, and collaborate with your team from anywhere',
-    minHeight: 'xl',
-  },
+    }),
+    args: {
+        title: 'Your Productivity Companion',
+        subtitle: 'Manage tasks, track time, and collaborate with your team from anywhere',
+        minHeight: 'xl',
+    },
 }
 
 export const SplitLayout: Story = {
-  render: (args) => ({
-    components: { Hero },
-    setup() {
-      return { args }
-    },
-    template: `
+    render: (args) => ({
+        components: { Hero },
+        setup() {
+            return { args }
+        },
+        template: `
       <Hero v-bind="args">
         <template #content>
           <div class="grid lg:grid-cols-2 gap-8 items-center min-h-screen">
@@ -362,11 +362,11 @@ export const SplitLayout: Story = {
         </template>
       </Hero>
     `,
-  }),
-  args: {
-    title: 'Transform Your Workflow',
-    subtitle:
-      'Streamline processes, increase efficiency, and deliver better results with our comprehensive business solution.',
-    minHeight: 'lg',
-  },
+    }),
+    args: {
+        title: 'Transform Your Workflow',
+        subtitle:
+            'Streamline processes, increase efficiency, and deliver better results with our comprehensive business solution.',
+        minHeight: 'lg',
+    },
 }

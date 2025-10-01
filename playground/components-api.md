@@ -81,36 +81,36 @@ The primary button component with extensive customization options.
 
 ```typescript
 type BtnColor =
-  | 'neutral' // btn-neutral
-  | 'primary' // btn-primary
-  | 'secondary' // btn-secondary
-  | 'accent' // btn-accent
-  | 'info' // btn-info
-  | 'success' // btn-success
-  | 'warning' // btn-warning
-  | 'error' // btn-error
+    | 'neutral' // btn-neutral
+    | 'primary' // btn-primary
+    | 'secondary' // btn-secondary
+    | 'accent' // btn-accent
+    | 'info' // btn-info
+    | 'success' // btn-success
+    | 'warning' // btn-warning
+    | 'error' // btn-error
 ```
 
 #### Style Variants (`BtnStyle`)
 
 ```typescript
 type BtnStyle =
-  | 'outline' // btn-outline
-  | 'dash' // btn-dash
-  | 'soft' // btn-soft
-  | 'ghost' // btn-ghost
-  | 'link' // btn-link
+    | 'outline' // btn-outline
+    | 'dash' // btn-dash
+    | 'soft' // btn-soft
+    | 'ghost' // btn-ghost
+    | 'link' // btn-link
 ```
 
 #### Size Variants (`BtnSize`)
 
 ```typescript
 type BtnSize =
-  | 'xs' // btn-xs
-  | 'sm' // btn-sm
-  | 'md' // btn-md
-  | 'lg' // btn-lg
-  | 'xl' // btn-xl
+    | 'xs' // btn-xs
+    | 'sm' // btn-sm
+    | 'md' // btn-md
+    | 'lg' // btn-lg
+    | 'xl' // btn-xl
 ```
 
 ---
@@ -156,161 +156,161 @@ The component supports all icons from Lucide Vue Next:
 ```typescript
 // Common icons
 ;('heart',
-  'star',
-  'settings',
-  'user',
-  'home',
-  'search',
-  'mail',
-  'phone',
-  'calendar',
-  'download',
-  'upload',
-  'edit',
-  'delete',
-  'plus',
-  'minus',
-  'check',
-  'x',
-  'arrow-left',
-  'arrow-right',
-  'arrow-up',
-  'arrow-down',
-  'menu',
-  'info',
-  'alert-circle',
-  'check-circle',
-  'x-circle',
-  'help-circle',
-  'eye',
-  'eye-off',
-  'lock',
-  'unlock',
-  'zap',
-  'chevron-down',
-  'chevron-up',
-  'chevron-left',
-  'chevron-right',
-  'filter',
-  'sort-asc',
-  'sort-desc',
-  'refresh-cw',
-  'rotate-ccw',
-  'rotate-cw',
-  'zoom-in',
-  'zoom-out',
-  'maximize',
-  'minimize',
-  'external-link',
-  'link',
-  'copy',
-  'share',
-  'bookmark',
-  'flag',
-  'thumbs-up',
-  'thumbs-down',
-  'message-circle',
-  'message-square',
-  'bell',
-  'shield',
-  'award',
-  'gift',
-  'shopping-cart',
-  'credit-card',
-  'dollar-sign',
-  'percent',
-  'trending-up',
-  'trending-down',
-  'activity',
-  'bar-chart',
-  'pie-chart',
-  'line-chart',
-  'database',
-  'server',
-  'monitor',
-  'smartphone',
-  'tablet',
-  'laptop',
-  'printer',
-  'camera',
-  'video',
-  'music',
-  'file',
-  'folder',
-  'archive',
-  'trash-2',
-  'save',
-  'download-cloud',
-  'upload-cloud',
-  'cloud',
-  'wifi',
-  'bluetooth',
-  'battery',
-  'power',
-  'volume',
-  'volume1',
-  'volume2',
-  'volume-x',
-  'mic',
-  'mic-off',
-  'headphones',
-  'speaker',
-  'radio',
-  'tv',
-  'gamepad-2',
-  'mouse',
-  'keyboard',
-  'hard-drive',
-  'cpu',
-  'thermometer',
-  'droplets',
-  'sun',
-  'moon',
-  'cloud-rain',
-  'cloud-snow',
-  'wind',
-  'umbrella',
-  'snowflake',
-  'flame',
-  'sparkles',
-  'ice-cream',
-  'heart-off',
-  'star-off',
-  'settings-2',
-  'users',
-  'building',
-  'map',
-  'navigation',
-  'globe',
-  'mail-open',
-  'phone-call',
-  'phone-incoming',
-  'phone-outgoing',
-  'calendar-days',
-  'calendar-range',
-  'clock-1',
-  'clock-2',
-  'clock-3',
-  'clock-4',
-  'clock-5',
-  'clock-6',
-  'clock-7',
-  'clock-8',
-  'clock-9',
-  'clock-10',
-  'clock-11',
-  'clock-12',
-  'map-pin-off',
-  'navigation-2',
-  'navigation-off',
-  'edit-2',
-  'edit-3',
-  'trash',
-  'plus-circle',
-  'minus-circle',
-  'x-square',
-  'alert-triangle',
-  'alert-octagon')
+    'star',
+    'settings',
+    'user',
+    'home',
+    'search',
+    'mail',
+    'phone',
+    'calendar',
+    'download',
+    'upload',
+    'edit',
+    'delete',
+    'plus',
+    'minus',
+    'check',
+    'x',
+    'arrow-left',
+    'arrow-right',
+    'arrow-up',
+    'arrow-down',
+    'menu',
+    'info',
+    'alert-circle',
+    'check-circle',
+    'x-circle',
+    'help-circle',
+    'eye',
+    'eye-off',
+    'lock',
+    'unlock',
+    'zap',
+    'chevron-down',
+    'chevron-up',
+    'chevron-left',
+    'chevron-right',
+    'filter',
+    'sort-asc',
+    'sort-desc',
+    'refresh-cw',
+    'rotate-ccw',
+    'rotate-cw',
+    'zoom-in',
+    'zoom-out',
+    'maximize',
+    'minimize',
+    'external-link',
+    'link',
+    'copy',
+    'share',
+    'bookmark',
+    'flag',
+    'thumbs-up',
+    'thumbs-down',
+    'message-circle',
+    'message-square',
+    'bell',
+    'shield',
+    'award',
+    'gift',
+    'shopping-cart',
+    'credit-card',
+    'dollar-sign',
+    'percent',
+    'trending-up',
+    'trending-down',
+    'activity',
+    'bar-chart',
+    'pie-chart',
+    'line-chart',
+    'database',
+    'server',
+    'monitor',
+    'smartphone',
+    'tablet',
+    'laptop',
+    'printer',
+    'camera',
+    'video',
+    'music',
+    'file',
+    'folder',
+    'archive',
+    'trash-2',
+    'save',
+    'download-cloud',
+    'upload-cloud',
+    'cloud',
+    'wifi',
+    'bluetooth',
+    'battery',
+    'power',
+    'volume',
+    'volume1',
+    'volume2',
+    'volume-x',
+    'mic',
+    'mic-off',
+    'headphones',
+    'speaker',
+    'radio',
+    'tv',
+    'gamepad-2',
+    'mouse',
+    'keyboard',
+    'hard-drive',
+    'cpu',
+    'thermometer',
+    'droplets',
+    'sun',
+    'moon',
+    'cloud-rain',
+    'cloud-snow',
+    'wind',
+    'umbrella',
+    'snowflake',
+    'flame',
+    'sparkles',
+    'ice-cream',
+    'heart-off',
+    'star-off',
+    'settings-2',
+    'users',
+    'building',
+    'map',
+    'navigation',
+    'globe',
+    'mail-open',
+    'phone-call',
+    'phone-incoming',
+    'phone-outgoing',
+    'calendar-days',
+    'calendar-range',
+    'clock-1',
+    'clock-2',
+    'clock-3',
+    'clock-4',
+    'clock-5',
+    'clock-6',
+    'clock-7',
+    'clock-8',
+    'clock-9',
+    'clock-10',
+    'clock-11',
+    'clock-12',
+    'map-pin-off',
+    'navigation-2',
+    'navigation-off',
+    'edit-2',
+    'edit-3',
+    'trash',
+    'plus-circle',
+    'minus-circle',
+    'x-square',
+    'alert-triangle',
+    'alert-octagon')
 ```
 
 ---
@@ -324,46 +324,46 @@ The design system uses a sophisticated mapping system to ensure consistency and 
 ```typescript
 // Color mapping
 export const btnColorMap = {
-  neutral: 'btn-neutral',
-  primary: 'btn-primary',
-  secondary: 'btn-secondary',
-  accent: 'btn-accent',
-  info: 'btn-info',
-  success: 'btn-success',
-  warning: 'btn-warning',
-  error: 'btn-error',
+    neutral: 'btn-neutral',
+    primary: 'btn-primary',
+    secondary: 'btn-secondary',
+    accent: 'btn-accent',
+    info: 'btn-info',
+    success: 'btn-success',
+    warning: 'btn-warning',
+    error: 'btn-error',
 } as const
 
 // Style mapping
 export const btnStyleMap = {
-  outline: 'btn-outline',
-  dash: 'btn-dash',
-  soft: 'btn-soft',
-  ghost: 'btn-ghost',
-  link: 'btn-link',
+    outline: 'btn-outline',
+    dash: 'btn-dash',
+    soft: 'btn-soft',
+    ghost: 'btn-ghost',
+    link: 'btn-link',
 } as const
 
 // Size mapping
 export const btnSizeMap = {
-  xs: 'btn-xs',
-  sm: 'btn-sm',
-  md: 'btn-md',
-  lg: 'btn-lg',
-  xl: 'btn-xl',
+    xs: 'btn-xs',
+    sm: 'btn-sm',
+    md: 'btn-md',
+    lg: 'btn-lg',
+    xl: 'btn-xl',
 } as const
 
 // Behavior mapping
 export const btnBehaviorMap = {
-  active: 'btn-active',
-  disabled: 'btn-disabled',
+    active: 'btn-active',
+    disabled: 'btn-disabled',
 } as const
 
 // Modifier mapping
 export const btnModifierMap = {
-  wide: 'btn-wide',
-  block: 'btn-block',
-  square: 'btn-square',
-  circle: 'btn-circle',
+    wide: 'btn-wide',
+    block: 'btn-block',
+    square: 'btn-square',
+    circle: 'btn-circle',
 } as const
 ```
 
@@ -372,23 +372,23 @@ export const btnModifierMap = {
 ```typescript
 // Icon component mapping
 export const iconMap = {
-  heart: Heart,
-  star: Star,
-  settings: Settings,
-  user: User,
-  home: Home,
-  search: Search,
-  // ... more icons
+    heart: Heart,
+    star: Star,
+    settings: Settings,
+    user: User,
+    home: Home,
+    search: Search,
+    // ... more icons
 } as const
 
 // Size mapping
 export const sizeMap = {
-  xs: 16,
-  sm: 20,
-  md: 24,
-  lg: 32,
-  xl: 40,
-  '2xl': 48,
+    xs: 16,
+    sm: 20,
+    md: 24,
+    lg: 32,
+    xl: 40,
+    '2xl': 48,
 } as const
 ```
 
@@ -402,26 +402,26 @@ The design system supports multiple DaisyUI themes:
 
 ```typescript
 const themes = [
-  'light',
-  'dark',
-  'cupcake',
-  'corporate',
-  'synthwave',
-  'retro',
-  'cyberpunk',
-  'valentine',
-  'halloween',
-  'garden',
-  'forest',
-  'aqua',
-  'lofi',
-  'pastel',
-  'fantasy',
-  'wireframe',
-  'black',
-  'luxury',
-  'dracula',
-  'cmyk',
+    'light',
+    'dark',
+    'cupcake',
+    'corporate',
+    'synthwave',
+    'retro',
+    'cyberpunk',
+    'valentine',
+    'halloween',
+    'garden',
+    'forest',
+    'aqua',
+    'lofi',
+    'pastel',
+    'fantasy',
+    'wireframe',
+    'black',
+    'luxury',
+    'dracula',
+    'cmyk',
 ]
 ```
 
@@ -429,16 +429,16 @@ const themes = [
 
 ```typescript
 function setTheme(theme: string) {
-  if (process.client) {
-    document.documentElement.setAttribute('data-theme', theme)
-    localStorage.setItem('@nuxt-design-system/theme', theme)
-  }
+    if (process.client) {
+        document.documentElement.setAttribute('data-theme', theme)
+        localStorage.setItem('@nuxt-design-system/theme', theme)
+    }
 }
 
 // Initialize theme
 onMounted(() => {
-  const savedTheme = localStorage.getItem('@nuxt-design-system/theme') || 'light'
-  setTheme(savedTheme)
+    const savedTheme = localStorage.getItem('@nuxt-design-system/theme') || 'light'
+    setTheme(savedTheme)
 })
 ```
 
@@ -453,10 +453,10 @@ All components include proper ARIA attributes:
 ```vue
 <!-- Button with ARIA -->
 <BpButton
-  :aria-label="buttonLabel"
-  :aria-pressed="isPressed"
-  :aria-expanded="isExpanded"
-  :aria-describedby="descriptionId"
+    :aria-label="buttonLabel"
+    :aria-pressed="isPressed"
+    :aria-expanded="isExpanded"
+    :aria-describedby="descriptionId"
 >
   Button Text
 </BpButton>
@@ -503,16 +503,16 @@ All components include proper ARIA attributes:
 <!-- Use computed for expensive operations -->
 <script setup>
 const buttonClasses = computed(() => [
-  'btn',
-  `btn-${props.color}`,
-  `btn-${props.size}`,
-  { loading: props.loading },
+    'btn',
+    `btn-${props.color}`,
+    `btn-${props.size}`,
+    { loading: props.loading },
 ])
 </script>
 
 <!-- Avoid inline functions -->
 <template>
-  <BpButton @click="handleClick">Click</BpButton>
+    <BpButton @click="handleClick">Click</BpButton>
 </template>
 
 <script setup>
@@ -540,9 +540,9 @@ Enable debug mode for development:
 ```typescript
 // nuxt.config.ts
 export default defineNuxtConfig({
-  nuxtDesignSystem: {
-    debug: true, // Enable debug logging
-  },
+    nuxtDesignSystem: {
+        debug: true, // Enable debug logging
+    },
 })
 ```
 

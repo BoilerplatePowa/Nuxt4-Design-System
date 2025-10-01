@@ -1,112 +1,112 @@
 name: Quality Gates
 
 on:
-  push:
-    branches: [main, develop]
-  pull_request:
-    branches: [main, develop]
+    push:
+        branches: [main, develop]
+    pull_request:
+        branches: [main, develop]
 
 env:
-  NODE_VERSION: '20'
-  NPM_VERSION: '10'
+    NODE_VERSION: '20'
+    NPM_VERSION: '10'
 
 jobs:
-  # Code Quality
-  lint-and-format:
-    name: Lint & Format
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+    # Code Quality
+    lint-and-format:
+        name: Lint & Format
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-          cache: 'npm'
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: ${{ env.NODE_VERSION }}
+                  cache: 'npm'
 
-      - name: Install dependencies
-        run: npm ci
+            - name: Install dependencies
+              run: npm ci
 
-      - name: Run ESLint
-        run: npm run lint
+            - name: Run ESLint
+              run: npm run lint
 
-      - name: Check TypeScript (Module only)
-        # Skip playground type checking in CI - playground requires .nuxt generation
-        run: npm run test:types:module
+            - name: Check TypeScript (Module only)
+              # Skip playground type checking in CI - playground requires .nuxt generation
+              run: npm run test:types:module
 
-      - name: Check formatting
-        run: |
-          if [ -f "package.json" ] && grep -q '"format"' package.json; then
-            npm run format:check
-          else
-            echo "No format script found, skipping..."
-          fi
+            - name: Check formatting
+              run: |
+                  if [ -f "package.json" ] && grep -q '"format"' package.json; then
+                    npm run format:check
+                  else
+                    echo "No format script found, skipping..."
+                  fi
 
-  # Security Scanning
-  security:
-    name: Security Scan
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+    # Security Scanning
+    security:
+        name: Security Scan
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-          cache: 'npm'
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: ${{ env.NODE_VERSION }}
+                  cache: 'npm'
 
-      - name: Install dependencies
-        run: npm ci
+            - name: Install dependencies
+              run: npm ci
 
-      - name: Run security audit
-        run: npm audit --audit-level moderate
+            - name: Run security audit
+              run: npm audit --audit-level moderate
 
-      - name: Run Snyk security scan
-        uses: snyk/actions/node@master
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-        with:
-          args: --severity-threshold=high
-        continue-on-error: true
+            - name: Run Snyk security scan
+              uses: snyk/actions/node@master
+              env:
+                  SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+              with:
+                  args: --severity-threshold=high
+              continue-on-error: true
 
-  # Bundle Analysis
-  bundle-analysis:
-    name: Bundle Analysis
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+    # Bundle Analysis
+    bundle-analysis:
+        name: Bundle Analysis
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-          cache: 'npm'
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: ${{ env.NODE_VERSION }}
+                  cache: 'npm'
 
-      - name: Install dependencies
-        run: npm ci
+            - name: Install dependencies
+              run: npm ci
 
-      - name: Build module
-        run: npm run prepack
+            - name: Build module
+              run: npm run prepack
 
-      - name: Analyze bundle size
-        run: |
-          # Check if bundle size is within limits
-          BUNDLE_SIZE=$(du -s dist | cut -f1)
-          MAX_SIZE=$((250 * 1024)) # 250KB limit
+            - name: Analyze bundle size
+              run: |
+                  # Check if bundle size is within limits
+                  BUNDLE_SIZE=$(du -s dist | cut -f1)
+                  MAX_SIZE=$((250 * 1024)) # 250KB limit
 
-          if [ $BUNDLE_SIZE -gt $MAX_SIZE ]; then
-            echo "❌ Bundle size ${BUNDLE_SIZE}KB exceeds limit of ${MAX_SIZE}KB"
-            exit 1
-          else
-            echo "✅ Bundle size ${BUNDLE_SIZE}KB is within limit"
-          fi
+                  if [ $BUNDLE_SIZE -gt $MAX_SIZE ]; then
+                    echo "❌ Bundle size ${BUNDLE_SIZE}KB exceeds limit of ${MAX_SIZE}KB"
+                    exit 1
+                  else
+                    echo "✅ Bundle size ${BUNDLE_SIZE}KB is within limit"
+                  fi
 
-      - name: Upload bundle analysis
-        uses: actions/upload-artifact@v4
-        with:
-          name: bundle-analysis
-          path: dist/
-          retention-days: 7
+            - name: Upload bundle analysis
+              uses: actions/upload-artifact@v4
+              with:
+                  name: bundle-analysis
+                  path: dist/
+                  retention-days: 7

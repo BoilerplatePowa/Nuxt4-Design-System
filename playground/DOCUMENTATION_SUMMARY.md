@@ -154,12 +154,12 @@ I've successfully created a comprehensive, production-ready documentation websit
 ```typescript
 // nuxt.config.ts
 export default defineNuxtConfig({
-  modules: ['@boilerplatepowa/nuxt4-design-system'],
-  nuxtDesignSystem: {
-    theme: 'light',
-    components: true,
-    prefix: 'Bp',
-  },
+    modules: ['@boilerplatepowa/nuxt4-design-system'],
+    nuxtDesignSystem: {
+        theme: 'light',
+        components: true,
+        prefix: 'Bp',
+    },
 })
 ```
 

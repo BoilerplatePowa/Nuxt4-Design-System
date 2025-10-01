@@ -3,107 +3,107 @@ import { ref } from 'vue'
 import Swap from '../../src/runtime/components/Actions/Swap.vue'
 
 const meta: Meta<typeof Swap> = {
-  title: 'Actions/Swap',
-  component: Swap,
-  parameters: {
-    layout: 'centered',
-    docs: {
-      description: {
-        component:
-          'An animated swap component for toggling between two states with smooth transitions. Uses Vue 3.4+ `defineModel()` macro for seamless v-model integration with proper TypeScript support.',
-      },
+    title: 'Actions/Swap',
+    component: Swap,
+    parameters: {
+        layout: 'centered',
+        docs: {
+            description: {
+                component:
+                    'An animated swap component for toggling between two states with smooth transitions. Uses Vue 3.4+ `defineModel()` macro for seamless v-model integration with proper TypeScript support.',
+            },
+        },
     },
-  },
-  argTypes: {
-    variant: {
-      control: { type: 'select' },
-      options: ['rotate', 'flip', 'indeterminate'],
-      description: 'Swap animation variant',
-      table: {
-        type: { summary: 'rotate | flip | indeterminate' },
-        defaultValue: { summary: 'rotate' },
-      },
+    argTypes: {
+        variant: {
+            control: { type: 'select' },
+            options: ['rotate', 'flip', 'indeterminate'],
+            description: 'Swap animation variant',
+            table: {
+                type: { summary: 'rotate | flip | indeterminate' },
+                defaultValue: { summary: 'rotate' },
+            },
+        },
+        swapOnContent: {
+            control: 'text',
+            description: 'Content for on state (fallback when no slot is provided)',
+            table: {
+                type: { summary: 'string' },
+                defaultValue: { summary: '🌞' },
+            },
+        },
+        swapOffContent: {
+            control: 'text',
+            description: 'Content for off state (fallback when no slot is provided)',
+            table: {
+                type: { summary: 'string' },
+                defaultValue: { summary: '🌚' },
+            },
+        },
+        indeterminateContent: {
+            control: 'text',
+            description: 'Content for indeterminate state (fallback when no slot is provided)',
+            table: {
+                type: { summary: 'string' },
+                defaultValue: { summary: '🌤️' },
+            },
+        },
+        disabled: {
+            control: 'boolean',
+            description: 'Disable the swap interaction',
+            table: {
+                type: { summary: 'boolean' },
+                defaultValue: { summary: 'false' },
+            },
+        },
+        name: {
+            control: 'text',
+            description: 'Name attribute for the input element (useful for forms)',
+            table: {
+                type: { summary: 'string' },
+            },
+        },
+        id: {
+            control: 'text',
+            description: 'ID attribute for the input element (useful for accessibility)',
+            table: {
+                type: { summary: 'string' },
+            },
+        },
     },
-    swapOnContent: {
-      control: 'text',
-      description: 'Content for on state (fallback when no slot is provided)',
-      table: {
-        type: { summary: 'string' },
-        defaultValue: { summary: '🌞' },
-      },
-    },
-    swapOffContent: {
-      control: 'text',
-      description: 'Content for off state (fallback when no slot is provided)',
-      table: {
-        type: { summary: 'string' },
-        defaultValue: { summary: '🌚' },
-      },
-    },
-    indeterminateContent: {
-      control: 'text',
-      description: 'Content for indeterminate state (fallback when no slot is provided)',
-      table: {
-        type: { summary: 'string' },
-        defaultValue: { summary: '🌤️' },
-      },
-    },
-    disabled: {
-      control: 'boolean',
-      description: 'Disable the swap interaction',
-      table: {
-        type: { summary: 'boolean' },
-        defaultValue: { summary: 'false' },
-      },
-    },
-    name: {
-      control: 'text',
-      description: 'Name attribute for the input element (useful for forms)',
-      table: {
-        type: { summary: 'string' },
-      },
-    },
-    id: {
-      control: 'text',
-      description: 'ID attribute for the input element (useful for accessibility)',
-      table: {
-        type: { summary: 'string' },
-      },
-    },
-  },
-  tags: ['autodocs'],
+    tags: ['autodocs'],
 }
 
 export default meta
 type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
-  args: {
-    variant: 'rotate',
-  },
-  render: (args) => ({
-    components: { Swap },
-    setup() {
-      const isOn = ref(false)
-      return { isOn, args }
+    args: {
+        variant: 'rotate',
     },
-    template: `
+    render: (args) => ({
+        components: { Swap },
+        setup() {
+            const isOn = ref(false)
+            return { isOn, args }
+        },
+        template: `
       <div class="space-y-4">
         <Swap v-model="isOn" v-bind="args" />
         <p class="text-sm text-gray-600">Current state: {{ isOn ? 'On' : 'Off' }}</p>
       </div>
     `,
-  }),
+    }),
 }
 
 export const AllVariants: Story = {
-  render: () => ({
-    components: { Swap },
-    setup() {
-      const states = ref([false, false, false])
-      return { states }
-    },
-    template: `
+    render: () => ({
+        components: { Swap },
+        setup() {
+            const states = ref([false, false, false])
+            return { states }
+        },
+        template: `
       <div class="space-y-6">
         <div class="grid grid-cols-3 gap-6">
           <div class="text-center">
@@ -136,48 +136,48 @@ export const AllVariants: Story = {
         </div>
       </div>
     `,
-  }),
+    }),
 }
 
 export const CustomContent: Story = {
-  args: {
-    variant: 'rotate',
-    swapOnContent: '✅',
-    swapOffContent: '❌',
-  },
-  render: (args) => ({
-    components: { Swap },
-    setup() {
-      const isOn = ref(false)
-      return { isOn, args }
+    args: {
+        variant: 'rotate',
+        swapOnContent: '✅',
+        swapOffContent: '❌',
     },
-    template: `
+    render: (args) => ({
+        components: { Swap },
+        setup() {
+            const isOn = ref(false)
+            return { isOn, args }
+        },
+        template: `
       <div class="space-y-4">
         <Swap v-model="isOn" v-bind="args" />
         <p class="text-sm text-gray-600">Status: {{ isOn ? 'Active' : 'Inactive' }}</p>
       </div>
     `,
-  }),
+    }),
 }
 
 export const FormIntegration: Story = {
-  render: () => ({
-    components: { Swap },
-    setup() {
-      const formData = ref({
-        notifications: false,
-        marketing: false,
-        darkMode: false,
-        autoSave: true,
-      })
+    render: () => ({
+        components: { Swap },
+        setup() {
+            const formData = ref({
+                notifications: false,
+                marketing: false,
+                darkMode: false,
+                autoSave: true,
+            })
 
-      const handleSubmit = () => {
-        alert('Form submitted with: ' + JSON.stringify(formData.value, null, 2))
-      }
+            const handleSubmit = () => {
+                alert('Form submitted with: ' + JSON.stringify(formData.value, null, 2))
+            }
 
-      return { formData, handleSubmit }
-    },
-    template: `
+            return { formData, handleSubmit }
+        },
+        template: `
       <div class="max-w-md mx-auto">
         <h3 class="text-lg font-semibold mb-4">Form Integration</h3>
         
@@ -225,39 +225,39 @@ export const FormIntegration: Story = {
         </div>
       </div>
     `,
-  }),
+    }),
 }
 
 export const AdvancedExamples: Story = {
-  render: () => ({
-    components: { Swap },
-    setup() {
-      const isOn = ref(false)
-      const toggleCount = ref(0)
-      const externalControl = ref(false)
+    render: () => ({
+        components: { Swap },
+        setup() {
+            const isOn = ref(false)
+            const toggleCount = ref(0)
+            const externalControl = ref(false)
 
-      const handleToggle = () => {
-        toggleCount.value++
-      }
+            const handleToggle = () => {
+                toggleCount.value++
+            }
 
-      const toggleFromParent = () => {
-        isOn.value = !isOn.value
-      }
+            const toggleFromParent = () => {
+                isOn.value = !isOn.value
+            }
 
-      const syncWithExternal = () => {
-        isOn.value = externalControl.value
-      }
+            const syncWithExternal = () => {
+                isOn.value = externalControl.value
+            }
 
-      return {
-        isOn,
-        toggleCount,
-        externalControl,
-        handleToggle,
-        toggleFromParent,
-        syncWithExternal,
-      }
-    },
-    template: `
+            return {
+                isOn,
+                toggleCount,
+                externalControl,
+                handleToggle,
+                toggleFromParent,
+                syncWithExternal,
+            }
+        },
+        template: `
       <div class="space-y-6">
         <!-- Event Handling -->
         <div class="text-center">
@@ -310,20 +310,20 @@ export const AdvancedExamples: Story = {
         </div>
       </div>
     `,
-  }),
+    }),
 }
 
 export const Accessibility: Story = {
-  render: () => ({
-    components: { Swap },
-    setup() {
-      const themeValue = ref(false)
-      const notificationsValue = ref(false)
-      const soundValue = ref(false)
+    render: () => ({
+        components: { Swap },
+        setup() {
+            const themeValue = ref(false)
+            const notificationsValue = ref(false)
+            const soundValue = ref(false)
 
-      return { themeValue, notificationsValue, soundValue }
-    },
-    template: `
+            return { themeValue, notificationsValue, soundValue }
+        },
+        template: `
       <div class="max-w-md">
         <h3 class="text-lg font-semibold mb-4">Accessibility Features</h3>
         
@@ -384,26 +384,26 @@ export const Accessibility: Story = {
         </div>
       </div>
     `,
-  }),
+    }),
 }
 
 export const Playground: Story = {
-  args: {
-    variant: 'rotate',
-    swapOnContent: '🌞',
-    swapOffContent: '🌙',
-    indeterminateContent: '🌤️',
-    disabled: false,
-    name: 'playground-swap',
-    id: 'playground-swap',
-  },
-  render: (args) => ({
-    components: { Swap },
-    setup() {
-      const isOn = ref(false)
-      return { isOn, args }
+    args: {
+        variant: 'rotate',
+        swapOnContent: '🌞',
+        swapOffContent: '🌙',
+        indeterminateContent: '🌤️',
+        disabled: false,
+        name: 'playground-swap',
+        id: 'playground-swap',
     },
-    template: `
+    render: (args) => ({
+        components: { Swap },
+        setup() {
+            const isOn = ref(false)
+            return { isOn, args }
+        },
+        template: `
       <div class="space-y-4">
         <Swap v-model="isOn" v-bind="args" />
         <p class="text-sm text-gray-600">Current state: {{ isOn ? 'On' : 'Off' }}</p>
@@ -413,5 +413,5 @@ export const Playground: Story = {
         </div>
       </div>
     `,
-  }),
+    }),
 }

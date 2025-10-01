@@ -2,49 +2,49 @@ import type { Meta, StoryObj } from '@storybook/vue3-vite'
 import RadialProgress from '../../src/runtime/components/Feedback/RadialProgress.vue'
 
 const meta: Meta<typeof RadialProgress> = {
-  title: 'Feedback/RadialProgress',
-  component: RadialProgress,
-  parameters: {
-    layout: 'centered',
-  },
-  argTypes: {
-    value: {
-      control: { type: 'number', min: 0, max: 100 },
+    title: 'Feedback/RadialProgress',
+    component: RadialProgress,
+    parameters: {
+        layout: 'centered',
     },
-    max: {
-      control: { type: 'number' },
+    argTypes: {
+        value: {
+            control: { type: 'number', min: 0, max: 100 },
+        },
+        max: {
+            control: { type: 'number' },
+        },
+        size: {
+            control: { type: 'select' },
+            options: ['xs', 'sm', 'md', 'lg', 'xl'],
+        },
+        thickness: {
+            control: { type: 'select' },
+            options: ['thin', 'normal', 'thick'],
+        },
+        variant: {
+            control: { type: 'select' },
+            options: ['primary', 'secondary', 'accent', 'info', 'success', 'warning', 'error'],
+        },
+        showValue: {
+            control: { type: 'boolean' },
+        },
     },
-    size: {
-      control: { type: 'select' },
-      options: ['xs', 'sm', 'md', 'lg', 'xl'],
-    },
-    thickness: {
-      control: { type: 'select' },
-      options: ['thin', 'normal', 'thick'],
-    },
-    variant: {
-      control: { type: 'select' },
-      options: ['primary', 'secondary', 'accent', 'info', 'success', 'warning', 'error'],
-    },
-    showValue: {
-      control: { type: 'boolean' },
-    },
-  },
 }
 
 export default meta
 type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
-  args: {
-    value: 70,
-  },
+    args: {
+        value: 70,
+    },
 }
 
 export const Sizes: Story = {
-  render: () => ({
-    components: { RadialProgress },
-    template: `
+    render: () => ({
+        components: { RadialProgress },
+        template: `
       <div class="flex flex-wrap gap-8 items-center justify-center">
         <div class="text-center">
           <RadialProgress :value="25" size="xs" />
@@ -72,13 +72,13 @@ export const Sizes: Story = {
         </div>
       </div>
     `,
-  }),
+    }),
 }
 
 export const Colors: Story = {
-  render: () => ({
-    components: { RadialProgress },
-    template: `
+    render: () => ({
+        components: { RadialProgress },
+        template: `
       <div class="grid grid-cols-2 md:grid-cols-4 gap-8 items-center justify-items-center">
         <div class="text-center">
           <RadialProgress :value="70" variant="primary" />
@@ -116,13 +116,13 @@ export const Colors: Story = {
         </div>
       </div>
     `,
-  }),
+    }),
 }
 
 export const Thickness: Story = {
-  render: () => ({
-    components: { RadialProgress },
-    template: `
+    render: () => ({
+        components: { RadialProgress },
+        template: `
       <div class="flex gap-8 items-center justify-center">
         <div class="text-center">
           <RadialProgress :value="60" thickness="thin" variant="primary" />
@@ -140,13 +140,13 @@ export const Thickness: Story = {
         </div>
       </div>
     `,
-  }),
+    }),
 }
 
 export const CustomContent: Story = {
-  render: () => ({
-    components: { RadialProgress },
-    template: `
+    render: () => ({
+        components: { RadialProgress },
+        template: `
       <div class="flex flex-wrap gap-8 items-center justify-center">
         <div class="text-center">
           <RadialProgress :value="85" variant="success" :show-value="false">
@@ -183,13 +183,13 @@ export const CustomContent: Story = {
         </div>
       </div>
     `,
-  }),
+    }),
 }
 
 export const WithLabels: Story = {
-  render: () => ({
-    components: { RadialProgress },
-    template: `
+    render: () => ({
+        components: { RadialProgress },
+        template: `
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         <div class="text-center">
           <RadialProgress 
@@ -219,13 +219,13 @@ export const WithLabels: Story = {
         </div>
       </div>
     `,
-  }),
+    }),
 }
 
 export const Dashboard: Story = {
-  render: () => ({
-    components: { RadialProgress },
-    template: `
+    render: () => ({
+        components: { RadialProgress },
+        template: `
       <div class="bg-base-200 p-8 rounded-lg">
         <h3 class="text-xl font-bold mb-6">System Dashboard</h3>
         
@@ -310,37 +310,37 @@ export const Dashboard: Story = {
         </div>
       </div>
     `,
-  }),
+    }),
 }
 
 export const AnimatedProgress: Story = {
-  render: () => ({
-    components: { RadialProgress },
-    data() {
-      return {
-        progress: 0,
-        interval: null,
-      }
-    },
-    mounted() {
-      this.startAnimation()
-    },
-    beforeUnmount() {
-      if (this.interval) {
-        clearInterval(this.interval)
-      }
-    },
-    methods: {
-      startAnimation() {
-        this.interval = setInterval(() => {
-          this.progress += 1
-          if (this.progress > 100) {
-            this.progress = 0
-          }
-        }, 50)
-      },
-    },
-    template: `
+    render: () => ({
+        components: { RadialProgress },
+        data() {
+            return {
+                progress: 0,
+                interval: null,
+            }
+        },
+        mounted() {
+            this.startAnimation()
+        },
+        beforeUnmount() {
+            if (this.interval) {
+                clearInterval(this.interval)
+            }
+        },
+        methods: {
+            startAnimation() {
+                this.interval = setInterval(() => {
+                    this.progress += 1
+                    if (this.progress > 100) {
+                        this.progress = 0
+                    }
+                }, 50)
+            },
+        },
+        template: `
       <div class="text-center">
         <h3 class="text-lg font-bold mb-6">Animated Progress</h3>
         
@@ -381,5 +381,5 @@ export const AnimatedProgress: Story = {
         </button>
       </div>
     `,
-  }),
+    }),
 }

@@ -11,13 +11,13 @@ import Avatar from '../../src/runtime/components/DataDisplay/Avatar.vue'
 import Icon from '../../src/runtime/components/Icons/Icon.vue'
 
 const meta: Meta<typeof FormWizard> = {
-  title: 'Data Input/FormWizard',
-  component: FormWizard,
-  parameters: {
-    layout: 'centered',
-    docs: {
-      description: {
-        component: `
+    title: 'Data Input/FormWizard',
+    component: FormWizard,
+    parameters: {
+        layout: 'centered',
+        docs: {
+            description: {
+                component: `
 A comprehensive multi-step form wizard component that integrates with VeeValidate for validation.
 
 ## Features
@@ -31,120 +31,120 @@ A comprehensive multi-step form wizard component that integrates with VeeValidat
 ## Usage
 The FormWizard component allows you to create complex multi-step forms with validation, progress tracking, and flexible navigation.
         `,
-      },
+            },
+        },
     },
-  },
-  argTypes: {
-    steps: {
-      description: 'Array of step configurations',
-      control: { type: 'object' },
-      table: {
-        type: { summary: 'object' },
-      },
+    argTypes: {
+        steps: {
+            description: 'Array of step configurations',
+            control: { type: 'object' },
+            table: {
+                type: { summary: 'object' },
+            },
+        },
+        modelValue: {
+            type: 'number',
+            description: 'Current step index (0-based)',
+            control: { type: 'number', min: 0 },
+            table: {
+                type: { summary: 'number' },
+                defaultValue: { summary: '0' },
+            },
+        },
+        showSteps: {
+            type: 'boolean',
+            description: 'Show the steps indicator',
+            control: { type: 'boolean' },
+            table: {
+                type: { summary: 'boolean' },
+                defaultValue: { summary: 'true' },
+            },
+        },
+        stepsVariant: {
+            type: 'string',
+            description: 'Steps display variant',
+            control: { type: 'select' },
+            options: ['default', 'vertical'],
+            table: {
+                type: { summary: 'string' },
+                defaultValue: { summary: 'default' },
+            },
+        },
+        stepsColor: {
+            type: 'string',
+            description: 'Steps color theme',
+            control: { type: 'select' },
+            options: [
+                'bordered',
+                'ghost',
+                'primary',
+                'secondary',
+                'accent',
+                'info',
+                'success',
+                'warning',
+                'error',
+                'neutral',
+            ],
+            table: {
+                type: { summary: 'string' },
+                defaultValue: { summary: 'primary' },
+            },
+        },
+        showProgress: {
+            type: 'boolean',
+            description: 'Show progress bar',
+            control: { type: 'boolean' },
+            table: {
+                type: { summary: 'boolean' },
+                defaultValue: { summary: 'true' },
+            },
+        },
+        showSummary: {
+            type: 'boolean',
+            description: 'Show completed steps summary',
+            control: { type: 'boolean' },
+            table: {
+                type: { summary: 'boolean' },
+                defaultValue: { summary: 'true' },
+            },
+        },
+        nextButtonText: {
+            type: 'string',
+            description: 'Text for the next button',
+            control: { type: 'text' },
+            table: {
+                type: { summary: 'string' },
+                defaultValue: { summary: 'Next' },
+            },
+        },
+        previousButtonText: {
+            type: 'string',
+            description: 'Text for the previous button',
+            control: { type: 'text' },
+            table: {
+                type: { summary: 'string' },
+                defaultValue: { summary: 'Previous' },
+            },
+        },
+        submitButtonText: {
+            type: 'string',
+            description: 'Text for the submit button',
+            control: { type: 'text' },
+            table: {
+                type: { summary: 'string' },
+                defaultValue: { summary: 'Submit' },
+            },
+        },
+        stepData: {
+            description: 'Data for each step',
+            control: { type: 'object' },
+            table: {
+                type: { summary: 'object' },
+            },
+        },
     },
-    modelValue: {
-      type: 'number',
-      description: 'Current step index (0-based)',
-      control: { type: 'number', min: 0 },
-      table: {
-        type: { summary: 'number' },
-        defaultValue: { summary: '0' },
-      },
-    },
-    showSteps: {
-      type: 'boolean',
-      description: 'Show the steps indicator',
-      control: { type: 'boolean' },
-      table: {
-        type: { summary: 'boolean' },
-        defaultValue: { summary: 'true' },
-      },
-    },
-    stepsVariant: {
-      type: 'string',
-      description: 'Steps display variant',
-      control: { type: 'select' },
-      options: ['default', 'vertical'],
-      table: {
-        type: { summary: 'string' },
-        defaultValue: { summary: 'default' },
-      },
-    },
-    stepsColor: {
-      type: 'string',
-      description: 'Steps color theme',
-      control: { type: 'select' },
-      options: [
-        'bordered',
-        'ghost',
-        'primary',
-        'secondary',
-        'accent',
-        'info',
-        'success',
-        'warning',
-        'error',
-        'neutral',
-      ],
-      table: {
-        type: { summary: 'string' },
-        defaultValue: { summary: 'primary' },
-      },
-    },
-    showProgress: {
-      type: 'boolean',
-      description: 'Show progress bar',
-      control: { type: 'boolean' },
-      table: {
-        type: { summary: 'boolean' },
-        defaultValue: { summary: 'true' },
-      },
-    },
-    showSummary: {
-      type: 'boolean',
-      description: 'Show completed steps summary',
-      control: { type: 'boolean' },
-      table: {
-        type: { summary: 'boolean' },
-        defaultValue: { summary: 'true' },
-      },
-    },
-    nextButtonText: {
-      type: 'string',
-      description: 'Text for the next button',
-      control: { type: 'text' },
-      table: {
-        type: { summary: 'string' },
-        defaultValue: { summary: 'Next' },
-      },
-    },
-    previousButtonText: {
-      type: 'string',
-      description: 'Text for the previous button',
-      control: { type: 'text' },
-      table: {
-        type: { summary: 'string' },
-        defaultValue: { summary: 'Previous' },
-      },
-    },
-    submitButtonText: {
-      type: 'string',
-      description: 'Text for the submit button',
-      control: { type: 'text' },
-      table: {
-        type: { summary: 'string' },
-        defaultValue: { summary: 'Submit' },
-      },
-    },
-    stepData: {
-      description: 'Data for each step',
-      control: { type: 'object' },
-      table: {
-        type: { summary: 'object' },
-      },
-    },
-  },
-  tags: ['autodocs'],
+    tags: ['autodocs'],
 }
 
 export default meta
@@ -152,170 +152,170 @@ type Story = StoryObj<typeof meta>
 
 // Basic wizard steps
 const basicSteps = [
-  {
-    title: 'Personal Information',
-    description: 'Enter your basic details',
-    schema: yup.object({
-      firstName: yup.string().required('First name is required'),
-      lastName: yup.string().required('Last name is required'),
-      email: yup.string().email('Please enter a valid email').required('Email is required'),
-    }),
-  },
-  {
-    title: 'Contact Details',
-    description: 'Provide your contact information',
-    schema: yup.object({
-      phone: yup.string().required('Phone number is required'),
-      address: yup.string().required('Address is required'),
-      city: yup.string().required('City is required'),
-    }),
-  },
-  {
-    title: 'Preferences',
-    description: 'Set your preferences',
-    schema: yup.object({
-      newsletter: yup.boolean(),
-      notifications: yup.boolean(),
-      terms: yup.boolean().oneOf([true], 'You must accept the terms'),
-    }),
-  },
+    {
+        title: 'Personal Information',
+        description: 'Enter your basic details',
+        schema: yup.object({
+            firstName: yup.string().required('First name is required'),
+            lastName: yup.string().required('Last name is required'),
+            email: yup.string().email('Please enter a valid email').required('Email is required'),
+        }),
+    },
+    {
+        title: 'Contact Details',
+        description: 'Provide your contact information',
+        schema: yup.object({
+            phone: yup.string().required('Phone number is required'),
+            address: yup.string().required('Address is required'),
+            city: yup.string().required('City is required'),
+        }),
+    },
+    {
+        title: 'Preferences',
+        description: 'Set your preferences',
+        schema: yup.object({
+            newsletter: yup.boolean(),
+            notifications: yup.boolean(),
+            terms: yup.boolean().oneOf([true], 'You must accept the terms'),
+        }),
+    },
 ]
 
 // Account setup steps
 const accountSetupSteps = [
-  {
-    title: 'Account Details',
-    description: 'Create your account',
-    icon: 'user' as const,
-    schema: yup.object({
-      username: yup
-        .string()
-        .min(3, 'Username must be at least 3 characters')
-        .required('Username is required'),
-      email: yup.string().email('Please enter a valid email').required('Email is required'),
-      password: yup
-        .string()
-        .min(8, 'Password must be at least 8 characters')
-        .required('Password is required'),
-      confirmPassword: yup
-        .string()
-        .oneOf([yup.ref('password')], 'Passwords must match')
-        .required('Please confirm your password'),
-    }),
-  },
-  {
-    title: 'Profile Information',
-    description: 'Tell us about yourself',
-    icon: 'settings' as const,
-    schema: yup.object({
-      firstName: yup.string().required('First name is required'),
-      lastName: yup.string().required('Last name is required'),
-      bio: yup.string().max(200, 'Bio must be less than 200 characters'),
-      website: yup.string().url('Please enter a valid URL'),
-    }),
-  },
-  {
-    title: 'Preferences',
-    description: 'Set your account preferences',
-    icon: 'settings-2' as const,
-    schema: yup.object({
-      language: yup.string().required('Please select a language'),
-      timezone: yup.string().required('Please select a timezone'),
-      notifications: yup.boolean(),
-      newsletter: yup.boolean(),
-    }),
-  },
-  {
-    title: 'Verification',
-    description: 'Verify your account',
-    icon: 'check-circle' as const,
-    schema: yup.object({
-      terms: yup.boolean().oneOf([true], 'You must accept the terms and conditions'),
-      privacy: yup.boolean().oneOf([true], 'You must accept the privacy policy'),
-    }),
-  },
+    {
+        title: 'Account Details',
+        description: 'Create your account',
+        icon: 'user' as const,
+        schema: yup.object({
+            username: yup
+                .string()
+                .min(3, 'Username must be at least 3 characters')
+                .required('Username is required'),
+            email: yup.string().email('Please enter a valid email').required('Email is required'),
+            password: yup
+                .string()
+                .min(8, 'Password must be at least 8 characters')
+                .required('Password is required'),
+            confirmPassword: yup
+                .string()
+                .oneOf([yup.ref('password')], 'Passwords must match')
+                .required('Please confirm your password'),
+        }),
+    },
+    {
+        title: 'Profile Information',
+        description: 'Tell us about yourself',
+        icon: 'settings' as const,
+        schema: yup.object({
+            firstName: yup.string().required('First name is required'),
+            lastName: yup.string().required('Last name is required'),
+            bio: yup.string().max(200, 'Bio must be less than 200 characters'),
+            website: yup.string().url('Please enter a valid URL'),
+        }),
+    },
+    {
+        title: 'Preferences',
+        description: 'Set your account preferences',
+        icon: 'settings-2' as const,
+        schema: yup.object({
+            language: yup.string().required('Please select a language'),
+            timezone: yup.string().required('Please select a timezone'),
+            notifications: yup.boolean(),
+            newsletter: yup.boolean(),
+        }),
+    },
+    {
+        title: 'Verification',
+        description: 'Verify your account',
+        icon: 'check-circle' as const,
+        schema: yup.object({
+            terms: yup.boolean().oneOf([true], 'You must accept the terms and conditions'),
+            privacy: yup.boolean().oneOf([true], 'You must accept the privacy policy'),
+        }),
+    },
 ]
 
 // Checkout steps
 const checkoutSteps = [
-  {
-    title: 'Cart Review',
-    description: 'Review your items',
-    icon: 'shopping-cart' as const,
-    schema: yup.object({
-      items: yup.array().min(1, 'Please select at least one item'),
-    }),
-  },
-  {
-    title: 'Shipping',
-    description: 'Enter shipping details',
-    icon: 'map-pin' as const,
-    schema: yup.object({
-      address: yup.string().required('Address is required'),
-      city: yup.string().required('City is required'),
-      zipCode: yup.string().required('ZIP code is required'),
-      country: yup.string().required('Country is required'),
-      shippingMethod: yup.string().required('Please select a shipping method'),
-    }),
-  },
-  {
-    title: 'Payment',
-    description: 'Enter payment information',
-    icon: 'credit-card' as const,
-    schema: yup.object({
-      cardNumber: yup.string().required('Card number is required'),
-      expiryDate: yup.string().required('Expiry date is required'),
-      cvv: yup.string().required('CVV is required'),
-      cardholderName: yup.string().required('Cardholder name is required'),
-    }),
-  },
-  {
-    title: 'Confirmation',
-    description: 'Review and confirm order',
-    icon: 'check' as const,
-    schema: yup.object({
-      confirmOrder: yup.boolean().oneOf([true], 'Please confirm your order'),
-    }),
-  },
+    {
+        title: 'Cart Review',
+        description: 'Review your items',
+        icon: 'shopping-cart' as const,
+        schema: yup.object({
+            items: yup.array().min(1, 'Please select at least one item'),
+        }),
+    },
+    {
+        title: 'Shipping',
+        description: 'Enter shipping details',
+        icon: 'map-pin' as const,
+        schema: yup.object({
+            address: yup.string().required('Address is required'),
+            city: yup.string().required('City is required'),
+            zipCode: yup.string().required('ZIP code is required'),
+            country: yup.string().required('Country is required'),
+            shippingMethod: yup.string().required('Please select a shipping method'),
+        }),
+    },
+    {
+        title: 'Payment',
+        description: 'Enter payment information',
+        icon: 'credit-card' as const,
+        schema: yup.object({
+            cardNumber: yup.string().required('Card number is required'),
+            expiryDate: yup.string().required('Expiry date is required'),
+            cvv: yup.string().required('CVV is required'),
+            cardholderName: yup.string().required('Cardholder name is required'),
+        }),
+    },
+    {
+        title: 'Confirmation',
+        description: 'Review and confirm order',
+        icon: 'check' as const,
+        schema: yup.object({
+            confirmOrder: yup.boolean().oneOf([true], 'Please confirm your order'),
+        }),
+    },
 ]
 
 export const Default: Story = {
-  args: {
-    steps: basicSteps,
-    modelValue: 0,
-    showSteps: true,
-    stepsColor: 'primary',
-    showProgress: true,
-    showSummary: true,
-  },
-  render: (args) => ({
-    components: { FormWizard, Input, Textarea, Checkbox },
-    setup() {
-      const currentStep = ref(args.modelValue)
-      const stepData = ref<Record<string, any>>({})
-
-      const handleStepChange = (step: number, previousStep: number) => {
-        // Step change handled silently
-      }
-
-      const handleStepComplete = (step: number, data: any) => {
-        stepData.value[`step_${step}`] = data
-      }
-
-      const handleWizardComplete = (data: any) => {
-        alert('Form wizard completed successfully!')
-      }
-
-      return {
-        args,
-        currentStep,
-        stepData,
-        handleStepChange,
-        handleStepComplete,
-        handleWizardComplete,
-      }
+    args: {
+        steps: basicSteps,
+        modelValue: 0,
+        showSteps: true,
+        stepsColor: 'primary',
+        showProgress: true,
+        showSummary: true,
     },
-    template: `
+    render: (args) => ({
+        components: { FormWizard, Input, Textarea, Checkbox },
+        setup() {
+            const currentStep = ref(args.modelValue)
+            const stepData = ref<Record<string, any>>({})
+
+            const handleStepChange = (step: number, previousStep: number) => {
+                // Step change handled silently
+            }
+
+            const handleStepComplete = (step: number, data: any) => {
+                stepData.value[`step_${step}`] = data
+            }
+
+            const handleWizardComplete = (data: any) => {
+                alert('Form wizard completed successfully!')
+            }
+
+            return {
+                args,
+                currentStep,
+                stepData,
+                handleStepChange,
+                handleStepComplete,
+                handleWizardComplete,
+            }
+        },
+        template: `
       <div class="w-full max-w-2xl">
         <FormWizard
           v-bind="args"
@@ -421,53 +421,53 @@ export const Default: Story = {
         </FormWizard>
       </div>
     `,
-  }),
+    }),
 }
 
 export const AccountSetup: Story = {
-  args: {
-    steps: accountSetupSteps,
-    modelValue: 0,
-    showSteps: true,
-    stepsVariant: 'vertical',
-    stepsColor: 'accent',
-    showProgress: true,
-    showSummary: true,
-  },
-  render: (args) => ({
-    components: { FormWizard, Input, Select, Textarea, Checkbox, Toggle },
-    setup() {
-      const currentStep = ref(args.modelValue)
-      const stepData = ref<Record<string, any>>({})
-
-      const languages = [
-        { value: 'en', label: 'English' },
-        { value: 'es', label: 'Spanish' },
-        { value: 'fr', label: 'French' },
-        { value: 'de', label: 'German' },
-      ]
-
-      const timezones = [
-        { value: 'utc', label: 'UTC' },
-        { value: 'est', label: 'Eastern Time' },
-        { value: 'pst', label: 'Pacific Time' },
-        { value: 'gmt', label: 'Greenwich Mean Time' },
-      ]
-
-      const handleWizardComplete = (data: any) => {
-        alert('Account created successfully!')
-      }
-
-      return {
-        args,
-        currentStep,
-        stepData,
-        languages,
-        timezones,
-        handleWizardComplete,
-      }
+    args: {
+        steps: accountSetupSteps,
+        modelValue: 0,
+        showSteps: true,
+        stepsVariant: 'vertical',
+        stepsColor: 'accent',
+        showProgress: true,
+        showSummary: true,
     },
-    template: `
+    render: (args) => ({
+        components: { FormWizard, Input, Select, Textarea, Checkbox, Toggle },
+        setup() {
+            const currentStep = ref(args.modelValue)
+            const stepData = ref<Record<string, any>>({})
+
+            const languages = [
+                { value: 'en', label: 'English' },
+                { value: 'es', label: 'Spanish' },
+                { value: 'fr', label: 'French' },
+                { value: 'de', label: 'German' },
+            ]
+
+            const timezones = [
+                { value: 'utc', label: 'UTC' },
+                { value: 'est', label: 'Eastern Time' },
+                { value: 'pst', label: 'Pacific Time' },
+                { value: 'gmt', label: 'Greenwich Mean Time' },
+            ]
+
+            const handleWizardComplete = (data: any) => {
+                alert('Account created successfully!')
+            }
+
+            return {
+                args,
+                currentStep,
+                stepData,
+                languages,
+                timezones,
+                handleWizardComplete,
+            }
+        },
+        template: `
       <div class="w-full max-w-4xl">
         <FormWizard
           v-bind="args"
@@ -634,55 +634,55 @@ export const AccountSetup: Story = {
         </FormWizard>
       </div>
     `,
-  }),
+    }),
 }
 
 export const CheckoutProcess: Story = {
-  args: {
-    steps: checkoutSteps,
-    modelValue: 0,
-    showSteps: true,
-    stepsColor: 'success',
-    showProgress: true,
-    showSummary: true,
-  },
-  render: (args) => ({
-    components: { FormWizard, Input, Select, Checkbox },
-    setup() {
-      const currentStep = ref(args.modelValue)
-      const stepData = ref<Record<string, any>>({})
-
-      const shippingMethods = [
-        {
-          value: 'standard',
-          label: 'Standard Shipping (3-5 days)',
-          price: '$5.99',
-        },
-        {
-          value: 'express',
-          label: 'Express Shipping (1-2 days)',
-          price: '$12.99',
-        },
-        {
-          value: 'overnight',
-          label: 'Overnight Shipping',
-          price: '$24.99',
-        },
-      ]
-
-      const handleWizardComplete = (data: any) => {
-        alert('Order placed successfully!')
-      }
-
-      return {
-        args,
-        currentStep,
-        stepData,
-        shippingMethods,
-        handleWizardComplete,
-      }
+    args: {
+        steps: checkoutSteps,
+        modelValue: 0,
+        showSteps: true,
+        stepsColor: 'success',
+        showProgress: true,
+        showSummary: true,
     },
-    template: `
+    render: (args) => ({
+        components: { FormWizard, Input, Select, Checkbox },
+        setup() {
+            const currentStep = ref(args.modelValue)
+            const stepData = ref<Record<string, any>>({})
+
+            const shippingMethods = [
+                {
+                    value: 'standard',
+                    label: 'Standard Shipping (3-5 days)',
+                    price: '$5.99',
+                },
+                {
+                    value: 'express',
+                    label: 'Express Shipping (1-2 days)',
+                    price: '$12.99',
+                },
+                {
+                    value: 'overnight',
+                    label: 'Overnight Shipping',
+                    price: '$24.99',
+                },
+            ]
+
+            const handleWizardComplete = (data: any) => {
+                alert('Order placed successfully!')
+            }
+
+            return {
+                args,
+                currentStep,
+                stepData,
+                shippingMethods,
+                handleWizardComplete,
+            }
+        },
+        template: `
       <div class="w-full max-w-2xl">
         <FormWizard
           v-bind="args"
@@ -841,144 +841,144 @@ export const CheckoutProcess: Story = {
         </FormWizard>
       </div>
     `,
-  }),
+    }),
 }
 
 export const Minimal: Story = {
-  args: {
-    steps: [
-      {
-        title: 'Step 1',
-        description: 'First step description',
-      },
-      {
-        title: 'Step 2',
-        description: 'Second step description',
-      },
-      {
-        title: 'Step 3',
-        description: 'Final step description',
-      },
-    ],
-    modelValue: 0,
-    showSteps: false,
-    showProgress: false,
-    showSummary: false,
-  },
+    args: {
+        steps: [
+            {
+                title: 'Step 1',
+                description: 'First step description',
+            },
+            {
+                title: 'Step 2',
+                description: 'Second step description',
+            },
+            {
+                title: 'Step 3',
+                description: 'Final step description',
+            },
+        ],
+        modelValue: 0,
+        showSteps: false,
+        showProgress: false,
+        showSummary: false,
+    },
 }
 
 export const VerticalSteps: Story = {
-  args: {
-    steps: accountSetupSteps,
-    modelValue: 0,
-    showSteps: true,
-    stepsVariant: 'vertical',
-    stepsColor: 'info',
-    showProgress: true,
-    showSummary: true,
-  },
+    args: {
+        steps: accountSetupSteps,
+        modelValue: 0,
+        showSteps: true,
+        stepsVariant: 'vertical',
+        stepsColor: 'info',
+        showProgress: true,
+        showSummary: true,
+    },
 }
 
 export const CustomButtons: Story = {
-  args: {
-    steps: basicSteps,
-    modelValue: 0,
-    nextButtonText: 'Continue',
-    previousButtonText: 'Go Back',
-    submitButtonText: 'Finish Setup',
-    stepsColor: 'warning',
-  },
+    args: {
+        steps: basicSteps,
+        modelValue: 0,
+        nextButtonText: 'Continue',
+        previousButtonText: 'Go Back',
+        submitButtonText: 'Finish Setup',
+        stepsColor: 'warning',
+    },
 }
 
 export const NoValidation: Story = {
-  args: {
-    steps: [
-      {
-        title: 'Welcome',
-        description: 'Welcome to our platform',
-      },
-      {
-        title: 'Information',
-        description: 'Learn about our features',
-      },
-      {
-        title: 'Complete',
-        description: "You're all set!",
-      },
-    ],
-    modelValue: 0,
-    showSteps: true,
-    stepsColor: 'success',
-  },
+    args: {
+        steps: [
+            {
+                title: 'Welcome',
+                description: 'Welcome to our platform',
+            },
+            {
+                title: 'Information',
+                description: 'Learn about our features',
+            },
+            {
+                title: 'Complete',
+                description: "You're all set!",
+            },
+        ],
+        modelValue: 0,
+        showSteps: true,
+        stepsColor: 'success',
+    },
 }
 
 export const EnhancedSteps: Story = {
-  args: {
-    steps: [
-      {
-        title: 'Account Setup',
-        description: 'Create your account',
-        icon: 'user' as const,
-      },
-      {
-        title: 'Profile',
-        description: 'Complete your profile',
-        icon: 'settings' as const,
-      },
-      {
-        title: 'Preferences',
-        description: 'Set your preferences',
-        icon: 'heart' as const,
-      },
-      {
-        title: 'Verification',
-        description: 'Verify your account',
-        icon: 'check-circle' as const,
-      },
-    ],
-    modelValue: 0,
-    showSteps: true,
-    stepsVariant: 'vertical',
-    stepsColor: 'accent',
-    showProgress: true,
-    showSummary: true,
-  },
-  render: (args) => ({
-    components: { FormWizard, Input, Checkbox, Avatar, Icon },
-    setup() {
-      const currentStep = ref(args.modelValue)
-      const stepData = ref<Record<string, any>>({})
-
-      const handleStepComplete = (step: number, data: any) => {
-        // Create a clean copy of the data to avoid circular references
-        const cleanData = JSON.parse(
-          JSON.stringify(data, (key, value) => {
-            if (typeof value === 'function' || value === undefined) {
-              return undefined
-            }
-            if (value && typeof value === 'object' && value.nodeType) {
-              return undefined
-            }
-            return value
-          })
-        )
-
-        stepData.value[`step_${step}`] = cleanData
-      }
-
-      const handleWizardComplete = (data: any) => {
-        alert('Enhanced wizard completed successfully!')
-      }
-
-      return {
-        args,
-        currentStep,
-        stepData,
-        handleStepComplete,
-        handleWizardComplete,
-      }
+    args: {
+        steps: [
+            {
+                title: 'Account Setup',
+                description: 'Create your account',
+                icon: 'user' as const,
+            },
+            {
+                title: 'Profile',
+                description: 'Complete your profile',
+                icon: 'settings' as const,
+            },
+            {
+                title: 'Preferences',
+                description: 'Set your preferences',
+                icon: 'heart' as const,
+            },
+            {
+                title: 'Verification',
+                description: 'Verify your account',
+                icon: 'check-circle' as const,
+            },
+        ],
+        modelValue: 0,
+        showSteps: true,
+        stepsVariant: 'vertical',
+        stepsColor: 'accent',
+        showProgress: true,
+        showSummary: true,
     },
-    template: `
+    render: (args) => ({
+        components: { FormWizard, Input, Checkbox, Avatar, Icon },
+        setup() {
+            const currentStep = ref(args.modelValue)
+            const stepData = ref<Record<string, any>>({})
+
+            const handleStepComplete = (step: number, data: any) => {
+                // Create a clean copy of the data to avoid circular references
+                const cleanData = JSON.parse(
+                    JSON.stringify(data, (key, value) => {
+                        if (typeof value === 'function' || value === undefined) {
+                            return undefined
+                        }
+                        if (value && typeof value === 'object' && value.nodeType) {
+                            return undefined
+                        }
+                        return value
+                    })
+                )
+
+                stepData.value[`step_${step}`] = cleanData
+            }
+
+            const handleWizardComplete = (data: any) => {
+                alert('Enhanced wizard completed successfully!')
+            }
+
+            return {
+                args,
+                currentStep,
+                stepData,
+                handleStepComplete,
+                handleWizardComplete,
+            }
+        },
+        template: `
       <div class="w-full max-w-4xl">
         <FormWizard
           v-bind="args"
@@ -1133,154 +1133,157 @@ export const EnhancedSteps: Story = {
         </FormWizard>
       </div>
     `,
-  }),
+    }),
 }
 
 export const InteractiveWizard: Story = {
-  render: () => ({
-    components: { FormWizard, Input, Checkbox, Select, Avatar, Icon },
-    setup() {
-      const currentStep = ref(0)
-      const stepData = ref<Record<string, any>>({})
-      const isCompleted = ref(false)
-      const isAutoAdvancing = ref(false)
+    render: () => ({
+        components: { FormWizard, Input, Checkbox, Select, Avatar, Icon },
+        setup() {
+            const currentStep = ref(0)
+            const stepData = ref<Record<string, any>>({})
+            const isCompleted = ref(false)
+            const isAutoAdvancing = ref(false)
 
-      // Safe JSON stringify function to handle circular references
-      const safeStringify = (obj: any, space?: number) => {
-        try {
-          // First try to create a clean copy
-          const cleanObj = JSON.parse(
-            JSON.stringify(obj, (key, value) => {
-              // Skip functions, undefined, and non-serializable objects
-              if (typeof value === 'function' || value === undefined) {
-                return undefined
-              }
-              // Skip DOM elements and other non-serializable objects
-              if (value && typeof value === 'object' && value.nodeType) {
-                return undefined
-              }
-              // Skip objects that might cause circular references
-              if (value && typeof value === 'object' && value.$el) {
-                return '[Vue Component]'
-              }
-              return value
-            })
-          )
+            // Safe JSON stringify function to handle circular references
+            const safeStringify = (obj: any, space?: number) => {
+                try {
+                    // First try to create a clean copy
+                    const cleanObj = JSON.parse(
+                        JSON.stringify(obj, (key, value) => {
+                            // Skip functions, undefined, and non-serializable objects
+                            if (typeof value === 'function' || value === undefined) {
+                                return undefined
+                            }
+                            // Skip DOM elements and other non-serializable objects
+                            if (value && typeof value === 'object' && value.nodeType) {
+                                return undefined
+                            }
+                            // Skip objects that might cause circular references
+                            if (value && typeof value === 'object' && value.$el) {
+                                return '[Vue Component]'
+                            }
+                            return value
+                        })
+                    )
 
-          return JSON.stringify(cleanObj, null, space)
-        } catch (error) {
-          // If that fails, try a more aggressive approach
-          try {
-            const simpleObj: Record<string, any> = {}
-            if (obj && typeof obj === 'object') {
-              Object.keys(obj).forEach((key) => {
-                const value = obj[key]
-                if (
-                  typeof value === 'string' ||
-                  typeof value === 'number' ||
-                  typeof value === 'boolean'
-                ) {
-                  simpleObj[key] = value
-                } else if (Array.isArray(value)) {
-                  simpleObj[key] = value.map((item) =>
-                    typeof item === 'object' ? '[Object]' : item
-                  )
-                } else if (value && typeof value === 'object') {
-                  simpleObj[key] = '[Object]'
+                    return JSON.stringify(cleanObj, null, space)
+                } catch (error) {
+                    // If that fails, try a more aggressive approach
+                    try {
+                        const simpleObj: Record<string, any> = {}
+                        if (obj && typeof obj === 'object') {
+                            Object.keys(obj).forEach((key) => {
+                                const value = obj[key]
+                                if (
+                                    typeof value === 'string' ||
+                                    typeof value === 'number' ||
+                                    typeof value === 'boolean'
+                                ) {
+                                    simpleObj[key] = value
+                                } else if (Array.isArray(value)) {
+                                    simpleObj[key] = value.map((item) =>
+                                        typeof item === 'object' ? '[Object]' : item
+                                    )
+                                } else if (value && typeof value === 'object') {
+                                    simpleObj[key] = '[Object]'
+                                }
+                            })
+                        }
+                        return JSON.stringify(simpleObj, null, space)
+                    } catch (fallbackError) {
+                        return `[Serialization Error: ${error instanceof Error ? error.message : 'Unknown error'}]`
+                    }
                 }
-              })
             }
-            return JSON.stringify(simpleObj, null, space)
-          } catch (fallbackError) {
-            return `[Serialization Error: ${error instanceof Error ? error.message : 'Unknown error'}]`
-          }
-        }
-      }
 
-      const interactiveSteps = [
-        {
-          title: 'Personal Info',
-          description: 'Tell us about yourself',
-          schema: yup.object({
-            name: yup.string().required('Name is required'),
-            email: yup.string().email('Valid email required').required('Email is required'),
-          }),
-        },
-        {
-          title: 'Preferences',
-          description: 'Set your preferences',
-          schema: yup.object({
-            newsletter: yup.boolean().default(false),
-            notifications: yup.boolean().default(false),
-          }),
-        },
-        {
-          title: 'Confirmation',
-          description: 'Review and confirm',
-          schema: yup.object({
-            terms: yup
-              .boolean()
-              .oneOf([true], 'Must accept terms')
-              .required('Terms must be accepted'),
-          }),
-        },
-      ]
+            const interactiveSteps = [
+                {
+                    title: 'Personal Info',
+                    description: 'Tell us about yourself',
+                    schema: yup.object({
+                        name: yup.string().required('Name is required'),
+                        email: yup
+                            .string()
+                            .email('Valid email required')
+                            .required('Email is required'),
+                    }),
+                },
+                {
+                    title: 'Preferences',
+                    description: 'Set your preferences',
+                    schema: yup.object({
+                        newsletter: yup.boolean().default(false),
+                        notifications: yup.boolean().default(false),
+                    }),
+                },
+                {
+                    title: 'Confirmation',
+                    description: 'Review and confirm',
+                    schema: yup.object({
+                        terms: yup
+                            .boolean()
+                            .oneOf([true], 'Must accept terms')
+                            .required('Terms must be accepted'),
+                    }),
+                },
+            ]
 
-      const handleStepChange = (step: number, previousStep: number) => {
-        // Step change handled silently
-      }
-
-      const handleStepComplete = (step: number, data: any) => {
-        // Create a clean copy of the data to avoid circular references
-        const cleanData = JSON.parse(
-          JSON.stringify(data, (key, value) => {
-            // Skip functions, undefined, and non-serializable objects
-            if (typeof value === 'function' || value === undefined) {
-              return undefined
+            const handleStepChange = (step: number, previousStep: number) => {
+                // Step change handled silently
             }
-            // Skip DOM elements and other non-serializable objects
-            if (value && typeof value === 'object' && value.nodeType) {
-              return undefined
+
+            const handleStepComplete = (step: number, data: any) => {
+                // Create a clean copy of the data to avoid circular references
+                const cleanData = JSON.parse(
+                    JSON.stringify(data, (key, value) => {
+                        // Skip functions, undefined, and non-serializable objects
+                        if (typeof value === 'function' || value === undefined) {
+                            return undefined
+                        }
+                        // Skip DOM elements and other non-serializable objects
+                        if (value && typeof value === 'object' && value.nodeType) {
+                            return undefined
+                        }
+                        return value
+                    })
+                )
+
+                // Store data directly without step key prefix to avoid nesting
+                stepData.value[`step_${step}`] = cleanData
+
+                // Auto-advance to step 2 when step 1 is completed
+                if (step === 0) {
+                    isAutoAdvancing.value = true
+                    // Use nextTick to ensure the step data is updated before navigation
+                    nextTick(() => {
+                        currentStep.value = 1
+                        // Reset the auto-advancing flag after a short delay
+                        setTimeout(() => {
+                            isAutoAdvancing.value = false
+                        }, 1000)
+                    })
+                }
             }
-            return value
-          })
-        )
 
-        // Store data directly without step key prefix to avoid nesting
-        stepData.value[`step_${step}`] = cleanData
+            const handleWizardComplete = (data: any) => {
+                isCompleted.value = true
+                alert('Wizard completed successfully! Check the console for data.')
+            }
 
-        // Auto-advance to step 2 when step 1 is completed
-        if (step === 0) {
-          isAutoAdvancing.value = true
-          // Use nextTick to ensure the step data is updated before navigation
-          nextTick(() => {
-            currentStep.value = 1
-            // Reset the auto-advancing flag after a short delay
-            setTimeout(() => {
-              isAutoAdvancing.value = false
-            }, 1000)
-          })
-        }
-      }
-
-      const handleWizardComplete = (data: any) => {
-        isCompleted.value = true
-        alert('Wizard completed successfully! Check the console for data.')
-      }
-
-      return {
-        currentStep,
-        stepData,
-        isCompleted,
-        isAutoAdvancing,
-        interactiveSteps,
-        safeStringify,
-        handleStepChange,
-        handleStepComplete,
-        handleWizardComplete,
-      }
-    },
-    template: `
+            return {
+                currentStep,
+                stepData,
+                isCompleted,
+                isAutoAdvancing,
+                interactiveSteps,
+                safeStringify,
+                handleStepChange,
+                handleStepComplete,
+                handleWizardComplete,
+            }
+        },
+        template: `
       <div class="w-full max-w-2xl mx-auto">
         <div v-if="!isCompleted" class="space-y-6">
           <div class="text-center mb-8">
@@ -1478,5 +1481,5 @@ export const InteractiveWizard: Story = {
         </div>
       </div>
     `,
-  }),
+    }),
 }

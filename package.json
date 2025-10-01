@@ -1,102 +1,102 @@
 {
-  "name": "@boilerplatepowa/nuxt4-design-system",
-  "version": "1.0.0",
-  "description": "Modern Design System for Nuxt 4+ with TailwindCSS, DaisyUI and Storybook",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/BoilerplatePowa/Nuxt4-Design-System.git"
-  },
-  "license": "MIT",
-  "type": "module",
-  "exports": {
-    ".": {
-      "types": "./dist/types.d.mts",
-      "import": "./dist/module.mjs"
+    "name": "@boilerplatepowa/nuxt4-design-system",
+    "version": "1.0.0",
+    "description": "Modern Design System for Nuxt 4+ with TailwindCSS, DaisyUI and Storybook",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/BoilerplatePowa/Nuxt4-Design-System.git"
+    },
+    "license": "MIT",
+    "type": "module",
+    "exports": {
+        ".": {
+            "types": "./dist/types.d.mts",
+            "import": "./dist/module.mjs"
+        }
+    },
+    "main": "./dist/module.mjs",
+    "typesVersions": {
+        "*": {
+            ".": [
+                "./dist/types.d.mts"
+            ]
+        }
+    },
+    "files": [
+        "dist"
+    ],
+    "scripts": {
+        "prepack": "nuxt-module-build build",
+        "dev": "npm run dev:prepare && nuxi dev playground",
+        "dev:build": "nuxi build playground",
+        "dev:prepare": "nuxt-module-build build --stub && nuxt-module-build prepare && nuxi prepare playground",
+        "dev:storybook": "storybook dev -p 6006",
+        "storybook": "storybook dev -p 6006",
+        "build-storybook": "storybook build",
+        "release": "npm run lint && npm run test && npm run prepack && changelogen --release && npm publish && git push --follow-tags",
+        "lint": "eslint .",
+        "lint:fix": "eslint . --fix",
+        "test": "vitest run",
+        "test:watch": "vitest watch",
+        "test:coverage": "vitest run --coverage",
+        "test:types": "npm run dev:prepare && vue-tsc --noEmit && cd playground && vue-tsc --noEmit",
+        "test:types:module": "vue-tsc --noEmit",
+        "test:ci": "npm run lint && npm run test:types:module && npm run test",
+        "format": "prettier --write .",
+        "format:check": "prettier --check .",
+        "build": "npm run prepack",
+        "build:analyze": "npm run build && npm run bundle:analyze",
+        "bundle:analyze": "npx bundle-analyzer dist/",
+        "bundle:size": "npm run build && du -sh dist/",
+        "security:audit": "npm audit --audit-level moderate",
+        "security:fix": "npm audit fix",
+        "prepare:release": "npm run test:ci && npm run build && npm run security:audit",
+        "publish:github": "npm run prepare:release && npm publish --registry=https://npm.pkg.github.com",
+        "publish:github:script": "tsx scripts/publish-github.ts",
+        "docs:build": "cd playground && npm run generate",
+        "docs:preview": "cd playground && npm run preview",
+        "storybook:build": "storybook build",
+        "storybook:preview": "storybook dev -p 6006",
+        "storybook:deploy": "npm run storybook:build && npm run docs:deploy:storybook",
+        "storybook:deploy:script": "tsx scripts/deploy-storybook.ts",
+        "docs:deploy:storybook": "gh-pages -d storybook-static -t true"
+    },
+    "dependencies": {
+        "@nuxt/kit": "^4.0.3",
+        "@tailwindcss/vite": "^4.1.12",
+        "@vitejs/plugin-vue": "^6.0.1",
+        "daisyui": "^5.1.5",
+        "imask": "^7.6.1",
+        "lucide-vue-next": "^0.542.0",
+        "prettier": "^3.6.2",
+        "tailwindcss": "^4.1.12",
+        "vee-validate": "^4.15.1",
+        "yup": "^1.7.0"
+    },
+    "devDependencies": {
+        "@nuxt/devtools": "^2.6.3",
+        "@nuxt/eslint-config": "^1.9.0",
+        "@nuxt/module-builder": "^1.0.2",
+        "@nuxt/schema": "^4.0.3",
+        "@nuxt/test-utils": "^3.19.2",
+        "@storybook/addon-a11y": "^9.1.4",
+        "@storybook/addon-docs": "^9.1.4",
+        "@storybook/addon-links": "^9.1.4",
+        "@storybook/builder-vite": "^9.1.4",
+        "@storybook/vue3-vite": "^9.1.4",
+        "@types/node": "latest",
+        "@vue/test-utils": "^2.4.6",
+        "changelogen": "^0.6.2",
+        "eslint": "^9.34.0",
+        "eslint-plugin-storybook": "9.1.4",
+        "gh-pages": "^6.1.1",
+        "happy-dom": "^18.0.1",
+        "i18n-iso-countries": "^7.14.0",
+        "libphonenumber-js": "^1.12.15",
+        "nuxt": "^4.0.3",
+        "storybook": "^9.1.4",
+        "typescript": "~5.9.2",
+        "vitest": "^3.2.4",
+        "vue-tsc": "^3.0.6"
     }
-  },
-  "main": "./dist/module.mjs",
-  "typesVersions": {
-    "*": {
-      ".": [
-        "./dist/types.d.mts"
-      ]
-    }
-  },
-  "files": [
-    "dist"
-  ],
-  "scripts": {
-    "prepack": "nuxt-module-build build",
-    "dev": "npm run dev:prepare && nuxi dev playground",
-    "dev:build": "nuxi build playground",
-    "dev:prepare": "nuxt-module-build build --stub && nuxt-module-build prepare && nuxi prepare playground",
-    "dev:storybook": "storybook dev -p 6006",
-    "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build",
-    "release": "npm run lint && npm run test && npm run prepack && changelogen --release && npm publish && git push --follow-tags",
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix",
-    "test": "vitest run",
-    "test:watch": "vitest watch",
-    "test:coverage": "vitest run --coverage",
-    "test:types": "npm run dev:prepare && vue-tsc --noEmit && cd playground && vue-tsc --noEmit",
-    "test:types:module": "vue-tsc --noEmit",
-    "test:ci": "npm run lint && npm run test:types:module && npm run test",
-    "format": "prettier --write .",
-    "format:check": "prettier --check .",
-    "build": "npm run prepack",
-    "build:analyze": "npm run build && npm run bundle:analyze",
-    "bundle:analyze": "npx bundle-analyzer dist/",
-    "bundle:size": "npm run build && du -sh dist/",
-    "security:audit": "npm audit --audit-level moderate",
-    "security:fix": "npm audit fix",
-    "prepare:release": "npm run test:ci && npm run build && npm run security:audit",
-    "publish:github": "npm run prepare:release && npm publish --registry=https://npm.pkg.github.com",
-    "publish:github:script": "tsx scripts/publish-github.ts",
-    "docs:build": "cd playground && npm run generate",
-    "docs:preview": "cd playground && npm run preview",
-    "storybook:build": "storybook build",
-    "storybook:preview": "storybook dev -p 6006",
-    "storybook:deploy": "npm run storybook:build && npm run docs:deploy:storybook",
-    "storybook:deploy:script": "tsx scripts/deploy-storybook.ts",
-    "docs:deploy:storybook": "gh-pages -d storybook-static -t true"
-  },
-  "dependencies": {
-    "@nuxt/kit": "^4.0.3",
-    "@tailwindcss/vite": "^4.1.12",
-    "@vitejs/plugin-vue": "^6.0.1",
-    "daisyui": "^5.1.5",
-    "imask": "^7.6.1",
-    "lucide-vue-next": "^0.542.0",
-    "prettier": "^3.6.2",
-    "tailwindcss": "^4.1.12",
-    "vee-validate": "^4.15.1",
-    "yup": "^1.7.0"
-  },
-  "devDependencies": {
-    "@nuxt/devtools": "^2.6.3",
-    "@nuxt/eslint-config": "^1.9.0",
-    "@nuxt/module-builder": "^1.0.2",
-    "@nuxt/schema": "^4.0.3",
-    "@nuxt/test-utils": "^3.19.2",
-    "@storybook/addon-a11y": "^9.1.4",
-    "@storybook/addon-docs": "^9.1.4",
-    "@storybook/addon-links": "^9.1.4",
-    "@storybook/builder-vite": "^9.1.4",
-    "@storybook/vue3-vite": "^9.1.4",
-    "@types/node": "latest",
-    "@vue/test-utils": "^2.4.6",
-    "changelogen": "^0.6.2",
-    "eslint": "^9.34.0",
-    "eslint-plugin-storybook": "9.1.4",
-    "gh-pages": "^6.1.1",
-    "happy-dom": "^18.0.1",
-    "i18n-iso-countries": "^7.14.0",
-    "libphonenumber-js": "^1.12.15",
-    "nuxt": "^4.0.3",
-    "storybook": "^9.1.4",
-    "typescript": "~5.9.2",
-    "vitest": "^3.2.4",
-    "vue-tsc": "^3.0.6"
-  }
 }

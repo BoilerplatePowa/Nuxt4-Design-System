@@ -2,90 +2,90 @@ import type { Meta, StoryObj } from '@storybook/vue3-vite'
 import Dock from '../../src/runtime/components/Navigation/Dock.vue'
 
 const meta: Meta<typeof Dock> = {
-  title: 'Navigation/Dock',
-  component: Dock,
-  parameters: {
-    layout: 'fullscreen',
-  },
-  argTypes: {
-    position: {
-      control: { type: 'select' },
-      options: ['bottom', 'top', 'left', 'right'],
+    title: 'Navigation/Dock',
+    component: Dock,
+    parameters: {
+        layout: 'fullscreen',
     },
-    size: {
-      control: { type: 'select' },
-      options: ['sm', 'md', 'lg'],
+    argTypes: {
+        position: {
+            control: { type: 'select' },
+            options: ['bottom', 'top', 'left', 'right'],
+        },
+        size: {
+            control: { type: 'select' },
+            options: ['sm', 'md', 'lg'],
+        },
+        variant: {
+            control: { type: 'select' },
+            options: ['default', 'floating', 'glass'],
+        },
+        showTooltips: {
+            control: { type: 'boolean' },
+        },
+        animated: {
+            control: { type: 'boolean' },
+        },
     },
-    variant: {
-      control: { type: 'select' },
-      options: ['default', 'floating', 'glass'],
-    },
-    showTooltips: {
-      control: { type: 'boolean' },
-    },
-    animated: {
-      control: { type: 'boolean' },
-    },
-  },
 }
 
 export default meta
 type Story = StoryObj<typeof meta>
 
 const defaultItems = [
-  {
-    id: 'finder',
-    label: 'Finder',
-    icon: '📁',
-    active: true,
-  },
-  {
-    id: 'browser',
-    label: 'Browser',
-    icon: '🌐',
-  },
-  {
-    id: 'terminal',
-    label: 'Terminal',
-    icon: '⚡',
-  },
-  {
-    id: 'code',
-    label: 'Code Editor',
-    icon: '💻',
-    badge: '3',
-  },
-  {
-    id: 'mail',
-    label: 'Mail',
-    icon: '📧',
-    badge: '12',
-  },
+    {
+        id: 'finder',
+        label: 'Finder',
+        icon: '📁',
+        active: true,
+    },
+    {
+        id: 'browser',
+        label: 'Browser',
+        icon: '🌐',
+    },
+    {
+        id: 'terminal',
+        label: 'Terminal',
+        icon: '⚡',
+    },
+    {
+        id: 'code',
+        label: 'Code Editor',
+        icon: '💻',
+        badge: '3',
+    },
+    {
+        id: 'mail',
+        label: 'Mail',
+        icon: '📧',
+        badge: '12',
+    },
 ]
 
 export const Default: Story = {
-  args: {
-    items: defaultItems,
-    position: 'bottom',
-    size: 'md',
-    variant: 'floating',
-  },
+    args: {
+        items: defaultItems,
+        position: 'bottom',
+        size: 'md',
+        variant: 'floating',
+    },
 }
 
 export const Positions: Story = {
-  render: () => ({
-    components: { Dock },
-    data() {
-      return {
-        items: [
-          { id: 1, label: 'Home', icon: '🏠' },
-          { id: 2, label: 'Search', icon: '🔍' },
-          { id: 3, label: 'Settings', icon: '⚙️' },
-          { id: 4, label: 'Profile', icon: '👤' },
-        ],
-      }
-    },
-    template: `
+    render: () => ({
+        components: { Dock },
+        data() {
+            return {
+                items: [
+                    { id: 1, label: 'Home', icon: '🏠' },
+                    { id: 2, label: 'Search', icon: '🔍' },
+                    { id: 3, label: 'Settings', icon: '⚙️' },
+                    { id: 4, label: 'Profile', icon: '👤' },
+                ],
+            }
+        },
+        template: `
       <div class="relative h-screen bg-base-200">
         <div class="p-8">
           <h1 class="text-2xl font-bold mb-4">Dock Positions</h1>
@@ -117,24 +117,24 @@ export const Positions: Story = {
         <Dock :items="items" position="right" variant="floating" />
       </div>
     `,
-  }),
+    }),
 }
 
 export const Variants: Story = {
-  render: () => ({
-    components: { Dock },
-    data() {
-      return {
-        items: [
-          { id: 1, label: 'Dashboard', icon: '📊' },
-          { id: 2, label: 'Messages', icon: '💬', badge: '5' },
-          { id: 3, label: 'Calendar', icon: '📅' },
-          { id: 4, label: 'Photos', icon: '📸' },
-          { id: 5, label: 'Music', icon: '🎵' },
-        ],
-      }
-    },
-    template: `
+    render: () => ({
+        components: { Dock },
+        data() {
+            return {
+                items: [
+                    { id: 1, label: 'Dashboard', icon: '📊' },
+                    { id: 2, label: 'Messages', icon: '💬', badge: '5' },
+                    { id: 3, label: 'Calendar', icon: '📅' },
+                    { id: 4, label: 'Photos', icon: '📸' },
+                    { id: 5, label: 'Music', icon: '🎵' },
+                ],
+            }
+        },
+        template: `
       <div class="relative h-screen bg-gradient-to-br from-blue-400 via-purple-500 to-pink-500">
         <div class="p-8 text-white">
           <h1 class="text-3xl font-bold mb-4">Dock Variants</h1>
@@ -161,22 +161,22 @@ export const Variants: Story = {
         <Dock :items="items" position="bottom" variant="glass" style="bottom: 20px;" />
       </div>
     `,
-  }),
+    }),
 }
 
 export const Sizes: Story = {
-  render: () => ({
-    components: { Dock },
-    data() {
-      return {
-        items: [
-          { id: 1, label: 'Small', icon: '🔹' },
-          { id: 2, label: 'Medium', icon: '🔸' },
-          { id: 3, label: 'Large', icon: '🔶' },
-        ],
-      }
-    },
-    template: `
+    render: () => ({
+        components: { Dock },
+        data() {
+            return {
+                items: [
+                    { id: 1, label: 'Small', icon: '🔹' },
+                    { id: 2, label: 'Medium', icon: '🔸' },
+                    { id: 3, label: 'Large', icon: '🔶' },
+                ],
+            }
+        },
+        template: `
       <div class="relative h-screen bg-base-200">
         <div class="p-8">
           <h1 class="text-2xl font-bold mb-4">Dock Sizes</h1>
@@ -188,52 +188,52 @@ export const Sizes: Story = {
         <Dock :items="items" position="bottom" variant="floating" size="lg" style="bottom: 20px;" />
       </div>
     `,
-  }),
+    }),
 }
 
 export const WithBadges: Story = {
-  render: () => ({
-    components: { Dock },
-    data() {
-      return {
-        items: [
-          { id: 'mail', label: 'Mail', icon: '📧', badge: '12' },
-          {
-            id: 'messages',
-            label: 'Messages',
-            icon: '💬',
-            badge: '3',
-          },
-          {
-            id: 'notifications',
-            label: 'Notifications',
-            icon: '🔔',
-            badge: '99+',
-          },
-          { id: 'updates', label: 'Updates', icon: '🔄', badge: '1' },
-          { id: 'calendar', label: 'Calendar', icon: '📅' },
-        ],
-      }
-    },
-    methods: {
-      handleItemClick(item: { label: string; badge?: string }, index: number) {
-        console.log('Clicked:', item.label, 'at index:', index)
-
-        // Simulate clearing badges
-        if (item.badge) {
-          item.badge = ''
-          setTimeout(() => {
-            // Simulate new notifications
-            if (item.label === 'Mail') {
-              item.badge = Math.floor(Math.random() * 10).toString()
-            } else if (item.label === 'Messages') {
-              item.badge = Math.floor(Math.random() * 5).toString()
+    render: () => ({
+        components: { Dock },
+        data() {
+            return {
+                items: [
+                    { id: 'mail', label: 'Mail', icon: '📧', badge: '12' },
+                    {
+                        id: 'messages',
+                        label: 'Messages',
+                        icon: '💬',
+                        badge: '3',
+                    },
+                    {
+                        id: 'notifications',
+                        label: 'Notifications',
+                        icon: '🔔',
+                        badge: '99+',
+                    },
+                    { id: 'updates', label: 'Updates', icon: '🔄', badge: '1' },
+                    { id: 'calendar', label: 'Calendar', icon: '📅' },
+                ],
             }
-          }, 2000)
-        }
-      },
-    },
-    template: `
+        },
+        methods: {
+            handleItemClick(item: { label: string; badge?: string }, index: number) {
+                console.log('Clicked:', item.label, 'at index:', index)
+
+                // Simulate clearing badges
+                if (item.badge) {
+                    item.badge = ''
+                    setTimeout(() => {
+                        // Simulate new notifications
+                        if (item.label === 'Mail') {
+                            item.badge = Math.floor(Math.random() * 10).toString()
+                        } else if (item.label === 'Messages') {
+                            item.badge = Math.floor(Math.random() * 5).toString()
+                        }
+                    }, 2000)
+                }
+            },
+        },
+        template: `
       <div class="relative h-screen bg-base-200">
         <div class="p-8">
           <h1 class="text-2xl font-bold mb-4">Dock with Badges</h1>
@@ -248,88 +248,88 @@ export const WithBadges: Story = {
         />
       </div>
     `,
-  }),
+    }),
 }
 
 export const ApplicationDock: Story = {
-  render: () => ({
-    components: { Dock },
-    data() {
-      return {
-        activeApp: 'finder',
-        applications: [
-          {
-            id: 'finder',
-            label: 'Finder',
-            icon: '📁',
-            active: true,
-          },
-          {
-            id: 'safari',
-            label: 'Safari',
-            icon: '🌐',
-          },
-          {
-            id: 'mail',
-            label: 'Mail',
-            icon: '📧',
-            badge: '7',
-          },
-          {
-            id: 'messages',
-            label: 'Messages',
-            icon: '💬',
-            badge: '2',
-          },
-          {
-            id: 'photos',
-            label: 'Photos',
-            icon: '📸',
-          },
-          {
-            id: 'music',
-            label: 'Music',
-            icon: '🎵',
-          },
-          {
-            id: 'terminal',
-            label: 'Terminal',
-            icon: '⚡',
-          },
-          {
-            id: 'vscode',
-            label: 'VS Code',
-            icon: '💻',
-            badge: '3',
-          },
-          {
-            id: 'settings',
-            label: 'System Preferences',
-            icon: '⚙️',
-          },
-        ],
-      }
-    },
-    computed: {
-      dockItems() {
-        return this.applications.map((app: any) => ({
-          ...app,
-          active: app.id === this.activeApp,
-        }))
-      },
-    },
-    methods: {
-      handleAppClick(app: { id: string; label: string }, _index: number) {
-        this.activeApp = app.id
-        console.log('Launched:', app.label)
+    render: () => ({
+        components: { Dock },
+        data() {
+            return {
+                activeApp: 'finder',
+                applications: [
+                    {
+                        id: 'finder',
+                        label: 'Finder',
+                        icon: '📁',
+                        active: true,
+                    },
+                    {
+                        id: 'safari',
+                        label: 'Safari',
+                        icon: '🌐',
+                    },
+                    {
+                        id: 'mail',
+                        label: 'Mail',
+                        icon: '📧',
+                        badge: '7',
+                    },
+                    {
+                        id: 'messages',
+                        label: 'Messages',
+                        icon: '💬',
+                        badge: '2',
+                    },
+                    {
+                        id: 'photos',
+                        label: 'Photos',
+                        icon: '📸',
+                    },
+                    {
+                        id: 'music',
+                        label: 'Music',
+                        icon: '🎵',
+                    },
+                    {
+                        id: 'terminal',
+                        label: 'Terminal',
+                        icon: '⚡',
+                    },
+                    {
+                        id: 'vscode',
+                        label: 'VS Code',
+                        icon: '💻',
+                        badge: '3',
+                    },
+                    {
+                        id: 'settings',
+                        label: 'System Preferences',
+                        icon: '⚙️',
+                    },
+                ],
+            }
+        },
+        computed: {
+            dockItems() {
+                return this.applications.map((app: any) => ({
+                    ...app,
+                    active: app.id === this.activeApp,
+                }))
+            },
+        },
+        methods: {
+            handleAppClick(app: { id: string; label: string }, _index: number) {
+                this.activeApp = app.id
+                console.log('Launched:', app.label)
 
-        // Simulate opening an application
-        setTimeout(() => {
-          alert(`Opening ${app.label}...`)
-        }, 100)
-      },
-    },
-    template: `
+                // Simulate opening an application
+                setTimeout(() => {
+                    alert(`Opening ${app.label}...`)
+                }, 100)
+            },
+        },
+        template: `
       <div class="relative h-screen bg-gradient-to-br from-blue-500 via-purple-600 to-indigo-700">
         <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920')] bg-cover bg-center opacity-30"></div>
         
@@ -352,42 +352,42 @@ export const ApplicationDock: Story = {
         />
       </div>
     `,
-  }),
+    }),
 }
 
 export const ToolbarDock: Story = {
-  render: () => ({
-    components: { Dock },
-    data() {
-      return {
-        selectedTool: 'select',
-        tools: [
-          { id: 'select', label: 'Select', icon: '↖️' },
-          { id: 'move', label: 'Move', icon: '✋' },
-          { id: 'rotate', label: 'Rotate', icon: '🔄' },
-          { id: 'scale', label: 'Scale', icon: '📏' },
-          { id: 'pen', label: 'Pen', icon: '✏️' },
-          { id: 'brush', label: 'Brush', icon: '🖌️' },
-          { id: 'eraser', label: 'Eraser', icon: '🧹' },
-          { id: 'text', label: 'Text', icon: '📝' },
-        ],
-      }
-    },
-    computed: {
-      toolItems() {
-        return this.tools.map((tool: any) => ({
-          ...tool,
-          active: tool.id === this.selectedTool,
-        }))
-      },
-    },
-    methods: {
-      handleToolSelect(tool: { id: string; label: string }, _index: number) {
-        this.selectedTool = tool.id
-        console.log('Selected tool:', tool.label)
-      },
-    },
-    template: `
+    render: () => ({
+        components: { Dock },
+        data() {
+            return {
+                selectedTool: 'select',
+                tools: [
+                    { id: 'select', label: 'Select', icon: '↖️' },
+                    { id: 'move', label: 'Move', icon: '✋' },
+                    { id: 'rotate', label: 'Rotate', icon: '🔄' },
+                    { id: 'scale', label: 'Scale', icon: '📏' },
+                    { id: 'pen', label: 'Pen', icon: '✏️' },
+                    { id: 'brush', label: 'Brush', icon: '🖌️' },
+                    { id: 'eraser', label: 'Eraser', icon: '🧹' },
+                    { id: 'text', label: 'Text', icon: '📝' },
+                ],
+            }
+        },
+        computed: {
+            toolItems() {
+                return this.tools.map((tool: any) => ({
+                    ...tool,
+                    active: tool.id === this.selectedTool,
+                }))
+            },
+        },
+        methods: {
+            handleToolSelect(tool: { id: string; label: string }, _index: number) {
+                this.selectedTool = tool.id
+                console.log('Selected tool:', tool.label)
+            },
+        },
+        template: `
       <div class="relative h-screen bg-gray-100">
         <div class="p-8">
           <h1 class="text-2xl font-bold mb-4">Design Tool Toolbar</h1>
@@ -416,75 +416,75 @@ export const ToolbarDock: Story = {
         />
       </div>
     `,
-  }),
+    }),
 }
 
 export const SocialMediaDock: Story = {
-  render: () => ({
-    components: { Dock },
-    data() {
-      return {
-        socialApps: [
-          {
-            id: 'twitter',
-            label: 'Twitter',
-            icon: '🐦',
-            href: 'https://twitter.com',
-            target: '_blank',
-          },
-          {
-            id: 'facebook',
-            label: 'Facebook',
-            icon: '📘',
-            href: 'https://facebook.com',
-            target: '_blank',
-            badge: '3',
-          },
-          {
-            id: 'instagram',
-            label: 'Instagram',
-            icon: '📷',
-            href: 'https://instagram.com',
-            target: '_blank',
-          },
-          {
-            id: 'linkedin',
-            label: 'LinkedIn',
-            icon: '💼',
-            href: 'https://linkedin.com',
-            target: '_blank',
-            badge: '12',
-          },
-          {
-            id: 'youtube',
-            label: 'YouTube',
-            icon: '📺',
-            href: 'https://youtube.com',
-            target: '_blank',
-          },
-          {
-            id: 'tiktok',
-            label: 'TikTok',
-            icon: '🎵',
-            href: 'https://tiktok.com',
-            target: '_blank',
-            badge: '99+',
-          },
-        ],
-      }
-    },
-    methods: {
-      handleSocialClick(app: { label: string; href?: string }, _index: number, event: Event) {
-        console.log('Opening:', app.label)
+    render: () => ({
+        components: { Dock },
+        data() {
+            return {
+                socialApps: [
+                    {
+                        id: 'twitter',
+                        label: 'Twitter',
+                        icon: '🐦',
+                        href: 'https://twitter.com',
+                        target: '_blank',
+                    },
+                    {
+                        id: 'facebook',
+                        label: 'Facebook',
+                        icon: '📘',
+                        href: 'https://facebook.com',
+                        target: '_blank',
+                        badge: '3',
+                    },
+                    {
+                        id: 'instagram',
+                        label: 'Instagram',
+                        icon: '📷',
+                        href: 'https://instagram.com',
+                        target: '_blank',
+                    },
+                    {
+                        id: 'linkedin',
+                        label: 'LinkedIn',
+                        icon: '💼',
+                        href: 'https://linkedin.com',
+                        target: '_blank',
+                        badge: '12',
+                    },
+                    {
+                        id: 'youtube',
+                        label: 'YouTube',
+                        icon: '📺',
+                        href: 'https://youtube.com',
+                        target: '_blank',
+                    },
+                    {
+                        id: 'tiktok',
+                        label: 'TikTok',
+                        icon: '🎵',
+                        href: 'https://tiktok.com',
+                        target: '_blank',
+                        badge: '99+',
+                    },
+                ],
+            }
+        },
+        methods: {
+            handleSocialClick(app: { label: string; href?: string }, _index: number, event: Event) {
+                console.log('Opening:', app.label)
 
-        // For demo purposes, prevent actual navigation
-        if (app.href) {
-          event.preventDefault()
-          alert(`Would open ${app.label} in new tab`)
-        }
-      },
-    },
-    template: `
+                // For demo purposes, prevent actual navigation
+                if (app.href) {
+                    event.preventDefault()
+                    alert(`Would open ${app.label} in new tab`)
+                }
+            },
+        },
+        template: `
       <div class="relative h-screen bg-gradient-to-br from-pink-400 via-purple-500 to-indigo-600">
         <div class="p-8 text-white">
           <h1 class="text-3xl font-bold mb-4">Social Media Dock</h1>
@@ -522,5 +522,5 @@ export const SocialMediaDock: Story = {
         />
       </div>
     `,
-  }),
+    }),
 }

@@ -2,56 +2,57 @@ import type { Meta, StoryObj } from '@storybook/vue3-vite'
 import Countdown from '../../src/runtime/components/DataDisplay/Countdown.vue'
 
 const meta: Meta<typeof Countdown> = {
-  title: 'Data Display/Countdown',
-  component: Countdown,
-  parameters: {
-    layout: 'centered',
-    docs: {
-      description: {
-        component: 'Countdown timer component with customizable target date and styling options.',
-      },
+    title: 'Data Display/Countdown',
+    component: Countdown,
+    parameters: {
+        layout: 'centered',
+        docs: {
+            description: {
+                component:
+                    'Countdown timer component with customizable target date and styling options.',
+            },
+        },
     },
-  },
-  argTypes: {
-    targetDate: {
-      control: 'date',
-      description: 'Target date for the countdown',
+    argTypes: {
+        targetDate: {
+            control: 'date',
+            description: 'Target date for the countdown',
+        },
+        showDays: {
+            control: 'boolean',
+            description: 'Show days in the countdown',
+        },
+        showHours: {
+            control: 'boolean',
+            description: 'Show hours in the countdown',
+        },
+        showMinutes: {
+            control: 'boolean',
+            description: 'Show minutes in the countdown',
+        },
+        showSeconds: {
+            control: 'boolean',
+            description: 'Show seconds in the countdown',
+        },
+        size: {
+            control: { type: 'select' },
+            options: ['xs', 'sm', 'md', 'lg', 'xl'],
+            description: 'Size of the countdown display',
+        },
+        message: {
+            control: 'text',
+            description: 'Message to display with countdown',
+        },
+        showLabels: {
+            control: 'boolean',
+            description: 'Show labels for time units',
+        },
+        autoStart: {
+            control: 'boolean',
+            description: 'Auto-start the countdown',
+        },
     },
-    showDays: {
-      control: 'boolean',
-      description: 'Show days in the countdown',
-    },
-    showHours: {
-      control: 'boolean',
-      description: 'Show hours in the countdown',
-    },
-    showMinutes: {
-      control: 'boolean',
-      description: 'Show minutes in the countdown',
-    },
-    showSeconds: {
-      control: 'boolean',
-      description: 'Show seconds in the countdown',
-    },
-    size: {
-      control: { type: 'select' },
-      options: ['xs', 'sm', 'md', 'lg', 'xl'],
-      description: 'Size of the countdown display',
-    },
-    message: {
-      control: 'text',
-      description: 'Message to display with countdown',
-    },
-    showLabels: {
-      control: 'boolean',
-      description: 'Show labels for time units',
-    },
-    autoStart: {
-      control: 'boolean',
-      description: 'Auto-start the countdown',
-    },
-  },
-  tags: ['autodocs'],
+    tags: ['autodocs'],
 }
 
 export default meta
@@ -62,54 +63,54 @@ const tomorrow = new Date()
 tomorrow.setDate(tomorrow.getDate() + 1)
 
 export const Default: Story = {
-  args: {
-    targetDate: tomorrow.toISOString(),
-    showDays: true,
-    showHours: true,
-    showMinutes: true,
-    showSeconds: true,
-  },
+    args: {
+        targetDate: tomorrow.toISOString(),
+        showDays: true,
+        showHours: true,
+        showMinutes: true,
+        showSeconds: true,
+    },
 }
 
 export const OnlyTime: Story = {
-  args: {
-    targetDate: (() => {
-      const date = new Date()
-      date.setHours(date.getHours() + 2)
-      return date.toISOString()
-    })(),
-    showDays: false,
-    showHours: true,
-    showMinutes: true,
-    showSeconds: true,
-  },
+    args: {
+        targetDate: (() => {
+            const date = new Date()
+            date.setHours(date.getHours() + 2)
+            return date.toISOString()
+        })(),
+        showDays: false,
+        showHours: true,
+        showMinutes: true,
+        showSeconds: true,
+    },
 }
 
 export const DaysOnly: Story = {
-  args: {
-    targetDate: (() => {
-      const date = new Date()
-      date.setDate(date.getDate() + 10)
-      return date.toISOString()
-    })(),
-    showDays: true,
-    showHours: false,
-    showMinutes: false,
-    showSeconds: false,
-  },
+    args: {
+        targetDate: (() => {
+            const date = new Date()
+            date.setDate(date.getDate() + 10)
+            return date.toISOString()
+        })(),
+        showDays: true,
+        showHours: false,
+        showMinutes: false,
+        showSeconds: false,
+    },
 }
 
 export const Sizes: Story = {
-  render: () => ({
-    components: { Countdown },
-    data() {
-      const targetDate = new Date()
-      targetDate.setHours(targetDate.getHours() + 5)
-      return {
-        targetDate: targetDate.toISOString(),
-      }
-    },
-    template: `
+    render: () => ({
+        components: { Countdown },
+        data() {
+            const targetDate = new Date()
+            targetDate.setHours(targetDate.getHours() + 5)
+            return {
+                targetDate: targetDate.toISOString(),
+            }
+        },
+        template: `
       <div class="space-y-8">
         <div class="text-center">
           <h4 class="mb-4">Small</h4>
@@ -148,20 +149,20 @@ export const Sizes: Story = {
         </div>
       </div>
     `,
-  }),
+    }),
 }
 
 export const Variants: Story = {
-  render: () => ({
-    components: { Countdown },
-    data() {
-      const targetDate = new Date()
-      targetDate.setHours(targetDate.getHours() + 3)
-      return {
-        targetDate: targetDate.toISOString(),
-      }
-    },
-    template: `
+    render: () => ({
+        components: { Countdown },
+        data() {
+            const targetDate = new Date()
+            targetDate.setHours(targetDate.getHours() + 3)
+            return {
+                targetDate: targetDate.toISOString(),
+            }
+        },
+        template: `
       <div class="space-y-8">
         <div class="text-center">
           <h4 class="mb-4">Default</h4>
@@ -191,21 +192,21 @@ export const Variants: Story = {
         </div>
       </div>
     `,
-  }),
+    }),
 }
 
 export const EventCountdown: Story = {
-  render: () => ({
-    components: { Countdown },
-    data() {
-      const eventDate = new Date()
-      eventDate.setDate(eventDate.getDate() + 7)
-      eventDate.setHours(19, 0, 0, 0) // 7 PM
-      return {
-        eventDate: eventDate.toISOString(),
-      }
-    },
-    template: `
+    render: () => ({
+        components: { Countdown },
+        data() {
+            const eventDate = new Date()
+            eventDate.setDate(eventDate.getDate() + 7)
+            eventDate.setHours(19, 0, 0, 0) // 7 PM
+            return {
+                eventDate: eventDate.toISOString(),
+            }
+        },
+        template: `
       <div class="text-center p-8 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-lg">
         <h2 class="text-3xl font-bold mb-2">🎉 Special Event</h2>
         <p class="text-lg mb-6 opacity-90">Join us for an amazing celebration!</p>
@@ -222,21 +223,21 @@ export const EventCountdown: Story = {
         </div>
       </div>
     `,
-  }),
+    }),
 }
 
 export const ProductLaunch: Story = {
-  render: () => ({
-    components: { Countdown },
-    data() {
-      const launchDate = new Date()
-      launchDate.setDate(launchDate.getDate() + 3)
-      launchDate.setHours(12, 0, 0, 0) // Noon
-      return {
-        launchDate: launchDate.toISOString(),
-      }
-    },
-    template: `
+    render: () => ({
+        components: { Countdown },
+        data() {
+            const launchDate = new Date()
+            launchDate.setDate(launchDate.getDate() + 3)
+            launchDate.setHours(12, 0, 0, 0) // Noon
+            return {
+                launchDate: launchDate.toISOString(),
+            }
+        },
+        template: `
       <div class="max-w-md mx-auto">
         <div class="card bg-base-100 shadow-xl">
           <figure class="px-6 pt-6">
@@ -263,20 +264,20 @@ export const ProductLaunch: Story = {
         </div>
       </div>
     `,
-  }),
+    }),
 }
 
 export const SaleCountdown: Story = {
-  render: () => ({
-    components: { Countdown },
-    data() {
-      const saleEnd = new Date()
-      saleEnd.setHours(saleEnd.getHours() + 8)
-      return {
-        saleEnd: saleEnd.toISOString(),
-      }
-    },
-    template: `
+    render: () => ({
+        components: { Countdown },
+        data() {
+            const saleEnd = new Date()
+            saleEnd.setHours(saleEnd.getHours() + 8)
+            return {
+                saleEnd: saleEnd.toISOString(),
+            }
+        },
+        template: `
       <div class="bg-red-500 text-white p-6 rounded-lg text-center">
         <h3 class="text-2xl font-bold mb-2">🔥 FLASH SALE</h3>
         <p class="text-lg mb-4">Up to 70% OFF - Limited Time!</p>
@@ -298,5 +299,5 @@ export const SaleCountdown: Story = {
         </div>
       </div>
     `,
-  }),
+    }),
 }

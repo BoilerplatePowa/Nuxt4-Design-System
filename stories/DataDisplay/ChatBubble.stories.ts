@@ -2,90 +2,90 @@ import type { Meta, StoryObj } from '@storybook/vue3-vite'
 import ChatBubble from '../../src/runtime/components/DataDisplay/ChatBubble.vue'
 
 const meta: Meta<typeof ChatBubble> = {
-  title: 'Data Display/ChatBubble',
-  component: ChatBubble,
-  parameters: {
-    layout: 'padded',
-    docs: {
-      description: {
-        component: 'Chat message bubble component with sender positioning and styling options.',
-      },
+    title: 'Data Display/ChatBubble',
+    component: ChatBubble,
+    parameters: {
+        layout: 'padded',
+        docs: {
+            description: {
+                component:
+                    'Chat message bubble component with sender positioning and styling options.',
+            },
+        },
     },
-  },
-  argTypes: {
-    message: {
-      control: 'text',
-      description: 'The chat message content',
+    argTypes: {
+        message: {
+            control: 'text',
+            description: 'The chat message content',
+        },
+        position: {
+            control: { type: 'select' },
+            options: ['left', 'right'],
+            description: 'Message position (left for others, right for user)',
+        },
+        name: {
+            control: 'text',
+            description: 'Sender name',
+        },
+        size: {
+            control: { type: 'select' },
+            options: ['xs', 'sm', 'md', 'lg'],
+            description: 'Chat bubble size',
+        },
+        avatar: {
+            control: 'text',
+            description: 'Avatar image URL',
+        },
+        timestamp: {
+            control: 'text',
+            description: 'Message timestamp',
+        },
+        variant: {
+            control: { type: 'select' },
+            options: ['primary', 'secondary', 'accent', 'info', 'success', 'warning', 'error'],
+            description: 'Chat bubble color variant',
+        },
     },
-    position: {
-      control: { type: 'select' },
-      options: ['left', 'right'],
-      description: 'Message position (left for others, right for user)',
-    },
-    name: {
-      control: 'text',
-      description: 'Sender name',
-    },
-    size: {
-      control: { type: 'select' },
-      options: ['xs', 'sm', 'md', 'lg'],
-      description: 'Chat bubble size',
-    },
-    avatar: {
-      control: 'text',
-      description: 'Avatar image URL',
-    },
-    timestamp: {
-      control: 'text',
-      description: 'Message timestamp',
-    },
-    variant: {
-      control: { type: 'select' },
-      options: ['primary', 'secondary', 'accent', 'info', 'success', 'warning', 'error'],
-      description: 'Chat bubble color variant',
-    },
-  },
-  tags: ['autodocs'],
+    tags: ['autodocs'],
 }
 
 export default meta
 type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
-  args: {
-    message: 'Hello! How are you doing today?',
-    position: 'left',
-  },
+    args: {
+        message: 'Hello! How are you doing today?',
+        position: 'left',
+    },
 }
 
 export const UserMessage: Story = {
-  args: {
-    message: 'I am doing great, thanks for asking!',
-    position: 'right',
-  },
+    args: {
+        message: 'I am doing great, thanks for asking!',
+        position: 'right',
+    },
 }
 
 export const WithAvatar: Story = {
-  args: {
-    message: 'Hey there! Nice to meet you.',
-    position: 'left',
-    avatar:
-      'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=40&h=40&fit=crop&crop=face',
-  },
+    args: {
+        message: 'Hey there! Nice to meet you.',
+        position: 'left',
+        avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=40&h=40&fit=crop&crop=face',
+    },
 }
 
 export const WithTimestamp: Story = {
-  args: {
-    message: 'This message has a timestamp',
-    position: 'right',
-    timestamp: '2:30 PM',
-  },
+    args: {
+        message: 'This message has a timestamp',
+        position: 'right',
+        timestamp: '2:30 PM',
+    },
 }
 
 export const ColorVariants: Story = {
-  render: () => ({
-    components: { ChatBubble },
-    template: `
+    render: () => ({
+        components: { ChatBubble },
+        template: `
       <div class="space-y-4 max-w-md">
         <ChatBubble 
           message="Primary color message" 
@@ -119,13 +119,13 @@ export const ColorVariants: Story = {
         />
       </div>
     `,
-  }),
+    }),
 }
 
 export const Conversation: Story = {
-  render: () => ({
-    components: { ChatBubble },
-    template: `
+    render: () => ({
+        components: { ChatBubble },
+        template: `
       <div class="space-y-4 max-w-lg mx-auto">
         <ChatBubble 
           message="Hey! Are you free for lunch today?" 
@@ -157,24 +157,23 @@ export const Conversation: Story = {
         />
       </div>
     `,
-  }),
+    }),
 }
 
 export const LongMessage: Story = {
-  args: {
-    message:
-      'This is a much longer message to demonstrate how the chat bubble handles multiple lines of text. It should wrap nicely and maintain proper spacing and readability even with extended content.',
-    position: 'left',
-    avatar:
-      'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=40&h=40&fit=crop&crop=face',
-    timestamp: '3:45 PM',
-  },
+    args: {
+        message:
+            'This is a much longer message to demonstrate how the chat bubble handles multiple lines of text. It should wrap nicely and maintain proper spacing and readability even with extended content.',
+        position: 'left',
+        avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=40&h=40&fit=crop&crop=face',
+        timestamp: '3:45 PM',
+    },
 }
 
 export const SystemMessage: Story = {
-  render: () => ({
-    components: { ChatBubble },
-    template: `
+    render: () => ({
+        components: { ChatBubble },
+        template: `
       <div class="space-y-4 max-w-md mx-auto">
         <div class="text-center">
           <div class="inline-block bg-base-200 text-base-content px-4 py-2 rounded-full text-sm">
@@ -193,5 +192,5 @@ export const SystemMessage: Story = {
         </div>
       </div>
     `,
-  }),
+    }),
 }

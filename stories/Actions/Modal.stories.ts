@@ -4,79 +4,79 @@ import Modal from '../../src/runtime/components/Actions/Modal.vue'
 import Button from '../../src/runtime/components/Actions/Button.vue'
 
 const meta: Meta<typeof Modal> = {
-  title: 'Actions/Modal',
-  component: Modal,
-  parameters: {
-    layout: 'centered',
-    docs: {
-      description: {
-        component:
-          "A flexible modal component built on DaisyUI's native modal system. Uses the HTML dialog element with DaisyUI modal classes for consistent styling and behavior. Features Button and Icon components for the close button. Supports Vue 3.5+ `defineModel()` for two-way binding.",
-      },
+    title: 'Actions/Modal',
+    component: Modal,
+    parameters: {
+        layout: 'centered',
+        docs: {
+            description: {
+                component:
+                    "A flexible modal component built on DaisyUI's native modal system. Uses the HTML dialog element with DaisyUI modal classes for consistent styling and behavior. Features Button and Icon components for the close button. Supports Vue 3.5+ `defineModel()` for two-way binding.",
+            },
+        },
     },
-  },
-  tags: ['autodocs'],
-  argTypes: {
-    size: {
-      control: { type: 'select' },
-      options: ['sm', 'md', 'lg', 'xl', 'full'],
-      description: 'Modal size - responsive design with mobile-first approach',
+    tags: ['autodocs'],
+    argTypes: {
+        size: {
+            control: { type: 'select' },
+            options: ['sm', 'md', 'lg', 'xl', 'full'],
+            description: 'Modal size - responsive design with mobile-first approach',
+        },
+        title: {
+            control: { type: 'text' },
+            description: 'Modal title displayed in the header',
+        },
+        closable: {
+            control: { type: 'boolean' },
+            description: 'Show close button in the top-right corner',
+        },
+        closeOnOverlay: {
+            control: { type: 'boolean' },
+            description: 'Close when clicking the backdrop overlay',
+        },
+        closeOnEsc: {
+            control: { type: 'boolean' },
+            description: 'Close when pressing the Escape key',
+        },
+        persistent: {
+            control: { type: 'boolean' },
+            description: 'Prevent modal from being closed (overrides other close behaviors)',
+        },
+        trapFocus: {
+            control: { type: 'boolean' },
+            description: 'Trap focus within the modal for accessibility',
+        },
+        returnFocus: {
+            control: { type: 'boolean' },
+            description: 'Return focus to the previous element when modal closes',
+        },
+        autoFocus: {
+            control: { type: 'boolean' },
+            description: 'Automatically focus the first focusable element when modal opens',
+        },
+        zIndex: {
+            control: { type: 'number', min: 10, max: 100, step: 10 },
+            description: 'Z-index for modal layering',
+        },
     },
-    title: {
-      control: { type: 'text' },
-      description: 'Modal title displayed in the header',
-    },
-    closable: {
-      control: { type: 'boolean' },
-      description: 'Show close button in the top-right corner',
-    },
-    closeOnOverlay: {
-      control: { type: 'boolean' },
-      description: 'Close when clicking the backdrop overlay',
-    },
-    closeOnEsc: {
-      control: { type: 'boolean' },
-      description: 'Close when pressing the Escape key',
-    },
-    persistent: {
-      control: { type: 'boolean' },
-      description: 'Prevent modal from being closed (overrides other close behaviors)',
-    },
-    trapFocus: {
-      control: { type: 'boolean' },
-      description: 'Trap focus within the modal for accessibility',
-    },
-    returnFocus: {
-      control: { type: 'boolean' },
-      description: 'Return focus to the previous element when modal closes',
-    },
-    autoFocus: {
-      control: { type: 'boolean' },
-      description: 'Automatically focus the first focusable element when modal opens',
-    },
-    zIndex: {
-      control: { type: 'number', min: 10, max: 100, step: 10 },
-      description: 'Z-index for modal layering',
-    },
-  },
 }
 
 export default meta
 type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
-  render: (args) => ({
-    components: { Modal, Button },
-    setup() {
-      const isOpen = ref(false)
-      const openModal = () => {
-        console.log('Opening modal')
-        isOpen.value = true
-      }
+    render: (args) => ({
+        components: { Modal, Button },
+        setup() {
+            const isOpen = ref(false)
+            const openModal = () => {
+                console.log('Opening modal')
+                isOpen.value = true
+            }
 
-      return { args, isOpen, openModal }
-    },
-    template: `
+            return { args, isOpen, openModal }
+        },
+        template: `
       <div>
         <Button @click="openModal">Open Modal</Button>
         
@@ -90,39 +90,39 @@ export const Default: Story = {
         </Modal>
       </div>
     `,
-  }),
-  args: {
-    size: 'md',
-    closable: true,
-    closeOnOverlay: true,
-    closeOnEsc: true,
-    persistent: false,
-    trapFocus: true,
-    returnFocus: true,
-    autoFocus: true,
-    zIndex: 50,
-  },
+    }),
+    args: {
+        size: 'md',
+        closable: true,
+        closeOnOverlay: true,
+        closeOnEsc: true,
+        persistent: false,
+        trapFocus: true,
+        returnFocus: true,
+        autoFocus: true,
+        zIndex: 50,
+    },
 }
 
 export const AllSizes: Story = {
-  render: () => ({
-    components: { Modal, Button },
-    setup() {
-      const modals = ref({
-        sm: false,
-        md: false,
-        lg: false,
-        xl: false,
-        full: false,
-      })
+    render: () => ({
+        components: { Modal, Button },
+        setup() {
+            const modals = ref({
+                sm: false,
+                md: false,
+                lg: false,
+                xl: false,
+                full: false,
+            })
 
-      const openModal = (size: string) => {
-        modals.value[size as keyof typeof modals.value] = true
-      }
+            const openModal = (size: string) => {
+                modals.value[size as keyof typeof modals.value] = true
+            }
 
-      return { modals, openModal }
-    },
-    template: `
+            return { modals, openModal }
+        },
+        template: `
       <div class="space-x-2">
         <Button @click="openModal('sm')">Small</Button>
         <Button @click="openModal('md')">Medium</Button>
@@ -151,39 +151,39 @@ export const AllSizes: Story = {
         </Modal>
       </div>
     `,
-  }),
+    }),
 }
 
 export const CustomExamples: Story = {
-  render: () => ({
-    components: { Modal, Button },
-    setup() {
-      const modals = ref({
-        footer: false,
-        customHeader: false,
-        persistent: false,
-        form: false,
-      })
+    render: () => ({
+        components: { Modal, Button },
+        setup() {
+            const modals = ref({
+                footer: false,
+                customHeader: false,
+                persistent: false,
+                form: false,
+            })
 
-      const formData = ref({
-        name: '',
-        email: '',
-        message: '',
-      })
+            const formData = ref({
+                name: '',
+                email: '',
+                message: '',
+            })
 
-      const openModal = (type: string) => {
-        modals.value[type as keyof typeof modals.value] = true
-      }
+            const openModal = (type: string) => {
+                modals.value[type as keyof typeof modals.value] = true
+            }
 
-      const submitForm = () => {
-        console.log('Form submitted:', formData.value)
-        modals.value.form = false
-        formData.value = { name: '', email: '', message: '' }
-      }
+            const submitForm = () => {
+                console.log('Form submitted:', formData.value)
+                modals.value.form = false
+                formData.value = { name: '', email: '', message: '' }
+            }
 
-      return { modals, openModal, formData, submitForm }
-    },
-    template: `
+            return { modals, openModal, formData, submitForm }
+        },
+        template: `
       <div class="space-y-4">
         <!-- With Footer -->
         <Button @click="openModal('footer')">Modal with Footer</Button>
@@ -251,21 +251,21 @@ export const CustomExamples: Story = {
         </Modal>
       </div>
     `,
-  }),
+    }),
 }
 
 export const Accessibility: Story = {
-  render: () => ({
-    components: { Modal, Button },
-    setup() {
-      const isOpen = ref(false)
-      const openModal = () => {
-        isOpen.value = true
-      }
+    render: () => ({
+        components: { Modal, Button },
+        setup() {
+            const isOpen = ref(false)
+            const openModal = () => {
+                isOpen.value = true
+            }
 
-      return { isOpen, openModal }
-    },
-    template: `
+            return { isOpen, openModal }
+        },
+        template: `
       <div>
         <Button @click="openModal">Open Accessible Modal</Button>
         
@@ -312,23 +312,23 @@ export const Accessibility: Story = {
         </Modal>
       </div>
     `,
-  }),
+    }),
 }
 
 export const DaisyUINative: Story = {
-  render: () => ({
-    components: { Button },
-    setup() {
-      const showModal = () => {
-        const modal = document.getElementById('my_modal_1') as HTMLDialogElement
-        if (modal) {
-          modal.showModal()
-        }
-      }
+    render: () => ({
+        components: { Button },
+        setup() {
+            const showModal = () => {
+                const modal = document.getElementById('my_modal_1') as HTMLDialogElement
+                if (modal) {
+                    modal.showModal()
+                }
+            }
 
-      return { showModal }
-    },
-    template: `
+            return { showModal }
+        },
+        template: `
       <div>
         <Button @click="showModal">Open DaisyUI Native Modal</Button>
         
@@ -345,41 +345,40 @@ export const DaisyUINative: Story = {
         </dialog>
       </div>
     `,
-  }),
-  parameters: {
-    docs: {
-      description: {
-        story:
-          'This example shows the traditional DaisyUI modal pattern using the native HTML dialog element with showModal() method.',
-      },
+    }),
+    parameters: {
+        docs: {
+            description: {
+                story: 'This example shows the traditional DaisyUI modal pattern using the native HTML dialog element with showModal() method.',
+            },
+        },
     },
-  },
 }
 
 export const Playground: Story = {
-  args: {
-    size: 'md',
-    title: 'Customize Me',
-    closable: true,
-    closeOnOverlay: true,
-    closeOnEsc: true,
-    persistent: false,
-    trapFocus: true,
-    returnFocus: true,
-    autoFocus: true,
-    zIndex: 50,
-  },
-  render: (args) => ({
-    components: { Modal, Button },
-    setup() {
-      const isOpen = ref(false)
-      const openModal = () => {
-        isOpen.value = true
-      }
-
-      return { args, isOpen, openModal }
+    args: {
+        size: 'md',
+        title: 'Customize Me',
+        closable: true,
+        closeOnOverlay: true,
+        closeOnEsc: true,
+        persistent: false,
+        trapFocus: true,
+        returnFocus: true,
+        autoFocus: true,
+        zIndex: 50,
     },
-    template: `
+    render: (args) => ({
+        components: { Modal, Button },
+        setup() {
+            const isOpen = ref(false)
+            const openModal = () => {
+                isOpen.value = true
+            }
+
+            return { args, isOpen, openModal }
+        },
+        template: `
       <div class="space-y-4">
         <Button @click="openModal">Open Customizable Modal</Button>
         
@@ -393,5 +392,5 @@ export const Playground: Story = {
         </div>
       </div>
     `,
-  }),
+    }),
 }

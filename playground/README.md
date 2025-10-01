@@ -102,21 +102,21 @@ npm run build
 
 ```vue
 <template>
-  <!-- Color variants -->
-  <BpButton color="primary">Primary</BpButton>
-  <BpButton color="secondary">Secondary</BpButton>
+    <!-- Color variants -->
+    <BpButton color="primary">Primary</BpButton>
+    <BpButton color="secondary">Secondary</BpButton>
 
-  <!-- Style variants -->
-  <BpButton style="outline">Outline</BpButton>
-  <BpButton style="ghost">Ghost</BpButton>
+    <!-- Style variants -->
+    <BpButton style="outline">Outline</BpButton>
+    <BpButton style="ghost">Ghost</BpButton>
 
-  <!-- Size variants -->
-  <BpButton size="sm">Small</BpButton>
-  <BpButton size="lg">Large</BpButton>
+    <!-- Size variants -->
+    <BpButton size="sm">Small</BpButton>
+    <BpButton size="lg">Large</BpButton>
 
-  <!-- States -->
-  <BpButton loading>Loading</BpButton>
-  <BpButton disabled>Disabled</BpButton>
+    <!-- States -->
+    <BpButton loading>Loading</BpButton>
+    <BpButton disabled>Disabled</BpButton>
 </template>
 ```
 
@@ -124,9 +124,9 @@ npm run build
 
 ```vue
 <template>
-  <Icon name="heart" class="w-6 h-6 text-red-500" />
-  <Icon name="star" class="w-8 h-8 text-yellow-500" />
-  <Icon name="settings" class="w-5 h-5 text-blue-500" />
+    <Icon name="heart" class="w-6 h-6 text-red-500" />
+    <Icon name="star" class="w-8 h-8 text-yellow-500" />
+    <Icon name="settings" class="w-5 h-5 text-blue-500" />
 </template>
 ```
 
@@ -139,18 +139,18 @@ The design system uses a sophisticated component mapping system:
 ```typescript
 // Button color mapping
 const btnColorMap = {
-  primary: 'btn-primary',
-  secondary: 'btn-secondary',
-  accent: 'btn-accent',
-  // ... more colors
+    primary: 'btn-primary',
+    secondary: 'btn-secondary',
+    accent: 'btn-accent',
+    // ... more colors
 }
 
 // Button style mapping
 const btnStyleMap = {
-  outline: 'btn-outline',
-  ghost: 'btn-ghost',
-  soft: 'btn-soft',
-  // ... more styles
+    outline: 'btn-outline',
+    ghost: 'btn-ghost',
+    soft: 'btn-soft',
+    // ... more styles
 }
 ```
 
@@ -159,8 +159,8 @@ const btnStyleMap = {
 ```typescript
 // Theme switching
 function setTheme(theme: string) {
-  document.documentElement.setAttribute('data-theme', theme)
-  localStorage.setItem('@nuxt-design-system/theme', theme)
+    document.documentElement.setAttribute('data-theme', theme)
+    localStorage.setItem('@nuxt-design-system/theme', theme)
 }
 
 // Available themes
@@ -174,13 +174,13 @@ const themes = ['light', 'dark', 'corporate', 'synthwave']
 ```typescript
 // nuxt.config.ts
 export default defineNuxtConfig({
-  modules: ['@boilerplatepowa/nuxt4-design-system'],
-  nuxtDesignSystem: {
-    // Your configuration here
-    theme: 'light',
-    components: true,
-    prefix: 'Bp',
-  },
+    modules: ['@boilerplatepowa/nuxt4-design-system'],
+    nuxtDesignSystem: {
+        // Your configuration here
+        theme: 'light',
+        components: true,
+        prefix: 'Bp',
+    },
 })
 ```
 
@@ -189,11 +189,11 @@ export default defineNuxtConfig({
 ```typescript
 // tailwind.config.js
 export default {
-  content: ['./src/**/*.{vue,ts}', './playground/**/*.{vue,ts}'],
-  plugins: ['daisyui'],
-  daisyui: {
-    themes: ['light', 'dark', 'corporate', 'synthwave'],
-  },
+    content: ['./src/**/*.{vue,ts}', './playground/**/*.{vue,ts}'],
+    plugins: ['daisyui'],
+    daisyui: {
+        themes: ['light', 'dark', 'corporate', 'synthwave'],
+    },
 }
 ```
 

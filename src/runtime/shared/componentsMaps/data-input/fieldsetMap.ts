@@ -1,5 +1,5 @@
 export const fieldsetPartMap = {
-  legend: 'fieldset-legend',
+    legend: 'fieldset-legend',
 } as const
 
 export const labelBaseClass = 'label' as const

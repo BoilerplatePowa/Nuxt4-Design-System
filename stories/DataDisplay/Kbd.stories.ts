@@ -2,49 +2,49 @@ import type { Meta, StoryObj } from '@storybook/vue3-vite'
 import Kbd from '../../src/runtime/components/DataDisplay/Kbd.vue'
 
 const meta: Meta<typeof Kbd> = {
-  title: 'Data Display/Kbd',
-  component: Kbd,
-  parameters: {
-    layout: 'centered',
-    docs: {
-      description: {
-        component:
-          'Keyboard key representation component for displaying keyboard shortcuts and key combinations.',
-      },
+    title: 'Data Display/Kbd',
+    component: Kbd,
+    parameters: {
+        layout: 'centered',
+        docs: {
+            description: {
+                component:
+                    'Keyboard key representation component for displaying keyboard shortcuts and key combinations.',
+            },
+        },
     },
-  },
-  argTypes: {
-    keyText: {
-      control: 'text',
-      description: 'The key or key combination to display',
+    argTypes: {
+        keyText: {
+            control: 'text',
+            description: 'The key or key combination to display',
+        },
+        size: {
+            control: { type: 'select' },
+            options: ['xs', 'sm', 'md', 'lg'],
+            description: 'Size of the keyboard key',
+        },
+        variant: {
+            control: { type: 'select' },
+            options: ['default', 'primary', 'secondary', 'accent'],
+            description: 'Visual style variant',
+        },
     },
-    size: {
-      control: { type: 'select' },
-      options: ['xs', 'sm', 'md', 'lg'],
-      description: 'Size of the keyboard key',
-    },
-    variant: {
-      control: { type: 'select' },
-      options: ['default', 'primary', 'secondary', 'accent'],
-      description: 'Visual style variant',
-    },
-  },
-  tags: ['autodocs'],
+    tags: ['autodocs'],
 }
 
 export default meta
 type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
-  args: {
-    keyText: 'Enter',
-  },
+    args: {
+        keyText: 'Enter',
+    },
 }
 
 export const SingleKeys: Story = {
-  render: () => ({
-    components: { Kbd },
-    template: `
+    render: () => ({
+        components: { Kbd },
+        template: `
       <div class="flex flex-wrap gap-2">
         <Kbd keyText="A" />
         <Kbd keyText="B" />
@@ -62,13 +62,13 @@ export const SingleKeys: Story = {
         <Kbd keyText="Cmd" />
       </div>
     `,
-  }),
+    }),
 }
 
 export const KeyCombinations: Story = {
-  render: () => ({
-    components: { Kbd },
-    template: `
+    render: () => ({
+        components: { Kbd },
+        template: `
       <div class="space-y-4">
         <div class="flex items-center gap-2">
           <span>Copy:</span>
@@ -106,13 +106,13 @@ export const KeyCombinations: Story = {
         </div>
       </div>
     `,
-  }),
+    }),
 }
 
 export const Sizes: Story = {
-  render: () => ({
-    components: { Kbd },
-    template: `
+    render: () => ({
+        components: { Kbd },
+        template: `
       <div class="space-y-4">
         <div class="flex items-center gap-2">
           <span>Extra Small:</span>
@@ -143,13 +143,13 @@ export const Sizes: Story = {
         </div>
       </div>
     `,
-  }),
+    }),
 }
 
 export const Variants: Story = {
-  render: () => ({
-    components: { Kbd },
-    template: `
+    render: () => ({
+        components: { Kbd },
+        template: `
       <div class="space-y-4">
         <div class="flex items-center gap-2">
           <span>Default:</span>
@@ -172,13 +172,13 @@ export const Variants: Story = {
         </div>
       </div>
     `,
-  }),
+    }),
 }
 
 export const KeyboardShortcuts: Story = {
-  render: () => ({
-    components: { Kbd },
-    template: `
+    render: () => ({
+        components: { Kbd },
+        template: `
       <div class="max-w-md">
         <h3 class="text-lg font-semibold mb-4">Keyboard Shortcuts</h3>
         <div class="space-y-3">
@@ -231,13 +231,13 @@ export const KeyboardShortcuts: Story = {
         </div>
       </div>
     `,
-  }),
+    }),
 }
 
 export const ArrowKeys: Story = {
-  render: () => ({
-    components: { Kbd },
-    template: `
+    render: () => ({
+        components: { Kbd },
+        template: `
       <div class="text-center space-y-4">
         <h4 class="text-lg font-semibold">Navigation Keys</h4>
         
@@ -255,13 +255,13 @@ export const ArrowKeys: Story = {
         </div>
       </div>
     `,
-  }),
+    }),
 }
 
 export const FunctionKeys: Story = {
-  render: () => ({
-    components: { Kbd },
-    template: `
+    render: () => ({
+        components: { Kbd },
+        template: `
       <div class="space-y-4">
         <h4 class="text-lg font-semibold">Function Keys</h4>
         
@@ -285,13 +285,13 @@ export const FunctionKeys: Story = {
         </div>
       </div>
     `,
-  }),
+    }),
 }
 
 export const GameControls: Story = {
-  render: () => ({
-    components: { Kbd },
-    template: `
+    render: () => ({
+        components: { Kbd },
+        template: `
       <div class="max-w-sm mx-auto">
         <div class="bg-gradient-to-br from-purple-500 to-pink-500 text-white p-6 rounded-lg">
           <h3 class="text-xl font-bold mb-4 text-center">Game Controls</h3>
@@ -330,5 +330,5 @@ export const GameControls: Story = {
         </div>
       </div>
     `,
-  }),
+    }),
 }

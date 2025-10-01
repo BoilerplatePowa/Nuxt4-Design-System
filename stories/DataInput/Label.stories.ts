@@ -2,50 +2,50 @@ import type { Meta, StoryObj } from '@storybook/vue3-vite'
 import Label from '../../src/runtime/components/DataInput/Label.vue'
 
 const meta: Meta<typeof Label> = {
-  title: 'Data Input/Label',
-  component: Label,
-  parameters: {
-    layout: 'padded',
-  },
-  argTypes: {
-    tag: {
-      control: { type: 'select' },
-      options: ['label', 'div', 'span'],
+    title: 'Data Input/Label',
+    component: Label,
+    parameters: {
+        layout: 'padded',
     },
-    cursor: {
-      control: { type: 'select' },
-      options: ['default', 'pointer', 'not-allowed'],
+    argTypes: {
+        tag: {
+            control: { type: 'select' },
+            options: ['label', 'div', 'span'],
+        },
+        cursor: {
+            control: { type: 'select' },
+            options: ['default', 'pointer', 'not-allowed'],
+        },
+        size: {
+            control: { type: 'select' },
+            options: ['sm', 'md', 'lg'],
+        },
+        required: {
+            control: { type: 'boolean' },
+        },
     },
-    size: {
-      control: { type: 'select' },
-      options: ['sm', 'md', 'lg'],
-    },
-    required: {
-      control: { type: 'boolean' },
-    },
-  },
 }
 
 export default meta
 type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
-  args: {
-    text: 'Default Label',
-  },
+    args: {
+        text: 'Default Label',
+    },
 }
 
 export const WithAltText: Story = {
-  args: {
-    text: 'Email address',
-    altText: 'Required',
-  },
+    args: {
+        text: 'Email address',
+        altText: 'Required',
+    },
 }
 
 export const FormLabels: Story = {
-  render: () => ({
-    components: { Label },
-    template: `
+    render: () => ({
+        components: { Label },
+        template: `
       <div class="space-y-4 max-w-md">
         <div class="form-control">
           <Label text="Name" html-for="name" />
@@ -70,13 +70,13 @@ export const FormLabels: Story = {
         </div>
       </div>
     `,
-  }),
+    }),
 }
 
 export const Sizes: Story = {
-  render: () => ({
-    components: { Label },
-    template: `
+    render: () => ({
+        components: { Label },
+        template: `
       <div class="space-y-4">
         <div class="form-control">
           <Label text="Small Label" alt-text="Size: sm" size="sm" />
@@ -94,13 +94,13 @@ export const Sizes: Story = {
         </div>
       </div>
     `,
-  }),
+    }),
 }
 
 export const WithSlots: Story = {
-  render: () => ({
-    components: { Label },
-    template: `
+    render: () => ({
+        components: { Label },
+        template: `
       <div class="space-y-4 max-w-md">
         <div class="form-control">
           <Label>
@@ -135,22 +135,22 @@ export const WithSlots: Story = {
         </div>
       </div>
     `,
-  }),
+    }),
 }
 
 export const CheckboxLabels: Story = {
-  render: () => ({
-    components: { Label },
-    data() {
-      return {
-        preferences: {
-          emails: false,
-          sms: true,
-          push: false,
+    render: () => ({
+        components: { Label },
+        data() {
+            return {
+                preferences: {
+                    emails: false,
+                    sms: true,
+                    push: false,
+                },
+            }
         },
-      }
-    },
-    template: `
+        template: `
       <div class="space-y-4">
         <h3 class="text-lg font-bold">Notification Preferences</h3>
         
@@ -192,18 +192,18 @@ export const CheckboxLabels: Story = {
         </div>
       </div>
     `,
-  }),
+    }),
 }
 
 export const RadioLabels: Story = {
-  render: () => ({
-    components: { Label },
-    data() {
-      return {
-        plan: 'basic',
-      }
-    },
-    template: `
+    render: () => ({
+        components: { Label },
+        data() {
+            return {
+                plan: 'basic',
+            }
+        },
+        template: `
       <div class="space-y-4">
         <h3 class="text-lg font-bold">Choose Your Plan</h3>
         
@@ -250,5 +250,5 @@ export const RadioLabels: Story = {
         </div>
       </div>
     `,
-  }),
+    }),
 }

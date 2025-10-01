@@ -3,157 +3,159 @@ import { mount } from '@vue/test-utils'
 import Collapse from '../../../src/runtime/components/DataDisplay/Collapse.vue'
 
 describe('Collapse', () => {
-  it('renders with default props', () => {
-    const wrapper = mount(Collapse, {
-      props: {
-        title: 'Test Collapse',
-      },
+    it('renders with default props', () => {
+        const wrapper = mount(Collapse, {
+            props: {
+                title: 'Test Collapse',
+            },
+        })
+
+        expect(wrapper.find('.collapse').exists()).toBe(true)
+        expect(wrapper.find('.collapse-title').text()).toContain('Test Collapse')
+        expect(wrapper.find('input[type="checkbox"]').exists()).toBe(true)
     })
 
-    expect(wrapper.find('.collapse').exists()).toBe(true)
-    expect(wrapper.find('.collapse-title').text()).toContain('Test Collapse')
-    expect(wrapper.find('input[type="checkbox"]').exists()).toBe(true)
-  })
+    it('renders with custom content', () => {
+        const wrapper = mount(Collapse, {
+            props: {
+                title: 'Test Collapse',
+            },
+            slots: {
+                default: '<p>Custom content</p>',
+            },
+        })
 
-  it('renders with custom content', () => {
-    const wrapper = mount(Collapse, {
-      props: {
-        title: 'Test Collapse',
-      },
-      slots: {
-        default: '<p>Custom content</p>',
-      },
+        expect(wrapper.find('.collapse-content').html()).toContain('<p>Custom content</p>')
     })
 
-    expect(wrapper.find('.collapse-content').html()).toContain('<p>Custom content</p>')
-  })
+    it('applies correct variant classes', () => {
+        const wrapper = mount(Collapse, {
+            props: {
+                title: 'Test',
+                variant: 'bordered',
+            },
+        })
 
-  it('applies correct variant classes', () => {
-    const wrapper = mount(Collapse, {
-      props: {
-        title: 'Test',
-        variant: 'bordered',
-      },
+        expect(wrapper.find('.collapse').classes()).toContain('border')
+        expect(wrapper.find('.collapse').classes()).toContain('border-base-300')
     })
 
-    expect(wrapper.find('.collapse').classes()).toContain('border')
-    expect(wrapper.find('.collapse').classes()).toContain('border-base-300')
-  })
+    it('handles disabled state', () => {
+        const wrapper = mount(Collapse, {
+            props: {
+                title: 'Test',
+                disabled: true,
+            },
+        })
 
-  it('handles disabled state', () => {
-    const wrapper = mount(Collapse, {
-      props: {
-        title: 'Test',
-        disabled: true,
-      },
+        expect(wrapper.find('input[type="checkbox"]').attributes('disabled')).toBeDefined()
+        expect(wrapper.find('.collapse-title').classes()).toContain('cursor-not-allowed')
     })
 
-    expect(wrapper.find('input[type="checkbox"]').attributes('disabled')).toBeDefined()
-    expect(wrapper.find('.collapse-title').classes()).toContain('cursor-not-allowed')
-  })
+    it('emits toggle event when clicked', async () => {
+        const wrapper = mount(Collapse, {
+            props: {
+                title: 'Test',
+            },
+        })
 
-  it('emits toggle event when clicked', async () => {
-    const wrapper = mount(Collapse, {
-      props: {
-        title: 'Test',
-      },
+        await wrapper.find('.collapse-title').trigger('click')
+
+        expect(wrapper.emitted('toggle')).toBeTruthy()
+        expect(wrapper.emitted('toggle')?.[0]).toEqual([true])
     })
 
-    await wrapper.find('.collapse-title').trigger('click')
+    it('does not emit toggle when disabled', async () => {
+        const wrapper = mount(Collapse, {
+            props: {
+                title: 'Test',
+                disabled: true,
+            },
+        })
 
-    expect(wrapper.emitted('toggle')).toBeTruthy()
-    expect(wrapper.emitted('toggle')?.[0]).toEqual([true])
-  })
+        await wrapper.find('.collapse-title').trigger('click')
 
-  it('does not emit toggle when disabled', async () => {
-    const wrapper = mount(Collapse, {
-      props: {
-        title: 'Test',
-        disabled: true,
-      },
+        expect(wrapper.emitted('toggle')).toBeFalsy()
     })
 
-    await wrapper.find('.collapse-title').trigger('click')
+    it('supports v-model with defineModel', async () => {
+        const wrapper = mount(Collapse, {
+            props: {
+                title: 'Test',
+                modelValue: false,
+            },
+        })
 
-    expect(wrapper.emitted('toggle')).toBeFalsy()
-  })
+        await wrapper.find('.collapse-title').trigger('click')
 
-  it('supports v-model with defineModel', async () => {
-    const wrapper = mount(Collapse, {
-      props: {
-        title: 'Test',
-        modelValue: false,
-      },
+        expect(wrapper.emitted('update:modelValue')).toBeTruthy()
+        expect(wrapper.emitted('update:modelValue')?.[0]).toEqual([true])
     })
 
-    await wrapper.find('.collapse-title').trigger('click')
+    it('updates v-model when checkbox is clicked', async () => {
+        const wrapper = mount(Collapse, {
+            props: {
+                title: 'Test',
+                modelValue: false,
+            },
+        })
 
-    expect(wrapper.emitted('update:modelValue')).toBeTruthy()
-    expect(wrapper.emitted('update:modelValue')?.[0]).toEqual([true])
-  })
+        await wrapper.find('input[type="checkbox"]').setValue(true)
 
-  it('updates v-model when checkbox is clicked', async () => {
-    const wrapper = mount(Collapse, {
-      props: {
-        title: 'Test',
-        modelValue: false,
-      },
+        expect(wrapper.emitted('update:modelValue')).toBeTruthy()
+        expect(wrapper.emitted('update:modelValue')?.[0]).toEqual([true])
     })
 
-    await wrapper.find('input[type="checkbox"]').setValue(true)
+    it('responds to external v-model changes', async () => {
+        const wrapper = mount(Collapse, {
+            props: {
+                title: 'Test',
+                modelValue: false,
+            },
+        })
 
-    expect(wrapper.emitted('update:modelValue')).toBeTruthy()
-    expect(wrapper.emitted('update:modelValue')?.[0]).toEqual([true])
-  })
+        // Update the modelValue prop
+        await wrapper.setProps({ modelValue: true })
 
-  it('responds to external v-model changes', async () => {
-    const wrapper = mount(Collapse, {
-      props: {
-        title: 'Test',
-        modelValue: false,
-      },
+        // The checkbox should reflect the new value
+        expect((wrapper.find('input[type="checkbox"]').element as HTMLInputElement).checked).toBe(
+            true
+        )
     })
 
-    // Update the modelValue prop
-    await wrapper.setProps({ modelValue: true })
+    it('handles keyboard navigation', async () => {
+        const wrapper = mount(Collapse, {
+            props: {
+                title: 'Test',
+                modelValue: false,
+            },
+        })
 
-    // The checkbox should reflect the new value
-    expect((wrapper.find('input[type="checkbox"]').element as HTMLInputElement).checked).toBe(true)
-  })
+        // Test Enter key
+        await wrapper.find('.collapse-title').trigger('keydown', { key: 'Enter' })
+        expect(wrapper.emitted('update:modelValue')).toBeTruthy()
+        expect(wrapper.emitted('update:modelValue')?.[0]).toEqual([true])
 
-  it('handles keyboard navigation', async () => {
-    const wrapper = mount(Collapse, {
-      props: {
-        title: 'Test',
-        modelValue: false,
-      },
+        // Test Space key
+        await wrapper.find('.collapse-title').trigger('keydown', { key: ' ' })
+        expect(wrapper.emitted('update:modelValue')?.[1]).toEqual([false])
     })
 
-    // Test Enter key
-    await wrapper.find('.collapse-title').trigger('keydown', { key: 'Enter' })
-    expect(wrapper.emitted('update:modelValue')).toBeTruthy()
-    expect(wrapper.emitted('update:modelValue')?.[0]).toEqual([true])
+    it('prevents default behavior on keyboard events', async () => {
+        const wrapper = mount(Collapse, {
+            props: {
+                title: 'Test',
+            },
+        })
 
-    // Test Space key
-    await wrapper.find('.collapse-title').trigger('keydown', { key: ' ' })
-    expect(wrapper.emitted('update:modelValue')?.[1]).toEqual([false])
-  })
+        const preventDefaultSpy = vi.fn()
+        const event = {
+            key: 'Enter',
+            preventDefault: preventDefaultSpy,
+        }
 
-  it('prevents default behavior on keyboard events', async () => {
-    const wrapper = mount(Collapse, {
-      props: {
-        title: 'Test',
-      },
+        await wrapper.find('.collapse-title').trigger('keydown', event)
+
+        expect(preventDefaultSpy).toHaveBeenCalled()
     })
-
-    const preventDefaultSpy = vi.fn()
-    const event = {
-      key: 'Enter',
-      preventDefault: preventDefaultSpy,
-    }
-
-    await wrapper.find('.collapse-title').trigger('keydown', event)
-
-    expect(preventDefaultSpy).toHaveBeenCalled()
-  })
 })

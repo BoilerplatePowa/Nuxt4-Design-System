@@ -2,44 +2,44 @@ import type { Meta, StoryObj } from '@storybook/vue3-vite'
 import Drawer from '../../src/runtime/components/Layout/Drawer.vue'
 
 const meta: Meta<typeof Drawer> = {
-  title: 'Layout/Drawer',
-  component: Drawer,
-  parameters: {
-    layout: 'fullscreen',
-  },
-  argTypes: {
-    position: {
-      control: { type: 'select' },
-      options: ['left', 'right', 'top', 'bottom'],
+    title: 'Layout/Drawer',
+    component: Drawer,
+    parameters: {
+        layout: 'fullscreen',
     },
-    width: {
-      control: { type: 'select' },
-      options: ['sm', 'md', 'lg', 'xl', 'full'],
+    argTypes: {
+        position: {
+            control: { type: 'select' },
+            options: ['left', 'right', 'top', 'bottom'],
+        },
+        width: {
+            control: { type: 'select' },
+            options: ['sm', 'md', 'lg', 'xl', 'full'],
+        },
+        showCloseButton: {
+            control: { type: 'boolean' },
+        },
+        persistent: {
+            control: { type: 'boolean' },
+        },
+        backdrop: {
+            control: { type: 'boolean' },
+        },
     },
-    showCloseButton: {
-      control: { type: 'boolean' },
-    },
-    persistent: {
-      control: { type: 'boolean' },
-    },
-    backdrop: {
-      control: { type: 'boolean' },
-    },
-  },
 }
 
 export default meta
 type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
-  render: () => ({
-    components: { Drawer },
-    data() {
-      return {
-        isOpen: false,
-      }
-    },
-    template: `
+    render: () => ({
+        components: { Drawer },
+        data() {
+            return {
+                isOpen: false,
+            }
+        },
+        template: `
       <div class="h-screen">
         <Drawer v-model="isOpen">
           <template #content="{ toggle }">
@@ -67,18 +67,18 @@ export const Default: Story = {
         </Drawer>
       </div>
     `,
-  }),
+    }),
 }
 
 export const RightSide: Story = {
-  render: () => ({
-    components: { Drawer },
-    data() {
-      return {
-        isOpen: false,
-      }
-    },
-    template: `
+    render: () => ({
+        components: { Drawer },
+        data() {
+            return {
+                isOpen: false,
+            }
+        },
+        template: `
       <div class="h-screen">
         <Drawer v-model="isOpen" position="right">
           <template #content="{ toggle }">
@@ -112,18 +112,18 @@ export const RightSide: Story = {
         </Drawer>
       </div>
     `,
-  }),
+    }),
 }
 
 export const WithCloseButton: Story = {
-  render: () => ({
-    components: { Drawer },
-    data() {
-      return {
-        isOpen: false,
-      }
-    },
-    template: `
+    render: () => ({
+        components: { Drawer },
+        data() {
+            return {
+                isOpen: false,
+            }
+        },
+        template: `
       <div class="h-screen">
         <Drawer v-model="isOpen" show-close-button>
           <template #content="{ toggle }">
@@ -152,18 +152,18 @@ export const WithCloseButton: Story = {
         </Drawer>
       </div>
     `,
-  }),
+    }),
 }
 
 export const MobileVariant: Story = {
-  render: () => ({
-    components: { Drawer },
-    data() {
-      return {
-        isOpen: false,
-      }
-    },
-    template: `
+    render: () => ({
+        components: { Drawer },
+        data() {
+            return {
+                isOpen: false,
+            }
+        },
+        template: `
       <div class="h-screen">
         <Drawer v-model="isOpen">
           <template #content="{ toggle }">
@@ -213,18 +213,18 @@ export const MobileVariant: Story = {
         </Drawer>
       </div>
     `,
-  }),
+    }),
 }
 
 export const OverlayVariant: Story = {
-  render: () => ({
-    components: { Drawer },
-    data() {
-      return {
-        isOpen: false,
-      }
-    },
-    template: `
+    render: () => ({
+        components: { Drawer },
+        data() {
+            return {
+                isOpen: false,
+            }
+        },
+        template: `
       <div class="h-screen">
         <Drawer v-model="isOpen">
           <template #content="{ toggle }">
@@ -258,18 +258,18 @@ export const OverlayVariant: Story = {
         </Drawer>
       </div>
     `,
-  }),
+    }),
 }
 
 export const Persistent: Story = {
-  render: () => ({
-    components: { Drawer },
-    data() {
-      return {
-        isOpen: true,
-      }
-    },
-    template: `
+    render: () => ({
+        components: { Drawer },
+        data() {
+            return {
+                isOpen: true,
+            }
+        },
+        template: `
       <div class="h-screen">
         <Drawer v-model="isOpen" persistent>
           <template #content>
@@ -312,27 +312,27 @@ export const Persistent: Story = {
         </Drawer>
       </div>
     `,
-  }),
+    }),
 }
 
 export const WithEvents: Story = {
-  render: () => ({
-    components: { Drawer },
-    data() {
-      return {
-        isOpen: false,
-        eventLog: [],
-      }
-    },
-    methods: {
-      onOpen() {
-        this.eventLog.push('Drawer opened')
-      },
-      onClose() {
-        this.eventLog.push('Drawer closed')
-      },
-    },
-    template: `
+    render: () => ({
+        components: { Drawer },
+        data() {
+            return {
+                isOpen: false,
+                eventLog: [],
+            }
+        },
+        methods: {
+            onOpen() {
+                this.eventLog.push('Drawer opened')
+            },
+            onClose() {
+                this.eventLog.push('Drawer closed')
+            },
+        },
+        template: `
       <div class="h-screen">
         <Drawer v-model="isOpen" @open="onOpen" @close="onClose">
           <template #content="{ toggle }">
@@ -372,5 +372,5 @@ export const WithEvents: Story = {
         </Drawer>
       </div>
     `,
-  }),
+    }),
 }

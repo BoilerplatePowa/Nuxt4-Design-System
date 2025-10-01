@@ -2,35 +2,35 @@ import type { Meta, StoryObj } from '@storybook/vue3-vite'
 import WindowMockup from '../../src/runtime/components/Mockup/WindowMockup.vue'
 
 const meta: Meta<typeof WindowMockup> = {
-  title: 'Mockup/WindowMockup',
-  component: WindowMockup,
-  parameters: {
-    layout: 'padded',
-  },
-  argTypes: {
-    variant: {
-      control: { type: 'select' },
-      options: ['default', 'border', 'bg'],
+    title: 'Mockup/WindowMockup',
+    component: WindowMockup,
+    parameters: {
+        layout: 'padded',
     },
-    title: {
-      control: { type: 'text' },
+    argTypes: {
+        variant: {
+            control: { type: 'select' },
+            options: ['default', 'border', 'bg'],
+        },
+        title: {
+            control: { type: 'text' },
+        },
     },
-  },
 }
 
 export default meta
 type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
-  args: {
-    title: 'My Application',
-  },
-  render: (args) => ({
-    components: { WindowMockup },
-    setup() {
-      return { args }
+    args: {
+        title: 'My Application',
     },
-    template: `
+    render: (args) => ({
+        components: { WindowMockup },
+        setup() {
+            return { args }
+        },
+        template: `
       <WindowMockup v-bind="args">
         <div class="p-8 bg-gray-50 min-h-64 flex items-center justify-center">
           <div class="text-center">
@@ -40,13 +40,13 @@ export const Default: Story = {
         </div>
       </WindowMockup>
     `,
-  }),
+    }),
 }
 
 export const TextEditor: Story = {
-  render: () => ({
-    components: { WindowMockup },
-    template: `
+    render: () => ({
+        components: { WindowMockup },
+        template: `
       <WindowMockup title="TextEdit - Document.txt">
         <div class="bg-white h-80 p-4 font-mono text-sm">
           <div class="mb-4 pb-2 border-b flex items-center justify-between text-xs text-gray-500">
@@ -68,13 +68,13 @@ export const TextEditor: Story = {
         </div>
       </WindowMockup>
     `,
-  }),
+    }),
 }
 
 export const Calculator: Story = {
-  render: () => ({
-    components: { WindowMockup },
-    template: `
+    render: () => ({
+        components: { WindowMockup },
+        template: `
       <WindowMockup title="Calculator" class="max-w-xs">
         <div class="bg-gray-800 text-white p-4">
           <!-- Display -->
@@ -111,13 +111,13 @@ export const Calculator: Story = {
         </div>
       </WindowMockup>
     `,
-  }),
+    }),
 }
 
 export const ChatApp: Story = {
-  render: () => ({
-    components: { WindowMockup },
-    template: `
+    render: () => ({
+        components: { WindowMockup },
+        template: `
       <WindowMockup title="Messages - John Doe">
         <div class="flex h-80">
           <!-- Sidebar -->
@@ -204,13 +204,13 @@ export const ChatApp: Story = {
         </div>
       </WindowMockup>
     `,
-  }),
+    }),
 }
 
 export const Variants: Story = {
-  render: () => ({
-    components: { WindowMockup },
-    template: `
+    render: () => ({
+        components: { WindowMockup },
+        template: `
       <div class="space-y-8">
         <div>
           <h3 class="text-lg font-bold mb-4">Default</h3>
@@ -240,5 +240,5 @@ export const Variants: Story = {
         </div>
       </div>
     `,
-  }),
+    }),
 }

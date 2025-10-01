@@ -2,147 +2,147 @@ import type { Meta, StoryObj } from '@storybook/vue3-vite'
 import Footer from '../../src/runtime/components/Layout/Footer.vue'
 
 const meta: Meta<typeof Footer> = {
-  title: 'Layout/Footer',
-  component: Footer,
-  parameters: {
-    layout: 'fullscreen',
-  },
-  argTypes: {
-    variant: {
-      control: { type: 'select' },
-      options: ['default', 'center', 'grid'],
+    title: 'Layout/Footer',
+    component: Footer,
+    parameters: {
+        layout: 'fullscreen',
     },
-    showBranding: {
-      control: { type: 'boolean' },
+    argTypes: {
+        variant: {
+            control: { type: 'select' },
+            options: ['default', 'center', 'grid'],
+        },
+        showBranding: {
+            control: { type: 'boolean' },
+        },
+        showCopyright: {
+            control: { type: 'boolean' },
+        },
     },
-    showCopyright: {
-      control: { type: 'boolean' },
-    },
-  },
 }
 
 export default meta
 type Story = StoryObj<typeof meta>
 
 const sampleLinks = [
-  {
-    title: 'Company',
-    items: [
-      { label: 'About Us', href: '/about' },
-      { label: 'Careers', href: '/careers' },
-      { label: 'Press', href: '/press' },
-      { label: 'Blog', href: '/blog' },
-    ],
-  },
-  {
-    title: 'Support',
-    items: [
-      { label: 'Help Center', href: '/help' },
-      { label: 'Contact Us', href: '/contact' },
-      { label: 'Documentation', href: '/docs' },
-      { label: 'API', href: '/api' },
-    ],
-  },
-  {
-    title: 'Legal',
-    items: [
-      { label: 'Privacy Policy', href: '/privacy' },
-      { label: 'Terms of Service', href: '/terms' },
-      { label: 'Cookie Policy', href: '/cookies' },
-    ],
-  },
+    {
+        title: 'Company',
+        items: [
+            { label: 'About Us', href: '/about' },
+            { label: 'Careers', href: '/careers' },
+            { label: 'Press', href: '/press' },
+            { label: 'Blog', href: '/blog' },
+        ],
+    },
+    {
+        title: 'Support',
+        items: [
+            { label: 'Help Center', href: '/help' },
+            { label: 'Contact Us', href: '/contact' },
+            { label: 'Documentation', href: '/docs' },
+            { label: 'API', href: '/api' },
+        ],
+    },
+    {
+        title: 'Legal',
+        items: [
+            { label: 'Privacy Policy', href: '/privacy' },
+            { label: 'Terms of Service', href: '/terms' },
+            { label: 'Cookie Policy', href: '/cookies' },
+        ],
+    },
 ]
 
 const sampleSocial = [
-  { name: 'Twitter', href: 'https://twitter.com/company', icon: '🐦' },
-  { name: 'Facebook', href: 'https://facebook.com/company', icon: '📘' },
-  { name: 'Instagram', href: 'https://instagram.com/company', icon: '📷' },
-  { name: 'LinkedIn', href: 'https://linkedin.com/company', icon: '💼' },
+    { name: 'Twitter', href: 'https://twitter.com/company', icon: '🐦' },
+    { name: 'Facebook', href: 'https://facebook.com/company', icon: '📘' },
+    { name: 'Instagram', href: 'https://instagram.com/company', icon: '📷' },
+    { name: 'LinkedIn', href: 'https://linkedin.com/company', icon: '💼' },
 ]
 
 export const Default: Story = {
-  args: {
-    brandName: 'Your Company',
-    brandDescription: 'Building amazing products since 2020',
-    links: sampleLinks,
-    social: sampleSocial,
-    copyrightText: '© 2024 Your Company. All rights reserved.',
-  },
+    args: {
+        brandName: 'Your Company',
+        brandDescription: 'Building amazing products since 2020',
+        links: sampleLinks,
+        social: sampleSocial,
+        copyrightText: '© 2024 Your Company. All rights reserved.',
+    },
 }
 
 export const WithLogo: Story = {
-  args: {
-    logo: 'https://via.placeholder.com/120x40/6366f1/ffffff?text=LOGO',
-    logoAlt: 'Company Logo',
-    brandName: 'Your Company',
-    brandDescription: 'Innovation at its finest',
-    links: sampleLinks,
-    social: sampleSocial,
-    copyrightText: '© 2024 Your Company. All rights reserved.',
-  },
+    args: {
+        logo: 'https://via.placeholder.com/120x40/6366f1/ffffff?text=LOGO',
+        logoAlt: 'Company Logo',
+        brandName: 'Your Company',
+        brandDescription: 'Innovation at its finest',
+        links: sampleLinks,
+        social: sampleSocial,
+        copyrightText: '© 2024 Your Company. All rights reserved.',
+    },
 }
 
 export const Compact: Story = {
-  args: {
-    variant: 'grid',
-    brandName: 'Your Company',
-    links: [
-      {
-        title: '',
-        items: [
-          { label: 'About', href: '/about' },
-          { label: 'Contact', href: '/contact' },
-          { label: 'Privacy', href: '/privacy' },
-          { label: 'Terms', href: '/terms' },
+    args: {
+        variant: 'grid',
+        brandName: 'Your Company',
+        links: [
+            {
+                title: '',
+                items: [
+                    { label: 'About', href: '/about' },
+                    { label: 'Contact', href: '/contact' },
+                    { label: 'Privacy', href: '/privacy' },
+                    { label: 'Terms', href: '/terms' },
+                ],
+            },
         ],
-      },
-    ],
-    social: sampleSocial.slice(0, 3),
-    copyrightText: '© 2024 Your Company',
-  },
+        social: sampleSocial.slice(0, 3),
+        copyrightText: '© 2024 Your Company',
+    },
 }
 
 export const Center: Story = {
-  args: {
-    variant: 'center',
-    brandName: 'Your Company',
-    brandDescription: 'Centered footer layout',
-    links: sampleLinks.slice(0, 2),
-    social: sampleSocial,
-    copyrightText: '© 2024 Your Company. All rights reserved.',
-  },
+    args: {
+        variant: 'center',
+        brandName: 'Your Company',
+        brandDescription: 'Centered footer layout',
+        links: sampleLinks.slice(0, 2),
+        social: sampleSocial,
+        copyrightText: '© 2024 Your Company. All rights reserved.',
+    },
 }
 
 export const MinimalBranding: Story = {
-  args: {
-    brandName: 'Minimal Co.',
-    showBranding: true,
-    links: [],
-    copyrightText: '© 2024 Minimal Co.',
-  },
+    args: {
+        brandName: 'Minimal Co.',
+        showBranding: true,
+        links: [],
+        copyrightText: '© 2024 Minimal Co.',
+    },
 }
 
 export const SocialOnly: Story = {
-  args: {
-    showBranding: false,
-    links: [],
-    social: sampleSocial,
-    copyrightText: '© 2024 Social Company',
-  },
+    args: {
+        showBranding: false,
+        links: [],
+        social: sampleSocial,
+        copyrightText: '© 2024 Social Company',
+    },
 }
 
 export const LinksOnly: Story = {
-  args: {
-    showBranding: false,
-    links: sampleLinks,
-    copyrightText: '© 2024 Links Company',
-  },
+    args: {
+        showBranding: false,
+        links: sampleLinks,
+        copyrightText: '© 2024 Links Company',
+    },
 }
 
 export const CustomContent: Story = {
-  render: () => ({
-    components: { Footer },
-    template: `
+    render: () => ({
+        components: { Footer },
+        template: `
       <Footer>
         <div class="flex flex-col md:flex-row justify-between items-center gap-6">
           <div class="flex items-center gap-4">
@@ -189,13 +189,13 @@ export const CustomContent: Story = {
         </div>
       </Footer>
     `,
-  }),
+    }),
 }
 
 export const Newsletter: Story = {
-  render: () => ({
-    components: { Footer },
-    template: `
+    render: () => ({
+        components: { Footer },
+        template: `
       <Footer 
         brand-name="Newsletter Co."
         brand-description="Stay updated with our latest news"
@@ -239,5 +239,5 @@ export const Newsletter: Story = {
         </div>
       </Footer>
     `,
-  }),
+    }),
 }

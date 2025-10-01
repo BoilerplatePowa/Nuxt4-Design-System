@@ -24,14 +24,14 @@ npm install @boilerplatepowa/nuxt4-design-system
 ```typescript
 // nuxt.config.ts
 export default defineNuxtConfig({
-  modules: ['@boilerplatepowa/nuxt4-design-system'],
-  nuxtDesignSystem: {
-    prefix: 'Bp',
-    components: true,
-    css: true,
-    composables: true,
-    tailwind: true,
-  },
+    modules: ['@boilerplatepowa/nuxt4-design-system'],
+    nuxtDesignSystem: {
+        prefix: 'Bp',
+        components: true,
+        css: true,
+        composables: true,
+        tailwind: true,
+    },
 })
 ```
 
@@ -39,20 +39,20 @@ export default defineNuxtConfig({
 
 ```vue
 <template>
-  <div>
-    <BpButton color="primary" size="lg" @click="handleClick"> Click me </BpButton>
+    <div>
+        <BpButton color="primary" size="lg" @click="handleClick"> Click me </BpButton>
 
-    <BpCard>
-      <div class="card-body">
-        <h2 class="card-title">Welcome</h2>
-        <p>Content goes here</p>
+        <BpCard>
+            <div class="card-body">
+                <h2 class="card-title">Welcome</h2>
+                <p>Content goes here</p>
 
-        <div class="card-actions justify-end">
-          <BpButton color="accent">Action</BpButton>
-        </div>
-      </div>
-    </BpCard>
-  </div>
+                <div class="card-actions justify-end">
+                    <BpButton color="accent">Action</BpButton>
+                </div>
+            </div>
+        </BpCard>
+    </div>
 </template>
 ```
 
@@ -166,16 +166,16 @@ export default defineNuxtConfig({
 
 ```vue
 <template>
-  <div class="flex gap-2">
-    <BpButton color="primary">Primary</BpButton>
-    <BpButton color="secondary">Secondary</BpButton>
-    <BpButton color="accent">Accent</BpButton>
-    <BpButton color="neutral">Neutral</BpButton>
-    <BpButton color="info">Info</BpButton>
-    <BpButton color="success">Success</BpButton>
-    <BpButton color="warning">Warning</BpButton>
-    <BpButton color="error">Error</BpButton>
-  </div>
+    <div class="flex gap-2">
+        <BpButton color="primary">Primary</BpButton>
+        <BpButton color="secondary">Secondary</BpButton>
+        <BpButton color="accent">Accent</BpButton>
+        <BpButton color="neutral">Neutral</BpButton>
+        <BpButton color="info">Info</BpButton>
+        <BpButton color="success">Success</BpButton>
+        <BpButton color="warning">Warning</BpButton>
+        <BpButton color="error">Error</BpButton>
+    </div>
 </template>
 ```
 
@@ -183,13 +183,13 @@ export default defineNuxtConfig({
 
 ```vue
 <template>
-  <div class="flex gap-2">
-    <BpButton btn-style="outline">Outline</BpButton>
-    <BpButton btn-style="dash">Dash</BpButton>
-    <BpButton btn-style="soft">Soft</BpButton>
-    <BpButton btn-style="ghost">Ghost</BpButton>
-    <BpButton btn-style="link">Link</BpButton>
-  </div>
+    <div class="flex gap-2">
+        <BpButton btn-style="outline">Outline</BpButton>
+        <BpButton btn-style="dash">Dash</BpButton>
+        <BpButton btn-style="soft">Soft</BpButton>
+        <BpButton btn-style="ghost">Ghost</BpButton>
+        <BpButton btn-style="link">Link</BpButton>
+    </div>
 </template>
 ```
 
@@ -197,13 +197,13 @@ export default defineNuxtConfig({
 
 ```vue
 <template>
-  <div class="flex gap-2 items-center">
-    <BpButton size="xs">Extra Small</BpButton>
-    <BpButton size="sm">Small</BpButton>
-    <BpButton size="md">Medium</BpButton>
-    <BpButton size="lg">Large</BpButton>
-    <BpButton size="xl">Extra Large</BpButton>
-  </div>
+    <div class="flex gap-2 items-center">
+        <BpButton size="xs">Extra Small</BpButton>
+        <BpButton size="sm">Small</BpButton>
+        <BpButton size="md">Medium</BpButton>
+        <BpButton size="lg">Large</BpButton>
+        <BpButton size="xl">Extra Large</BpButton>
+    </div>
 </template>
 ```
 
@@ -211,22 +211,24 @@ export default defineNuxtConfig({
 
 ```vue
 <template>
-  <div class="space-y-4">
-    <!-- Loading state -->
-    <BpButton :loading="isLoading" color="primary"> Submit Form </BpButton>
+    <div class="space-y-4">
+        <!-- Loading state -->
+        <BpButton :loading="isLoading" color="primary"> Submit Form </BpButton>
 
-    <!-- With icons -->
-    <BpButton icon-left="heart" icon-right="arrow-right" color="accent"> Like & Continue </BpButton>
+        <!-- With icons -->
+        <BpButton icon-left="heart" icon-right="arrow-right" color="accent">
+            Like & Continue
+        </BpButton>
 
-    <!-- Shape modifiers -->
-    <BpButton circle icon-left="settings" color="neutral" />
-    <BpButton square icon-left="plus" color="success" />
-    <BpButton wide color="info">Wide Button</BpButton>
-    <BpButton block color="warning">Block Button</BpButton>
+        <!-- Shape modifiers -->
+        <BpButton circle icon-left="settings" color="neutral" />
+        <BpButton square icon-left="plus" color="success" />
+        <BpButton wide color="info">Wide Button</BpButton>
+        <BpButton block color="warning">Block Button</BpButton>
 
-    <!-- Confirmation dialog -->
-    <BpButton confirm-action confirm-text="Are you sure?" color="error"> Delete Item </BpButton>
-  </div>
+        <!-- Confirmation dialog -->
+        <BpButton confirm-action confirm-text="Are you sure?" color="error"> Delete Item </BpButton>
+    </div>
 </template>
 ```
 
@@ -247,14 +249,14 @@ export default defineNuxtConfig({
 ```typescript
 // nuxt.config.ts
 export default defineNuxtConfig({
-  modules: ['@boilerplatepowa/nuxt4-design-system'],
-  nuxtDesignSystem: {
-    prefix: 'Bp',
-    components: true,
-    css: true,
-    composables: true,
-    tailwind: true,
-  },
+    modules: ['@boilerplatepowa/nuxt4-design-system'],
+    nuxtDesignSystem: {
+        prefix: 'Bp',
+        components: true,
+        css: true,
+        composables: true,
+        tailwind: true,
+    },
 })
 ```
 
@@ -295,17 +297,17 @@ All components include full TypeScript definitions:
 import type { BtnColor, BtnStyle, BtnSize } from '@boilerplatepowa/nuxt4-design-system'
 
 interface ButtonProps {
-  color?: BtnColor // 'primary' | 'secondary' | 'accent' | 'neutral' | 'info' | 'success' | 'warning' | 'error'
-  btnStyle?: BtnStyle // 'outline' | 'dash' | 'soft' | 'ghost' | 'link'
-  size?: BtnSize // 'xs' | 'sm' | 'md' | 'lg' | 'xl'
-  wide?: boolean // btn-wide modifier
-  block?: boolean // btn-block modifier
-  square?: boolean // btn-square modifier
-  circle?: boolean // btn-circle modifier
-  active?: boolean // btn-active behavior
-  disabled?: boolean // disabled state
-  loading?: boolean // loading state
-  // ... more props
+    color?: BtnColor // 'primary' | 'secondary' | 'accent' | 'neutral' | 'info' | 'success' | 'warning' | 'error'
+    btnStyle?: BtnStyle // 'outline' | 'dash' | 'soft' | 'ghost' | 'link'
+    size?: BtnSize // 'xs' | 'sm' | 'md' | 'lg' | 'xl'
+    wide?: boolean // btn-wide modifier
+    block?: boolean // btn-block modifier
+    square?: boolean // btn-square modifier
+    circle?: boolean // btn-circle modifier
+    active?: boolean // btn-active behavior
+    disabled?: boolean // disabled state
+    loading?: boolean // loading state
+    // ... more props
 }
 ```
 
@@ -317,10 +319,10 @@ Smart class generation using component maps:
 import { generateBtnClasses } from '@boilerplatepowa/nuxt4-design-system'
 
 const classes = generateBtnClasses({
-  color: 'primary',
-  style: 'outline',
-  size: 'lg',
-  modifiers: ['wide'],
+    color: 'primary',
+    style: 'outline',
+    size: 'lg',
+    modifiers: ['wide'],
 })
 // Returns: 'btn btn-primary btn-outline btn-lg btn-wide'
 ```

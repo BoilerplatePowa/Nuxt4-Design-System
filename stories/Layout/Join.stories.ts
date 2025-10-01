@@ -2,43 +2,43 @@ import type { Meta, StoryObj } from '@storybook/vue3-vite'
 import Join from '../../src/runtime/components/Layout/Join.vue'
 
 const meta: Meta<typeof Join> = {
-  title: 'Layout/Join',
-  component: Join,
-  parameters: {
-    layout: 'centered',
-  },
-  argTypes: {
-    orientation: {
-      control: { type: 'select' },
-      options: ['horizontal', 'vertical'],
+    title: 'Layout/Join',
+    component: Join,
+    parameters: {
+        layout: 'centered',
     },
-    variant: {
-      control: { type: 'select' },
-      options: ['default', 'rounded'],
+    argTypes: {
+        orientation: {
+            control: { type: 'select' },
+            options: ['horizontal', 'vertical'],
+        },
+        variant: {
+            control: { type: 'select' },
+            options: ['default', 'rounded'],
+        },
     },
-  },
 }
 
 export default meta
 type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
-  render: () => ({
-    components: { Join },
-    template: `
+    render: () => ({
+        components: { Join },
+        template: `
       <Join>
         <button class="btn join-item">Button 1</button>
         <button class="btn join-item">Button 2</button>
         <button class="btn join-item">Button 3</button>
       </Join>
     `,
-  }),
+    }),
 }
 
 export const ButtonGroup: Story = {
-  render: () => ({
-    components: { Join },
-    template: `
+    render: () => ({
+        components: { Join },
+        template: `
       <div class="space-y-8">
         <div>
           <h3 class="text-lg font-bold mb-4">Horizontal Button Group</h3>
@@ -59,13 +59,13 @@ export const ButtonGroup: Story = {
         </div>
       </div>
     `,
-  }),
+    }),
 }
 
 export const InputGroup: Story = {
-  render: () => ({
-    components: { Join },
-    template: `
+    render: () => ({
+        components: { Join },
+        template: `
       <div class="space-y-8">
         <div>
           <h3 class="text-lg font-bold mb-4">Search Input Group</h3>
@@ -95,13 +95,13 @@ export const InputGroup: Story = {
         </div>
       </div>
     `,
-  }),
+    }),
 }
 
 export const CardGroup: Story = {
-  render: () => ({
-    components: { Join },
-    template: `
+    render: () => ({
+        components: { Join },
+        template: `
       <div class="space-y-8">
         <div>
           <h3 class="text-lg font-bold mb-4">Horizontal Cards</h3>
@@ -152,13 +152,13 @@ export const CardGroup: Story = {
         </div>
       </div>
     `,
-  }),
+    }),
 }
 
 export const Statistics: Story = {
-  render: () => ({
-    components: { Join },
-    template: `
+    render: () => ({
+        components: { Join },
+        template: `
       <div class="space-y-8">
         <div>
           <h3 class="text-lg font-bold mb-4">Statistics Group</h3>
@@ -182,18 +182,18 @@ export const Statistics: Story = {
         </div>
       </div>
     `,
-  }),
+    }),
 }
 
 export const RadioGroup: Story = {
-  render: () => ({
-    components: { Join },
-    data() {
-      return {
-        selectedOption: 'option2',
-      }
-    },
-    template: `
+    render: () => ({
+        components: { Join },
+        data() {
+            return {
+                selectedOption: 'option2',
+            }
+        },
+        template: `
       <div class="space-y-8">
         <div>
           <h3 class="text-lg font-bold mb-4">Radio Button Group</h3>
@@ -237,13 +237,13 @@ export const RadioGroup: Story = {
         </div>
       </div>
     `,
-  }),
+    }),
 }
 
 export const Rounded: Story = {
-  render: () => ({
-    components: { Join },
-    template: `
+    render: () => ({
+        components: { Join },
+        template: `
       <div class="space-y-8">
         <div>
           <h3 class="text-lg font-bold mb-4">Default (Sharp Corners)</h3>
@@ -264,5 +264,5 @@ export const Rounded: Story = {
         </div>
       </div>
     `,
-  }),
+    }),
 }

@@ -2,183 +2,192 @@ import type { Meta, StoryObj } from '@storybook/vue3-vite'
 import Button from '../../src/runtime/components/Actions/Button.vue'
 
 const meta: Meta<typeof Button> = {
-  title: 'Actions/Button',
-  component: Button,
-  parameters: {
-    layout: 'centered',
-    docs: {
-      description: {
-        component:
-          'A flexible button component with multiple variants, sizes, loading states, and accessibility features. Uses btnMap for consistent DaisyUI class mapping.',
-      },
+    title: 'Actions/Button',
+    component: Button,
+    parameters: {
+        layout: 'centered',
+        docs: {
+            description: {
+                component:
+                    'A flexible button component with multiple variants, sizes, loading states, and accessibility features. Uses btnMap for consistent DaisyUI class mapping.',
+            },
+        },
     },
-  },
-  tags: ['autodocs'],
-  argTypes: {
-    color: {
-      control: { type: 'select' },
-      options: ['neutral', 'primary', 'secondary', 'accent', 'info', 'success', 'warning', 'error'],
-      description: 'Button color variant from btnColorMap',
+    tags: ['autodocs'],
+    argTypes: {
+        color: {
+            control: { type: 'select' },
+            options: [
+                'neutral',
+                'primary',
+                'secondary',
+                'accent',
+                'info',
+                'success',
+                'warning',
+                'error',
+            ],
+            description: 'Button color variant from btnColorMap',
+        },
+        btnStyle: {
+            control: { type: 'select' },
+            options: ['outline', 'dash', 'soft', 'ghost', 'link'],
+            description: 'Button style variant from btnStyleMap',
+        },
+        size: {
+            control: { type: 'select' },
+            options: ['xs', 'sm', 'md', 'lg', 'xl'],
+            description: 'Button size from btnSizeMap',
+        },
+        active: {
+            control: { type: 'boolean' },
+            description: 'Active state from btnBehaviorMap',
+        },
+        wide: {
+            control: { type: 'boolean' },
+            description: 'Wide modifier from btnModifierMap',
+        },
+        block: {
+            control: { type: 'boolean' },
+            description: 'Block modifier from btnModifierMap',
+        },
+        square: {
+            control: { type: 'boolean' },
+            description: 'Square modifier from btnModifierMap',
+        },
+        circle: {
+            control: { type: 'boolean' },
+            description: 'Circle modifier from btnModifierMap',
+        },
+        disabled: {
+            control: { type: 'boolean' },
+            description: 'Disabled state',
+        },
+        loading: {
+            control: { type: 'boolean' },
+            description: 'Loading state with spinner',
+        },
+        loadingText: {
+            control: { type: 'text' },
+            description: 'Text to show during loading',
+        },
+        hideTextOnLoading: {
+            control: { type: 'boolean' },
+            description: 'Hide button text during loading',
+        },
+        type: {
+            control: { type: 'select' },
+            options: ['button', 'submit', 'reset'],
+            description: 'Button type attribute',
+        },
+        fullWidth: {
+            control: { type: 'boolean' },
+            description: 'Full width button (legacy support)',
+        },
+        glass: {
+            control: { type: 'boolean' },
+            description: 'Glass effect modifier',
+        },
+        noAnimation: {
+            control: { type: 'boolean' },
+            description: 'Disable animations',
+        },
+        iconLeft: {
+            control: { type: 'select' },
+            options: [
+                'heart',
+                'star',
+                'settings',
+                'user',
+                'home',
+                'search',
+                'download',
+                'plus',
+                'arrow-right',
+                'mail',
+                'phone',
+                'edit',
+                'delete',
+                'check',
+                'x',
+            ],
+            description: 'Left icon name from iconMap',
+        },
+        iconRight: {
+            control: { type: 'select' },
+            options: [
+                'heart',
+                'star',
+                'settings',
+                'user',
+                'home',
+                'search',
+                'download',
+                'plus',
+                'arrow-right',
+                'mail',
+                'phone',
+                'edit',
+                'delete',
+                'check',
+                'x',
+            ],
+            description: 'Right icon name from iconMap',
+        },
+        iconSize: {
+            control: { type: 'select' },
+            options: ['xs', 'sm', 'md', 'lg', 'xl', '2xl'],
+            description: 'Icon size from sizeMap',
+        },
+        debounceMs: {
+            control: { type: 'number', min: 0, max: 1000, step: 50 },
+            description: 'Debounce delay in milliseconds',
+        },
+        confirmAction: {
+            control: { type: 'boolean' },
+            description: 'Show confirmation dialog before action',
+        },
+        confirmText: {
+            control: { type: 'text' },
+            description: 'Confirmation dialog text',
+        },
+        autoFocus: {
+            control: { type: 'boolean' },
+            description: 'Auto-focus button on mount',
+        },
+        ariaLabel: {
+            control: { type: 'text' },
+            description: 'Custom ARIA label',
+        },
+        ariaPressed: {
+            control: { type: 'boolean' },
+            description: 'ARIA pressed state',
+        },
+        ariaExpanded: {
+            control: { type: 'boolean' },
+            description: 'ARIA expanded state',
+        },
+        ariaDescribedby: {
+            control: { type: 'text' },
+            description: 'ARIA describedby reference',
+        },
+        onClick: {
+            action: 'clicked',
+            description: 'Click event',
+        },
+        onKeydown: {
+            action: 'keydown',
+            description: 'Keydown event',
+        },
+        onFocus: {
+            action: 'focus',
+            description: 'Focus event',
+        },
+        onBlur: {
+            action: 'blur',
+            description: 'Blur event',
+        },
     },
-    btnStyle: {
-      control: { type: 'select' },
-      options: ['outline', 'dash', 'soft', 'ghost', 'link'],
-      description: 'Button style variant from btnStyleMap',
-    },
-    size: {
-      control: { type: 'select' },
-      options: ['xs', 'sm', 'md', 'lg', 'xl'],
-      description: 'Button size from btnSizeMap',
-    },
-    active: {
-      control: { type: 'boolean' },
-      description: 'Active state from btnBehaviorMap',
-    },
-    wide: {
-      control: { type: 'boolean' },
-      description: 'Wide modifier from btnModifierMap',
-    },
-    block: {
-      control: { type: 'boolean' },
-      description: 'Block modifier from btnModifierMap',
-    },
-    square: {
-      control: { type: 'boolean' },
-      description: 'Square modifier from btnModifierMap',
-    },
-    circle: {
-      control: { type: 'boolean' },
-      description: 'Circle modifier from btnModifierMap',
-    },
-    disabled: {
-      control: { type: 'boolean' },
-      description: 'Disabled state',
-    },
-    loading: {
-      control: { type: 'boolean' },
-      description: 'Loading state with spinner',
-    },
-    loadingText: {
-      control: { type: 'text' },
-      description: 'Text to show during loading',
-    },
-    hideTextOnLoading: {
-      control: { type: 'boolean' },
-      description: 'Hide button text during loading',
-    },
-    type: {
-      control: { type: 'select' },
-      options: ['button', 'submit', 'reset'],
-      description: 'Button type attribute',
-    },
-    fullWidth: {
-      control: { type: 'boolean' },
-      description: 'Full width button (legacy support)',
-    },
-    glass: {
-      control: { type: 'boolean' },
-      description: 'Glass effect modifier',
-    },
-    noAnimation: {
-      control: { type: 'boolean' },
-      description: 'Disable animations',
-    },
-    iconLeft: {
-      control: { type: 'select' },
-      options: [
-        'heart',
-        'star',
-        'settings',
-        'user',
-        'home',
-        'search',
-        'download',
-        'plus',
-        'arrow-right',
-        'mail',
-        'phone',
-        'edit',
-        'delete',
-        'check',
-        'x',
-      ],
-      description: 'Left icon name from iconMap',
-    },
-    iconRight: {
-      control: { type: 'select' },
-      options: [
-        'heart',
-        'star',
-        'settings',
-        'user',
-        'home',
-        'search',
-        'download',
-        'plus',
-        'arrow-right',
-        'mail',
-        'phone',
-        'edit',
-        'delete',
-        'check',
-        'x',
-      ],
-      description: 'Right icon name from iconMap',
-    },
-    iconSize: {
-      control: { type: 'select' },
-      options: ['xs', 'sm', 'md', 'lg', 'xl', '2xl'],
-      description: 'Icon size from sizeMap',
-    },
-    debounceMs: {
-      control: { type: 'number', min: 0, max: 1000, step: 50 },
-      description: 'Debounce delay in milliseconds',
-    },
-    confirmAction: {
-      control: { type: 'boolean' },
-      description: 'Show confirmation dialog before action',
-    },
-    confirmText: {
-      control: { type: 'text' },
-      description: 'Confirmation dialog text',
-    },
-    autoFocus: {
-      control: { type: 'boolean' },
-      description: 'Auto-focus button on mount',
-    },
-    ariaLabel: {
-      control: { type: 'text' },
-      description: 'Custom ARIA label',
-    },
-    ariaPressed: {
-      control: { type: 'boolean' },
-      description: 'ARIA pressed state',
-    },
-    ariaExpanded: {
-      control: { type: 'boolean' },
-      description: 'ARIA expanded state',
-    },
-    ariaDescribedby: {
-      control: { type: 'text' },
-      description: 'ARIA describedby reference',
-    },
-    onClick: {
-      action: 'clicked',
-      description: 'Click event',
-    },
-    onKeydown: {
-      action: 'keydown',
-      description: 'Keydown event',
-    },
-    onFocus: {
-      action: 'focus',
-      description: 'Focus event',
-    },
-    onBlur: {
-      action: 'blur',
-      description: 'Blur event',
-    },
-  },
 }
 
 export default meta
@@ -186,24 +195,24 @@ type Story = StoryObj<typeof meta>
 
 // Default button for playground
 export const Default: Story = {
-  args: {
-    color: 'primary',
-    size: 'md',
-  },
-  render: (args) => ({
-    components: { Button },
-    setup() {
-      return { args }
+    args: {
+        color: 'primary',
+        size: 'md',
     },
-    template: '<Button v-bind="args">Click me</Button>',
-  }),
+    render: (args) => ({
+        components: { Button },
+        setup() {
+            return { args }
+        },
+        template: '<Button v-bind="args">Click me</Button>',
+    }),
 }
 
 // Colors showcase
 export const Colors: Story = {
-  render: () => ({
-    components: { Button },
-    template: `
+    render: () => ({
+        components: { Button },
+        template: `
       <div class="space-y-4">
         <h3 class="text-lg font-semibold mb-3">Color Variants</h3>
         <div class="flex flex-wrap gap-2">
@@ -218,14 +227,14 @@ export const Colors: Story = {
         </div>
       </div>
     `,
-  }),
+    }),
 }
 
 // Styles showcase
 export const Styles: Story = {
-  render: () => ({
-    components: { Button },
-    template: `
+    render: () => ({
+        components: { Button },
+        template: `
       <div class="space-y-4">
         <h3 class="text-lg font-semibold mb-3">Style Variants</h3>
         <div class="flex flex-wrap gap-2">
@@ -245,14 +254,14 @@ export const Styles: Story = {
         </div>
       </div>
     `,
-  }),
+    }),
 }
 
 // Sizes showcase
 export const Sizes: Story = {
-  render: () => ({
-    components: { Button },
-    template: `
+    render: () => ({
+        components: { Button },
+        template: `
       <div class="space-y-4">
         <h3 class="text-lg font-semibold mb-3">Size Variants</h3>
         <div class="flex flex-wrap gap-2 items-center">
@@ -273,14 +282,14 @@ export const Sizes: Story = {
         </div>
       </div>
     `,
-  }),
+    }),
 }
 
 // States showcase
 export const States: Story = {
-  render: () => ({
-    components: { Button },
-    template: `
+    render: () => ({
+        components: { Button },
+        template: `
       <div class="space-y-4">
         <h3 class="text-lg font-semibold mb-3">Button States</h3>
         <div class="flex flex-wrap gap-2">
@@ -305,14 +314,14 @@ export const States: Story = {
         </div>
       </div>
     `,
-  }),
+    }),
 }
 
 // Shapes showcase
 export const Shapes: Story = {
-  render: () => ({
-    components: { Button },
-    template: `
+    render: () => ({
+        components: { Button },
+        template: `
       <div class="space-y-4">
         <h3 class="text-lg font-semibold mb-3">Shape Modifiers</h3>
         <div class="flex flex-wrap gap-2 items-center">
@@ -340,14 +349,14 @@ export const Shapes: Story = {
         </div>
       </div>
     `,
-  }),
+    }),
 }
 
 // Icons showcase
 export const Icons: Story = {
-  render: () => ({
-    components: { Button },
-    template: `
+    render: () => ({
+        components: { Button },
+        template: `
       <div class="space-y-4">
         <h3 class="text-lg font-semibold mb-3">Icon Examples</h3>
         <div class="flex flex-wrap gap-2">
@@ -376,14 +385,14 @@ export const Icons: Story = {
         </div>
       </div>
     `,
-  }),
+    }),
 }
 
 // Advanced features showcase
 export const AdvancedFeatures: Story = {
-  render: () => ({
-    components: { Button },
-    template: `
+    render: () => ({
+        components: { Button },
+        template: `
       <div class="space-y-4">
         <h3 class="text-lg font-semibold mb-3">Advanced Features</h3>
         
@@ -410,42 +419,42 @@ export const AdvancedFeatures: Story = {
         </div>
       </div>
     `,
-  }),
+    }),
 }
 
 // Interactive playground
 export const Playground: Story = {
-  args: {
-    color: 'primary',
-    size: 'md',
-    btnStyle: undefined,
-    active: false,
-    wide: false,
-    block: false,
-    square: false,
-    circle: false,
-    disabled: false,
-    loading: false,
-    loadingText: '',
-    hideTextOnLoading: false,
-    type: 'button',
-    fullWidth: false,
-    glass: false,
-    noAnimation: false,
-    iconLeft: undefined,
-    iconRight: undefined,
-    iconSize: 'md',
-    debounceMs: 0,
-    confirmAction: false,
-    confirmText: 'Are you sure?',
-    autoFocus: false,
-  },
-  render: (args) => ({
-    components: { Button },
-    setup() {
-      return { args }
+    args: {
+        color: 'primary',
+        size: 'md',
+        btnStyle: undefined,
+        active: false,
+        wide: false,
+        block: false,
+        square: false,
+        circle: false,
+        disabled: false,
+        loading: false,
+        loadingText: '',
+        hideTextOnLoading: false,
+        type: 'button',
+        fullWidth: false,
+        glass: false,
+        noAnimation: false,
+        iconLeft: undefined,
+        iconRight: undefined,
+        iconSize: 'md',
+        debounceMs: 0,
+        confirmAction: false,
+        confirmText: 'Are you sure?',
+        autoFocus: false,
     },
-    template: `
+    render: (args) => ({
+        components: { Button },
+        setup() {
+            return { args }
+        },
+        template: `
       <div class="space-y-4">
         <Button v-bind="args">
           <template v-if="args.iconLeft" #icon-left>
@@ -462,14 +471,14 @@ export const Playground: Story = {
         </div>
       </div>
     `,
-  }),
+    }),
 }
 
 // All variants in one view
 export const AllVariants: Story = {
-  render: () => ({
-    components: { Button },
-    template: `
+    render: () => ({
+        components: { Button },
+        template: `
       <div class="space-y-6 max-w-4xl">
         <div>
           <h3 class="text-lg font-semibold mb-3">Complete Button Collection</h3>
@@ -538,5 +547,5 @@ export const AllVariants: Story = {
         </div>
       </div>
     `,
-  }),
+    }),
 }
