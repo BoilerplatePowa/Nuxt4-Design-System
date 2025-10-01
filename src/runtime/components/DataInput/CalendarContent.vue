@@ -505,7 +505,9 @@ const handleTimeInput = (event: Event) => {
         newDate.setHours(hours, minutes)
 
         if (props.range && Array.isArray(model.value)) {
-            const secondDate = model.value[1]; if (secondDate) model.value = [newDate, secondDate]
+            const secondDate = model.value[1]
+
+            if (secondDate) model.value = [newDate, secondDate]
         }
         else {
             model.value = newDate
