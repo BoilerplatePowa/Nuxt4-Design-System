@@ -177,15 +177,15 @@
                                     </p>
                                     <div class="flex items-center gap-4">
                                         <BpIcon
-                                            :name="selectedIcon"
+                                            :name="selectedIcon as any"
                                             class="w-8 h-8 text-primary"
                                         />
                                         <BpIcon
-                                            :name="selectedIcon"
+                                            :name="selectedIcon as any"
                                             class="w-12 h-12 text-secondary"
                                         />
                                         <BpIcon
-                                            :name="selectedIcon"
+                                            :name="selectedIcon as any"
                                             class="w-16 h-16 text-accent"
                                         />
                                     </div>
