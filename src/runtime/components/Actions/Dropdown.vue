@@ -144,7 +144,9 @@ const triggerRef = ref<HTMLElement>()
 const menuRef = ref<HTMLElement>()
 const itemRefs = ref<(HTMLElement | null)[]>([])
 
-const setItemRef = (el: HTMLElement | { $el: HTMLElement } | null, index: number) => {
+// Using any for ref callback due to Vue's complex component instance types
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const setItemRef = (el: any, index: number) => {
     if (el && '$el' in el) {
         itemRefs.value[index] = el.$el as HTMLElement
     }

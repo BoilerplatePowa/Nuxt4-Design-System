@@ -149,8 +149,9 @@ const showPassword = ref(false)
 // Input element reference
 const inputRef = ref<HTMLInputElement>()
 
-// IMask instance - typed as unknown to handle IMask's complex types
-let maskInstance: unknown = null
+// IMask instance - using any due to complex third-party type definitions
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+let maskInstance: any = null
 
 // Predefined mask configurations
 const maskConfigs = {
@@ -287,7 +288,9 @@ const initMask = (element: HTMLInputElement) => {
             : props.mask
 
     if (maskConfig && element) {
-        maskInstance = IMask(element, maskConfig as unknown)
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        maskInstance = IMask(element, maskConfig as any)
+
         // Listen to mask events
         if (maskInstance) {
             maskInstance.on('accept', () => {
