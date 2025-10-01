@@ -153,7 +153,7 @@ const getColorFromString = (str: string): string => {
     for (let i = 0; i < str.length; i++) {
         hash = str.charCodeAt(i) + ((hash << 5) - hash)
     }
-    return colors[Math.abs(hash) % colors.length]
+    return colors[Math.abs(hash) % colors.length] || 'primary'
 }
 
 const avatarClasses = computed(() => {

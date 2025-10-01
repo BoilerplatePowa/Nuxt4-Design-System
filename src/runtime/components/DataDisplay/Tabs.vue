@@ -34,7 +34,7 @@
     >
         <div
             class="tab-pane"
-            v-html="tabs[activeIndex].content"
+            v-html="tabs[activeIndex]?.content"
         />
     </div>
 </div>
@@ -86,7 +86,7 @@ watch(
     () => props.tabs,
     (newTabs) => {
         if (newTabs.length > 0 && activeTabValue.value === undefined) {
-            activeTabValue.value = getTabValue(newTabs[0])
+            activeTabValue.value = newTabs[0] ? getTabValue(newTabs[0]) : undefined
         }
     },
     { immediate: true },

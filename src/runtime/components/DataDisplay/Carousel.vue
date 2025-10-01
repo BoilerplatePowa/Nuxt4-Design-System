@@ -483,7 +483,8 @@ const goToSlide = (index: number) => {
     if (index < 0 || index >= props.items.length) return
 
     currentIndex.value = index
-    emit('slide-change', index, props.items[index])
+    const item = props.items[index]
+    if (item) emit('slide-change', index, item)
 
     resetAutoplay()
 }

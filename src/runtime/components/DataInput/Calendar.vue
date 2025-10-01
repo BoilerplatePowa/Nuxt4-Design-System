@@ -253,9 +253,9 @@ const displayValue = computed(() => {
     if (Array.isArray(selectedDate.value)) {
         if (selectedDate.value.length === 0) return ''
         if (selectedDate.value.length === 1) {
-            return formatDate(selectedDate.value[0])
+            return selectedDate.value[0] ? formatDate(selectedDate.value[0]) : ''
         }
-        return `${formatDate(selectedDate.value[0])} - ${formatDate(selectedDate.value[1])}`
+        return `${selectedDate.value[0] ? formatDate(selectedDate.value[0]) : ''} - ${selectedDate.value[1] ? formatDate(selectedDate.value[1]) : ''}`
     }
 
     return formatDate(selectedDate.value)
@@ -305,15 +305,15 @@ const handleInput = (event: Event) => {
             .map(d => d.trim())
             .filter(d => d)
         if (dates.length === 1) {
-            const date = parseDate(dates[0])
+            const date = dates[0] ? parseDate(dates[0]) : null
             if (date) {
                 selectedDate.value = [date]
                 model.value = [date]
             }
         }
         else if (dates.length === 2) {
-            const startDate = parseDate(dates[0])
-            const endDate = parseDate(dates[1])
+            const startDate = dates[0] ? parseDate(dates[0]) : null
+            const endDate = dates[1] ? parseDate(dates[1]) : null
             if (startDate && endDate) {
                 selectedDate.value = [startDate, endDate]
                 model.value = [startDate, endDate]

@@ -189,7 +189,7 @@ const groupedOptions = computed((): OptionGroup[] => {
             if (!groups[option.group]) {
                 groups[option.group] = []
             }
-            groups[option.group].push(option)
+            groups[option.group]?.push(option)
         }
     })
 

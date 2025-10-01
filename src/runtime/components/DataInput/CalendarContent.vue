@@ -387,8 +387,8 @@ const isDateInRange = (date: Date): boolean => {
 
     const [start, end] = model.value
     const dateTime = date.getTime()
-    const startTime = start.getTime()
-    const endTime = end.getTime()
+    const startTime = start?.getTime() || 0
+    const endTime = end?.getTime() || 0
 
     return dateTime >= Math.min(startTime, endTime) && dateTime <= Math.max(startTime, endTime)
 }
@@ -453,11 +453,11 @@ const selectDate = (date: Date) => {
         }
         else if (model.value.length === 1) {
             const [firstDate] = model.value
-            if (date < firstDate) {
-                newValue = [date, firstDate]
+            if (firstDate && date < firstDate) {
+                newValue = [date, firstDate!]
             }
             else {
-                newValue = [firstDate, date]
+                newValue = [firstDate!, date]
             }
         }
         else {
@@ -496,8 +496,12 @@ const handleTimeInput = (event: Event) => {
     selectedTime.value = target.value
 
     if (model.value) {
-        const [hours, minutes] = target.value.split(':').map(Number)
-        const newDate = new Date(Array.isArray(model.value) ? model.value[0] : model.value)
+        const timeParts = target.value.split(':'))
+        const hours = Number(timeParts[0] || 0)
+        const minutes = Number(timeParts[1] || 0)
+        const dateValue = Array.isArray(model.value) ? model.value[0] : model.value
+        if (!dateValue) return
+        const newDate = new Date(dateValue)
         newDate.setHours(hours, minutes)
 
         if (props.range && Array.isArray(model.value)) {

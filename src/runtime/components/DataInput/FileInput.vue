@@ -307,7 +307,7 @@ const processFiles = (fileList: FileList | null) => {
     else {
         // Single file mode - replace the selection
         selectedFiles.value = files
-        model.value = files[0] || null
+        model.value = files[0] || undefined
     }
 
     emit('change', selectedFiles.value)
@@ -320,7 +320,7 @@ const removeFile = (index: number) => {
         model.value = selectedFiles.value
     }
     else {
-        model.value = selectedFiles.value[0] || null
+        model.value = selectedFiles.value[0] || undefined
     }
 
     emit('change', selectedFiles.value)
