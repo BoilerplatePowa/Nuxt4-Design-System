@@ -4,22 +4,27 @@ This guide covers how to publish the Nuxt Design System to GitHub Packages regis
 
 ## 🚀 Quick Start
 
-### 1. **Automatic Publishing (Recommended)**
+### 1. **Automatic Publishing (Recommended) - CI/CD Pipeline**
 
-Publishing is automated when you create a Git tag:
+Publishing is **fully automated** via GitHub Actions when you push a version tag:
 
 ```bash
-# Create and push a version tag
-git tag v1.0.0
-git push origin v1.0.0
+# Update version and create tag
+npm version patch  # or minor, major
+git push origin main --tags
 ```
 
-This will trigger the GitHub Actions workflow that:
+This triggers the automated CI/CD pipeline (`.github/workflows/ci-cd.yml`) that:
 
-- ✅ Runs all tests
+- ✅ Runs quality gates (linting, type checking, formatting)
+- ✅ Runs tests across Node.js 18, 20, 22
+- ✅ Performs security audit
 - ✅ Builds the package
+- ✅ Verifies bundle size
 - ✅ Publishes to GitHub Packages
-- ✅ Creates a GitHub release
+- ✅ Creates a GitHub release with changelog
+
+**See [CI/CD Guide](.github/CI-CD-GUIDE.md) for detailed workflow information.**
 
 ### 2. **Manual Publishing**
 

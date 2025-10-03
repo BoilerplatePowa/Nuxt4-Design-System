@@ -7,6 +7,10 @@
         "url": "https://github.com/BoilerplatePowa/Nuxt4-Design-System.git"
     },
     "license": "MIT",
+    "publishConfig": {
+        "registry": "https://npm.pkg.github.com",
+        "access": "public"
+    },
     "type": "module",
     "exports": {
         ".": {

@@ -11,6 +11,10 @@ on:
                 required: true
                 type: string
 
+permissions:
+    contents: write
+    packages: write
+
 env:
     NODE_VERSION: '22'
     REGISTRY_URL: 'https://npm.pkg.github.com'

@@ -1,0 +1,17 @@
+# GitHub Packages Configuration
+# Copy this file to .npmrc and replace YOUR_GITHUB_TOKEN with your personal access token
+
+# Configure registry for @boilerplatepowa scope
+@boilerplatepowa:registry=https://npm.pkg.github.com
+
+# Authentication for GitHub Packages
+# Generate a token at: https://github.com/settings/tokens
+# Required scopes: read:packages
+# //npm.pkg.github.com/:_authToken=YOUR_GITHUB_TOKEN
+
+# Optional: Default registry for other packages
+# registry=https://registry.npmjs.org/
+
+# Optional: Always authenticate with GitHub Packages
+# always-auth=true
+

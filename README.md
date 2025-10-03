@@ -385,6 +385,53 @@ const classes = generateBtnClasses({
 - [ ] Mobile-first responsive utilities
 - [ ] Dark mode enhancements
 
+## 🚀 CI/CD & Publishing
+
+This project uses automated CI/CD pipelines for quality assurance and publishing to GitHub Packages.
+
+### Quick Start Publishing
+
+**Ready to publish your first version?**
+
+```bash
+# 1. Update version
+npm version patch
+
+# 2. Push with tags (triggers automatic publishing)
+git push origin main --tags
+
+# 3. Done! Package published to GitHub Packages 🎉
+```
+
+**See [Getting Started Guide](GETTING-STARTED-PUBLISHING.md) for complete instructions.**
+
+### Automated Workflows
+
+Every push/PR runs:
+- ✅ ESLint linting & TypeScript type checking
+- ✅ Prettier formatting & security audits
+- ✅ Unit tests, integration tests, component tests
+- ✅ Build verification & bundle size monitoring (<250KB)
+
+Creating a version tag (v*) automatically:
+- ✅ Validates release (tests + build)
+- ✅ Publishes to GitHub Packages
+- ✅ Creates GitHub Release with changelog
+
+### Documentation
+
+- **[Getting Started](GETTING-STARTED-PUBLISHING.md)** - Quick start guide for publishing
+- **[CI/CD Guide](.github/CI-CD-GUIDE.md)** - Complete workflow documentation
+- **[Workflows Reference](.github/WORKFLOWS-REFERENCE.md)** - Quick reference card
+- **[Deployment Checklist](.github/DEPLOYMENT-CHECKLIST.md)** - Pre/post deployment steps
+
+### Package Information
+
+- **Registry**: GitHub Packages
+- **Package**: `@boilerplatepowa/nuxt4-design-system`
+- **Install**: `npm install @boilerplatepowa/nuxt4-design-system`
+- **View Package**: [GitHub Packages](https://github.com/BoilerplatePowa/Nuxt4-Design-System/packages)
+
 ## Contributing
 
 We welcome contributions! Please follow these guidelines:
