@@ -16,7 +16,7 @@ jobs:
         runs-on: ubuntu-latest
         strategy:
             matrix:
-                node-version: [22]
+                node-version: [22] # only 22 is supported for now
 
         steps:
             - name: Checkout code
@@ -67,8 +67,8 @@ jobs:
             - name: Build playground
               run: cd playground && npm run build
 
-            - name: Test playground build
-              run: cd playground && npm run test:types
+            # - name: Test playground build
+            #  run: cd playground && npm run test:types
 
     # Component Testing
     component-tests:

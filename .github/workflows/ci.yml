@@ -48,7 +48,7 @@ jobs:
         needs: quality-gates
         strategy:
             matrix:
-                node-version: [18, 20, 22]
+                node-version: [22] # only 22 is supported for now
 
         steps:
             - name: Checkout code
