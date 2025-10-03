@@ -4,35 +4,39 @@ Quick reference for GitHub Actions workflows in this project.
 
 ## 📊 Workflow Overview
 
-| Workflow | File | Triggers | Duration |
-|----------|------|----------|----------|
-| Quality Gates | `quality-gates.yml` | Push, PR | ~3-4 min |
-| Testing Suite | `testing.yml` | Push, PR | ~4-6 min |
-| Release & Publish | `release.yml` | Tags (v*), Manual | ~5-8 min |
-| Storybook Deploy | `storybook-deploy.yml` | Push to main | ~3-5 min |
+| Workflow          | File                   | Triggers           | Duration |
+| ----------------- | ---------------------- | ------------------ | -------- |
+| Quality Gates     | `quality-gates.yml`    | Push, PR           | ~3-4 min |
+| Testing Suite     | `testing.yml`          | Push, PR           | ~4-6 min |
+| Release & Publish | `release.yml`          | Tags (v\*), Manual | ~5-8 min |
+| Storybook Deploy  | `storybook-deploy.yml` | Push to main       | ~3-5 min |
 
 ---
 
 ## 🔷 Quality Gates (`quality-gates.yml`)
 
 ### Triggers
+
 - Push to `main` or `develop`
 - Pull requests to `main` or `develop`
 
 ### Jobs
 
 #### **1. Lint & Format**
+
 ```yaml
 Duration: ~2 minutes
 Node: 22
 ```
 
 **Checks:**
+
 - ✅ ESLint validation
 - ✅ TypeScript type checking (module only)
 - ✅ Prettier format checking
 
 **Exit Criteria:**
+
 - All linting rules pass
 - No TypeScript errors
 - Code properly formatted
@@ -40,33 +44,39 @@ Node: 22
 ---
 
 #### **2. Security Scan**
+
 ```yaml
 Duration: ~1 minute
 Node: 22
 ```
 
 **Checks:**
+
 - ✅ npm security audit (moderate level)
 - ✅ Snyk vulnerability scanning (optional)
 
 **Exit Criteria:**
+
 - No moderate/high vulnerabilities
 - Snyk scan passes (continues on error)
 
 ---
 
 #### **3. Bundle Analysis**
+
 ```yaml
 Duration: ~1 minute
 Node: 22
 ```
 
 **Checks:**
+
 - ✅ Module build
 - ✅ Bundle size validation (<250KB)
 - ✅ Artifact upload
 
 **Exit Criteria:**
+
 - Build completes
 - Bundle size within limits
 - Artifacts uploaded
@@ -76,12 +86,14 @@ Node: 22
 ## 🔷 Testing Suite (`testing.yml`)
 
 ### Triggers
+
 - Push to `main` or `develop`
 - Pull requests to `main` or `develop`
 
 ### Jobs
 
 #### **1. Unit Tests**
+
 ```yaml
 Duration: ~2 minutes
 Node: 22
@@ -89,17 +101,20 @@ Matrix: [22]
 ```
 
 **Tests:**
+
 - ✅ Vitest unit tests
 - ✅ Component tests
 - ✅ Coverage report (Codecov)
 
 **Exit Criteria:**
+
 - All tests pass
 - Coverage uploaded
 
 ---
 
 #### **2. Integration Tests**
+
 ```yaml
 Duration: ~2 minutes
 Node: 22
@@ -107,17 +122,20 @@ Depends on: unit-tests
 ```
 
 **Tests:**
+
 - ✅ Playground preparation
 - ✅ Playground build
 - ✅ Module integration
 
 **Exit Criteria:**
+
 - Playground builds successfully
 - Integration validated
 
 ---
 
 #### **3. Component Tests**
+
 ```yaml
 Duration: ~2 minutes
 Node: 22
@@ -125,17 +143,20 @@ Runs in parallel
 ```
 
 **Tests:**
+
 - ✅ Storybook build
 - ✅ Component stories validation
 - ✅ Artifact upload
 
 **Exit Criteria:**
+
 - Storybook builds successfully
 - Stories validated
 
 ---
 
 #### **4. Performance Tests**
+
 ```yaml
 Duration: ~2 minutes
 Node: 22
@@ -143,11 +164,13 @@ Depends on: integration-tests
 ```
 
 **Tests:**
+
 - ✅ Production build
 - ✅ Lighthouse CI checks
 - ✅ Performance validation
 
 **Exit Criteria:**
+
 - Performance benchmarks met
 - Lighthouse scores acceptable
 
@@ -156,23 +179,27 @@ Depends on: integration-tests
 ## 🔷 Release & Publish (`release.yml`)
 
 ### Triggers
+
 - Push tags matching `v*` (e.g., `v1.0.0`)
 - Manual workflow dispatch
 
 ### Jobs
 
 #### **1. Validate Release**
+
 ```yaml
 Duration: ~3 minutes
 Node: 22
 ```
 
 **Validation:**
+
 - ✅ Run all tests
 - ✅ Build module
 - ✅ Validate package structure
 
 **Exit Criteria:**
+
 - Tests pass
 - Build succeeds
 - Package valid
@@ -180,6 +207,7 @@ Node: 22
 ---
 
 #### **2. Publish to GitHub Packages** 🚀
+
 ```yaml
 Duration: ~2 minutes
 Node: 22
@@ -188,15 +216,18 @@ Condition: Tag push only
 ```
 
 **Steps:**
+
 - ✅ Configure npm registry
 - ✅ Build production package
 - ✅ Publish to GitHub Packages
 
 **Exit Criteria:**
+
 - Package published successfully
 - Available in GitHub Packages
 
 **Required:**
+
 - Tag format: `v*`
 - `GITHUB_TOKEN` permissions
 - Valid `publishConfig` in package.json
@@ -204,6 +235,7 @@ Condition: Tag push only
 ---
 
 #### **3. Create GitHub Release**
+
 ```yaml
 Duration: ~1 minute
 Node: 22
@@ -212,11 +244,13 @@ Condition: Tag push only
 ```
 
 **Steps:**
+
 - ✅ Generate changelog
 - ✅ Create release notes
 - ✅ Publish release
 
 **Exit Criteria:**
+
 - Release created
 - Notes generated
 - Visible in Releases tab
@@ -226,9 +260,11 @@ Condition: Tag push only
 ## 🔷 Storybook Deploy (`storybook-deploy.yml`)
 
 ### Triggers
+
 - Push to `main` branch
 
 ### Purpose
+
 Deploys Storybook documentation to GitHub Pages
 
 **Duration:** ~3-5 minutes
@@ -251,6 +287,7 @@ git push origin main --tags
 ```
 
 **What runs:**
+
 1. Quality Gates (on main push)
 2. Testing Suite (on main push)
 3. Release workflow (on tag detection)
@@ -283,16 +320,16 @@ npm run bundle:size       # Size check
 When you create a PR:
 
 1. **Quality Gates** run automatically
-   - Linting, type checking, formatting
-   - Security audit
-   - Bundle analysis
+    - Linting, type checking, formatting
+    - Security audit
+    - Bundle analysis
 
 2. **Testing Suite** runs automatically
-   - Unit, integration, component tests
-   - Performance validation
+    - Unit, integration, component tests
+    - Performance validation
 
 3. **Review results** in PR checks
-   - All must pass before merge
+    - All must pass before merge
 
 ---
 
@@ -302,8 +339,8 @@ When you create a PR:
 
 ```yaml
 # All workflows use:
-NODE_VERSION: '22'        # Node.js version
-NPM_VERSION: '10'         # npm version
+NODE_VERSION: '22' # Node.js version
+NPM_VERSION: '10' # npm version
 
 # Release workflow also uses:
 REGISTRY_URL: 'https://npm.pkg.github.com'
@@ -314,8 +351,8 @@ PACKAGE_SCOPE: '@boilerplatepowa'
 
 ```yaml
 # Release workflow requires:
-contents: write    # For creating releases
-packages: write    # For publishing (set in repo settings)
+contents: write # For creating releases
+packages: write # For publishing (set in repo settings)
 ```
 
 ---
@@ -335,16 +372,19 @@ packages: write    # For publishing (set in repo settings)
 #### Quality Gates Fail
 
 **Linting errors:**
+
 ```bash
 npm run lint:fix
 ```
 
 **Type errors:**
+
 ```bash
 npm run test:types:module
 ```
 
 **Format issues:**
+
 ```bash
 npm run format
 ```
@@ -352,11 +392,13 @@ npm run format
 #### Tests Fail
 
 **Run locally:**
+
 ```bash
 npm run test
 ```
 
 **Specific test:**
+
 ```bash
 npm run test -- path/to/test.ts
 ```
@@ -364,23 +406,26 @@ npm run test -- path/to/test.ts
 #### Publishing Fails
 
 **Check package.json:**
+
 ```json
 {
-  "name": "@boilerplatepowa/nuxt4-design-system",
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com",
-    "access": "public"
-  }
+    "name": "@boilerplatepowa/nuxt4-design-system",
+    "publishConfig": {
+        "registry": "https://npm.pkg.github.com",
+        "access": "public"
+    }
 }
 ```
 
 **Check tag format:**
+
 ```bash
 git tag v1.0.0  # ✅ Correct
 git tag 1.0.0   # ❌ Wrong (missing 'v')
 ```
 
 **Check permissions:**
+
 - Settings → Actions → Workflow permissions
 - Enable "Read and write permissions"
 
@@ -400,13 +445,13 @@ Add to your README:
 
 ## 🎯 Workflow Matrix
 
-| Event | Quality | Testing | Release | Storybook |
-|-------|---------|---------|---------|-----------|
-| Push to main | ✅ | ✅ | ❌ | ✅ |
-| Push to develop | ✅ | ✅ | ❌ | ❌ |
-| Pull request | ✅ | ✅ | ❌ | ❌ |
-| Tag push (v*) | ❌ | ❌ | ✅ | ❌ |
-| Manual dispatch | ❌ | ❌ | ✅ | ❌ |
+| Event           | Quality | Testing | Release | Storybook |
+| --------------- | ------- | ------- | ------- | --------- |
+| Push to main    | ✅      | ✅      | ❌      | ✅        |
+| Push to develop | ✅      | ✅      | ❌      | ❌        |
+| Pull request    | ✅      | ✅      | ❌      | ❌        |
+| Tag push (v\*)  | ❌      | ❌      | ✅      | ❌        |
+| Manual dispatch | ❌      | ❌      | ✅      | ❌        |
 
 ---
 

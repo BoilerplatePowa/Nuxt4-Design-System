@@ -23,19 +23,20 @@ All workflows run automatically on push/PR, with publishing triggered only by ve
 **Purpose:** Validate code quality and security
 
 **Jobs:**
+
 - **Lint & Format**
-  - ESLint validation
-  - TypeScript type checking (module only)
-  - Prettier format verification
+    - ESLint validation
+    - TypeScript type checking (module only)
+    - Prettier format verification
 
 - **Security Scan**
-  - npm security audit
-  - Snyk vulnerability scanning
+    - npm security audit
+    - Snyk vulnerability scanning
 
 - **Bundle Analysis**
-  - Package build
-  - Bundle size validation (<250KB)
-  - Artifact upload for review
+    - Package build
+    - Bundle size validation (<250KB)
+    - Artifact upload for review
 
 **Duration:** ~3-4 minutes
 
@@ -48,22 +49,23 @@ All workflows run automatically on push/PR, with publishing triggered only by ve
 **Purpose:** Comprehensive testing across multiple scenarios
 
 **Jobs:**
+
 - **Unit Tests**
-  - Component tests with Vitest
-  - Coverage reporting
-  - Codecov integration
+    - Component tests with Vitest
+    - Coverage reporting
+    - Codecov integration
 
 - **Integration Tests**
-  - Playground build verification
-  - Module integration testing
+    - Playground build verification
+    - Module integration testing
 
 - **Component Tests**
-  - Storybook build validation
-  - Component story verification
+    - Storybook build validation
+    - Component story verification
 
 - **Performance Tests**
-  - Lighthouse CI checks
-  - Bundle performance validation
+    - Lighthouse CI checks
+    - Bundle performance validation
 
 **Duration:** ~4-6 minutes
 
@@ -71,25 +73,26 @@ All workflows run automatically on push/PR, with publishing triggered only by ve
 
 ### 3️⃣ **Release & Publishing** (`release.yml`)
 
-**Triggers:** Version tags (v*), Manual workflow dispatch
+**Triggers:** Version tags (v\*), Manual workflow dispatch
 
 **Purpose:** Publish package to GitHub Packages and create releases
 
 **Jobs:**
+
 - **Validate Release**
-  - Run all tests
-  - Build module
-  - Validate package structure
+    - Run all tests
+    - Build module
+    - Validate package structure
 
 - **Publish to GitHub Packages**
-  - Build production package
-  - Publish to npm.pkg.github.com
-  - Uses `GITHUB_TOKEN` automatically
+    - Build production package
+    - Publish to npm.pkg.github.com
+    - Uses `GITHUB_TOKEN` automatically
 
 - **Create GitHub Release**
-  - Generate changelog
-  - Create release notes
-  - Publish release on GitHub
+    - Generate changelog
+    - Create release notes
+    - Publish release on GitHub
 
 **Duration:** ~5-8 minutes
 
@@ -122,12 +125,12 @@ git push origin main --tags
 
 ## 🎯 Workflow Triggers Summary
 
-| Event | Quality Gates | Testing | Release |
-|-------|--------------|---------|---------|
-| Push to main/develop | ✅ | ✅ | ❌ |
-| Pull Request | ✅ | ✅ | ❌ |
-| Tag push (v*) | ❌ | ❌ | ✅ |
-| Manual dispatch | ❌ | ❌ | ✅ |
+| Event                | Quality Gates | Testing | Release |
+| -------------------- | ------------- | ------- | ------- |
+| Push to main/develop | ✅            | ✅      | ❌      |
+| Pull Request         | ✅            | ✅      | ❌      |
+| Tag push (v\*)       | ❌            | ❌      | ✅      |
+| Manual dispatch      | ❌            | ❌      | ✅      |
 
 ---
 
@@ -136,6 +139,7 @@ git push origin main --tags
 ### Required Permissions
 
 The release workflow uses `GITHUB_TOKEN` with:
+
 - `contents: write` - For creating releases
 - `packages: write` - For publishing packages (set in repo settings)
 
@@ -151,15 +155,18 @@ The release workflow uses `GITHUB_TOKEN` with:
 ## 📊 Quality Standards
 
 ### Bundle Size Limits
+
 - **Maximum:** 250KB
 - **Warning:** 200KB
 - **Optimal:** <200KB
 
 ### Test Coverage
+
 - **Target:** 80%+
 - **Minimum:** 70%
 
 ### Node.js Support
+
 - **Primary:** 22.x
 - **Testing:** Node 22 only (currently)
 
@@ -172,34 +179,37 @@ The release workflow uses `GITHUB_TOKEN` with:
 **Symptom:** Release workflow fails at publish step
 
 **Solutions:**
+
 1. Check package.json `publishConfig`:
-   ```json
-   {
-     "publishConfig": {
-       "registry": "https://npm.pkg.github.com",
-       "access": "public"
-     }
-   }
-   ```
+
+    ```json
+    {
+        "publishConfig": {
+            "registry": "https://npm.pkg.github.com",
+            "access": "public"
+        }
+    }
+    ```
 
 2. Verify tag format: `v1.0.0` (must start with 'v')
 
 3. Check repository permissions:
-   - Settings → Actions → Workflow permissions
-   - Enable "Read and write permissions"
+    - Settings → Actions → Workflow permissions
+    - Enable "Read and write permissions"
 
 4. Ensure package name matches scope:
-   ```json
-   {
-     "name": "@boilerplatepowa/nuxt4-design-system"
-   }
-   ```
+    ```json
+    {
+        "name": "@boilerplatepowa/nuxt4-design-system"
+    }
+    ```
 
 ### Tests Fail in CI
 
 **Symptom:** Tests pass locally but fail in CI
 
 **Solutions:**
+
 ```bash
 # Match CI Node version
 nvm use 22
@@ -217,6 +227,7 @@ npm run test
 **Symptom:** Quality gates fail on bundle analysis
 
 **Solutions:**
+
 ```bash
 # Analyze bundle
 npm run build:analyze
@@ -237,34 +248,37 @@ npm run bundle:size
 ### Before Publishing
 
 1. **Test locally:**
-   ```bash
-   npm run test
-   npm run lint
-   npm run test:types:module
-   npm run build
-   ```
+
+    ```bash
+    npm run test
+    npm run lint
+    npm run test:types:module
+    npm run build
+    ```
 
 2. **Check bundle size:**
-   ```bash
-   npm run bundle:size
-   ```
+
+    ```bash
+    npm run bundle:size
+    ```
 
 3. **Verify package:**
-   ```bash
-   npm pack --dry-run
-   ```
+    ```bash
+    npm pack --dry-run
+    ```
 
 ### Version Conventions
 
-| Type | Command | Use Case | Example |
-|------|---------|----------|---------|
-| Patch | `npm version patch` | Bug fixes | 1.0.0 → 1.0.1 |
-| Minor | `npm version minor` | New features | 1.0.0 → 1.1.0 |
+| Type  | Command             | Use Case         | Example       |
+| ----- | ------------------- | ---------------- | ------------- |
+| Patch | `npm version patch` | Bug fixes        | 1.0.0 → 1.0.1 |
+| Minor | `npm version minor` | New features     | 1.0.0 → 1.1.0 |
 | Major | `npm version major` | Breaking changes | 1.0.0 → 2.0.0 |
 
 ### Commit Messages
 
 Use conventional commits for better changelogs:
+
 - `fix:` - Bug fixes (triggers patch)
 - `feat:` - New features (triggers minor)
 - `feat!:` - Breaking changes (triggers major)
@@ -337,16 +351,19 @@ You can trigger a release manually from GitHub:
 ### Monitoring Workflows
 
 **GitHub Actions:**
+
 ```
 https://github.com/BoilerplatePowa/Nuxt4-Design-System/actions
 ```
 
 **Published Packages:**
+
 ```
 https://github.com/BoilerplatePowa/Nuxt4-Design-System/packages
 ```
 
 **Releases:**
+
 ```
 https://github.com/BoilerplatePowa/Nuxt4-Design-System/releases
 ```

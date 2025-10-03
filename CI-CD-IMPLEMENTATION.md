@@ -13,9 +13,11 @@ You already had a **clean, modular workflow setup**. I've enhanced your existing
 ### Active Workflows
 
 #### 1. **Quality Gates** (`quality-gates.yml`)
+
 **Triggers:** Push to main/develop, Pull requests
 
 Validates code quality:
+
 - ✅ ESLint linting
 - ✅ TypeScript type checking
 - ✅ Prettier formatting
@@ -23,27 +25,33 @@ Validates code quality:
 - ✅ Bundle size analysis (<250KB)
 
 #### 2. **Testing Suite** (`testing.yml`)
+
 **Triggers:** Push to main/develop, Pull requests
 
 Comprehensive testing:
+
 - ✅ Unit tests (Vitest)
 - ✅ Integration tests
 - ✅ Component tests (Storybook)
 - ✅ Performance tests (Lighthouse)
 
 #### 3. **Release & Publish** (`release.yml`) 🚀
-**Triggers:** Version tags (v*), Manual dispatch
+
+**Triggers:** Version tags (v\*), Manual dispatch
 
 **This is your key workflow for publishing!**
+
 - ✅ Pre-release validation
 - ✅ Package build
 - ✅ **Publishing to GitHub Packages**
 - ✅ **GitHub Release creation**
 
 #### 4. **Storybook Deploy** (`storybook-deploy.yml`)
+
 **Triggers:** Push to main
 
 Documentation deployment:
+
 - ✅ Builds Storybook
 - ✅ Deploys to GitHub Pages
 
@@ -67,9 +75,9 @@ When you push the tag:
 
 1. **Release workflow triggers** (`release.yml`)
 2. **Validates release:**
-   - Runs all tests
-   - Builds module
-   - Validates package structure
+    - Runs all tests
+    - Builds module
+    - Validates package structure
 3. **Publishes to GitHub Packages** 🎉
 4. **Creates GitHub Release** with changelog
 
@@ -82,57 +90,59 @@ When you push the tag:
 ### Configuration
 
 #### **package.json** ✅
+
 Added GitHub Packages configuration:
+
 ```json
 {
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com",
-    "access": "public"
-  }
+    "publishConfig": {
+        "registry": "https://npm.pkg.github.com",
+        "access": "public"
+    }
 }
 ```
 
 ### Documentation Created
 
 1. **[CI/CD Guide](.github/CI-CD-GUIDE.md)**
-   - Complete workflow documentation
-   - Publishing instructions
-   - Troubleshooting guide
+    - Complete workflow documentation
+    - Publishing instructions
+    - Troubleshooting guide
 
 2. **[Workflows Reference](.github/WORKFLOWS-REFERENCE.md)**
-   - Quick reference for all workflows
-   - Job details and triggers
-   - Common commands
+    - Quick reference for all workflows
+    - Job details and triggers
+    - Common commands
 
 3. **[Deployment Checklist](.github/DEPLOYMENT-CHECKLIST.md)**
-   - Pre-deployment checks
-   - Post-deployment verification
-   - Rollback procedures
+    - Pre-deployment checks
+    - Post-deployment verification
+    - Rollback procedures
 
 4. **[CI/CD Summary](.github/CI-CD-SUMMARY.md)**
-   - Implementation overview
-   - Best practices
+    - Implementation overview
+    - Best practices
 
 5. **Updated [README.md](README.md)**
-   - Added CI/CD section
-   - Publishing quick start
+    - Added CI/CD section
+    - Publishing quick start
 
 6. **Updated [README-PUBLISHING.md](README-PUBLISHING.md)**
-   - Automated workflow documentation
+    - Automated workflow documentation
 
 7. **.npmrc.example**
-   - Template for users to install your package
+    - Template for users to install your package
 
 ---
 
 ## 🎯 Workflow Execution Matrix
 
-| Event | Quality Gates | Testing | Release | Storybook |
-|-------|---------------|---------|---------|-----------|
-| Push to main | ✅ Runs | ✅ Runs | ❌ | ✅ Runs |
-| Push to develop | ✅ Runs | ✅ Runs | ❌ | ❌ |
-| Pull Request | ✅ Runs | ✅ Runs | ❌ | ❌ |
-| **Tag push (v*)** | ❌ | ❌ | **✅ Publishes!** | ❌ |
+| Event              | Quality Gates | Testing | Release           | Storybook |
+| ------------------ | ------------- | ------- | ----------------- | --------- |
+| Push to main       | ✅ Runs       | ✅ Runs | ❌                | ✅ Runs   |
+| Push to develop    | ✅ Runs       | ✅ Runs | ❌                | ❌        |
+| Pull Request       | ✅ Runs       | ✅ Runs | ❌                | ❌        |
+| **Tag push (v\*)** | ❌            | ❌      | **✅ Publishes!** | ❌        |
 
 **No duplication!** Each workflow has a specific purpose.
 
@@ -157,11 +167,11 @@ Your `package.json` should have:
 
 ```json
 {
-  "name": "@boilerplatepowa/nuxt4-design-system",
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com",
-    "access": "public"
-  }
+    "name": "@boilerplatepowa/nuxt4-design-system",
+    "publishConfig": {
+        "registry": "https://npm.pkg.github.com",
+        "access": "public"
+    }
 }
 ```
 
@@ -211,19 +221,19 @@ git push origin main --tags
 1. Go to **Actions** tab: https://github.com/BoilerplatePowa/Nuxt4-Design-System/actions
 2. Find "Publish to GitHub Packages" workflow
 3. Watch the three jobs:
-   - Validate Release
-   - Publish to GitHub Packages
-   - Create GitHub Release
+    - Validate Release
+    - Publish to GitHub Packages
+    - Create GitHub Release
 
 ### 3. Verify Publication
 
 1. **Packages tab**: https://github.com/BoilerplatePowa/Nuxt4-Design-System/packages
 2. **Releases tab**: https://github.com/BoilerplatePowa/Nuxt4-Design-System/releases
 3. **Test installation:**
-   ```bash
-   # In a test project
-   npm install @boilerplatepowa/nuxt4-design-system@latest
-   ```
+    ```bash
+    # In a test project
+    npm install @boilerplatepowa/nuxt4-design-system@latest
+    ```
 
 ---
 
@@ -236,6 +246,7 @@ git push origin main --tags
 ### Tests Fail in Release Workflow
 
 **Solution:** Run tests locally first:
+
 ```bash
 npm run test
 npm run build
@@ -244,6 +255,7 @@ npm run build
 ### Package Already Published
 
 **Solution:** Increment version:
+
 ```bash
 npm version patch
 git push origin main --tags
@@ -252,6 +264,7 @@ git push origin main --tags
 ### Tag Format Wrong
 
 **Must start with 'v':**
+
 ```bash
 git tag v1.0.0  # ✅ Correct
 git tag 1.0.0   # ❌ Wrong
@@ -261,10 +274,10 @@ git tag 1.0.0   # ❌ Wrong
 
 ## 📊 Version Types
 
-| Command | Change | Example |
-|---------|--------|---------|
-| `npm version patch` | Bug fixes | 1.0.0 → 1.0.1 |
-| `npm version minor` | New features | 1.0.0 → 1.1.0 |
+| Command             | Change           | Example       |
+| ------------------- | ---------------- | ------------- |
+| `npm version patch` | Bug fixes        | 1.0.0 → 1.0.1 |
+| `npm version minor` | New features     | 1.0.0 → 1.1.0 |
 | `npm version major` | Breaking changes | 1.0.0 → 2.0.0 |
 
 ---
@@ -302,6 +315,7 @@ docs: documentation (→ no version change)
 ## 🎉 You're Ready!
 
 Your CI/CD setup is:
+
 - ✅ **Modular** - Clean, purpose-specific workflows
 - ✅ **Automated** - Zero-touch publishing
 - ✅ **Validated** - Quality gates on every change
@@ -345,12 +359,14 @@ Need help?
 ## 🔄 What's Different from Before
 
 ### Before
+
 - ✅ Quality gates workflow
 - ✅ Testing workflow
 - ✅ Storybook deployment
 - ❌ Manual publishing to GitHub Packages
 
 ### After
+
 - ✅ Quality gates workflow (unchanged)
 - ✅ Testing workflow (unchanged)
 - ✅ Storybook deployment (unchanged)

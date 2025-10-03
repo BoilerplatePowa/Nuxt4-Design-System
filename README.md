@@ -408,12 +408,14 @@ git push origin main --tags
 ### Automated Workflows
 
 Every push/PR runs:
+
 - ✅ ESLint linting & TypeScript type checking
 - ✅ Prettier formatting & security audits
 - ✅ Unit tests, integration tests, component tests
 - ✅ Build verification & bundle size monitoring (<250KB)
 
-Creating a version tag (v*) automatically:
+Creating a version tag (v\*) automatically:
+
 - ✅ Validates release (tests + build)
 - ✅ Publishes to GitHub Packages
 - ✅ Creates GitHub Release with changelog

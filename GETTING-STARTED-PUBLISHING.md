@@ -52,18 +52,18 @@ git push origin main --tags
 ### What Happens Automatically:
 
 1. **Validation** (~3 min)
-   - Runs all tests
-   - Builds module
-   - Validates package
+    - Runs all tests
+    - Builds module
+    - Validates package
 
 2. **Publishing** (~2 min)
-   - Publishes to GitHub Packages
-   - Makes package available for installation
+    - Publishes to GitHub Packages
+    - Makes package available for installation
 
 3. **Release** (~1 min)
-   - Creates GitHub Release
-   - Generates changelog
-   - Publishes release notes
+    - Creates GitHub Release
+    - Generates changelog
+    - Publishes release notes
 
 **Total time:** ~6 minutes
 
@@ -74,29 +74,33 @@ git push origin main --tags
 ### While Publishing:
 
 1. **Actions Tab**
-   ```
-   https://github.com/BoilerplatePowa/Nuxt4-Design-System/actions
-   ```
-   Watch "Publish to GitHub Packages" workflow
+
+    ```
+    https://github.com/BoilerplatePowa/Nuxt4-Design-System/actions
+    ```
+
+    Watch "Publish to GitHub Packages" workflow
 
 2. **Check Progress**
-   - Validate Release ✅
-   - Publish to GitHub Packages ✅
-   - Create GitHub Release ✅
+    - Validate Release ✅
+    - Publish to GitHub Packages ✅
+    - Create GitHub Release ✅
 
 ### After Publishing:
 
 1. **Packages Tab**
-   ```
-   https://github.com/BoilerplatePowa/Nuxt4-Design-System/packages
-   ```
-   Your package will appear here
+
+    ```
+    https://github.com/BoilerplatePowa/Nuxt4-Design-System/packages
+    ```
+
+    Your package will appear here
 
 2. **Releases Tab**
-   ```
-   https://github.com/BoilerplatePowa/Nuxt4-Design-System/releases
-   ```
-   Release notes with changelog
+    ```
+    https://github.com/BoilerplatePowa/Nuxt4-Design-System/releases
+    ```
+    Release notes with changelog
 
 ---
 
@@ -104,11 +108,11 @@ git push origin main --tags
 
 Choose the right version update:
 
-| Command | When to Use | Example |
-|---------|-------------|---------|
-| `npm version patch` | Bug fixes, small changes | 1.0.0 → 1.0.1 |
+| Command             | When to Use                       | Example       |
+| ------------------- | --------------------------------- | ------------- |
+| `npm version patch` | Bug fixes, small changes          | 1.0.0 → 1.0.1 |
 | `npm version minor` | New features, backward compatible | 1.0.0 → 1.1.0 |
-| `npm version major` | Breaking changes | 1.0.0 → 2.0.0 |
+| `npm version major` | Breaking changes                  | 1.0.0 → 2.0.0 |
 
 ### Examples:
 
@@ -164,7 +168,7 @@ npm install @boilerplatepowa/nuxt4-design-system
 ```typescript
 // nuxt.config.ts
 export default defineNuxtConfig({
-  modules: ['@boilerplatepowa/nuxt4-design-system']
+    modules: ['@boilerplatepowa/nuxt4-design-system'],
 })
 ```
 
@@ -183,6 +187,7 @@ export default defineNuxtConfig({
 **Error:** "Package already exists"
 
 **Solution:** Increment version number:
+
 ```bash
 npm version patch
 git push origin main --tags
@@ -193,6 +198,7 @@ git push origin main --tags
 **Error:** "Tests failed"
 
 **Solution:** Fix tests locally:
+
 ```bash
 npm run test
 # Fix any failures
@@ -211,6 +217,7 @@ git tag 1.0.0   # ❌ Wrong (workflow won't trigger)
 ```
 
 If you tagged without 'v':
+
 ```bash
 git tag -d 1.0.0           # Delete wrong tag
 git tag v1.0.0             # Create correct tag
@@ -270,4 +277,3 @@ git push origin main --tags
 ---
 
 _You're ready to start publishing to GitHub Packages!_ 🎉
-
