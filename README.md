@@ -13,7 +13,7 @@ A comprehensive Nuxt 4 module providing a complete design system based on DaisyU
 
 ## Quick Start
 
-> **📖 Complete Setup Guide**: For detailed installation instructions, troubleshooting, and configuration options, see [INSTALLATION.md](./INSTALLATION.md)
+> **🚨 IMPORTANT**: Tailwind CSS v4 requires a CSS entry point in your app. See [Critical Setup Issue](./CRITICAL-SETUP-ISSUE.md) if styles don't load.
 
 ### Installation
 
@@ -27,21 +27,34 @@ npm install -D tailwindcss@^4.1.12 @tailwindcss/vite@^4.1.12 daisyui@^5.1.5
 
 ### Basic Setup
 
+**Step 1: Create CSS file in your app**
+
+```css
+/* assets/css/main.css */
+@import 'tailwindcss';
+```
+
+**Step 2: Configure Nuxt**
+
 ```typescript
 // nuxt.config.ts
 export default defineNuxtConfig({
     modules: ['@boilerplatepowa/nuxt4-design-system'],
+    
+    // CRITICAL: Add your CSS entry point
+    css: ['~/assets/css/main.css'],
+    
     nuxtDesignSystem: {
         prefix: 'Bp',
         components: true,
-        css: true,
+        css: true,          // Must be true
         composables: true,
-        tailwind: true,
+        tailwind: true,     // Must be true
     },
 })
 ```
 
-> **⚠️ Styles Not Loading?** See the [Installation Guide](./INSTALLATION.md#troubleshooting) for troubleshooting steps.
+> **⚠️ Styles Not Loading?** This is usually because the CSS entry point is missing. See [CRITICAL-SETUP-ISSUE.md](./CRITICAL-SETUP-ISSUE.md) for the fix.
 
 ### Usage
 

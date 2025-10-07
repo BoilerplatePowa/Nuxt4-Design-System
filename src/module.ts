@@ -49,33 +49,32 @@ export default defineNuxtModule<ModuleOptions>({
             })
         }
 
-        // Tailwind CSS v4.1 setup
+        // Tailwind CSS v4.1 setup - MUST come before CSS addition
         if (_options.tailwind) {
-            // Add Tailwind CSS Vite plugin
+            // Add Tailwind CSS Vite plugin FIRST
             addVitePlugin(tailwindcss())
             
-            // Ensure the module's CSS is transpiled
+            // Ensure the module is transpiled
             _nuxt.options.build = _nuxt.options.build || {}
             _nuxt.options.build.transpile = _nuxt.options.build.transpile || []
             _nuxt.options.build.transpile.push('@boilerplatepowa/nuxt4-design-system')
-            
-            // Add PostCSS configuration for Tailwind v4
-            _nuxt.options.postcss = _nuxt.options.postcss || {}
-            _nuxt.options.postcss.plugins = _nuxt.options.postcss.plugins || {}
-            
-            // Ensure Vite processes CSS correctly
-            _nuxt.options.vite = _nuxt.options.vite || {}
-            _nuxt.options.vite.css = _nuxt.options.vite.css || {}
-            _nuxt.options.vite.css.postcss = {
-                plugins: [
-                    // Tailwind v4 will be handled by the Vite plugin
-                ]
-            }
+            _nuxt.options.build.transpile.push('tailwindcss')
+            _nuxt.options.build.transpile.push('daisyui')
         }
 
-        // CSS
+        // CSS - Add AFTER Tailwind plugin
         if (_options.css) {
-            _nuxt.options.css.push(resolver.resolve('runtime/assets/main.css'))
+            // Resolve the CSS file path
+            const cssPath = resolver.resolve('runtime/assets/main.css')
+            
+            // Add CSS to the beginning of the array so it's processed first
+            _nuxt.options.css.unshift(cssPath)
+            
+            // Ensure Vite knows to process this CSS file
+            _nuxt.options.vite = _nuxt.options.vite || {}
+            _nuxt.options.vite.optimizeDeps = _nuxt.options.vite.optimizeDeps || {}
+            _nuxt.options.vite.optimizeDeps.include = _nuxt.options.vite.optimizeDeps.include || []
+            _nuxt.options.vite.optimizeDeps.include.push('daisyui')
         }
 
         // Composables
