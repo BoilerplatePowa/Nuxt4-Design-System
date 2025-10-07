@@ -13,10 +13,16 @@ A comprehensive Nuxt 4 module providing a complete design system based on DaisyU
 
 ## Quick Start
 
+> **📖 Complete Setup Guide**: For detailed installation instructions, troubleshooting, and configuration options, see [INSTALLATION.md](./INSTALLATION.md)
+
 ### Installation
 
 ```bash
+# Install the module
 npm install @boilerplatepowa/nuxt4-design-system
+
+# Install required peer dependencies
+npm install -D tailwindcss@^4.1.12 @tailwindcss/vite@^4.1.12 daisyui@^5.1.5
 ```
 
 ### Basic Setup
@@ -34,6 +40,8 @@ export default defineNuxtConfig({
     },
 })
 ```
+
+> **⚠️ Styles Not Loading?** See the [Installation Guide](./INSTALLATION.md#troubleshooting) for troubleshooting steps.
 
 ### Usage
 
