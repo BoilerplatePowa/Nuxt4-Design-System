@@ -25,9 +25,6 @@ export default defineNuxtConfig({
         },
     },
 
-    // CSS configuration
-    css: ['~/assets/css/main.css'],
-
     // Experimental features
     experimental: {
         inlineRouteRules: true,
