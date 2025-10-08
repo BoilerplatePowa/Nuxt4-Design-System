@@ -16,7 +16,7 @@ permissions:
     packages: write
 
 env:
-    NODE_VERSION: '22'
+    NODE_VERSION: '22.20.0'
     REGISTRY_URL: 'https://npm.pkg.github.com'
     PACKAGE_SCOPE: '@boilerplatepowa'
 
