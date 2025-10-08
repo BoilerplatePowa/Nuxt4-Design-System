@@ -1,5 +1,12 @@
+import tailwindcss from '@tailwindcss/vite'
+
 export default defineNuxtConfig({
     modules: ['../src/module'],
+
+    // Configure TailwindCSS v4 - clients need to do this
+    vite: {
+        plugins: [tailwindcss() as any]
+    },
 
     // Enable pages for multi-page routing
     pages: true,
@@ -18,14 +25,14 @@ export default defineNuxtConfig({
                 {
                     name: 'description',
                     content:
-                        'Modern Design System for Nuxt 4+ with TailwindCSS, DaisyUI and comprehensive component library',
+                        'Modern Design System for Nuxt 4+ with comprehensive component library - TailwindCSS and DaisyUI configured by client',
                 },
             ],
             link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
         },
     },
 
-    // CSS configuration
+    // CSS configuration - clients need to configure their own CSS
     css: ['~/assets/css/main.css'],
 
     // Experimental features
@@ -39,5 +46,12 @@ export default defineNuxtConfig({
             routes: ['/'],
         },
     },
-    nuxtDesignSystem: {},
+    
+    // Design system configuration
+    nuxtDesignSystem: {
+        prefix: 'Bp',
+        components: true,
+        css: true,
+        composables: true,
+    },
 })

@@ -67,15 +67,28 @@
     },
     "dependencies": {
         "@nuxt/kit": "^4.0.3",
-        "@tailwindcss/vite": "^4.1.12",
         "@vitejs/plugin-vue": "^6.0.1",
-        "daisyui": "^5.1.5",
         "imask": "^7.6.1",
         "lucide-vue-next": "^0.542.0",
         "prettier": "^3.6.2",
-        "tailwindcss": "^4.1.12",
         "vee-validate": "^4.15.1",
         "yup": "^1.7.0"
+    },
+    "peerDependencies": {
+        "tailwindcss": "^4.1.12",
+        "daisyui": "^5.1.5",
+        "@tailwindcss/vite": "^4.1.12"
+    },
+    "peerDependenciesMeta": {
+        "tailwindcss": {
+            "optional": false
+        },
+        "daisyui": {
+            "optional": false
+        },
+        "@tailwindcss/vite": {
+            "optional": false
+        }
     },
     "devDependencies": {
         "@nuxt/devtools": "^2.6.3",
@@ -88,9 +101,11 @@
         "@storybook/addon-links": "^9.1.4",
         "@storybook/builder-vite": "^9.1.4",
         "@storybook/vue3-vite": "^9.1.4",
+        "@tailwindcss/vite": "^4.1.12",
         "@types/node": "latest",
         "@vue/test-utils": "^2.4.6",
         "changelogen": "^0.6.2",
+        "daisyui": "^5.1.5",
         "eslint": "^9.34.0",
         "eslint-config-prettier": "^10.1.8",
         "eslint-plugin-prettier": "^5.5.4",
@@ -101,6 +116,7 @@
         "libphonenumber-js": "^1.12.15",
         "nuxt": "^4.0.3",
         "storybook": "^9.1.4",
+        "tailwindcss": "^4.1.12",
         "typescript": "~5.9.2",
         "vitest": "^3.2.4",
         "vue-tsc": "^3.0.6"

@@ -4,9 +4,7 @@ import {
     createResolver,
     addComponentsDir,
     addImportsDir,
-    addVitePlugin,
 } from '@nuxt/kit'
-import tailwindcss from '@tailwindcss/vite'
 
 // Module options TypeScript interface definition
 export interface ModuleOptions {
@@ -14,7 +12,6 @@ export interface ModuleOptions {
     components: boolean
     css: boolean
     composables: boolean
-    tailwind: boolean
 }
 
 export default defineNuxtModule<ModuleOptions>({
@@ -32,13 +29,14 @@ export default defineNuxtModule<ModuleOptions>({
         components: true,
         css: true,
         composables: true,
-        tailwind: true,
     },
     setup(_options, _nuxt) {
         const resolver = createResolver(import.meta.url)
-        // Do not add the extension since the `.ts` will be transpiled to `.mjs` after `npm run prepack`
+        
+        // Add plugin for component initialization
         addPlugin(resolver.resolve('./runtime/plugin'))
-        // Components
+        
+        // Components - main feature of this module
         if (_options.components) {
             addComponentsDir({
                 path: resolver.resolve('runtime/components'),
@@ -47,12 +45,7 @@ export default defineNuxtModule<ModuleOptions>({
             })
         }
 
-        // Tailwind CSS v4.1 setup
-        if (_options.tailwind) {
-            addVitePlugin(tailwindcss())
-        }
-
-        // CSS
+        // CSS - provide base styles that clients can extend
         if (_options.css) {
             _nuxt.options.css.push(resolver.resolve('runtime/assets/main.css'))
         }

@@ -1,5 +1,8 @@
 @import 'tailwindcss';
-@plugin "daisyui";
+
+@plugin "daisyui" {
+    themes: all;
+}
 
 /* Custom CSS for Nuxt Design System Documentation */
 @layer base {

@@ -9,30 +9,56 @@ Find and replace all on all files (CMD+SHIFT+F):
 
 # Nuxt4-Design-System
 
-A comprehensive Nuxt 4 module providing a complete design system based on DaisyUI 5.1.5 with TypeScript support, Storybook documentation, and extensive component library.
+A comprehensive Nuxt 4 module providing a complete design system with TypeScript support, Storybook documentation, and extensive component library. This module focuses on components only - clients handle TailwindCSS and DaisyUI configuration.
 
 ## Quick Start
 
 ### Installation
 
 ```bash
+# Install the design system module
 npm install @boilerplatepowa/nuxt4-design-system
+
+# Install required peer dependencies
+npm install tailwindcss@^4.1.12 daisyui@^5.1.5 @tailwindcss/vite@^4.1.12
 ```
 
 ### Basic Setup
 
 ```typescript
 // nuxt.config.ts
+import tailwindcss from '@tailwindcss/vite'
+
 export default defineNuxtConfig({
     modules: ['@boilerplatepowa/nuxt4-design-system'],
+    
+    // Configure TailwindCSS v4
+    vite: {
+        plugins: [tailwindcss()]
+    },
+    
+    // Design system configuration
     nuxtDesignSystem: {
         prefix: 'Bp',
         components: true,
         css: true,
         composables: true,
-        tailwind: true,
     },
 })
+```
+
+### CSS Setup
+
+Create your main CSS file (e.g., `assets/css/main.css`):
+
+```css
+@import 'tailwindcss';
+
+@plugin 'daisyui' {
+    themes: all;
+}
+
+/* Your custom styles */
 ```
 
 ### Usage
@@ -54,6 +80,58 @@ export default defineNuxtConfig({
         </BpCard>
     </div>
 </template>
+```
+
+## Advanced Configuration
+
+### Custom Theme Setup
+
+```css
+/* assets/css/main.css */
+@import 'tailwindcss';
+
+@plugin 'daisyui' {
+    themes: light, dark, corporate;
+}
+
+/* Custom theme */
+@plugin "daisyui/theme" {
+    name: 'my-custom-theme';
+    default: true;
+    color-scheme: light;
+    
+    --color-primary: #your-primary-color;
+    --color-secondary: #your-secondary-color;
+    /* ... other theme variables */
+}
+```
+
+### Content Configuration
+
+The module automatically scans your components, but you can configure TailwindCSS content paths:
+
+```typescript
+// nuxt.config.ts
+export default defineNuxtConfig({
+    // TailwindCSS will automatically scan:
+    // - @boilerplatepowa/nuxt4-design-system/runtime/assets/main.css
+    // - Your project's components and pages
+    // - Any additional paths you specify
+})
+```
+
+### Module Options
+
+```typescript
+// nuxt.config.ts
+export default defineNuxtConfig({
+    nuxtDesignSystem: {
+        prefix: 'Bp',           // Component prefix (default: 'Bp')
+        components: true,        // Enable component auto-imports
+        css: true,              // Include base CSS styles
+        composables: true,      // Enable composable auto-imports
+    }
+})
 ```
 
 ## Features
