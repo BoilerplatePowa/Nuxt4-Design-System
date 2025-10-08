@@ -19,7 +19,7 @@ export interface ModuleOptions {
 
 export default defineNuxtModule<ModuleOptions>({
     meta: {
-        name: '@boilerplatepowa/nuxt-design-system',
+        name: '@boilerplatepowa/nuxt4-design-system',
         configKey: 'nuxtDesignSystem',
         compatibility: {
             // Semver version of supported nuxt versions
