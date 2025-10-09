@@ -7,6 +7,11 @@ This guide explains how to use [act](https://github.com/nektos/act) to run your 
 - Docker installed and running
 - act installed (`brew install act` on macOS)
 
+## Important Notes
+
+- All workflows use `npm ci --prefer-online` to ensure fresh package downloads and avoid cache-related sync issues
+- This helps prevent package.json and package-lock.json synchronization problems in CI environments
+
 ## Quick Start
 
 ### 1. List Available Workflows
