@@ -1,55 +1,76 @@
-/* 
- * Nuxt Design System - Base Styles
- * 
- * This file provides base styles for the design system components.
- * Clients should configure TailwindCSS and DaisyUI in their own CSS files.
- * 
- * For full setup instructions, see the README.md file.
- */
+@import 'tailwindcss';
 
-/* Component-specific base styles */
-.ds-component {
-    /* Base component styles that don't depend on TailwindCSS */
+@source "../components/**";
+@source "../shared/componentsMaps/**";
+
+@plugin 'daisyui' {
+    themes: all;
 }
 
-/* Custom CSS variables for theming */
-:root {
-    /* Light theme defaults */
-    --ds-primary: #3b82f6;
-    --ds-secondary: #64748b;
-    --ds-accent: #d946ef;
-    --ds-neutral: #1e293b;
-    --ds-base-100: #ffffff;
-    --ds-base-200: #f8fafc;
-    --ds-base-300: #f1f5f9;
-    --ds-base-content: #1e293b;
+/* Boilerplate Light Theme */
+@plugin "daisyui/theme" {
+    name: 'boilerplate-light';
+    default: true;
+    prefersdark: false;
+    color-scheme: light;
+
+    --color-base-100: #ffffff;
+    --color-base-200: #f8fafc;
+    --color-base-300: #f1f5f9;
+    --color-base-content: #1e293b;
+
+    --color-primary: #3b82f6;
+    --color-primary-focus: #2563eb;
+    --color-primary-content: #ffffff;
+
+    --color-secondary: #64748b;
+    --color-secondary-focus: #475569;
+    --color-secondary-content: #ffffff;
+
+    --color-accent: #d946ef;
+    --color-accent-focus: #c026d3;
+    --color-accent-content: #ffffff;
+
+    --color-neutral: #1e293b;
+    --color-neutral-focus: #0f172a;
+    --color-neutral-content: #ffffff;
+
+    --color-info: #0ea5e9;
+    --color-success: #10b981;
+    --color-warning: #f59e0b;
+    --color-error: #ef4444;
 }
 
-/* Dark theme overrides */
-[data-theme='dark'] {
-    --ds-primary: #60a5fa;
-    --ds-secondary: #94a3b8;
-    --ds-accent: #e879f9;
-    --ds-neutral: #e2e8f0;
-    --ds-base-100: #0f172a;
-    --ds-base-200: #1e293b;
-    --ds-base-300: #334155;
-    --ds-base-content: #f8fafc;
-}
+/* Boilerplate Dark Theme */
+@plugin "daisyui/theme" {
+    name: 'boilerplate-dark';
+    default: false;
+    prefersdark: true;
+    color-scheme: dark;
 
-/* Accessibility improvements */
-@media (prefers-reduced-motion: reduce) {
-    .ds-component * {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-    }
-}
+    --color-base-100: #0f172a;
+    --color-base-200: #1e293b;
+    --color-base-300: #334155;
+    --color-base-content: #f8fafc;
 
-/* Print styles */
-@media print {
-    .ds-component {
-        -webkit-print-color-adjust: exact;
-        color-adjust: exact;
-    }
+    --color-primary: #60a5fa;
+    --color-primary-focus: #3b82f6;
+    --color-primary-content: #0f172a;
+
+    --color-secondary: #94a3b8;
+    --color-secondary-focus: #64748b;
+    --color-secondary-content: #0f172a;
+
+    --color-accent: #e879f9;
+    --color-accent-focus: #d946ef;
+    --color-accent-content: #0f172a;
+
+    --color-neutral: #e2e8f0;
+    --color-neutral-focus: #cbd5e1;
+    --color-neutral-content: #0f172a;
+
+    --color-info: #38bdf8;
+    --color-success: #34d399;
+    --color-warning: #fbbf24;
+    --color-error: #f87171;
 }
