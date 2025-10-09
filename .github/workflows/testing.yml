@@ -32,7 +32,7 @@ jobs:
               run: npm ci --prefer-online
 
             - name: Run unit tests
-              run: npm run test
+              run: npm run test:coverage
 
             - name: Upload coverage
               uses: codecov/codecov-action@v4
@@ -89,7 +89,7 @@ jobs:
               run: npm ci --prefer-online
 
             - name: Run Storybook build test
-              run: npm run build-storybook
+              run: npm run storybook:build
               continue-on-error: true
 
             - name: Upload Storybook build
