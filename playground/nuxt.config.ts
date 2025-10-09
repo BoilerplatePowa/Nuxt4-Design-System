@@ -3,11 +3,6 @@ import tailwindcss from '@tailwindcss/vite'
 export default defineNuxtConfig({
     modules: ['../src/module'],
 
-    // Configure TailwindCSS v4 - clients need to do this
-    vite: {
-        plugins: [tailwindcss() as any],
-    },
-
     // Enable pages for multi-page routing
     pages: true,
     devtools: { enabled: true },
@@ -45,6 +40,12 @@ export default defineNuxtConfig({
         prerender: {
             routes: ['/'],
         },
+    },
+
+    // Configure TailwindCSS v4 - clients need to do this
+    vite: {
+        // eslint-disable-next-line
+        plugins: [tailwindcss() as any],
     },
 
     // Design system configuration
