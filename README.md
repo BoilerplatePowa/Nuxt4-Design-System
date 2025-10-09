@@ -49,9 +49,23 @@ export default defineNuxtConfig({
 
 ### CSS Setup
 
-Create your main CSS file (e.g., `assets/css/main.css`):
+**Option 1: Use the Boilerplate CSS (Recommended)**
+
+Import the pre-configured CSS that includes TailwindCSS, DaisyUI, and custom themes:
 
 ```css
+/* assets/css/main.css */
+@import '@boilerplatepowa/nuxt4-design-system/runtime/assets/main.css';
+
+/* Your custom styles */
+```
+
+**Option 2: Manual Setup**
+
+If you prefer to configure TailwindCSS and DaisyUI manually:
+
+```css
+/* assets/css/main.css */
 @import 'tailwindcss';
 
 @plugin 'daisyui' {
@@ -85,6 +99,45 @@ Create your main CSS file (e.g., `assets/css/main.css`):
 ## Advanced Configuration
 
 ### Custom Theme Setup
+
+**Using Boilerplate Themes (Recommended)**
+
+The boilerplate CSS includes two custom themes: `boilerplate-light` and `boilerplate-dark`. These are automatically available when you import the boilerplate CSS:
+
+```css
+/* assets/css/main.css */
+@import '@boilerplatepowa/nuxt4-design-system/runtime/assets/main.css';
+
+/* The boilerplate themes are now available:
+   - boilerplate-light (default light theme)
+   - boilerplate-dark (default dark theme)
+   - All standard DaisyUI themes
+*/
+```
+
+**Adding Custom Themes**
+
+You can extend the boilerplate CSS with your own themes:
+
+```css
+/* assets/css/main.css */
+@import '@boilerplatepowa/nuxt4-design-system/runtime/assets/main.css';
+
+/* Custom theme */
+@plugin "daisyui/theme" {
+    name: 'my-custom-theme';
+    default: true;
+    color-scheme: light;
+
+    --color-primary: #your-primary-color;
+    --color-secondary: #your-secondary-color;
+    /* ... other theme variables */
+}
+```
+
+**Manual Theme Setup**
+
+If you prefer to configure themes manually:
 
 ```css
 /* assets/css/main.css */
@@ -136,12 +189,41 @@ export default defineNuxtConfig({
 
 ## Features
 
+### 🚀 **Optimized CSS Bundle**
+
+The boilerplate CSS provides a pre-optimized setup that includes:
+
+- **TailwindCSS 4.1.12** with optimal configuration
+- **DaisyUI 5.1.5** with all themes enabled
+- **Custom Boilerplate Themes**: `boilerplate-light` and `boilerplate-dark`
+- **Memory Optimization**: Uses `@source` directives to avoid excessive memory usage
+- **Tree Shaking**: Only includes the CSS you actually use
+- **Performance**: Optimized for production builds
+
 ### 🎨 **Comprehensive Component Library**
 
 - **60+ Components** across 6 categories (Actions, DataDisplay, DataInput, Feedback, Layout, Navigation)
 - **Full DaisyUI 5.1.5 Integration** with proper class mapping
 - **TypeScript Support** with strict typing and IntelliSense
 - **Accessibility First** with WCAG 2.1 AA compliance
+
+### 🎨 **Custom Boilerplate Themes**
+
+The design system includes two carefully crafted themes:
+
+**Boilerplate Light Theme**
+- Clean, modern light interface
+- Optimized color contrast for readability
+- Professional blue primary color scheme
+- Perfect for business applications
+
+**Boilerplate Dark Theme**
+- Elegant dark interface
+- Reduced eye strain in low-light conditions
+- Consistent with light theme color relationships
+- Ideal for modern applications
+
+Both themes are fully compatible with all DaisyUI components and can be easily customized.
 
 ### 🧩 **Advanced Component System**
 

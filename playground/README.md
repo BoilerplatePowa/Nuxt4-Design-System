@@ -61,10 +61,11 @@ npm run build
 
 ### Theme Support
 
-- Multiple DaisyUI themes
-- Light/Dark mode switching
-- Theme persistence
-- Custom theme support
+- **Boilerplate Themes**: Custom `boilerplate-light` and `boilerplate-dark` themes
+- **All DaisyUI Themes**: Complete access to all standard DaisyUI themes
+- **Light/Dark Mode**: Automatic switching with system preference detection
+- **Theme Persistence**: User preferences saved in localStorage
+- **Custom Theme Support**: Easy to extend with your own themes
 
 ### Responsive Design
 
@@ -184,7 +185,20 @@ export default defineNuxtConfig({
 })
 ```
 
-### TailwindCSS Configuration
+### CSS Configuration
+
+**Using Boilerplate CSS (Recommended)**
+
+```css
+/* assets/css/main.css */
+@import '@boilerplatepowa/nuxt4-design-system/runtime/assets/main.css';
+
+/* Your custom styles */
+```
+
+**Manual TailwindCSS Configuration**
+
+If you prefer to configure TailwindCSS manually:
 
 ```typescript
 // tailwind.config.js

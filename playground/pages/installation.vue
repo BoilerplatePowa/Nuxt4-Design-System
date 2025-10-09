@@ -136,11 +136,41 @@
                     </div>
                 </div>
 
-                <!-- Step 3: Start Using Components -->
+                <!-- Step 3: Configure CSS -->
                 <div class="card bg-base-200 shadow-xl mb-6">
                     <div class="card-body">
                         <div class="flex items-start gap-4">
                             <div class="badge badge-primary badge-lg">3</div>
+                            <div class="flex-1">
+                                <h3 class="text-xl font-bold mb-3">Configure CSS</h3>
+                                <p class="text-base-content/70 mb-4">
+                                    Import the boilerplate CSS that includes TailwindCSS, DaisyUI, and custom themes.
+                                </p>
+
+                                <div class="alert alert-info mb-4">
+                                    <BpIcon name="info" class="w-5 h-5" />
+                                    <div>
+                                        <h4 class="font-bold">Recommended Approach</h4>
+                                        <p class="text-sm">The boilerplate CSS includes pre-configured themes and optimizations.</p>
+                                    </div>
+                                </div>
+
+                                <div class="mockup-code text-left">
+                                    <pre data-prefix="/*"><code>/* assets/css/main.css */</code></pre>
+                                    <pre data-prefix="@"><code>@import '@boilerplatepowa/nuxt4-design-system/runtime/assets/main.css';</code></pre>
+                                    <pre data-prefix=""><code></code></pre>
+                                    <pre data-prefix="/*"><code>/* Your custom styles */</code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 4: Start Using Components -->
+                <div class="card bg-base-200 shadow-xl mb-6">
+                    <div class="card-body">
+                        <div class="flex items-start gap-4">
+                            <div class="badge badge-primary badge-lg">4</div>
                             <div class="flex-1">
                                 <h3 class="text-xl font-bold mb-3">Start Using Components</h3>
                                 <p class="text-base-content/70 mb-4">
@@ -226,22 +256,26 @@
                         <div class="card-body">
                             <h3 class="card-title text-xl mb-4">
                                 <BpIcon name="settings" class="w-5 h-5" />
-                                Custom Theme Setup
+                                Theme Configuration
                             </h3>
-                            <p class="mb-4">Configure custom DaisyUI themes and color schemes.</p>
+                            <p class="mb-4">The boilerplate CSS includes custom themes and all DaisyUI themes.</p>
+
+                            <div class="alert alert-success mb-4">
+                                <BpIcon name="check-circle" class="w-5 h-5" />
+                                <div>
+                                    <h4 class="font-bold">Included Themes</h4>
+                                    <p class="text-sm">boilerplate-light, boilerplate-dark, and all standard DaisyUI themes</p>
+                                </div>
+                            </div>
 
                             <div class="mockup-code text-left">
-                                <pre data-prefix="//"><code>// nuxt.config.ts</code></pre>
-                                <pre
-                                    data-prefix="export"
-                                ><code>export default defineNuxtConfig({</code></pre>
-                                <pre data-prefix="  "><code>  nuxtDesignSystem: {</code></pre>
-                                <pre data-prefix="    "><code>    theme: 'corporate',</code></pre>
-                                <pre
-                                    data-prefix="    "
-                                ><code>    themes: ['light', 'dark', 'corporate']</code></pre>
-                                <pre data-prefix="  "><code>  }</code></pre>
-                                <pre data-prefix="})"><code>})</code></pre>
+                                <pre data-prefix="/*"><code>/* assets/css/main.css */</code></pre>
+                                <pre data-prefix="@"><code>@import '@boilerplatepowa/nuxt4-design-system/runtime/assets/main.css';</code></pre>
+                                <pre data-prefix=""><code></code></pre>
+                                <pre data-prefix="/*"><code>/* Available themes: */</code></pre>
+                                <pre data-prefix="/*"><code>/* - boilerplate-light (default) */</code></pre>
+                                <pre data-prefix="/*"><code>/* - boilerplate-dark */</code></pre>
+                                <pre data-prefix="/*"><code>/* - All DaisyUI themes */</code></pre>
                             </div>
                         </div>
                     </div>
