@@ -32,10 +32,10 @@ export default defineNuxtModule<ModuleOptions>({
     },
     setup(_options, _nuxt) {
         const resolver = createResolver(import.meta.url)
-        
+
         // Add plugin for component initialization
         addPlugin(resolver.resolve('./runtime/plugin'))
-        
+
         // Components - main feature of this module
         if (_options.components) {
             addComponentsDir({

@@ -9,47 +9,47 @@
 
 /* Component-specific base styles */
 .ds-component {
-  /* Base component styles that don't depend on TailwindCSS */
+    /* Base component styles that don't depend on TailwindCSS */
 }
 
 /* Custom CSS variables for theming */
 :root {
-  /* Light theme defaults */
-  --ds-primary: #3b82f6;
-  --ds-secondary: #64748b;
-  --ds-accent: #d946ef;
-  --ds-neutral: #1e293b;
-  --ds-base-100: #ffffff;
-  --ds-base-200: #f8fafc;
-  --ds-base-300: #f1f5f9;
-  --ds-base-content: #1e293b;
+    /* Light theme defaults */
+    --ds-primary: #3b82f6;
+    --ds-secondary: #64748b;
+    --ds-accent: #d946ef;
+    --ds-neutral: #1e293b;
+    --ds-base-100: #ffffff;
+    --ds-base-200: #f8fafc;
+    --ds-base-300: #f1f5f9;
+    --ds-base-content: #1e293b;
 }
 
 /* Dark theme overrides */
-[data-theme="dark"] {
-  --ds-primary: #60a5fa;
-  --ds-secondary: #94a3b8;
-  --ds-accent: #e879f9;
-  --ds-neutral: #e2e8f0;
-  --ds-base-100: #0f172a;
-  --ds-base-200: #1e293b;
-  --ds-base-300: #334155;
-  --ds-base-content: #f8fafc;
+[data-theme='dark'] {
+    --ds-primary: #60a5fa;
+    --ds-secondary: #94a3b8;
+    --ds-accent: #e879f9;
+    --ds-neutral: #e2e8f0;
+    --ds-base-100: #0f172a;
+    --ds-base-200: #1e293b;
+    --ds-base-300: #334155;
+    --ds-base-content: #f8fafc;
 }
 
 /* Accessibility improvements */
 @media (prefers-reduced-motion: reduce) {
-  .ds-component * {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
+    .ds-component * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
 }
 
 /* Print styles */
 @media print {
-  .ds-component {
-    -webkit-print-color-adjust: exact;
-    color-adjust: exact;
-  }
+    .ds-component {
+        -webkit-print-color-adjust: exact;
+        color-adjust: exact;
+    }
 }

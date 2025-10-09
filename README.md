@@ -31,12 +31,12 @@ import tailwindcss from '@tailwindcss/vite'
 
 export default defineNuxtConfig({
     modules: ['@boilerplatepowa/nuxt4-design-system'],
-    
+
     // Configure TailwindCSS v4
     vite: {
-        plugins: [tailwindcss()]
+        plugins: [tailwindcss()],
     },
-    
+
     // Design system configuration
     nuxtDesignSystem: {
         prefix: 'Bp',
@@ -99,7 +99,7 @@ Create your main CSS file (e.g., `assets/css/main.css`):
     name: 'my-custom-theme';
     default: true;
     color-scheme: light;
-    
+
     --color-primary: #your-primary-color;
     --color-secondary: #your-secondary-color;
     /* ... other theme variables */
@@ -126,11 +126,11 @@ export default defineNuxtConfig({
 // nuxt.config.ts
 export default defineNuxtConfig({
     nuxtDesignSystem: {
-        prefix: 'Bp',           // Component prefix (default: 'Bp')
-        components: true,        // Enable component auto-imports
-        css: true,              // Include base CSS styles
-        composables: true,      // Enable composable auto-imports
-    }
+        prefix: 'Bp', // Component prefix (default: 'Bp')
+        components: true, // Enable component auto-imports
+        css: true, // Include base CSS styles
+        composables: true, // Enable composable auto-imports
+    },
 })
 ```
 

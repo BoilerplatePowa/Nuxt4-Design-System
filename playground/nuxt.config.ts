@@ -5,7 +5,7 @@ export default defineNuxtConfig({
 
     // Configure TailwindCSS v4 - clients need to do this
     vite: {
-        plugins: [tailwindcss() as any]
+        plugins: [tailwindcss() as any],
     },
 
     // Enable pages for multi-page routing
@@ -46,7 +46,7 @@ export default defineNuxtConfig({
             routes: ['/'],
         },
     },
-    
+
     // Design system configuration
     nuxtDesignSystem: {
         prefix: 'Bp',

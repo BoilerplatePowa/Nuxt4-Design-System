@@ -15,74 +15,85 @@ This guide explains how to use [act](https://github.com/nektos/act) to run your 
 ## Quick Start
 
 ### 1. List Available Workflows
+
 ```bash
 npm run act:list
 ```
 
 ### 2. Run All Workflows
+
 ```bash
 npm run act:all
 ```
 
 ### 3. Run Specific Workflow Jobs
+
 ```bash
 # Quality gates only
 npm run act:quality
 
-# Testing suite only  
+# Testing suite only
 npm run act:test
 ```
 
 ### 4. Dry Run (See what would run)
+
 ```bash
 npm run act:dry-run
 ```
 
 ## Available Scripts
 
-| Script | Description |
-|--------|-------------|
-| `npm run act` | Run act with default configuration |
-| `npm run act:list` | List all available workflows and jobs |
-| `npm run act:quality` | Run quality gates (lint, security, bundle analysis) |
-| `npm run act:test` | Run testing suite (unit, integration, component, performance) |
-| `npm run act:all` | Run all workflows |
-| `npm run act:dry-run` | Show what would run without executing |
-| `npm run act:verbose` | Run with verbose output for debugging |
+| Script                | Description                                                   |
+| --------------------- | ------------------------------------------------------------- |
+| `npm run act`         | Run act with default configuration                            |
+| `npm run act:list`    | List all available workflows and jobs                         |
+| `npm run act:quality` | Run quality gates (lint, security, bundle analysis)           |
+| `npm run act:test`    | Run testing suite (unit, integration, component, performance) |
+| `npm run act:all`     | Run all workflows                                             |
+| `npm run act:dry-run` | Show what would run without executing                         |
+| `npm run act:verbose` | Run with verbose output for debugging                         |
 
 ## Configuration Files
 
 ### `.actrc`
+
 Main configuration file for act. Contains:
+
 - Platform mappings for better compatibility
 - Environment variables
 - Verbose output settings
 - Working directory settings
 
 ### `.secrets`
+
 Contains secrets for local testing. Copy and add your actual values:
+
 ```bash
 cp .secrets .secrets.local
 # Edit .secrets.local with your actual tokens
 ```
 
 ### `.actignore`
+
 Files and directories to ignore when running act locally.
 
 ## Common Use Cases
 
 ### 1. Test Quality Gates Locally
+
 ```bash
 # Run linting and formatting checks
 npm run act:quality
 
 # This runs:
 # - lint-and-format job
-# - security job  
+# - security job
 # - bundle-analysis job
 ```
 
 ### 2. Test Your Changes Before Pushing
+
 ```bash
 # Run everything to simulate CI
 npm run act:all
@@ -92,6 +103,7 @@ npm run act:test
 ```
 
 ### 3. Debug Workflow Issues
+
 ```bash
 # See what would run
 npm run act:dry-run
@@ -101,6 +113,7 @@ npm run act:verbose
 ```
 
 ### 4. Test Individual Jobs
+
 ```bash
 # Run only linting
 act -j lint-and-format
@@ -115,6 +128,7 @@ act -j security
 ## Troubleshooting
 
 ### Docker Issues
+
 If you encounter Docker-related issues:
 
 ```bash
@@ -126,6 +140,7 @@ docker run hello-world
 ```
 
 ### Platform Issues
+
 If you encounter platform compatibility issues:
 
 ```bash
@@ -136,6 +151,7 @@ act --platform ubuntu-latest=catthehacker/ubuntu:act-latest
 ```
 
 ### Permission Issues
+
 If you encounter permission issues:
 
 ```bash
@@ -147,6 +163,7 @@ sudo act
 ```
 
 ### Memory Issues
+
 If workflows fail due to memory issues:
 
 ```bash
@@ -158,6 +175,7 @@ act --platform ubuntu-latest=catthehacker/ubuntu:act-22.04
 ## Advanced Usage
 
 ### Custom Environment Variables
+
 ```bash
 # Set custom environment variables
 act --env CUSTOM_VAR=value
@@ -167,6 +185,7 @@ act --env-file .env.local
 ```
 
 ### Specific Event Triggers
+
 ```bash
 # Simulate push event
 act push
@@ -179,6 +198,7 @@ act push -e push.json
 ```
 
 ### Skip Jobs
+
 ```bash
 # Skip specific jobs
 act --skip-job security
@@ -188,6 +208,7 @@ act --skip-job security --skip-job bundle-analysis
 ```
 
 ### Artifact Handling
+
 ```bash
 # Download artifacts from previous runs
 act --artifact-server-path /tmp/artifacts
@@ -199,35 +220,40 @@ act --artifact-server-path /tmp/artifacts --upload-artifact
 ## Integration with Development Workflow
 
 ### Pre-commit Hook
+
 Add to `.git/hooks/pre-commit`:
+
 ```bash
 #!/bin/bash
 npm run act:quality
 ```
 
 ### VS Code Integration
+
 Add to `.vscode/tasks.json`:
+
 ```json
 {
-  "version": "2.0.0",
-  "tasks": [
-    {
-      "label": "Run Quality Gates",
-      "type": "shell",
-      "command": "npm run act:quality",
-      "group": "test"
-    },
-    {
-      "label": "Run All Tests",
-      "type": "shell", 
-      "command": "npm run act:test",
-      "group": "test"
-    }
-  ]
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Run Quality Gates",
+            "type": "shell",
+            "command": "npm run act:quality",
+            "group": "test"
+        },
+        {
+            "label": "Run All Tests",
+            "type": "shell",
+            "command": "npm run act:test",
+            "group": "test"
+        }
+    ]
 }
 ```
 
 ### CI/CD Integration
+
 Use act in your CI/CD pipeline to test workflows:
 
 ```yaml
@@ -236,14 +262,14 @@ name: Test Workflows
 on: [push, pull_request]
 
 jobs:
-  test-workflows:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Test workflows with act
-        run: |
-          npm install
-          npm run act:dry-run
+    test-workflows:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+            - name: Test workflows with act
+              run: |
+                  npm install
+                  npm run act:dry-run
 ```
 
 ## Best Practices
@@ -264,18 +290,23 @@ jobs:
 ## Troubleshooting Common Issues
 
 ### Issue: "No workflow found"
+
 **Solution**: Make sure you're in the project root directory and `.github/workflows/` exists.
 
 ### Issue: "Docker daemon not running"
+
 **Solution**: Start Docker Desktop or Docker daemon.
 
 ### Issue: "Platform not found"
+
 **Solution**: Update `.actrc` with correct platform mappings or use `--platform` flag.
 
 ### Issue: "Secrets not found"
+
 **Solution**: Create `.secrets` file with required secrets or use `--secret-file` flag.
 
 ### Issue: "Out of memory"
+
 **Solution**: Increase Docker memory limit or use smaller platform images.
 
 ## Resources

@@ -26,7 +26,7 @@ jobs:
                   cache: 'npm'
 
             - name: Install dependencies
-              run: npm ci --prefer-online
+              run: npm install --prefer-online
 
             - name: Run ESLint
               run: npm run lint
@@ -58,7 +58,7 @@ jobs:
                   cache: 'npm'
 
             - name: Install dependencies
-              run: npm ci --prefer-online
+              run: npm install --prefer-online
 
             - name: Run security audit
               run: npm audit --audit-level moderate
@@ -86,7 +86,7 @@ jobs:
                   cache: 'npm'
 
             - name: Install dependencies
-              run: npm ci --prefer-online
+              run: npm install --prefer-online
 
             - name: Build module
               run: npm run prepack
