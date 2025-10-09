@@ -60,7 +60,14 @@
         "storybook:build": "storybook build",
         "storybook:deploy": "npm run storybook:build && npm run docs:deploy:storybook",
         "storybook:deploy:script": "tsx scripts/deploy-storybook.ts",
-        "docs:deploy:storybook": "gh-pages -d storybook-static -t true"
+        "docs:deploy:storybook": "gh-pages -d storybook-static -t true",
+        "act": "act",
+        "act:list": "act --list",
+        "act:quality": "act -j lint-and-format -j security -j bundle-analysis",
+        "act:test": "act -j unit-tests -j integration-tests -j component-tests -j performance-tests",
+        "act:all": "act",
+        "act:dry-run": "act --dryrun",
+        "act:verbose": "act --verbose"
     },
     "dependencies": {
         "@nuxt/kit": "^4.0.3",

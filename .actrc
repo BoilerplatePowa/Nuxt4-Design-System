@@ -1,0 +1,22 @@
+# act configuration file
+# See: https://github.com/nektos/act#configuration
+
+# Use specific platform (linux/amd64 for better compatibility)
+--platform ubuntu-latest=catthehacker/ubuntu:act-latest
+
+# Use specific platform for other runners
+--platform ubuntu-22.04=catthehacker/ubuntu:act-22.04
+--platform ubuntu-20.04=catthehacker/ubuntu:act-20.04
+
+# Set environment variables
+--env NODE_VERSION=22.20.0
+--env NPM_VERSION=10.9.0
+
+# Use secrets file
+--secret-file .secrets
+
+# Enable verbose output
+--verbose
+
+# Use bind mounts for better performance
+--bind

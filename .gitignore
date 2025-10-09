@@ -58,3 +58,5 @@ Temporary Items
 
 *storybook.log
 storybook-static
+
+.secrets.local

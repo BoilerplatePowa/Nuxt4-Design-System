@@ -1,0 +1,12 @@
+# Files and directories to ignore when running act
+node_modules/
+dist/
+.nuxt/
+.output/
+coverage/
+storybook-static/
+*.log
+.env*
+.DS_Store
+.vscode/
+.idea/
