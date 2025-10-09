@@ -212,12 +212,14 @@ The boilerplate CSS provides a pre-optimized setup that includes:
 The design system includes two carefully crafted themes:
 
 **Boilerplate Light Theme**
+
 - Clean, modern light interface
 - Optimized color contrast for readability
 - Professional blue primary color scheme
 - Perfect for business applications
 
 **Boilerplate Dark Theme**
+
 - Elegant dark interface
 - Reduced eye strain in low-light conditions
 - Consistent with light theme color relationships
