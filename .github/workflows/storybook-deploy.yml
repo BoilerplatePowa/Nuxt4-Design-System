@@ -35,7 +35,7 @@ jobs:
               run: npx nypm@latest i
 
             - name: Build Storybook
-              run: npm run build-storybook
+              run: npm run storybook:build
 
             - name: Upload Storybook build
               uses: actions/upload-artifact@v4
@@ -77,7 +77,7 @@ jobs:
               run: npx nypm@latest i
 
             - name: Build Storybook
-              run: npm run build-storybook
+              run: npm run storybook:build
 
             - name: Setup Pages
               uses: actions/configure-pages@v4
