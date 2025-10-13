@@ -9,35 +9,30 @@
         <!-- VeeValidate Field component -->
         <Field v-slot="{ field, errorMessage, meta }" :name="name" :value="model" :rules="rules">
             <div>
-                <div class="relative">
+                <!-- daisyUI input wrapper with inline content -->
+                <label :class="[inputClasses, errorMessage ? 'input-error' : undefined]">
                     <!-- Left icon -->
                     <Icon
                         v-if="leftIcon"
                         :name="leftIcon"
                         :size="size"
-                        class="absolute left-3 top-1/2 transform -translate-y-1/2 opacity-50"
+                        class="opacity-50"
                         :aria-hidden="true"
                     />
 
+                    <!-- Native input grows to fill -->
                     <input
                         :id="inputId"
                         ref="inputRef"
                         v-bind="field"
-                        :class="[
-                            inputClasses,
-                            errorMessage ? 'input-error' : undefined,
-                            leftIcon ? 'pl-10' : '',
-                            (rightIcon && type !== 'password') || type === 'password'
-                                ? 'pr-10'
-                                : '',
-                        ]"
+                        class="grow"
                         :type="type === 'password' ? (showPassword ? 'text' : 'password') : type"
                         :placeholder="placeholder"
                         :disabled="disabled"
                         :readonly="readonly"
                         :required="required"
                         :maxlength="maxlength"
-                        :aria-describedby="ariaDescribedby"
+                        :aria-describedby="[ariaDescribedby, errorMessage ? `${inputId}-error` : undefined].filter(Boolean).join(' ') || undefined"
                         :aria-invalid="meta.touched && !meta.valid"
                         @input="handleInput"
                         @change="handleChange"
@@ -50,14 +45,13 @@
                         v-if="type === 'password'"
                         v-model="showPassword"
                         variant="rotate"
-                        class="absolute right-3 top-1/2 transform -translate-y-1/2"
                         :aria-label="showPassword ? 'Hide password' : 'Show password'"
                     >
                         <template #on>
-                            <Icon name="eye" :size="size" class="text-base-content/50" />
+                            <Icon name="eye" :size="size" class="opacity-50" />
                         </template>
                         <template #off>
-                            <Icon name="eye-off" :size="size" class="text-base-content/50" />
+                            <Icon name="eye-off" :size="size" class="opacity-50" />
                         </template>
                     </Swap>
 
@@ -66,10 +60,10 @@
                         v-if="rightIcon && type !== 'password'"
                         :name="rightIcon"
                         :size="size"
-                        class="absolute right-3 top-1/2 transform -translate-y-1/2 opacity-50"
+                        class="opacity-50"
                         :aria-hidden="true"
                     />
-                </div>
+                </label>
 
                 <div class="flex">
                     <div>
@@ -310,17 +304,32 @@ watch(
 const wrapperClasses = computed(() => ['form-control', 'w-full'])
 
 const inputClasses = computed(() => {
-    const baseClasses = ['input', 'w-full']
+    const classes: string[] = ['input', 'w-full']
 
-    if (props.size) {
-        baseClasses.push(`input-${props.size}`)
+    // Map size to valid daisyUI size tokens (xs, sm, md, lg, xl)
+    const allowedSizes = new Set(['xs', 'sm', 'md', 'lg', 'xl'])
+    const sizeToken = allowedSizes.has(props.size) ? props.size : 'md'
+    classes.push(`input-${sizeToken}`)
+
+    // Map variant to valid daisyUI input classes
+    const colorVariants = new Set([
+        'neutral',
+        'primary',
+        'secondary',
+        'accent',
+        'info',
+        'success',
+        'warning',
+        'error',
+    ])
+
+    if (props.variant === 'ghost') {
+        classes.push('input-ghost')
+    } else if (props.variant && colorVariants.has(props.variant)) {
+        classes.push(`input-${props.variant}`)
     }
 
-    if (props.variant) {
-        baseClasses.push(`input-${props.variant}`)
-    }
-
-    return baseClasses.join(' ')
+    return classes.join(' ')
 })
 
 const characterCount = computed(() => {
