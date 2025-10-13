@@ -5,6 +5,9 @@ export default defineNuxtConfig({
 
     // Enable pages for multi-page routing
     pages: true,
+    devServer: {
+        port: 3031
+    },
     devtools: { enabled: true },
 
     // App configuration
@@ -38,7 +41,15 @@ export default defineNuxtConfig({
     // Nitro configuration
     nitro: {
         prerender: {
-            routes: ['/'],
+            routes: [
+                '/',
+                '/components',
+                '/components/mockup',
+                '/components/mockup/browser',
+                '/components/mockup/code',
+                '/components/mockup/phone',
+                '/components/mockup/window'
+            ],
         },
     },
 

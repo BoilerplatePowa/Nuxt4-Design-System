@@ -81,7 +81,9 @@
                         </div>
 
                         <div class="card-actions justify-end">
-                            <button class="btn btn-secondary btn-sm" disabled>Coming Soon</button>
+                            <NuxtLink to="/components/actions/dropdown" class="btn btn-secondary btn-sm">
+                                View Details
+                            </NuxtLink>
                         </div>
                     </div>
                 </div>
@@ -105,7 +107,9 @@
                         </div>
 
                         <div class="card-actions justify-end">
-                            <button class="btn btn-accent btn-sm" disabled>Coming Soon</button>
+                            <NuxtLink to="/components/actions/modal" class="btn btn-accent btn-sm">
+                                View Details
+                            </NuxtLink>
                         </div>
                     </div>
                 </div>
@@ -129,7 +133,9 @@
                         </div>
 
                         <div class="card-actions justify-end">
-                            <button class="btn btn-info btn-sm" disabled>Coming Soon</button>
+                            <NuxtLink to="/components/actions/swap" class="btn btn-info btn-sm">
+                                View Details
+                            </NuxtLink>
                         </div>
                     </div>
                 </div>
@@ -153,7 +159,9 @@
                         </div>
 
                         <div class="card-actions justify-end">
-                            <button class="btn btn-success btn-sm" disabled>Coming Soon</button>
+                            <NuxtLink to="/components/actions/theme-controller" class="btn btn-success btn-sm">
+                                Theme Controller
+                            </NuxtLink>
                         </div>
                     </div>
                 </div>
