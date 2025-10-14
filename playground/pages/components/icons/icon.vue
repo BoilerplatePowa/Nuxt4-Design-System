@@ -45,8 +45,12 @@
                 <div class="card bg-base-200 shadow-xl">
                     <div class="card-body">
                         <div class="mockup-code text-left">
-                            <pre data-prefix="<"><code>&lt;BpIcon name="heart" class="w-6 h-6 text-error" /&gt;</code></pre>
-                            <pre data-prefix="<"><code>&lt;BpButton&gt;&lt;BpIcon name="zap" class="w-4 h-4 mr-2" /&gt;Click&lt;/BpButton&gt;</code></pre>
+                            <pre
+                                data-prefix="<"
+                            ><code>&lt;BpIcon name="heart" class="w-6 h-6 text-error" /&gt;</code></pre>
+                            <pre
+                                data-prefix="<"
+                            ><code>&lt;BpButton&gt;&lt;BpIcon name="zap" class="w-4 h-4 mr-2" /&gt;Click&lt;/BpButton&gt;</code></pre>
                         </div>
                     </div>
                 </div>
@@ -92,4 +96,3 @@ onMounted(() => {
     }
 })
 </script>
-

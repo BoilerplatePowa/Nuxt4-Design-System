@@ -20,8 +20,16 @@
                 <div class="card bg-base-200 shadow-xl">
                     <div class="card-body space-y-4">
                         <progress class="progress w-full" value="10" max="100"></progress>
-                        <progress class="progress progress-primary w-full" value="40" max="100"></progress>
-                        <progress class="progress progress-secondary w-full" value="70" max="100"></progress>
+                        <progress
+                            class="progress progress-primary w-full"
+                            value="40"
+                            max="100"
+                        ></progress>
+                        <progress
+                            class="progress progress-secondary w-full"
+                            value="70"
+                            max="100"
+                        ></progress>
                     </div>
                 </div>
             </section>
@@ -62,4 +70,3 @@ onMounted(() => {
     }
 })
 </script>
-

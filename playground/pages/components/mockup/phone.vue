@@ -12,7 +12,9 @@
 
             <div class="mb-12">
                 <h1 class="text-5xl font-bold mb-4">Phone Mockup</h1>
-                <p class="text-xl text-base-content/70 max-w-3xl">Show content in an iPhone-like mockup.</p>
+                <p class="text-xl text-base-content/70 max-w-3xl">
+                    Show content in an iPhone-like mockup.
+                </p>
             </div>
 
             <section class="mb-16">
@@ -22,7 +24,11 @@
                         <div class="mockup-phone">
                             <div class="mockup-phone-camera"></div>
                             <div class="mockup-phone-display">
-                                <div class="artboard phone-1 bg-base-100 flex items-center justify-center">Hello</div>
+                                <div
+                                    class="artboard phone-1 bg-base-100 flex items-center justify-center"
+                                >
+                                    Hello
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -65,4 +71,3 @@ onMounted(() => {
     }
 })
 </script>
-

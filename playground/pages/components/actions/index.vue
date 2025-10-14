@@ -81,7 +81,10 @@
                         </div>
 
                         <div class="card-actions justify-end">
-                            <NuxtLink to="/components/actions/dropdown" class="btn btn-secondary btn-sm">
+                            <NuxtLink
+                                to="/components/actions/dropdown"
+                                class="btn btn-secondary btn-sm"
+                            >
                                 View Details
                             </NuxtLink>
                         </div>
@@ -159,7 +162,10 @@
                         </div>
 
                         <div class="card-actions justify-end">
-                            <NuxtLink to="/components/actions/theme-controller" class="btn btn-success btn-sm">
+                            <NuxtLink
+                                to="/components/actions/theme-controller"
+                                class="btn btn-success btn-sm"
+                            >
                                 Theme Controller
                             </NuxtLink>
                         </div>

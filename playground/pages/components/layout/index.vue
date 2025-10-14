@@ -35,7 +35,9 @@
                             <BpIcon name="minus" class="w-8 h-8 text-neutral" />
                             <h2 class="card-title text-xl">BpDivider</h2>
                         </div>
-                        <p class="text-base-content/70 mb-4">Divide content horizontally or vertically.</p>
+                        <p class="text-base-content/70 mb-4">
+                            Divide content horizontally or vertically.
+                        </p>
 
                         <div class="flex flex-wrap gap-2 mb-4">
                             <span class="badge">Horizontal</span>
@@ -45,7 +47,10 @@
                         </div>
 
                         <div class="card-actions justify-end">
-                            <NuxtLink to="/components/layout/divider" class="btn btn-neutral btn-sm">
+                            <NuxtLink
+                                to="/components/layout/divider"
+                                class="btn btn-neutral btn-sm"
+                            >
                                 View Details
                             </NuxtLink>
                         </div>
@@ -77,7 +82,10 @@
                         </div>
                         <p class="text-base-content/70 mb-4">Site footer with sections.</p>
                         <div class="card-actions justify-end">
-                            <NuxtLink to="/components/layout/footer" class="btn btn-secondary btn-sm">
+                            <NuxtLink
+                                to="/components/layout/footer"
+                                class="btn btn-secondary btn-sm"
+                            >
                                 View Details
                             </NuxtLink>
                         </div>
@@ -107,7 +115,9 @@
                             <BpIcon name="activity" class="w-8 h-8 text-info" />
                             <h2 class="card-title text-xl">BpIndicator</h2>
                         </div>
-                        <p class="text-base-content/70 mb-4">Place elements on corners of another element.</p>
+                        <p class="text-base-content/70 mb-4">
+                            Place elements on corners of another element.
+                        </p>
                         <div class="card-actions justify-end">
                             <NuxtLink to="/components/layout/indicator" class="btn btn-info btn-sm">
                                 View Details
@@ -123,7 +133,9 @@
                             <BpIcon name="minus" class="w-8 h-8 text-primary" />
                             <h2 class="card-title text-xl">BpJoin</h2>
                         </div>
-                        <p class="text-base-content/70 mb-4">Group items with shared border radius.</p>
+                        <p class="text-base-content/70 mb-4">
+                            Group items with shared border radius.
+                        </p>
                         <div class="card-actions justify-end">
                             <NuxtLink to="/components/layout/join" class="btn btn-primary btn-sm">
                                 View Details
@@ -206,4 +218,3 @@ onMounted(() => {
     }
 })
 </script>
-

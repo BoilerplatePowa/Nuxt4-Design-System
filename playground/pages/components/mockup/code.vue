@@ -12,7 +12,9 @@
 
             <div class="mb-12">
                 <h1 class="text-5xl font-bold mb-4">Code Mockup</h1>
-                <p class="text-xl text-base-content/70 max-w-3xl">Show code blocks in a code editor-like box.</p>
+                <p class="text-xl text-base-content/70 max-w-3xl">
+                    Show code blocks in a code editor-like box.
+                </p>
             </div>
 
             <section class="mb-16">
@@ -64,4 +66,3 @@ onMounted(() => {
     }
 })
 </script>
-

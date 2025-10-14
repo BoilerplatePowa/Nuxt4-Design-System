@@ -20,9 +20,19 @@
                 <div class="card bg-base-200 shadow-xl">
                     <div class="card-body">
                         <div class="stack w-64 h-32 bg-base-300">
-                            <div class="text-center bg-primary text-primary-content rounded-box p-2">Item 1</div>
-                            <div class="text-center bg-secondary text-secondary-content rounded-box p-2">Item 2</div>
-                            <div class="text-center bg-accent text-accent-content rounded-box p-2">Item 3</div>
+                            <div
+                                class="text-center bg-primary text-primary-content rounded-box p-2"
+                            >
+                                Item 1
+                            </div>
+                            <div
+                                class="text-center bg-secondary text-secondary-content rounded-box p-2"
+                            >
+                                Item 2
+                            </div>
+                            <div class="text-center bg-accent text-accent-content rounded-box p-2">
+                                Item 3
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -64,4 +74,3 @@ onMounted(() => {
     }
 })
 </script>
-

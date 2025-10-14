@@ -20,8 +20,20 @@
                 <div class="card bg-base-200 shadow-xl">
                     <div class="card-body space-y-6">
                         <input type="range" min="0" max="100" value="25" class="range" />
-                        <input type="range" min="0" max="100" value="50" class="range range-primary" />
-                        <input type="range" min="0" max="100" value="75" class="range range-secondary" />
+                        <input
+                            type="range"
+                            min="0"
+                            max="100"
+                            value="50"
+                            class="range range-primary"
+                        />
+                        <input
+                            type="range"
+                            min="0"
+                            max="100"
+                            value="75"
+                            class="range range-secondary"
+                        />
                     </div>
                 </div>
             </section>
@@ -62,4 +74,3 @@ onMounted(() => {
     }
 })
 </script>
-

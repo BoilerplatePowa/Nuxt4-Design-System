@@ -44,7 +44,10 @@
                             <span class="badge badge-primary">Boxed</span>
                         </div>
                         <div class="card-actions justify-end">
-                            <NuxtLink to="/components/navigation/tabs" class="btn btn-primary btn-sm">
+                            <NuxtLink
+                                to="/components/navigation/tabs"
+                                class="btn btn-primary btn-sm"
+                            >
                                 View Details
                             </NuxtLink>
                         </div>
@@ -60,7 +63,10 @@
                         </div>
                         <p class="text-base-content/70 mb-4">Progress indicator for flows.</p>
                         <div class="card-actions justify-end">
-                            <NuxtLink to="/components/navigation/steps" class="btn btn-accent btn-sm">
+                            <NuxtLink
+                                to="/components/navigation/steps"
+                                class="btn btn-accent btn-sm"
+                            >
                                 View Details
                             </NuxtLink>
                         </div>
@@ -76,7 +82,10 @@
                         </div>
                         <p class="text-base-content/70 mb-4">Hierarchical navigation trail.</p>
                         <div class="card-actions justify-end">
-                            <NuxtLink to="/components/navigation/breadcrumbs" class="btn btn-secondary btn-sm">
+                            <NuxtLink
+                                to="/components/navigation/breadcrumbs"
+                                class="btn btn-secondary btn-sm"
+                            >
                                 View Details
                             </NuxtLink>
                         </div>
@@ -108,7 +117,10 @@
                         </div>
                         <p class="text-base-content/70 mb-4">Top navigation bar.</p>
                         <div class="card-actions justify-end">
-                            <NuxtLink to="/components/navigation/navbar" class="btn btn-success btn-sm">
+                            <NuxtLink
+                                to="/components/navigation/navbar"
+                                class="btn btn-success btn-sm"
+                            >
                                 View Details
                             </NuxtLink>
                         </div>
@@ -124,7 +136,10 @@
                         </div>
                         <p class="text-base-content/70 mb-4">Joined buttons for page navigation.</p>
                         <div class="card-actions justify-end">
-                            <NuxtLink to="/components/navigation/pagination" class="btn btn-warning btn-sm">
+                            <NuxtLink
+                                to="/components/navigation/pagination"
+                                class="btn btn-warning btn-sm"
+                            >
                                 View Details
                             </NuxtLink>
                         </div>
@@ -140,7 +155,10 @@
                         </div>
                         <p class="text-base-content/70 mb-4">Underline styles for links.</p>
                         <div class="card-actions justify-end">
-                            <NuxtLink to="/components/navigation/link" class="btn btn-primary btn-sm">
+                            <NuxtLink
+                                to="/components/navigation/link"
+                                class="btn btn-primary btn-sm"
+                            >
                                 View Details
                             </NuxtLink>
                         </div>
@@ -156,7 +174,10 @@
                         </div>
                         <p class="text-base-content/70 mb-4">Bottom navigation dock.</p>
                         <div class="card-actions justify-end">
-                            <NuxtLink to="/components/navigation/dock" class="btn btn-accent btn-sm">
+                            <NuxtLink
+                                to="/components/navigation/dock"
+                                class="btn btn-accent btn-sm"
+                            >
                                 View Details
                             </NuxtLink>
                         </div>
@@ -205,4 +226,3 @@ onMounted(() => {
     }
 })
 </script>
-

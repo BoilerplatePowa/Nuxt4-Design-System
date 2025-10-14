@@ -41,7 +41,13 @@
                     <div class="card bg-base-200 shadow-xl">
                         <div class="card-body">
                             <h3 class="card-title text-xl mb-4">Bordered + Badge</h3>
-                            <BpCard title="Project" subtitle="Active" variant="bordered" badge="New" badge-variant="success">
+                            <BpCard
+                                title="Project"
+                                subtitle="Active"
+                                variant="bordered"
+                                badge="New"
+                                badge-variant="success"
+                            >
                                 <p>Use <code>#badge</code> slot or <code>badge</code> prop.</p>
                                 <template #actions>
                                     <BpButton size="sm" color="primary">Open</BpButton>
@@ -58,7 +64,11 @@
                             <h3 class="card-title text-xl mb-4">Side variant</h3>
                             <BpCard variant="side" title="With Image">
                                 <template #image>
-                                    <img src="https://picsum.photos/400/300" alt="image" class="w-64 h-48 object-cover" />
+                                    <img
+                                        src="https://picsum.photos/400/300"
+                                        alt="image"
+                                        class="w-64 h-48 object-cover"
+                                    />
                                 </template>
                                 <p>Content renders on the side of the media.</p>
                                 <template #actions>
@@ -78,7 +88,10 @@
                                         <h2 class="card-title">Interactive Card</h2>
                                     </div>
                                 </template>
-                                <p>Hover and focus styles are applied. Press Enter/Space to activate.</p>
+                                <p>
+                                    Hover and focus styles are applied. Press Enter/Space to
+                                    activate.
+                                </p>
                             </BpCard>
                         </div>
                     </div>
@@ -126,21 +139,106 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr><td><code>title</code></td><td><code>string</code></td><td><code>undefined</code></td><td>Title text</td></tr>
-                                <tr><td><code>subtitle</code></td><td><code>string</code></td><td><code>undefined</code></td><td>Subtitle text</td></tr>
-                                <tr><td><code>variant</code></td><td><code>'normal' | 'bordered' | 'compact' | 'side' | 'outline'</code></td><td><code>'normal'</code></td><td>Visual variant</td></tr>
-                                <tr><td><code>shadow</code></td><td><code>'none' | 'sm' | 'md' | 'lg' | 'xl' | '2xl'</code></td><td><code>'md'</code></td><td>Shadow level</td></tr>
-                                <tr><td><code>imageFull</code></td><td><code>boolean</code></td><td><code>false</code></td><td>Image covers card (image-full)</td></tr>
-                                <tr><td><code>imageOverlay</code></td><td><code>boolean</code></td><td><code>false</code></td><td>Gradient overlay on image</td></tr>
-                                <tr><td><code>glass</code></td><td><code>boolean</code></td><td><code>false</code></td><td>Glass effect</td></tr>
-                                <tr><td><code>interactive</code></td><td><code>boolean</code></td><td><code>false</code></td><td>Apply hover/focus and keyboard click</td></tr>
-                                <tr><td><code>loading</code></td><td><code>boolean</code></td><td><code>false</code></td><td>Show loading overlay</td></tr>
-                                <tr><td><code>loadingText</code></td><td><code>string</code></td><td><code>undefined</code></td><td>Text below spinner</td></tr>
-                                <tr><td><code>disabled</code></td><td><code>boolean</code></td><td><code>false</code></td><td>Disable interactions</td></tr>
-                                <tr><td><code>selected</code></td><td><code>boolean</code></td><td><code>false</code></td><td>Show selected ring</td></tr>
-                                <tr><td><code>badge</code></td><td><code>string</code></td><td><code>undefined</code></td><td>Badge text</td></tr>
-                                <tr><td><code>badgeVariant</code></td><td><code>'primary' | 'secondary' | 'accent' | 'success' | 'warning' | 'error' | 'info'</code></td><td><code>'primary'</code></td><td>Badge color</td></tr>
-                                <tr><td><code>tag</code></td><td><code>'div' | 'article' | 'section'</code></td><td><code>'div'</code></td><td>Root tag</td></tr>
+                                <tr>
+                                    <td><code>title</code></td>
+                                    <td><code>string</code></td>
+                                    <td><code>undefined</code></td>
+                                    <td>Title text</td>
+                                </tr>
+                                <tr>
+                                    <td><code>subtitle</code></td>
+                                    <td><code>string</code></td>
+                                    <td><code>undefined</code></td>
+                                    <td>Subtitle text</td>
+                                </tr>
+                                <tr>
+                                    <td><code>variant</code></td>
+                                    <td>
+                                        <code
+                                            >'normal' | 'bordered' | 'compact' | 'side' |
+                                            'outline'</code
+                                        >
+                                    </td>
+                                    <td><code>'normal'</code></td>
+                                    <td>Visual variant</td>
+                                </tr>
+                                <tr>
+                                    <td><code>shadow</code></td>
+                                    <td><code>'none' | 'sm' | 'md' | 'lg' | 'xl' | '2xl'</code></td>
+                                    <td><code>'md'</code></td>
+                                    <td>Shadow level</td>
+                                </tr>
+                                <tr>
+                                    <td><code>imageFull</code></td>
+                                    <td><code>boolean</code></td>
+                                    <td><code>false</code></td>
+                                    <td>Image covers card (image-full)</td>
+                                </tr>
+                                <tr>
+                                    <td><code>imageOverlay</code></td>
+                                    <td><code>boolean</code></td>
+                                    <td><code>false</code></td>
+                                    <td>Gradient overlay on image</td>
+                                </tr>
+                                <tr>
+                                    <td><code>glass</code></td>
+                                    <td><code>boolean</code></td>
+                                    <td><code>false</code></td>
+                                    <td>Glass effect</td>
+                                </tr>
+                                <tr>
+                                    <td><code>interactive</code></td>
+                                    <td><code>boolean</code></td>
+                                    <td><code>false</code></td>
+                                    <td>Apply hover/focus and keyboard click</td>
+                                </tr>
+                                <tr>
+                                    <td><code>loading</code></td>
+                                    <td><code>boolean</code></td>
+                                    <td><code>false</code></td>
+                                    <td>Show loading overlay</td>
+                                </tr>
+                                <tr>
+                                    <td><code>loadingText</code></td>
+                                    <td><code>string</code></td>
+                                    <td><code>undefined</code></td>
+                                    <td>Text below spinner</td>
+                                </tr>
+                                <tr>
+                                    <td><code>disabled</code></td>
+                                    <td><code>boolean</code></td>
+                                    <td><code>false</code></td>
+                                    <td>Disable interactions</td>
+                                </tr>
+                                <tr>
+                                    <td><code>selected</code></td>
+                                    <td><code>boolean</code></td>
+                                    <td><code>false</code></td>
+                                    <td>Show selected ring</td>
+                                </tr>
+                                <tr>
+                                    <td><code>badge</code></td>
+                                    <td><code>string</code></td>
+                                    <td><code>undefined</code></td>
+                                    <td>Badge text</td>
+                                </tr>
+                                <tr>
+                                    <td><code>badgeVariant</code></td>
+                                    <td>
+                                        <code
+                                            >'primary' | 'secondary' | 'accent' | 'success' |
+                                            'warning' | 'error' | 'info'</code
+                                        >
+                                    </td>
+                                    <td><code>'primary'</code></td>
+                                    <td>Badge color</td>
+                                </tr>
+                                <tr>
+                                    <td><code>tag</code></td>
+                                    <td><code>'div' | 'article' | 'section'</code></td>
+                                    <td><code>'div'</code></td>
+                                    <td>Root tag</td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -154,7 +252,8 @@
                         <h2 class="card-title text-2xl justify-center mb-4">Explore More</h2>
                         <div class="card-actions justify-center">
                             <NuxtLink to="/components/data-display" class="btn btn-primary">
-                                <BpIcon name="arrow-left" class="w-4 h-4 mr-2" /> Back to Data Display
+                                <BpIcon name="arrow-left" class="w-4 h-4 mr-2" /> Back to Data
+                                Display
                             </NuxtLink>
                             <NuxtLink to="/components" class="btn btn-outline">
                                 <BpIcon name="grid" class="w-4 h-4 mr-2" /> All Components
@@ -191,4 +290,3 @@ onMounted(() => {
     }
 })
 </script>
-

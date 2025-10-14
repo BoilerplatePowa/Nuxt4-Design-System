@@ -12,7 +12,9 @@
 
             <div class="mb-12">
                 <h1 class="text-5xl font-bold mb-4">Filter</h1>
-                <p class="text-xl text-base-content/70 max-w-3xl">Grouped radio buttons with reset.</p>
+                <p class="text-xl text-base-content/70 max-w-3xl">
+                    Grouped radio buttons with reset.
+                </p>
             </div>
 
             <section class="mb-16">
@@ -21,7 +23,13 @@
                     <div class="card-body">
                         <form class="filter">
                             <input class="btn btn-square" type="reset" value="×" />
-                            <input class="btn" type="radio" name="category" aria-label="All" checked />
+                            <input
+                                class="btn"
+                                type="radio"
+                                name="category"
+                                aria-label="All"
+                                checked
+                            />
                             <input class="btn" type="radio" name="category" aria-label="Open" />
                             <input class="btn" type="radio" name="category" aria-label="Closed" />
                         </form>
@@ -65,4 +73,3 @@ onMounted(() => {
     }
 })
 </script>
-

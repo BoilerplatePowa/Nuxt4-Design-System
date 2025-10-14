@@ -28,7 +28,11 @@
                     <div class="card bg-base-200 shadow-xl">
                         <div class="card-body">
                             <h3 class="card-title text-xl mb-4">Basic</h3>
-<BpDropdown :items="items" trigger-text="Actions" @item-click="onItem" />
+                            <BpDropdown
+                                :items="items"
+                                trigger-text="Actions"
+                                @item-click="onItem"
+                            />
                         </div>
                     </div>
 
@@ -49,8 +53,18 @@
                     <div class="card-body">
                         <h3 class="card-title text-xl mb-4">Trigger styles</h3>
                         <div class="flex flex-wrap gap-4">
-                            <BpDropdown :items="items" trigger-text="Ghost" trigger-color="neutral" trigger-style="ghost" />
-                            <BpDropdown :items="items" trigger-text="Outline" trigger-color="primary" trigger-style="outline" />
+                            <BpDropdown
+                                :items="items"
+                                trigger-text="Ghost"
+                                trigger-color="neutral"
+                                trigger-style="ghost"
+                            />
+                            <BpDropdown
+                                :items="items"
+                                trigger-text="Outline"
+                                trigger-color="primary"
+                                trigger-style="outline"
+                            />
                             <BpDropdown :items="items" trigger-text="Link" trigger-style="link" />
                         </div>
                     </div>
@@ -88,7 +102,6 @@ const items: DropdownItem[] = [
 ]
 
 function onItem(item: DropdownItem) {
-    // eslint-disable-next-line no-console
     console.log('Selected:', item)
 }
 
@@ -111,4 +124,3 @@ onMounted(() => {
     }
 })
 </script>
-

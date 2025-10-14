@@ -12,7 +12,9 @@
 
             <div class="mb-12">
                 <h1 class="text-5xl font-bold mb-4">BpChatBubble</h1>
-                <p class="text-xl text-base-content/70 max-w-3xl">Message bubbles with positions and variants.</p>
+                <p class="text-xl text-base-content/70 max-w-3xl">
+                    Message bubbles with positions and variants.
+                </p>
             </div>
 
             <section class="mb-16">
@@ -45,7 +47,8 @@
                         <h2 class="card-title text-2xl justify-center mb-4">Explore More</h2>
                         <div class="card-actions justify-center">
                             <NuxtLink to="/components/data-display" class="btn btn-primary">
-                                <BpIcon name="arrow-left" class="w-4 h-4 mr-2" /> Back to Data Display
+                                <BpIcon name="arrow-left" class="w-4 h-4 mr-2" /> Back to Data
+                                Display
                             </NuxtLink>
                             <NuxtLink to="/components" class="btn btn-outline">
                                 <BpIcon name="grid" class="w-4 h-4 mr-2" /> All Components
@@ -59,7 +62,10 @@
 </template>
 
 <script setup lang="ts">
-definePageMeta({ title: 'Chat Bubble Component', description: 'Examples and usage for chat bubble' })
+definePageMeta({
+    title: 'Chat Bubble Component',
+    description: 'Examples and usage for chat bubble',
+})
 
 function setTheme(theme: string) {
     if (import.meta.client) {
@@ -75,4 +81,3 @@ onMounted(() => {
     }
 })
 </script>
-

@@ -12,14 +12,22 @@
 
             <div class="mb-12">
                 <h1 class="text-5xl font-bold mb-4">BpPhoneInput</h1>
-                <p class="text-xl text-base-content/70 max-w-3xl">Phone input using IMask preset.</p>
+                <p class="text-xl text-base-content/70 max-w-3xl">
+                    Phone input using IMask preset.
+                </p>
             </div>
 
             <section class="mb-16">
                 <h2 class="text-3xl font-bold mb-6">Examples</h2>
                 <div class="card bg-base-200 shadow-xl">
                     <div class="card-body">
-                        <BpInput v-model="phone" name="phone" label="Phone" :mask-type="'phone'" placeholder="+33 0 00 00 00 00" />
+                        <BpInput
+                            v-model="phone"
+                            name="phone"
+                            label="Phone"
+                            :mask-type="'phone'"
+                            placeholder="+33 0 00 00 00 00"
+                        />
                     </div>
                 </div>
             </section>
@@ -62,4 +70,3 @@ onMounted(() => {
     }
 })
 </script>
-

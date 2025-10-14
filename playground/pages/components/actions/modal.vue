@@ -31,7 +31,9 @@
                             <BpModal v-model="showBasic" title="Basic modal">
                                 <p>Content goes here.</p>
                                 <template #footer>
-                                    <BpButton style="ghost" @click="showBasic = false">Close</BpButton>
+                                    <BpButton style="ghost" @click="showBasic = false"
+                                        >Close</BpButton
+                                    >
                                     <BpButton color="primary">Confirm</BpButton>
                                 </template>
                             </BpModal>
@@ -51,7 +53,9 @@
                             <BpModal v-model="showSized" :size="size" title="Sized modal">
                                 <p>Current size: {{ size }}</p>
                                 <template #footer>
-                                    <BpButton style="ghost" @click="showSized = false">Close</BpButton>
+                                    <BpButton style="ghost" @click="showSized = false"
+                                        >Close</BpButton
+                                    >
                                 </template>
                             </BpModal>
                         </div>
@@ -111,4 +115,3 @@ onMounted(() => {
     }
 })
 </script>
-

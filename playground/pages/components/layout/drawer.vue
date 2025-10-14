@@ -25,7 +25,11 @@
                                 <label for="layout-drawer" class="btn">Open drawer</label>
                             </div>
                             <div class="drawer-side">
-                                <label for="layout-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
+                                <label
+                                    for="layout-drawer"
+                                    aria-label="close sidebar"
+                                    class="drawer-overlay"
+                                ></label>
                                 <ul class="menu p-4 w-64 min-h-full bg-base-100 text-base-content">
                                     <li><a>Item 1</a></li>
                                     <li><a>Item 2</a></li>
@@ -73,4 +77,3 @@ onMounted(() => {
     }
 })
 </script>
-

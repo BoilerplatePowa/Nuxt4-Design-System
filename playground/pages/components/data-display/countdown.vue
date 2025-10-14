@@ -21,7 +21,9 @@
                     <div class="card-body">
                         <div aria-live="polite" class="flex items-center gap-6">
                             <span class="countdown font-mono text-4xl">
-                                <span :style="`--value:${value}`" :aria-label="`${value}`">{{ value }}</span>
+                                <span :style="`--value:${value}`" :aria-label="`${value}`">{{
+                                    value
+                                }}</span>
                             </span>
                             <BpButton @click="inc">Increment</BpButton>
                         </div>
@@ -35,7 +37,8 @@
                         <h2 class="card-title text-2xl justify-center mb-4">Explore More</h2>
                         <div class="card-actions justify-center">
                             <NuxtLink to="/components/data-display" class="btn btn-primary">
-                                <BpIcon name="arrow-left" class="w-4 h-4 mr-2" /> Back to Data Display
+                                <BpIcon name="arrow-left" class="w-4 h-4 mr-2" /> Back to Data
+                                Display
                             </NuxtLink>
                             <NuxtLink to="/components" class="btn btn-outline">
                                 <BpIcon name="grid" class="w-4 h-4 mr-2" /> All Components
@@ -70,4 +73,3 @@ onMounted(() => {
     }
 })
 </script>
-

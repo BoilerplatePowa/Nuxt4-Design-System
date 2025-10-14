@@ -37,7 +37,10 @@
                         </div>
                         <p class="text-base-content/70 mb-4">Browser window-styled container.</p>
                         <div class="card-actions justify-end">
-                            <NuxtLink to="/components/mockup/browser" class="btn btn-primary btn-sm">
+                            <NuxtLink
+                                to="/components/mockup/browser"
+                                class="btn btn-primary btn-sm"
+                            >
                                 View Details
                             </NuxtLink>
                         </div>
@@ -134,4 +137,3 @@ onMounted(() => {
     }
 })
 </script>
-

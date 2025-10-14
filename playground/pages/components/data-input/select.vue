@@ -12,7 +12,9 @@
 
             <div class="mb-12">
                 <h1 class="text-5xl font-bold mb-4">BpSelect</h1>
-                <p class="text-xl text-base-content/70 max-w-3xl">Select input with DaisyUI variants.</p>
+                <p class="text-xl text-base-content/70 max-w-3xl">
+                    Select input with DaisyUI variants.
+                </p>
             </div>
 
             <section class="mb-16">
@@ -26,9 +28,15 @@
                             <option>Banana</option>
                         </select>
                         <div class="flex items-center gap-4 flex-wrap">
-                            <select class="select select-sm select-primary"><option>Small</option></select>
-                            <select class="select select-secondary"><option>Default</option></select>
-                            <select class="select select-lg select-accent"><option>Large</option></select>
+                            <select class="select select-sm select-primary">
+                                <option>Small</option>
+                            </select>
+                            <select class="select select-secondary">
+                                <option>Default</option>
+                            </select>
+                            <select class="select select-lg select-accent">
+                                <option>Large</option>
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -70,4 +78,3 @@ onMounted(() => {
     }
 })
 </script>
-

@@ -40,7 +40,8 @@
                         <h2 class="card-title text-2xl justify-center mb-4">Explore More</h2>
                         <div class="card-actions justify-center">
                             <NuxtLink to="/components/data-display" class="btn btn-primary">
-                                <BpIcon name="arrow-left" class="w-4 h-4 mr-2" /> Back to Data Display
+                                <BpIcon name="arrow-left" class="w-4 h-4 mr-2" /> Back to Data
+                                Display
                             </NuxtLink>
                             <NuxtLink to="/components" class="btn btn-outline">
                                 <BpIcon name="grid" class="w-4 h-4 mr-2" /> All Components
@@ -82,4 +83,3 @@ onMounted(() => {
     }
 })
 </script>
-

@@ -21,7 +21,7 @@
                 <h2 class="text-3xl font-bold mb-6">Examples</h2>
                 <div class="card bg-base-200 shadow-xl">
                     <div class="card-body">
-                        <BpList :items="items" variant="hover" @itemClick="onItem">
+                        <BpList :items="items" variant="hover" @item-click="onItem">
                             <template #item="{ item }">
                                 <div class="avatar mr-3">
                                     <div class="w-10 h-10 rounded">
@@ -31,7 +31,9 @@
                                 <div class="flex-1">
                                     <div class="flex items-center gap-2">
                                         <h3 class="font-semibold">{{ item.title }}</h3>
-                                        <span v-if="item.badge" class="badge badge-sm badge-info">{{ item.badge }}</span>
+                                        <span v-if="item.badge" class="badge badge-sm badge-info">{{
+                                            item.badge
+                                        }}</span>
                                     </div>
                                     <p class="text-sm opacity-70">{{ item.subtitle }}</p>
                                 </div>
@@ -47,7 +49,8 @@
                         <h2 class="card-title text-2xl justify-center mb-4">Explore More</h2>
                         <div class="card-actions justify-center">
                             <NuxtLink to="/components/data-display" class="btn btn-primary">
-                                <BpIcon name="arrow-left" class="w-4 h-4 mr-2" /> Back to Data Display
+                                <BpIcon name="arrow-left" class="w-4 h-4 mr-2" /> Back to Data
+                                Display
                             </NuxtLink>
                             <NuxtLink to="/components" class="btn btn-outline">
                                 <BpIcon name="grid" class="w-4 h-4 mr-2" /> All Components
@@ -62,13 +65,17 @@
 
 <script setup lang="ts">
 const items = [
-    { title: 'Design review', subtitle: 'Today 10:00', avatar: 'https://picsum.photos/64?1', badge: 'new' },
+    {
+        title: 'Design review',
+        subtitle: 'Today 10:00',
+        avatar: 'https://picsum.photos/64?1',
+        badge: 'new',
+    },
     { title: 'Sprint planning', subtitle: 'Tomorrow 09:00', avatar: 'https://picsum.photos/64?2' },
     { title: 'Retrospective', subtitle: 'Friday 16:00', avatar: 'https://picsum.photos/64?3' },
 ]
 
 function onItem(item: unknown) {
-    // eslint-disable-next-line no-console
     console.log('Clicked:', item)
 }
 
@@ -88,4 +95,3 @@ onMounted(() => {
     }
 })
 </script>
-

@@ -19,9 +19,30 @@
                 <h2 class="text-3xl font-bold mb-6">Examples</h2>
                 <div class="card bg-base-200 shadow-xl">
                     <div class="card-body flex gap-8 items-center">
-                        <div class="radial-progress" style="--value:25;" role="progressbar" aria-valuenow="25">25%</div>
-                        <div class="radial-progress text-primary" style="--value:50;" role="progressbar" aria-valuenow="50">50%</div>
-                        <div class="radial-progress text-accent" style="--value:85; --size:6rem;" role="progressbar" aria-valuenow="85">85%</div>
+                        <div
+                            class="radial-progress"
+                            style="--value: 25"
+                            role="progressbar"
+                            aria-valuenow="25"
+                        >
+                            25%
+                        </div>
+                        <div
+                            class="radial-progress text-primary"
+                            style="--value: 50"
+                            role="progressbar"
+                            aria-valuenow="50"
+                        >
+                            50%
+                        </div>
+                        <div
+                            class="radial-progress text-accent"
+                            style="--value: 85; --size: 6rem"
+                            role="progressbar"
+                            aria-valuenow="85"
+                        >
+                            85%
+                        </div>
                     </div>
                 </div>
             </section>
@@ -62,4 +83,3 @@ onMounted(() => {
     }
 })
 </script>
-

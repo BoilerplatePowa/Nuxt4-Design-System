@@ -86,10 +86,35 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr><td><code>text</code></td><td><code>string</code></td><td><code>undefined</code></td><td>Text content (or default slot)</td></tr>
-                                <tr><td><code>orientation</code></td><td><code>'horizontal' | 'vertical'</code></td><td><code>'horizontal'</code></td><td>Direction</td></tr>
-                                <tr><td><code>variant</code></td><td><code>'neutral' | 'primary' | 'secondary' | 'accent' | 'success' | 'warning' | 'info' | 'error'</code></td><td><code>'neutral'</code></td><td>Color variant</td></tr>
-                                <tr><td><code>position</code></td><td><code>'start' | 'center' | 'end'</code></td><td><code>'center'</code></td><td>Label position (horizontal only)</td></tr>
+                                <tr>
+                                    <td><code>text</code></td>
+                                    <td><code>string</code></td>
+                                    <td><code>undefined</code></td>
+                                    <td>Text content (or default slot)</td>
+                                </tr>
+                                <tr>
+                                    <td><code>orientation</code></td>
+                                    <td><code>'horizontal' | 'vertical'</code></td>
+                                    <td><code>'horizontal'</code></td>
+                                    <td>Direction</td>
+                                </tr>
+                                <tr>
+                                    <td><code>variant</code></td>
+                                    <td>
+                                        <code
+                                            >'neutral' | 'primary' | 'secondary' | 'accent' |
+                                            'success' | 'warning' | 'info' | 'error'</code
+                                        >
+                                    </td>
+                                    <td><code>'neutral'</code></td>
+                                    <td>Color variant</td>
+                                </tr>
+                                <tr>
+                                    <td><code>position</code></td>
+                                    <td><code>'start' | 'center' | 'end'</code></td>
+                                    <td><code>'center'</code></td>
+                                    <td>Label position (horizontal only)</td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -136,4 +161,3 @@ onMounted(() => {
     }
 })
 </script>
-

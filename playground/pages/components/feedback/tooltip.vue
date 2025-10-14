@@ -12,7 +12,9 @@
 
             <div class="mb-12">
                 <h1 class="text-5xl font-bold mb-4">Tooltip</h1>
-                <p class="text-xl text-base-content/70 max-w-3xl">Tooltips for hints and context.</p>
+                <p class="text-xl text-base-content/70 max-w-3xl">
+                    Tooltips for hints and context.
+                </p>
             </div>
 
             <section class="mb-16">
@@ -68,4 +70,3 @@ onMounted(() => {
     }
 })
 </script>
-

@@ -5,9 +5,6 @@ export default defineNuxtConfig({
 
     // Enable pages for multi-page routing
     pages: true,
-    devServer: {
-        port: 3031
-    },
     devtools: { enabled: true },
 
     // App configuration
@@ -32,6 +29,9 @@ export default defineNuxtConfig({
 
     // CSS configuration - clients need to configure their own CSS
     css: ['~/assets/css/main.css'],
+    devServer: {
+        port: 3031,
+    },
 
     // Experimental features
     experimental: {
@@ -48,7 +48,7 @@ export default defineNuxtConfig({
                 '/components/mockup/browser',
                 '/components/mockup/code',
                 '/components/mockup/phone',
-                '/components/mockup/window'
+                '/components/mockup/window',
             ],
         },
     },

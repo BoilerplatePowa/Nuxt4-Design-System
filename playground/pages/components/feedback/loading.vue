@@ -12,7 +12,9 @@
 
             <div class="mb-12">
                 <h1 class="text-5xl font-bold mb-4">Loading</h1>
-                <p class="text-xl text-base-content/70 max-w-3xl">Spinners and loading indicators.</p>
+                <p class="text-xl text-base-content/70 max-w-3xl">
+                    Spinners and loading indicators.
+                </p>
             </div>
 
             <section class="mb-16">
@@ -68,4 +70,3 @@ onMounted(() => {
     }
 })
 </script>
-

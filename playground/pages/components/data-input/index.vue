@@ -48,7 +48,10 @@
                         </div>
 
                         <div class="card-actions justify-end">
-                            <NuxtLink to="/components/data-input/input" class="btn btn-accent btn-sm">
+                            <NuxtLink
+                                to="/components/data-input/input"
+                                class="btn btn-accent btn-sm"
+                            >
                                 View Details
                             </NuxtLink>
                         </div>
@@ -64,7 +67,10 @@
                         </div>
                         <p class="text-base-content/70 mb-4">Binary selection control.</p>
                         <div class="card-actions justify-end">
-                            <NuxtLink to="/components/data-input/checkbox" class="btn btn-secondary btn-sm">
+                            <NuxtLink
+                                to="/components/data-input/checkbox"
+                                class="btn btn-secondary btn-sm"
+                            >
                                 View Details
                             </NuxtLink>
                         </div>
@@ -80,7 +86,10 @@
                         </div>
                         <p class="text-base-content/70 mb-4">Dropdown select with variants.</p>
                         <div class="card-actions justify-end">
-                            <NuxtLink to="/components/data-input/select" class="btn btn-primary btn-sm">
+                            <NuxtLink
+                                to="/components/data-input/select"
+                                class="btn btn-primary btn-sm"
+                            >
                                 View Details
                             </NuxtLink>
                         </div>
@@ -94,7 +103,9 @@
                             <BpIcon name="radio" class="w-8 h-8 text-info" />
                             <h2 class="card-title text-xl">BpRadio</h2>
                         </div>
-                        <p class="text-base-content/70 mb-4">Radio buttons with sizes and colors.</p>
+                        <p class="text-base-content/70 mb-4">
+                            Radio buttons with sizes and colors.
+                        </p>
                         <div class="card-actions justify-end">
                             <NuxtLink to="/components/data-input/radio" class="btn btn-info btn-sm">
                                 View Details
@@ -112,7 +123,10 @@
                         </div>
                         <p class="text-base-content/70 mb-4">Slider for selecting a value.</p>
                         <div class="card-actions justify-end">
-                            <NuxtLink to="/components/data-input/range" class="btn btn-accent btn-sm">
+                            <NuxtLink
+                                to="/components/data-input/range"
+                                class="btn btn-accent btn-sm"
+                            >
                                 View Details
                             </NuxtLink>
                         </div>
@@ -128,7 +142,10 @@
                         </div>
                         <p class="text-base-content/70 mb-4">Star rating with sizes and colors.</p>
                         <div class="card-actions justify-end">
-                            <NuxtLink to="/components/data-input/rating" class="btn btn-warning btn-sm">
+                            <NuxtLink
+                                to="/components/data-input/rating"
+                                class="btn btn-warning btn-sm"
+                            >
                                 View Details
                             </NuxtLink>
                         </div>
@@ -144,7 +161,10 @@
                         </div>
                         <p class="text-base-content/70 mb-4">Multiline text input.</p>
                         <div class="card-actions justify-end">
-                            <NuxtLink to="/components/data-input/textarea" class="btn btn-secondary btn-sm">
+                            <NuxtLink
+                                to="/components/data-input/textarea"
+                                class="btn btn-secondary btn-sm"
+                            >
                                 View Details
                             </NuxtLink>
                         </div>
@@ -160,7 +180,10 @@
                         </div>
                         <p class="text-base-content/70 mb-4">Switch-style checkbox.</p>
                         <div class="card-actions justify-end">
-                            <NuxtLink to="/components/data-input/toggle" class="btn btn-success btn-sm">
+                            <NuxtLink
+                                to="/components/data-input/toggle"
+                                class="btn btn-success btn-sm"
+                            >
                                 View Details
                             </NuxtLink>
                         </div>
@@ -176,7 +199,10 @@
                         </div>
                         <p class="text-base-content/70 mb-4">Upload files with styled input.</p>
                         <div class="card-actions justify-end">
-                            <NuxtLink to="/components/data-input/file-input" class="btn btn-primary btn-sm">
+                            <NuxtLink
+                                to="/components/data-input/file-input"
+                                class="btn btn-primary btn-sm"
+                            >
                                 View Details
                             </NuxtLink>
                         </div>
@@ -190,7 +216,9 @@
                             <BpIcon name="edit" class="w-8 h-8 text-info" />
                             <h2 class="card-title text-xl">Label</h2>
                         </div>
-                        <p class="text-base-content/70 mb-4">Labels for inputs and floating labels.</p>
+                        <p class="text-base-content/70 mb-4">
+                            Labels for inputs and floating labels.
+                        </p>
                         <div class="card-actions justify-end">
                             <NuxtLink to="/components/data-input/label" class="btn btn-info btn-sm">
                                 View Details
@@ -208,7 +236,10 @@
                         </div>
                         <p class="text-base-content/70 mb-4">Group related form elements.</p>
                         <div class="card-actions justify-end">
-                            <NuxtLink to="/components/data-input/fieldset" class="btn btn-accent btn-sm">
+                            <NuxtLink
+                                to="/components/data-input/fieldset"
+                                class="btn btn-accent btn-sm"
+                            >
                                 View Details
                             </NuxtLink>
                         </div>
@@ -224,7 +255,10 @@
                         </div>
                         <p class="text-base-content/70 mb-4">Phone input with mask.</p>
                         <div class="card-actions justify-end">
-                            <NuxtLink to="/components/data-input/phone-input" class="btn btn-primary btn-sm">
+                            <NuxtLink
+                                to="/components/data-input/phone-input"
+                                class="btn btn-primary btn-sm"
+                            >
                                 View Details
                             </NuxtLink>
                         </div>
@@ -240,7 +274,10 @@
                         </div>
                         <p class="text-base-content/70 mb-4">Calendar styles for date pickers.</p>
                         <div class="card-actions justify-end">
-                            <NuxtLink to="/components/data-input/calendar" class="btn btn-secondary btn-sm">
+                            <NuxtLink
+                                to="/components/data-input/calendar"
+                                class="btn btn-secondary btn-sm"
+                            >
                                 View Details
                             </NuxtLink>
                         </div>
@@ -256,7 +293,10 @@
                         </div>
                         <p class="text-base-content/70 mb-4">Grouped radio buttons with reset.</p>
                         <div class="card-actions justify-end">
-                            <NuxtLink to="/components/data-input/filter" class="btn btn-info btn-sm">
+                            <NuxtLink
+                                to="/components/data-input/filter"
+                                class="btn btn-info btn-sm"
+                            >
                                 View Details
                             </NuxtLink>
                         </div>
@@ -272,7 +312,10 @@
                         </div>
                         <p class="text-base-content/70 mb-4">Change styles based on validity.</p>
                         <div class="card-actions justify-end">
-                            <NuxtLink to="/components/data-input/validator" class="btn btn-success btn-sm">
+                            <NuxtLink
+                                to="/components/data-input/validator"
+                                class="btn btn-success btn-sm"
+                            >
                                 View Details
                             </NuxtLink>
                         </div>
@@ -288,7 +331,10 @@
                         </div>
                         <p class="text-base-content/70 mb-4">Step-by-step form flow.</p>
                         <div class="card-actions justify-end">
-                            <NuxtLink to="/components/data-input/form-wizard" class="btn btn-warning btn-sm">
+                            <NuxtLink
+                                to="/components/data-input/form-wizard"
+                                class="btn btn-warning btn-sm"
+                            >
                                 View Details
                             </NuxtLink>
                         </div>
@@ -337,4 +383,3 @@ onMounted(() => {
     }
 })
 </script>
-

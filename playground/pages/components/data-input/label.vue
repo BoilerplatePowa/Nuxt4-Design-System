@@ -12,7 +12,9 @@
 
             <div class="mb-12">
                 <h1 class="text-5xl font-bold mb-4">Label</h1>
-                <p class="text-xl text-base-content/70 max-w-3xl">Labels for inputs and floating labels.</p>
+                <p class="text-xl text-base-content/70 max-w-3xl">
+                    Labels for inputs and floating labels.
+                </p>
             </div>
 
             <section class="mb-16">
@@ -25,7 +27,11 @@
                         </label>
 
                         <label class="floating-label w-full max-w-xs">
-                            <input type="text" placeholder=" " class="input input-bordered w-full" />
+                            <input
+                                type="text"
+                                placeholder=" "
+                                class="input input-bordered w-full"
+                            />
                             <span>Floating label</span>
                         </label>
                     </div>
@@ -68,4 +74,3 @@ onMounted(() => {
     }
 })
 </script>
-

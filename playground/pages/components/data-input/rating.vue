@@ -12,7 +12,9 @@
 
             <div class="mb-12">
                 <h1 class="text-5xl font-bold mb-4">BpRating</h1>
-                <p class="text-xl text-base-content/70 max-w-3xl">Star rating with different sizes.</p>
+                <p class="text-xl text-base-content/70 max-w-3xl">
+                    Star rating with different sizes.
+                </p>
             </div>
 
             <section class="mb-16">
@@ -27,11 +29,32 @@
                             <input type="radio" name="rating-1" class="mask mask-star" />
                         </div>
                         <div class="rating rating-lg">
-                            <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
-                            <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
-                            <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" checked />
-                            <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
-                            <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
+                            <input
+                                type="radio"
+                                name="rating-2"
+                                class="mask mask-star-2 bg-orange-400"
+                            />
+                            <input
+                                type="radio"
+                                name="rating-2"
+                                class="mask mask-star-2 bg-orange-400"
+                            />
+                            <input
+                                type="radio"
+                                name="rating-2"
+                                class="mask mask-star-2 bg-orange-400"
+                                checked
+                            />
+                            <input
+                                type="radio"
+                                name="rating-2"
+                                class="mask mask-star-2 bg-orange-400"
+                            />
+                            <input
+                                type="radio"
+                                name="rating-2"
+                                class="mask mask-star-2 bg-orange-400"
+                            />
                         </div>
                     </div>
                 </div>
@@ -73,4 +96,3 @@ onMounted(() => {
     }
 })
 </script>
-

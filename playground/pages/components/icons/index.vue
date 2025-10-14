@@ -34,7 +34,9 @@
                             <BpIcon name="image" class="w-8 h-8 text-secondary" />
                             <h2 class="card-title text-xl">BpIcon</h2>
                         </div>
-                        <p class="text-base-content/70 mb-4">Icon rendering with name and size props.</p>
+                        <p class="text-base-content/70 mb-4">
+                            Icon rendering with name and size props.
+                        </p>
                         <div class="card-actions justify-end">
                             <NuxtLink to="/components/icons/icon" class="btn btn-secondary btn-sm">
                                 View Details
@@ -85,4 +87,3 @@ onMounted(() => {
     }
 })
 </script>
-

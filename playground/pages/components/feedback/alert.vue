@@ -32,7 +32,11 @@
                                 <BpAlert variant="info" title="Info" message="Heads up!" />
                                 <BpAlert variant="success" title="Success" message="It worked!" />
                                 <BpAlert variant="warning" title="Warning" message="Be careful." />
-                                <BpAlert variant="error" title="Error" message="Something failed." />
+                                <BpAlert
+                                    variant="error"
+                                    title="Error"
+                                    message="Something failed."
+                                />
                             </div>
                         </div>
                     </div>
@@ -40,10 +44,22 @@
                     <div class="card bg-base-200 shadow-xl">
                         <div class="card-body">
                             <h3 class="card-title text-xl mb-4">Dismissible + Custom content</h3>
-                            <BpAlert :dismissible="true" variant="info" title="Update available" @dismiss="onDismiss">
+                            <BpAlert
+                                :dismissible="true"
+                                variant="info"
+                                title="Update available"
+                                @dismiss="onDismiss"
+                            >
                                 <div>Click the close button to dismiss this message.</div>
                             </BpAlert>
-                            <div class="mt-4">Dismissed: <span class="badge" :class="dismissed ? 'badge-success' : 'badge-ghost'">{{ dismissed ? 'Yes' : 'No' }}</span></div>
+                            <div class="mt-4">
+                                Dismissed:
+                                <span
+                                    class="badge"
+                                    :class="dismissed ? 'badge-success' : 'badge-ghost'"
+                                    >{{ dismissed ? 'Yes' : 'No' }}</span
+                                >
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -64,12 +80,42 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr><td><code>variant</code></td><td><code>'info' | 'success' | 'warning' | 'error'</code></td><td><code>'info'</code></td><td>Alert color variant</td></tr>
-                                <tr><td><code>title</code></td><td><code>string</code></td><td><code>undefined</code></td><td>Optional title text</td></tr>
-                                <tr><td><code>message</code></td><td><code>string</code></td><td><code>undefined</code></td><td>Optional message text</td></tr>
-                                <tr><td><code>dismissible</code></td><td><code>boolean</code></td><td><code>false</code></td><td>Show dismiss button</td></tr>
-                                <tr><td><code>showDefaultIcon</code></td><td><code>boolean</code></td><td><code>true</code></td><td>Display default emoji icon</td></tr>
-                                <tr><td><code>icon</code></td><td><code>string</code></td><td><code>undefined</code></td><td>Custom icon content</td></tr>
+                                <tr>
+                                    <td><code>variant</code></td>
+                                    <td><code>'info' | 'success' | 'warning' | 'error'</code></td>
+                                    <td><code>'info'</code></td>
+                                    <td>Alert color variant</td>
+                                </tr>
+                                <tr>
+                                    <td><code>title</code></td>
+                                    <td><code>string</code></td>
+                                    <td><code>undefined</code></td>
+                                    <td>Optional title text</td>
+                                </tr>
+                                <tr>
+                                    <td><code>message</code></td>
+                                    <td><code>string</code></td>
+                                    <td><code>undefined</code></td>
+                                    <td>Optional message text</td>
+                                </tr>
+                                <tr>
+                                    <td><code>dismissible</code></td>
+                                    <td><code>boolean</code></td>
+                                    <td><code>false</code></td>
+                                    <td>Show dismiss button</td>
+                                </tr>
+                                <tr>
+                                    <td><code>showDefaultIcon</code></td>
+                                    <td><code>boolean</code></td>
+                                    <td><code>true</code></td>
+                                    <td>Display default emoji icon</td>
+                                </tr>
+                                <tr>
+                                    <td><code>icon</code></td>
+                                    <td><code>string</code></td>
+                                    <td><code>undefined</code></td>
+                                    <td>Custom icon content</td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -121,4 +167,3 @@ onMounted(() => {
     }
 })
 </script>
-

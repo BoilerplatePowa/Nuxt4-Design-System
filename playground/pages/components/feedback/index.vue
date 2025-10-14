@@ -22,8 +22,8 @@
                     </div>
                 </div>
                 <p class="text-lg text-base-content/70 max-w-3xl">
-                    Feedback components provide user feedback, notifications, and task status.
-                    Built on DaisyUI with accessible semantics and ARIA roles.
+                    Feedback components provide user feedback, notifications, and task status. Built
+                    on DaisyUI with accessible semantics and ARIA roles.
                 </p>
             </div>
 
@@ -64,7 +64,10 @@
                         </div>
                         <p class="text-base-content/70 mb-4">Spinner and loading indicators.</p>
                         <div class="card-actions justify-end">
-                            <NuxtLink to="/components/feedback/loading" class="btn btn-primary btn-sm">
+                            <NuxtLink
+                                to="/components/feedback/loading"
+                                class="btn btn-primary btn-sm"
+                            >
                                 View Details
                             </NuxtLink>
                         </div>
@@ -80,7 +83,10 @@
                         </div>
                         <p class="text-base-content/70 mb-4">Linear progress bars.</p>
                         <div class="card-actions justify-end">
-                            <NuxtLink to="/components/feedback/progress" class="btn btn-secondary btn-sm">
+                            <NuxtLink
+                                to="/components/feedback/progress"
+                                class="btn btn-secondary btn-sm"
+                            >
                                 View Details
                             </NuxtLink>
                         </div>
@@ -96,7 +102,10 @@
                         </div>
                         <p class="text-base-content/70 mb-4">Circular progress indicator.</p>
                         <div class="card-actions justify-end">
-                            <NuxtLink to="/components/feedback/radial-progress" class="btn btn-accent btn-sm">
+                            <NuxtLink
+                                to="/components/feedback/radial-progress"
+                                class="btn btn-accent btn-sm"
+                            >
                                 View Details
                             </NuxtLink>
                         </div>
@@ -112,7 +121,10 @@
                         </div>
                         <p class="text-base-content/70 mb-4">Placeholder skeleton loaders.</p>
                         <div class="card-actions justify-end">
-                            <NuxtLink to="/components/feedback/skeleton" class="btn btn-info btn-sm">
+                            <NuxtLink
+                                to="/components/feedback/skeleton"
+                                class="btn btn-info btn-sm"
+                            >
                                 View Details
                             </NuxtLink>
                         </div>
@@ -128,7 +140,10 @@
                         </div>
                         <p class="text-base-content/70 mb-4">Toast notifications and container.</p>
                         <div class="card-actions justify-end">
-                            <NuxtLink to="/components/feedback/toast" class="btn btn-success btn-sm">
+                            <NuxtLink
+                                to="/components/feedback/toast"
+                                class="btn btn-success btn-sm"
+                            >
                                 View Details
                             </NuxtLink>
                         </div>
@@ -144,7 +159,10 @@
                         </div>
                         <p class="text-base-content/70 mb-4">Tooltips for hints and context.</p>
                         <div class="card-actions justify-end">
-                            <NuxtLink to="/components/feedback/tooltip" class="btn btn-warning btn-sm">
+                            <NuxtLink
+                                to="/components/feedback/tooltip"
+                                class="btn btn-warning btn-sm"
+                            >
                                 View Details
                             </NuxtLink>
                         </div>
@@ -193,4 +211,3 @@ onMounted(() => {
     }
 })
 </script>
-

@@ -19,11 +19,23 @@
                 <h2 class="text-3xl font-bold mb-6">Examples</h2>
                 <div class="card bg-base-200 shadow-xl">
                     <div class="card-body space-y-4">
-                        <textarea class="textarea textarea-bordered w-full" placeholder="Your message..."></textarea>
+                        <textarea
+                            class="textarea textarea-bordered w-full"
+                            placeholder="Your message..."
+                        ></textarea>
                         <div class="flex items-center gap-4">
-                            <textarea class="textarea textarea-sm textarea-primary" placeholder="Small"></textarea>
-                            <textarea class="textarea textarea-secondary" placeholder="Default"></textarea>
-                            <textarea class="textarea textarea-lg textarea-accent" placeholder="Large"></textarea>
+                            <textarea
+                                class="textarea textarea-sm textarea-primary"
+                                placeholder="Small"
+                            ></textarea>
+                            <textarea
+                                class="textarea textarea-secondary"
+                                placeholder="Default"
+                            ></textarea>
+                            <textarea
+                                class="textarea textarea-lg textarea-accent"
+                                placeholder="Large"
+                            ></textarea>
                         </div>
                     </div>
                 </div>
@@ -65,4 +77,3 @@ onMounted(() => {
     }
 })
 </script>
-

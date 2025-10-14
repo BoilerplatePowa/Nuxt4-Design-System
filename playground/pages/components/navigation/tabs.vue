@@ -68,10 +68,37 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr><td><code>tabs</code></td><td><code>Array&lt;{ label, value?, content?, disabled?, badge? }&gt;</code></td><td><code>[]</code></td><td>Tab definitions</td></tr>
-                                <tr><td><code>variant</code></td><td><code>'default' | 'bordered' | 'lifted' | 'boxed'</code></td><td><code>'default'</code></td><td>Visual style</td></tr>
-                                <tr><td><code>size</code></td><td><code>'xs' | 'sm' | 'md' | 'lg'</code></td><td><code>'md'</code></td><td>Size of tabs</td></tr>
-                                <tr><td><code>disabled</code></td><td><code>boolean</code></td><td><code>false</code></td><td>Disable all tabs</td></tr>
+                                <tr>
+                                    <td><code>tabs</code></td>
+                                    <td>
+                                        <code
+                                            >Array&lt;{ label, value?, content?, disabled?, badge?
+                                            }&gt;</code
+                                        >
+                                    </td>
+                                    <td><code>[]</code></td>
+                                    <td>Tab definitions</td>
+                                </tr>
+                                <tr>
+                                    <td><code>variant</code></td>
+                                    <td>
+                                        <code>'default' | 'bordered' | 'lifted' | 'boxed'</code>
+                                    </td>
+                                    <td><code>'default'</code></td>
+                                    <td>Visual style</td>
+                                </tr>
+                                <tr>
+                                    <td><code>size</code></td>
+                                    <td><code>'xs' | 'sm' | 'md' | 'lg'</code></td>
+                                    <td><code>'md'</code></td>
+                                    <td>Size of tabs</td>
+                                </tr>
+                                <tr>
+                                    <td><code>disabled</code></td>
+                                    <td><code>boolean</code></td>
+                                    <td><code>false</code></td>
+                                    <td>Disable all tabs</td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -100,17 +127,9 @@
 
 <script setup lang="ts">
 const active1 = ref('Overview')
-const tabs1 = [
-    { label: 'Overview' },
-    { label: 'Settings' },
-    { label: 'Profile' },
-]
+const tabs1 = [{ label: 'Overview' }, { label: 'Settings' }, { label: 'Profile' }]
 
-const tabs2 = [
-    { label: 'Tab 1' },
-    { label: 'Tab 2' },
-    { label: 'Tab 3' },
-]
+const tabs2 = [{ label: 'Tab 1' }, { label: 'Tab 2' }, { label: 'Tab 3' }]
 
 const tabs3 = [
     { label: 'Open', badge: 3 },
@@ -137,4 +156,3 @@ onMounted(() => {
     }
 })
 </script>
-

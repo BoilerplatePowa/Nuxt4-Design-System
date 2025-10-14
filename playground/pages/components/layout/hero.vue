@@ -12,14 +12,19 @@
 
             <div class="mb-12">
                 <h1 class="text-5xl font-bold mb-4">Hero</h1>
-                <p class="text-xl text-base-content/70 max-w-3xl">Large hero section with overlay.</p>
+                <p class="text-xl text-base-content/70 max-w-3xl">
+                    Large hero section with overlay.
+                </p>
             </div>
 
             <section class="mb-16">
                 <h2 class="text-3xl font-bold mb-6">Examples</h2>
                 <div class="card bg-base-200 shadow-xl">
                     <div class="card-body">
-                        <div class="hero min-h-[220px] rounded-box" style="background-image: url('https://picsum.photos/1200/300');">
+                        <div
+                            class="hero min-h-[220px] rounded-box"
+                            style="background-image: url('https://picsum.photos/1200/300')"
+                        >
                             <div class="hero-overlay bg-opacity-60"></div>
                             <div class="hero-content text-center text-neutral-content">
                                 <div class="max-w-md">
@@ -69,4 +74,3 @@ onMounted(() => {
     }
 })
 </script>
-

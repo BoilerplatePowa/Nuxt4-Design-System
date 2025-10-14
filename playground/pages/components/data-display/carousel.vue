@@ -21,13 +21,25 @@
                     <div class="card-body">
                         <div class="carousel w-full">
                             <div class="carousel-item w-full">
-                                <img src="https://picsum.photos/800/300?1" class="w-full" alt="slide 1" />
+                                <img
+                                    src="https://picsum.photos/800/300?1"
+                                    class="w-full"
+                                    alt="slide 1"
+                                />
                             </div>
                             <div class="carousel-item w-full">
-                                <img src="https://picsum.photos/800/300?2" class="w-full" alt="slide 2" />
+                                <img
+                                    src="https://picsum.photos/800/300?2"
+                                    class="w-full"
+                                    alt="slide 2"
+                                />
                             </div>
                             <div class="carousel-item w-full">
-                                <img src="https://picsum.photos/800/300?3" class="w-full" alt="slide 3" />
+                                <img
+                                    src="https://picsum.photos/800/300?3"
+                                    class="w-full"
+                                    alt="slide 3"
+                                />
                             </div>
                         </div>
                     </div>
@@ -40,7 +52,8 @@
                         <h2 class="card-title text-2xl justify-center mb-4">Explore More</h2>
                         <div class="card-actions justify-center">
                             <NuxtLink to="/components/data-display" class="btn btn-primary">
-                                <BpIcon name="arrow-left" class="w-4 h-4 mr-2" /> Back to Data Display
+                                <BpIcon name="arrow-left" class="w-4 h-4 mr-2" /> Back to Data
+                                Display
                             </NuxtLink>
                             <NuxtLink to="/components" class="btn btn-outline">
                                 <BpIcon name="grid" class="w-4 h-4 mr-2" /> All Components
@@ -70,4 +83,3 @@ onMounted(() => {
     }
 })
 </script>
-

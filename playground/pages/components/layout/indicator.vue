@@ -12,7 +12,9 @@
 
             <div class="mb-12">
                 <h1 class="text-5xl font-bold mb-4">Indicator</h1>
-                <p class="text-xl text-base-content/70 max-w-3xl">Place elements on corners of another element.</p>
+                <p class="text-xl text-base-content/70 max-w-3xl">
+                    Place elements on corners of another element.
+                </p>
             </div>
 
             <section class="mb-16">
@@ -63,4 +65,3 @@ onMounted(() => {
     }
 })
 </script>
-

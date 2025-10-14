@@ -48,7 +48,10 @@
                         </div>
 
                         <div class="card-actions justify-end">
-                            <NuxtLink to="/components/data-display/card" class="btn btn-primary btn-sm">
+                            <NuxtLink
+                                to="/components/data-display/card"
+                                class="btn btn-primary btn-sm"
+                            >
                                 View Details
                             </NuxtLink>
                         </div>
@@ -62,9 +65,14 @@
                             <BpIcon name="navigation" class="w-8 h-8 text-primary" />
                             <h2 class="card-title text-xl">BpList</h2>
                         </div>
-                        <p class="text-base-content/70 mb-4">Flexible list with avatars and actions.</p>
+                        <p class="text-base-content/70 mb-4">
+                            Flexible list with avatars and actions.
+                        </p>
                         <div class="card-actions justify-end">
-                            <NuxtLink to="/components/data-display/list" class="btn btn-primary btn-sm">
+                            <NuxtLink
+                                to="/components/data-display/list"
+                                class="btn btn-primary btn-sm"
+                            >
                                 View Details
                             </NuxtLink>
                         </div>
@@ -80,7 +88,10 @@
                         </div>
                         <p class="text-base-content/70 mb-4">KPIs and totals with variants.</p>
                         <div class="card-actions justify-end">
-                            <NuxtLink to="/components/data-display/stat" class="btn btn-secondary btn-sm">
+                            <NuxtLink
+                                to="/components/data-display/stat"
+                                class="btn btn-secondary btn-sm"
+                            >
                                 View Details
                             </NuxtLink>
                         </div>
@@ -96,7 +107,10 @@
                         </div>
                         <p class="text-base-content/70 mb-4">Small status indicator dot.</p>
                         <div class="card-actions justify-end">
-                            <NuxtLink to="/components/data-display/status" class="btn btn-info btn-sm">
+                            <NuxtLink
+                                to="/components/data-display/status"
+                                class="btn btn-info btn-sm"
+                            >
                                 View Details
                             </NuxtLink>
                         </div>
@@ -112,7 +126,10 @@
                         </div>
                         <p class="text-base-content/70 mb-4">Rich status message with actions.</p>
                         <div class="card-actions justify-end">
-                            <NuxtLink to="/components/data-display/status-box" class="btn btn-accent btn-sm">
+                            <NuxtLink
+                                to="/components/data-display/status-box"
+                                class="btn btn-accent btn-sm"
+                            >
                                 View Details
                             </NuxtLink>
                         </div>
@@ -128,7 +145,10 @@
                         </div>
                         <p class="text-base-content/70 mb-4">Show differences between texts.</p>
                         <div class="card-actions justify-end">
-                            <NuxtLink to="/components/data-display/text-diff" class="btn btn-warning btn-sm">
+                            <NuxtLink
+                                to="/components/data-display/text-diff"
+                                class="btn btn-warning btn-sm"
+                            >
                                 View Details
                             </NuxtLink>
                         </div>
@@ -144,7 +164,10 @@
                         </div>
                         <p class="text-base-content/70 mb-4">Chronological events display.</p>
                         <div class="card-actions justify-end">
-                            <NuxtLink to="/components/data-display/timeline" class="btn btn-info btn-sm">
+                            <NuxtLink
+                                to="/components/data-display/timeline"
+                                class="btn btn-info btn-sm"
+                            >
                                 View Details
                             </NuxtLink>
                         </div>
@@ -160,7 +183,10 @@
                         </div>
                         <p class="text-base-content/70 mb-4">Message bubbles with variants.</p>
                         <div class="card-actions justify-end">
-                            <NuxtLink to="/components/data-display/chat-bubble" class="btn btn-primary btn-sm">
+                            <NuxtLink
+                                to="/components/data-display/chat-bubble"
+                                class="btn btn-primary btn-sm"
+                            >
                                 View Details
                             </NuxtLink>
                         </div>
@@ -176,7 +202,10 @@
                         </div>
                         <p class="text-base-content/70 mb-4">One-at-a-time collapsible items.</p>
                         <div class="card-actions justify-end">
-                            <NuxtLink to="/components/data-display/accordion" class="btn btn-secondary btn-sm">
+                            <NuxtLink
+                                to="/components/data-display/accordion"
+                                class="btn btn-secondary btn-sm"
+                            >
                                 View Details
                             </NuxtLink>
                         </div>
@@ -192,7 +221,10 @@
                         </div>
                         <p class="text-base-content/70 mb-4">Toggle sections open/closed.</p>
                         <div class="card-actions justify-end">
-                            <NuxtLink to="/components/data-display/collapse" class="btn btn-accent btn-sm">
+                            <NuxtLink
+                                to="/components/data-display/collapse"
+                                class="btn btn-accent btn-sm"
+                            >
                                 View Details
                             </NuxtLink>
                         </div>
@@ -208,7 +240,10 @@
                         </div>
                         <p class="text-base-content/70 mb-4">Scrollable media/content area.</p>
                         <div class="card-actions justify-end">
-                            <NuxtLink to="/components/data-display/carousel" class="btn btn-success btn-sm">
+                            <NuxtLink
+                                to="/components/data-display/carousel"
+                                class="btn btn-success btn-sm"
+                            >
                                 View Details
                             </NuxtLink>
                         </div>
@@ -224,7 +259,10 @@
                         </div>
                         <p class="text-base-content/70 mb-4">Animated number transitions.</p>
                         <div class="card-actions justify-end">
-                            <NuxtLink to="/components/data-display/countdown" class="btn btn-warning btn-sm">
+                            <NuxtLink
+                                to="/components/data-display/countdown"
+                                class="btn btn-warning btn-sm"
+                            >
                                 View Details
                             </NuxtLink>
                         </div>
@@ -255,7 +293,10 @@
                         </div>
                         <p class="text-base-content/70 mb-4">Table for structured data.</p>
                         <div class="card-actions justify-end">
-                            <NuxtLink to="/components/data-display/table" class="btn btn-accent btn-sm">
+                            <NuxtLink
+                                to="/components/data-display/table"
+                                class="btn btn-accent btn-sm"
+                            >
                                 View Details
                             </NuxtLink>
                         </div>
@@ -271,7 +312,10 @@
                         </div>
                         <p class="text-base-content/70 mb-4">User thumbnails and placeholders.</p>
                         <div class="card-actions justify-end">
-                            <NuxtLink to="/components/data-display/avatar" class="btn btn-info btn-sm">
+                            <NuxtLink
+                                to="/components/data-display/avatar"
+                                class="btn btn-info btn-sm"
+                            >
                                 View Details
                             </NuxtLink>
                         </div>
@@ -287,7 +331,10 @@
                         </div>
                         <p class="text-base-content/70 mb-4">Status and count indicators.</p>
                         <div class="card-actions justify-end">
-                            <NuxtLink to="/components/data-display/badge" class="btn btn-success btn-sm">
+                            <NuxtLink
+                                to="/components/data-display/badge"
+                                class="btn btn-success btn-sm"
+                            >
                                 View Details
                             </NuxtLink>
                         </div>
@@ -303,7 +350,10 @@
                         </div>
                         <p class="text-base-content/70 mb-4">Tab navigation for content.</p>
                         <div class="card-actions justify-end">
-                            <NuxtLink to="/components/data-display/tabs" class="btn btn-warning btn-sm">
+                            <NuxtLink
+                                to="/components/data-display/tabs"
+                                class="btn btn-warning btn-sm"
+                            >
                                 View Details
                             </NuxtLink>
                         </div>
@@ -352,4 +402,3 @@ onMounted(() => {
     }
 })
 </script>
-
