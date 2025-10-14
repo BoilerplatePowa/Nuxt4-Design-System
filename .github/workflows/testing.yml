@@ -39,7 +39,7 @@ jobs:
     #        - name: Upload coverage
     #          uses: codecov/codecov-action@v4
     #         with:
-    #             file: coverage/lcov.info 
+    #             file: coverage/lcov.info
     #             flags: unittests
     #             name: codecov-umbrella
     #          continue-on-error: true
