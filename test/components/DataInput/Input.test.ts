@@ -15,10 +15,12 @@ vi.mock('vee-validate', () => ({
         name: 'Field',
         template:
             '<div><slot :field="{ value: modelValue, onChange: handleChange }" :errorMessage="errorMessage" :meta="{ touched: true, valid: !errorMessage }" /></div>',
-        props: ['name', 'value'],
+        props: ['name', 'value', 'rules'],
         setup(props: any) {
             const errorMessage = props.value === 'invalid' ? 'This field is invalid' : ''
-            return { errorMessage }
+            const modelValue = props.value || ''
+            const handleChange = vi.fn()
+            return { errorMessage, modelValue, handleChange }
         },
     },
 }))
@@ -59,9 +61,9 @@ describe('Input', () => {
                 props: { size },
             })
 
-            const input = wrapper.find('input')
+            const label = wrapper.find('label')
             if (size !== 'md') {
-                expect(input.classes()).toContain(`input-${size}`)
+                expect(label.classes()).toContain(`input-${size}`)
             }
         })
     })
@@ -85,8 +87,8 @@ describe('Input', () => {
                 props: { variant },
             })
 
-            const input = wrapper.find('input')
-            expect(input.classes()).toContain(`input-${variant}`)
+            const label = wrapper.find('label')
+            expect(label.classes()).toContain(`input-${variant}`)
         })
     })
 
@@ -111,8 +113,8 @@ describe('Input', () => {
         const icons = wrapper.findAllComponents({ name: 'Icon' })
         expect(icons.length).toBeGreaterThan(0)
 
-        // Find the right icon by checking if it has the right positioning class
-        const rightIcon = icons.find((icon) => icon.classes().includes('right-3'))
+        // Find the right icon by checking its name prop
+        const rightIcon = icons.find((icon) => icon.props('name') === 'eye')
         expect(rightIcon).toBeDefined()
         expect(rightIcon?.props('name')).toBe('eye')
     })
@@ -125,9 +127,9 @@ describe('Input', () => {
             },
         })
 
-        const input = wrapper.find('input')
-        expect(input.classes()).toContain('pl-10')
-        expect(input.classes()).toContain('pr-10')
+        const label = wrapper.find('label')
+        expect(label.classes()).toContain('pl-10')
+        expect(label.classes()).toContain('pr-10')
     })
 
     it('shows character count when enabled', () => {

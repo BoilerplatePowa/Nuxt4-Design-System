@@ -1,8 +1,5 @@
 @import 'tailwindcss';
 
-@source "../components/**";
-@source "../shared/componentsMaps/**";
-
 @plugin 'daisyui' {
     themes: all;
 }

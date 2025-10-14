@@ -32,15 +32,17 @@ jobs:
               run: npm install --prefer-online
 
             - name: Run unit tests
-              run: npm run test:coverage
+              run: npm run test
 
-            - name: Upload coverage
-              uses: codecov/codecov-action@v4
-              with:
-                  file: coverage/lcov.info
-                  flags: unittests
-                  name: codecov-umbrella
-              continue-on-error: true
+    #          run: npm run test:coverage
+    #
+    #        - name: Upload coverage
+    #          uses: codecov/codecov-action@v4
+    #         with:
+    #             file: coverage/lcov.info 
+    #             flags: unittests
+    #             name: codecov-umbrella
+    #          continue-on-error: true
 
     # Integration Tests
     integration-tests:

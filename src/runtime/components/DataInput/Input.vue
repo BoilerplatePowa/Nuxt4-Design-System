@@ -32,7 +32,11 @@
                         :readonly="readonly"
                         :required="required"
                         :maxlength="maxlength"
-                        :aria-describedby="[ariaDescribedby, errorMessage ? `${inputId}-error` : undefined].filter(Boolean).join(' ') || undefined"
+                        :aria-describedby="
+                            [ariaDescribedby, errorMessage ? `${inputId}-error` : undefined]
+                                .filter(Boolean)
+                                .join(' ') || undefined
+                        "
                         :aria-invalid="meta.touched && !meta.valid"
                         @input="handleInput"
                         @change="handleChange"
@@ -325,8 +329,19 @@ const inputClasses = computed(() => {
 
     if (props.variant === 'ghost') {
         classes.push('input-ghost')
+    } else if (props.variant === 'bordered') {
+        classes.push('input-bordered')
     } else if (props.variant && colorVariants.has(props.variant)) {
         classes.push(`input-${props.variant}`)
+    }
+
+    // Add padding when icons are present
+    if (props.leftIcon) {
+        classes.push('pl-10')
+    }
+    // Only add right padding for non-password types (password uses Swap instead)
+    if (props.rightIcon && props.type !== 'password') {
+        classes.push('pr-10')
     }
 
     return classes.join(' ')

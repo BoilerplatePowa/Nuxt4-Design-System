@@ -22,6 +22,13 @@ export default defineConfig({
                 'dist/',
                 '.nuxt/',
                 'coverage/',
+                // Exclude generated Nuxt artifacts (both root and nested locations)
+                '**/.nuxt/**',
+                '**/.cache/nuxt/**',
+                'playground/.nuxt/**',
+                'playground/**',
+                // Exclude Vite/Nuxt virtual modules referenced by sourcemaps
+                'virtual:*',
                 '**/*.config.*',
                 '**/*.d.ts',
             ],
