@@ -180,11 +180,11 @@ const ariaDescribedby = computed(() => {
     const ids: string[] = []
 
     if (props.helpText && !hasError.value) {
-        ids.push(`${inputId}-help`)
+        ids.push(`${inputId.value}-help`)
     }
 
     if (hasError.value) {
-        ids.push(`${inputId}-error`)
+        ids.push(`${inputId.value}-error`)
     }
 
     if (props.ariaDescribedby) {
