@@ -133,7 +133,8 @@ const getItemKey = (item: MenuItem): string => {
     if (item.value !== undefined) return String(item.value)
     if (item.label) return item.label
     if (item.title) return item.title
-    return Math.random().toString()
+    // Fallback to stable string from content to avoid randomness
+    return JSON.stringify(item)
 }
 
 const getItemClasses = (item: MenuItem): string => {

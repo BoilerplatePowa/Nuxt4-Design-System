@@ -47,17 +47,13 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, useId } from 'vue'
 
-// Simple ID generator with better uniqueness
-let idCounter = 0
-const generateId = () => {
-    const timestamp = Date.now()
-    const random = Math.random().toString(36).substr(2, 9)
-    return `textarea-${timestamp}-${++idCounter}-${random}`
-}
+// SSR-safe id generation with optional override via props
+const uid = useId()
 
 interface Props {
+    id?: string
     label?: string
     placeholder?: string
     helpText?: string
@@ -83,6 +79,7 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
+    id: undefined,
     disabled: false,
     readonly: false,
     required: false,
@@ -102,7 +99,7 @@ const emit = defineEmits<{
     blur: [event: FocusEvent]
 }>()
 
-const textareaId = generateId()
+const textareaId = computed(() => props.id ?? `textarea-${uid}`)
 
 const wrapperClasses = computed(() => ['form-control', 'w-full'])
 
@@ -154,8 +151,8 @@ const characterCount = computed(() => {
 
 const ariaDescribedby = computed(() => {
     const ids = []
-    if (props.helpText) ids.push(`${textareaId}-help`)
-    if (props.errorMessage) ids.push(`${textareaId}-error`)
+    if (props.helpText) ids.push(`${textareaId.value}-help`)
+    if (props.errorMessage) ids.push(`${textareaId.value}-error`)
     if (props.ariaDescribedby) ids.push(props.ariaDescribedby)
     return ids.length > 0 ? ids.join(' ') : undefined
 })

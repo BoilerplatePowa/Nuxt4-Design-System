@@ -37,10 +37,10 @@
 </template>
 
 <script setup lang="ts">
-import { computed, watch } from 'vue'
+import { computed, watch, useId } from 'vue'
 
-// Generate unique ID for each drawer instance
-const generateDrawerId = () => `drawer-${Math.random().toString(36).substr(2, 9)}`
+// SSR-safe id
+const uid = useId()
 
 interface Props {
     position?: 'left' | 'right' | 'top' | 'bottom'
@@ -68,7 +68,7 @@ const emit = defineEmits<{
     close: []
 }>()
 
-const drawerId = props.id || generateDrawerId()
+const drawerId = props.id || `drawer-${uid}`
 
 // Watch internal state changes to emit events
 watch(isOpen, (newValue) => {

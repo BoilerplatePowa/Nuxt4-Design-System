@@ -43,13 +43,13 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, useId } from 'vue'
 
-// Simple ID generator
-let idCounter = 0
-const generateId = () => `range-${++idCounter}`
+// SSR-safe id generation with optional override via props
+const uid = useId()
 
 interface Props {
+    id?: string
     min?: number
     max?: number
     step?: number
@@ -66,6 +66,7 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
+    id: undefined,
     min: 0,
     max: 100,
     step: 1,
@@ -85,7 +86,7 @@ const emit = defineEmits<{
     change: [event: Event]
 }>()
 
-const rangeId = generateId()
+const rangeId = computed(() => props.id ?? `range-${uid}`)
 
 const rangeClasses = computed(() => {
     const baseClasses = ['range', 'w-full']
@@ -141,8 +142,8 @@ const ticks = computed(() => {
 
 const ariaDescribedby = computed(() => {
     const ids = []
-    if (props.helpText) ids.push(`${rangeId}-help`)
-    if (props.errorMessage) ids.push(`${rangeId}-error`)
+    if (props.helpText) ids.push(`${rangeId.value}-help`)
+    if (props.errorMessage) ids.push(`${rangeId.value}-error`)
     if (props.ariaDescribedby) ids.push(props.ariaDescribedby)
     return ids.length > 0 ? ids.join(' ') : undefined
 })

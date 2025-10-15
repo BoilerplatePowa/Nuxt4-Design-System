@@ -104,19 +104,15 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, onMounted, onUnmounted, watch } from 'vue'
+import { computed, ref, onMounted, onUnmounted, watch, useId } from 'vue'
 import { Field } from 'vee-validate'
 import Icon from '../Icons/Icon.vue'
 import Swap from '../Actions/Swap.vue'
 import type { InputType, Size, Variant, IconName, MaskType } from '../../shared/types.d'
 import IMask from 'imask'
 
-// Unique ID generator with timestamp and random component
-const generateId = () => {
-    const timestamp = Date.now()
-    const random = Math.random().toString(36).substring(2, 8)
-    return `input-${timestamp}-${random}`
-}
+// SSR-safe id generation with optional override via props
+const uid = useId()
 
 const model = defineModel<string>({ default: '' })
 
@@ -185,6 +181,8 @@ const maskConfigs = {
 }
 
 interface InputProps {
+    // Optional explicit id for the input (SSR-safe). If not provided, a stable id is generated.
+    id?: string
     // Field name for VeeValidate
     name?: string
     // Input label
@@ -224,6 +222,7 @@ interface InputProps {
 }
 
 const props = withDefaults(defineProps<InputProps>(), {
+    id: undefined,
     name: '',
     label: '',
     placeholder: '',
@@ -251,7 +250,7 @@ const emit = defineEmits<{
     blur: [event: FocusEvent]
 }>()
 
-const inputId = generateId()
+const inputId = computed(() => props.id ?? `input-${uid}`)
 
 // Initialize IMask
 const initMask = (element: HTMLInputElement) => {
@@ -353,7 +352,7 @@ const characterCount = computed(() => {
 
 const ariaDescribedby = computed(() => {
     const ids = []
-    if (props.helpText) ids.push(`${inputId}-help`)
+    if (props.helpText) ids.push(`${inputId.value}-help`)
     if (props.ariaDescribedby) ids.push(props.ariaDescribedby)
     return ids.length > 0 ? ids.join(' ') : undefined
 })

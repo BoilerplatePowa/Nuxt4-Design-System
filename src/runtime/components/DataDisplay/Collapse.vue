@@ -19,10 +19,10 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, useId } from 'vue'
 
-// Generate unique ID for each collapse instance
-const generateCollapseId = () => `collapse-${Math.random().toString(36).substr(2, 9)}`
+// SSR-safe id
+const uid = useId()
 
 interface Props {
     title?: string
@@ -46,7 +46,7 @@ const emit = defineEmits<{
     toggle: [isOpen: boolean]
 }>()
 
-const collapseId = props.id || generateCollapseId()
+const collapseId = props.id || `collapse-${uid}`
 
 const collapseClasses = computed(() => {
     const baseClasses = ['collapse']

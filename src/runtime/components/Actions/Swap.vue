@@ -21,7 +21,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, useId } from 'vue'
 
 interface Props {
     variant?: 'rotate' | 'flip' | 'indeterminate'
@@ -46,8 +46,9 @@ const props = withDefaults(defineProps<Props>(), {
 // Using defineModel with proper typing and default value - renamed to isOn for clarity
 const isOn = defineModel<boolean>({ default: false })
 
-// Generate unique ID if not provided
-const inputId = computed(() => props.id || `swap-${Math.random().toString(36).slice(2, 11)}`)
+// SSR-safe ID if not provided
+const uid = useId()
+const inputId = computed(() => props.id || `swap-${uid}`)
 
 // Compute swap classes
 const swapClasses = computed(() => {

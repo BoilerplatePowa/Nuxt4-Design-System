@@ -66,13 +66,12 @@
 </template>
 
 <script setup lang="ts">
-import { computed, nextTick, ref, watch, onUnmounted } from 'vue'
+import { computed, nextTick, ref, watch, onUnmounted, useId } from 'vue'
 import Button from './Button.vue'
 import Icon from '../Icons/Icon.vue'
 
-// Simple ID generator for compatibility
-let idCounter = 0
-const generateId = () => `modal-${++idCounter}`
+// SSR-safe ids
+const uid = useId()
 
 interface Props {
     title?: string
@@ -118,8 +117,8 @@ const closeButtonRef = ref<HTMLElement>()
 const firstFocusableElement = ref<HTMLElement>()
 const lastFocusableElement = ref<HTMLElement>()
 
-const titleId = generateId()
-const descriptionId = generateId()
+const titleId = `modal-${uid}-title`
+const descriptionId = `modal-${uid}-desc`
 let previousActiveElement: Element | null = null
 
 // Check if we can safely use Teleport (for Storybook compatibility)

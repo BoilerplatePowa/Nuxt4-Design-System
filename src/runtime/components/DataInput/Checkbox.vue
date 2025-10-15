@@ -57,15 +57,15 @@
 </template>
 
 <script setup lang="ts">
-import { computed, nextTick, watch } from 'vue'
+import { computed, nextTick, watch, useId } from 'vue'
 import { useField } from 'vee-validate'
 import type { Size, Variant } from '../../shared/types.d'
 
-// Simple ID generator with better uniqueness
-let idCounter = 0
-const generateId = () => `checkbox-${Date.now()}-${++idCounter}`
+// SSR-safe id generation with optional override via props
+const uid = useId()
 
 interface Props {
+    id?: string
     name?: string // Field name for VeeValidate
     label?: string
     helpText?: string
@@ -82,6 +82,7 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
+    id: undefined,
     disabled: false,
     required: false,
     indeterminate: false,
@@ -100,7 +101,7 @@ const emit = defineEmits<{
     blur: [event: Event]
 }>()
 
-const inputId = generateId()
+const inputId = computed(() => props.id ?? `checkbox-${uid}`)
 
 // VeeValidate integration
 const {
@@ -228,7 +229,7 @@ watch(
     (newValue: boolean | undefined) => {
         if (newValue !== undefined) {
             nextTick(() => {
-                const input = document.getElementById(inputId) as HTMLInputElement
+                const input = document.getElementById(inputId.value) as HTMLInputElement
                 if (input) {
                     input.indeterminate = newValue
                 }

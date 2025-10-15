@@ -49,13 +49,13 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, useId } from 'vue'
 
-// Simple ID generator
-let idCounter = 0
-const generateId = () => `radio-${++idCounter}`
+// SSR-safe id generation with optional override via props
+const uid = useId()
 
 interface Props {
+    id?: string
     value: string | number | boolean
     name: string
     label?: string
@@ -69,6 +69,7 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
+    id: undefined,
     disabled: false,
     required: false,
     size: 'md',
@@ -82,7 +83,7 @@ const emit = defineEmits<{
     change: [event: Event]
 }>()
 
-const inputId = generateId()
+const inputId = computed(() => props.id ?? `radio-${uid}`)
 
 const isChecked = computed(() => model.value === props.value)
 
@@ -128,8 +129,8 @@ const radioClasses = computed(() => {
 
 const ariaDescribedby = computed(() => {
     const ids = []
-    if (props.helpText) ids.push(`${inputId}-help`)
-    if (props.errorMessage) ids.push(`${inputId}-error`)
+    if (props.helpText) ids.push(`${inputId.value}-help`)
+    if (props.errorMessage) ids.push(`${inputId.value}-error`)
     if (props.ariaDescribedby) ids.push(props.ariaDescribedby)
     return ids.length > 0 ? ids.join(' ') : undefined
 })

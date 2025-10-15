@@ -40,10 +40,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, watch, nextTick } from 'vue'
+import { ref, computed, watch, nextTick, useId } from 'vue'
 
-// Generate unique ID for each accordion instance
-const generateAccordionId = () => `accordion-${Math.random().toString(36).substr(2, 9)}`
+// SSR-safe id
+const uid = useId()
 
 interface AccordionItem {
     title: string
@@ -78,7 +78,7 @@ const emit = defineEmits<{
     'item-toggle': [item: AccordionItem, index: number, isOpen: boolean]
 }>()
 
-const accordionId = props.id || generateAccordionId()
+const accordionId = props.id || `accordion-${uid}`
 const openItems = ref(new Set<number>())
 
 // Helper functions - define these before using them

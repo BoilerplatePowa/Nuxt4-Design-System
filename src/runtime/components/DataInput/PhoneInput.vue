@@ -111,7 +111,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, onMounted, watch } from 'vue'
+import { computed, ref, onMounted, watch, useId } from 'vue'
 import { Field } from 'vee-validate'
 import type { CountryCode } from 'libphonenumber-js'
 import {
@@ -127,9 +127,8 @@ import enLocale from 'i18n-iso-countries/langs/en.json'
 // Register English locale for country names
 countries.registerLocale(enLocale)
 
-// Simple ID generator
-let idCounter = 0
-const generateId = () => `phone-input-${++idCounter}`
+// SSR-safe id generation with optional override via props
+const uid = useId()
 
 const model = defineModel<string>({ default: '' })
 
@@ -187,6 +186,7 @@ const getCountryFlag = (countryCode: string): string => {
 }
 
 interface PhoneInputProps {
+    id?: string
     // Field name for VeeValidate
     name?: string
     // Input label
@@ -224,6 +224,7 @@ interface PhoneInputProps {
 }
 
 const props = withDefaults(defineProps<PhoneInputProps>(), {
+    id: undefined,
     name: '',
     label: '',
     placeholder: 'Enter phone number',
@@ -252,7 +253,7 @@ const emit = defineEmits<{
     'validation-change': [isValid: boolean, phoneNumber?: string]
 }>()
 
-const inputId = generateId()
+const inputId = computed(() => props.id ?? `phone-input-${uid}`)
 
 // Initialize with default country
 onMounted(() => {
@@ -307,7 +308,7 @@ const characterCount = computed(() => {
 
 const ariaDescribedby = computed(() => {
     const ids = []
-    if (props.helpText) ids.push(`${inputId}-help`)
+    if (props.helpText) ids.push(`${inputId.value}-help`)
     if (props.ariaDescribedby) ids.push(props.ariaDescribedby)
     return ids.length > 0 ? ids.join(' ') : undefined
 })

@@ -83,11 +83,10 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, onMounted, nextTick } from 'vue'
+import { computed, ref, onMounted, nextTick, useId } from 'vue'
 
-// Simple ID generator
-let idCounter = 0
-const generateId = () => `select-${++idCounter}`
+// SSR-safe id generation with optional override via props
+const uid = useId()
 
 interface Option {
     label: string
@@ -103,6 +102,7 @@ interface OptionGroup {
 }
 
 interface Props {
+    id?: string
     options?: Option[]
     label?: string
     placeholder?: string
@@ -130,6 +130,7 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
+    id: undefined,
     disabled: false,
     required: false,
     multiple: false,
@@ -151,7 +152,7 @@ const emit = defineEmits<{
     validate: [isValid: boolean]
 }>()
 
-const selectId = generateId()
+const selectId = computed(() => props.id ?? `select-${uid}`)
 const selectRef = ref<HTMLSelectElement>()
 
 // Computed properties
@@ -239,8 +240,8 @@ const selectClasses = computed(() => {
 
 const computedAriaDescribedby = computed(() => {
     const ids = []
-    if (props.helpText) ids.push(`${selectId}-help`)
-    if (props.errorMessage) ids.push(`${selectId}-error`)
+    if (props.helpText) ids.push(`${selectId.value}-help`)
+    if (props.errorMessage) ids.push(`${selectId.value}-error`)
     if (props.ariaDescribedby) ids.push(props.ariaDescribedby)
     return ids.length > 0 ? ids.join(' ') : undefined
 })

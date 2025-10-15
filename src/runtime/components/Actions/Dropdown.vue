@@ -69,7 +69,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, nextTick } from 'vue'
+import { ref, computed, nextTick, useId } from 'vue'
 import { generateDropdownClasses } from '../../shared/utils/classGenerator'
 import type {
     dropdownPlacementMap,
@@ -77,9 +77,8 @@ import type {
 } from '../../shared/componentsMaps/actions/dropdownMap'
 import Button from './Button.vue'
 
-// Simple ID generator
-let idCounter = 0
-const generateId = () => `dropdown-${++idCounter}`
+// SSR-safe id generation
+const uid = useId()
 
 interface DropdownItem {
     label: string
@@ -148,7 +147,7 @@ const emit = defineEmits<{
 
 const isOpen = ref(false)
 const focusedIndex = ref(-1)
-const menuId = generateId()
+const menuId = `dropdown-${uid}`
 
 // Component refs
 const dropdownRef = ref<HTMLElement>()

@@ -120,13 +120,13 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, useId } from 'vue'
 
-// Simple ID generator
-let idCounter = 0
-const generateId = () => `file-input-${++idCounter}`
+// SSR-safe id generation with optional override via props
+const uid = useId()
 
 interface Props {
+    id?: string
     label?: string
     helpText?: string
     errorMessage?: string
@@ -154,6 +154,7 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
+    id: undefined,
     multiple: false,
     disabled: false,
     required: false,
@@ -172,7 +173,7 @@ const emit = defineEmits<{
     error: [message: string]
 }>()
 
-const fileInputId = generateId()
+const fileInputId = computed(() => props.id ?? `file-input-${uid}`)
 const fileInputRef = ref<HTMLInputElement>()
 const selectedFiles = ref<File[]>([])
 const isDragOver = ref(false)
@@ -245,8 +246,8 @@ const dropZoneClasses = computed(() => {
 
 const ariaDescribedby = computed(() => {
     const ids = []
-    if (props.helpText) ids.push(`${fileInputId}-help`)
-    if (props.errorMessage) ids.push(`${fileInputId}-error`)
+    if (props.helpText) ids.push(`${fileInputId.value}-help`)
+    if (props.errorMessage) ids.push(`${fileInputId.value}-error`)
     if (props.ariaDescribedby) ids.push(props.ariaDescribedby)
     return ids.length > 0 ? ids.join(' ') : undefined
 })

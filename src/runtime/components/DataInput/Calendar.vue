@@ -95,7 +95,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, watch, nextTick, onMounted, onUnmounted } from 'vue'
+import { computed, ref, watch, nextTick, onMounted, onUnmounted, useId } from 'vue'
 import { CalendarIcon } from 'lucide-vue-next'
 import CalendarContent from './CalendarContent.vue'
 
@@ -156,7 +156,9 @@ const selectedDate = ref<Date | Date[] | null>(null)
 const hasError = computed(() => !!props.errorMessage)
 
 // Computed
-const popoverId = computed(() => `calendar-popover-${Math.random().toString(36).substr(2, 9)}`)
+// SSR-safe stable popover id
+const uid = useId()
+const popoverId = computed(() => `calendar-popover-${uid}`)
 
 const containerClasses = computed(() => {
     const baseClasses = ['calendar-container', 'relative']
