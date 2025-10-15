@@ -127,7 +127,7 @@ import enLocale from 'i18n-iso-countries/langs/en.json'
 // Register English locale for country names
 countries.registerLocale(enLocale)
 
-// SSR-safe id generation with optional override via props
+// SSR-safe deterministic id generation with optional override via props
 const uid = useId()
 
 const model = defineModel<string>({ default: '' })

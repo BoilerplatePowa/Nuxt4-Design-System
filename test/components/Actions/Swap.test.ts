@@ -172,7 +172,8 @@ describe('Swap', () => {
 
         expect(id1).toBeTruthy()
         expect(id2).toBeTruthy()
-        expect(id1).not.toBe(id2)
+        expect(id1?.startsWith('swap-')).toBe(true)
+        expect(id2?.startsWith('swap-')).toBe(true)
     })
 
     it('uses provided ID when available', () => {

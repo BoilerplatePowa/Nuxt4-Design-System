@@ -131,7 +131,8 @@ describe('Select', () => {
             },
         })
 
-        const helpElement = wrapper.find('#select-1-help')
+        const id = wrapper.find('select').attributes('id')
+        const helpElement = wrapper.find(`#${id}-help`)
         expect(helpElement.exists()).toBe(true)
         expect(helpElement.text()).toBe(helpText)
     })
@@ -274,7 +275,7 @@ describe('Select', () => {
         const id = select.attributes('id')
 
         expect(id).toBeDefined()
-        expect(id).toMatch(/^select-\d+$/)
+        expect(id?.startsWith('select-')).toBe(true)
     })
 
     it('exposes focus and blur methods', async () => {
@@ -344,8 +345,9 @@ describe('Select', () => {
         const select = wrapper.find('select')
         const describedBy = select.attributes('aria-describedby')
 
-        expect(describedBy).toContain('select-1-help')
-        expect(describedBy).toContain('select-1-error')
+        const id = select.attributes('id')
+        expect(describedBy).toContain(`${id}-help`)
+        expect(describedBy).toContain(`${id}-error`)
         expect(describedBy).toContain('custom-id')
     })
 

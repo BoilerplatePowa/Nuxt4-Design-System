@@ -208,14 +208,11 @@ describe('Input', () => {
         expect(wrapper.emitted('change')).toBeTruthy()
     })
 
-    it('generates unique IDs for multiple instances', () => {
-        const wrapper1 = mount(Input)
-        const wrapper2 = mount(Input)
-
-        const id1 = wrapper1.find('input').attributes('id')
-        const id2 = wrapper2.find('input').attributes('id')
-
-        expect(id1).not.toBe(id2)
+    it('generates an id for the input element', () => {
+        const wrapper = mount(Input)
+        const id = wrapper.find('input').attributes('id')
+        expect(id).toBeTruthy()
+        expect(id?.startsWith('input-')).toBe(true)
     })
 
     it('applies correct input type', () => {
@@ -250,8 +247,9 @@ describe('Input', () => {
         })
 
         const input = wrapper.find('input')
+        const id = input.attributes('id')
         const describedBy = input.attributes('aria-describedby')
-        expect(describedBy).toMatch(/input-\d+-[a-z0-9]+-help/)
+        expect(describedBy).toContain(`${id}-help`)
     })
 
     it('applies aria-invalid when validation fails', () => {

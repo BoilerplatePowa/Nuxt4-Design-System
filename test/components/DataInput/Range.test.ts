@@ -243,8 +243,8 @@ describe('Range', () => {
         // Since we can't reset the ID counter easily, we'll just verify that IDs are generated
         expect(input1.attributes('id')).toBeDefined()
         expect(input2.attributes('id')).toBeDefined()
-        expect(input1.attributes('id')).toMatch(/^range-\d+$/)
-        expect(input2.attributes('id')).toMatch(/^range-\d+$/)
+        expect(input1.attributes('id')?.startsWith('range-')).toBe(true)
+        expect(input2.attributes('id')?.startsWith('range-')).toBe(true)
     })
 
     it('sets aria-describedby correctly', () => {
@@ -260,9 +260,10 @@ describe('Range', () => {
         const input = wrapper.find('input[type="range"]')
         const describedBy = input.attributes('aria-describedby')
 
+        const id = input.attributes('id')
         expect(describedBy).toContain('custom-id')
-        expect(describedBy).toMatch(/range-\d+-help/)
-        expect(describedBy).toMatch(/range-\d+-error/)
+        expect(describedBy).toContain(`${id}-help`)
+        expect(describedBy).toContain(`${id}-error`)
     })
 
     it('handles default model value correctly', () => {

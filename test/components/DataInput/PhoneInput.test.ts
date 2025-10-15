@@ -70,7 +70,8 @@ describe('PhoneInput', () => {
         })
 
         // Should show example number
-        const exampleElement = wrapper.find(`#phone-input-1-example`)
+        const id = wrapper.find('input[type="tel"]').attributes('id')
+        const exampleElement = wrapper.find(`#${id}-example`)
         expect(exampleElement.exists()).toBe(true)
     })
 

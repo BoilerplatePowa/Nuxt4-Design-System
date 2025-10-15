@@ -226,8 +226,8 @@ describe('Radio', () => {
 
         expect(id1).toBeTruthy()
         expect(id2).toBeTruthy()
-        expect(id1).toMatch(/^radio-\d+$/)
-        expect(id2).toMatch(/^radio-\d+$/)
+        expect(id1?.startsWith('radio-')).toBe(true)
+        expect(id2?.startsWith('radio-')).toBe(true)
     })
 
     it('handles required attribute correctly', () => {

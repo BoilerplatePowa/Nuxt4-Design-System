@@ -109,7 +109,7 @@ const {
     errorMessage,
     handleBlur,
     handleChange: validateChange,
-} = useField(() => props.name || inputId, undefined)
+} = useField(() => props.name || inputId.value, undefined)
 
 // Computed value that handles both v-model and VeeValidate
 const checkboxValue = computed({
