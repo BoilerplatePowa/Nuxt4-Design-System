@@ -161,6 +161,8 @@ import {
     Grid,
     Layout,
     Image,
+    LogOut,
+    Library,
 } from 'lucide-vue-next'
 
 // Icon mapping object with useful icons
@@ -329,6 +331,8 @@ export const iconMap = {
     layout: Layout,
     image: Image,
     grid: Grid,
+    'log-out': LogOut,
+    library: Library,
 } as const
 
 export const sizeMap = {

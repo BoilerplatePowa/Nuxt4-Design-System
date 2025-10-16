@@ -11,17 +11,24 @@
             :btn-style="triggerStyle"
             :size="size"
             :disabled="disabled"
-            :icon-right="isOpen ? 'chevron-up' : 'chevron-down'"
+            :icon-left="triggerIconLeftFinal"
+            :icon-right="triggerIconRightFinal"
             :aria-haspopup="true"
             :aria-expanded="isOpen"
             :aria-controls="menuId"
             @click="toggle"
             @keydown="handleTriggerKeydown"
         >
+            <template v-if="$slots['icon-left']" #icon-left>
+                <slot name="trigger-icon-left" />
+            </template>
             <template #default>
                 <slot name="trigger">
-                    <span>{{ triggerText || 'Dropdown' }}</span> {{ isOpen }}
+                    <span>{{ triggerText || 'Dropdown' }}</span>
                 </slot>
+            </template>
+            <template v-if="$slots['icon-right']" #icon-right>
+                <slot name="trigger-icon-right" />
             </template>
         </Button>
 
@@ -36,9 +43,12 @@
             @keydown="handleMenuKeydown"
         >
             <slot>
-                <li v-for="(item, index) in items" :key="getItemKey(item)" role="none">
+                <li v-for="(item, index) in items" :key="getItemKey(item) || index" role="none">
+                    <template v-if="isSeparator(item)">
+                        <hr class="my-1" />
+                    </template>
                     <a
-                        v-if="getItemHref(item)"
+                        v-else-if="getItemHref(item)"
                         :ref="(el) => setItemRef(el, index)"
                         :href="getItemHref(item)"
                         :class="getItemClasses(item)"
@@ -54,6 +64,7 @@
                         v-else
                         :ref="(el) => setItemRef(el, index)"
                         :color="getItemColor(item)"
+                        :btn-style="getItemStyle(item)"
                         :size="size"
                         :disabled="getItemDisabled(item)"
                         :class="getItemClasses(item)"
@@ -76,6 +87,7 @@ import type {
     dropdownModifierMap,
 } from '../../shared/componentsMaps/actions/dropdownMap'
 import Button from './Button.vue'
+import type { IconName, BtnColor, BtnStyle, BtnSize } from '../../shared/types.d'
 
 // SSR-safe id generation
 const uid = useId()
@@ -87,6 +99,10 @@ interface DropdownItem {
     disabled?: boolean
     divider?: boolean
     active?: boolean
+    // Optional action executed or emitted when item is clicked
+    action?: string | ((item: DropdownItem, event: Event) => void)
+    // Optional type to render a separator line
+    type?: 'separator'
 }
 
 interface Props {
@@ -97,32 +113,22 @@ interface Props {
     hover?: boolean
     forceOpen?: boolean
     disabled?: boolean
-    size?: 'xs' | 'sm' | 'md' | 'lg'
+    size?: BtnSize
     closeOnSelect?: boolean
     autoFocus?: boolean
     // Additional props for dropdownMap integration
     placements?: Array<keyof typeof dropdownPlacementMap>
     modifiers?: Array<keyof typeof dropdownModifierMap>
     // Button component props
-    triggerColor?:
-        | 'primary'
-        | 'secondary'
-        | 'accent'
-        | 'neutral'
-        | 'info'
-        | 'success'
-        | 'warning'
-        | 'error'
-    triggerStyle?: 'outline' | 'ghost' | 'link' | 'dash' | 'soft'
-    itemColor?:
-        | 'primary'
-        | 'secondary'
-        | 'accent'
-        | 'neutral'
-        | 'info'
-        | 'success'
-        | 'warning'
-        | 'error'
+    triggerColor?: BtnColor
+    triggerStyle?: BtnStyle
+    itemColor?: BtnColor
+    itemStyle?: BtnStyle
+    // Trigger icon customization
+    triggerIconLeft?: IconName | null
+    triggerIconRight?: IconName | null
+    // When true (default), shows chevron toggle if right icon not provided/overridden by slot
+    toggleChevron?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -135,15 +141,33 @@ const props = withDefaults(defineProps<Props>(), {
     size: 'md',
     closeOnSelect: true,
     autoFocus: true,
-    triggerColor: 'neutral',
+    triggerColor: 'primary',
+    toggleChevron: true,
+    itemStyle: 'ghost',
 })
 
 const emit = defineEmits<{
     'item-click': [item: DropdownItem, event: Event]
+    'item-action': [item: DropdownItem, action: string | undefined, event: Event]
     open: []
     close: []
     'update:open': [value: boolean]
 }>()
+// Trigger icon resolution (props or slots or default chevrons)
+const triggerIconLeftFinal = computed(() => {
+    // If a left icon slot is provided, Button will render it; return undefined
+    return props.triggerIconLeft === null ? undefined : props.triggerIconLeft
+})
+
+const triggerIconRightFinal = computed(() => {
+
+    // If a right icon slot is provided, Button will render it; return undefined
+    if (props.triggerIconRight) {
+        return props.triggerIconRight
+    }
+    return props.toggleChevron ? (isOpen.value ? 'chevron-up' : 'chevron-down') : undefined
+})
+
 
 const isOpen = ref(false)
 const focusedIndex = ref(-1)
@@ -189,11 +213,11 @@ const dropdownClasses = computed(() => {
     // Build modifiers array from props
     const modifiers: Array<keyof typeof dropdownModifierMap> = []
 
-    if (props.hover) {
+    if (props.hover && !props.disabled) {
         modifiers.push('hover')
     }
 
-    if (props.forceOpen || isOpen.value) {
+    if ((props.forceOpen || isOpen.value) && !props.disabled) {
         modifiers.push('open')
     }
 
@@ -216,23 +240,33 @@ const getItemColor = (item: DropdownItem | string) => {
     return props.itemColor || 'neutral'
 }
 
+// Helper to get Button style for items (defaults to ghost)
+const getItemStyle = (_item: DropdownItem | string) => {
+    return props.itemStyle || 'ghost'
+}
+
 const menuClasses = computed(() => {
     const classes = [
         'dropdown-content', // This comes from dropdownPartMap.content
         'menu',
         'bg-base-100',
         'rounded-box',
-        'z-[1]',
+        'z-1',
         'w-52',
         'p-2',
-        'shadow',
+        'shadow-sm',
     ]
 
     return classes.join(' ')
 })
 
 // Navigation helpers
-const getEnabledItems = () => props.items.filter((item) => !item.disabled)
+const isSeparator = (item: DropdownItem | string): boolean => {
+    if (typeof item === 'string') return false
+    return item.type === 'separator' || item.divider === true
+}
+
+const getEnabledItems = () => props.items.filter((item) => !isSeparator(item) && !item.disabled)
 
 const focusItem = (index: number) => {
     const enabledItems = getEnabledItems()
@@ -290,6 +324,8 @@ const close = () => {
 }
 
 const toggle = () => {
+    console.log('toggle')
+
     if (props.disabled) return
 
     console.log('toggle')
@@ -338,6 +374,10 @@ const handleGlobalKeydown = (event: KeyboardEvent) => {
 }
 
 const handleTriggerKeydown = (event: KeyboardEvent) => {
+    if (props.disabled) {
+        event.preventDefault()
+        return
+    }
     switch (event.key) {
         case 'Enter':
         case ' ':
@@ -381,12 +421,30 @@ const handleMenuClick = (event: Event) => {
 }
 
 const handleItemClick = (item: DropdownItem, event: Event) => {
+    if (isSeparator(item)) {
+        event.preventDefault()
+        return
+    }
     if (item.disabled) {
         event.preventDefault()
         return
     }
 
     emit('item-click', item, event)
+
+    // Execute item action if provided
+    if (typeof item.action === 'function') {
+        try {
+            item.action(item, event)
+        } catch (_err) {
+            // swallow errors from user-defined action to avoid breaking UI
+        }
+    } else if (typeof item.action === 'string') {
+        emit('item-action', item, item.action, event)
+        ;(emit as any)(item.action, item, event)
+    } else {
+        emit('item-action', item, undefined, event)
+    }
 
     if (props.closeOnSelect) {
         close()

@@ -83,6 +83,23 @@ const meta: Meta<typeof Dropdown> = {
             ],
             description: 'Menu item button color',
         },
+        itemStyle: {
+            control: { type: 'select' },
+            options: ['outline', 'ghost', 'link', 'dash', 'soft'],
+            description: 'Menu item button style (default ghost)'
+        },
+        triggerIconLeft: {
+            control: 'text',
+            description: 'Left icon name for trigger (overridden by `#trigger-icon-left` slot)'
+        },
+        triggerIconRight: {
+            control: 'text',
+            description: 'Right icon name for trigger (overridden by `#trigger-icon-right` slot)'
+        },
+        toggleChevron: {
+            control: 'boolean',
+            description: 'Show chevron toggle on the right when no custom right icon/slot is provided'
+        },
         closeOnSelect: {
             control: 'boolean',
             description: 'Close dropdown when item is selected',
@@ -94,6 +111,10 @@ const meta: Meta<typeof Dropdown> = {
         onItemClick: {
             action: 'item-click',
             description: 'Item click event',
+        },
+        onItemAction: {
+          action: 'item-action',
+          description: 'Item action event (payload: item, action, event)'
         },
         onOpen: {
             action: 'open',
@@ -141,10 +162,10 @@ export const WithItems: Story = {
         triggerColor: 'primary',
         itemColor: 'neutral',
         items: [
-            { label: 'Edit', value: 'edit' },
-            { label: 'Delete', value: 'delete' },
+            { label: 'Edit', value: 'edit', action: 'edit' },
+            { label: 'Delete', value: 'delete', action: 'delete' },
             { label: 'Archive', value: 'archive', disabled: true },
-            { label: 'Share', value: 'share' },
+            { label: 'Share', value: 'share', action: (item: any) => alert(`Shared: ${item.label}`) },
         ],
     },
     render: (args) => ({
@@ -152,12 +173,19 @@ export const WithItems: Story = {
         setup() {
             const handleItemClick = (item: { label: string; value: string }, _event: Event) => {
                 console.log('Item clicked:', item)
-                alert(`Clicked: ${item.label}`)
             }
-            return { args, handleItemClick }
+            const handleItemAction = (item: any, action?: string) => {
+                console.log('Item action:', action, item)
+                if (action === 'delete') alert('Delete chosen')
+                if (action === 'edit') alert('Edit chosen')
+            }
+            const handleEdit = (item: any) => {
+                console.log('Dynamic event @edit caught:', item)
+            }
+            return { args, handleItemClick, handleItemAction, handleEdit }
         },
         template: `
-      <Dropdown v-bind="args" @item-click="handleItemClick" />
+      <Dropdown v-bind="args" @item-click="handleItemClick" @item-action="handleItemAction" @edit="handleEdit" />
     `,
     }),
 }
@@ -179,17 +207,20 @@ export const ButtonIntegration: Story = {
           <div>
             <h4 class="font-medium mb-3">Trigger Button Styles</h4>
             <div class="space-y-2">
-              <Dropdown trigger-color="primary" trigger-style="outline" trigger-text="Primary Outline">
+              <Dropdown trigger-color="primary" trigger-style="outline" trigger-text="Primary Outline" trigger-icon-left="menu">
                 <li><a>Menu Item 1</a></li>
                 <li><a>Menu Item 2</a></li>
               </Dropdown>
               
-              <Dropdown trigger-color="secondary" trigger-style="ghost" trigger-text="Secondary Ghost">
+              <Dropdown trigger-color="secondary" trigger-style="ghost" trigger-text="Secondary Ghost" :toggle-chevron="false">
+                <template #trigger-icon-right>
+                  <span class="badge badge-sm">New</span>
+                </template>
                 <li><a>Menu Item 1</a></li>
                 <li><a>Menu Item 2</a></li>
               </Dropdown>
               
-              <Dropdown trigger-color="accent" trigger-style="link" trigger-text="Accent Link">
+              <Dropdown trigger-color="accent" trigger-style="link" trigger-text="Accent Link" trigger-icon-right="settings">
                 <li><a>Menu Item 1</a></li>
                 <li><a>Menu Item 2</a></li>
               </Dropdown>
@@ -334,6 +365,58 @@ export const AllSizes: Story = {
     }),
 }
 
+export const TriggerIcons: Story = {
+  render: () => ({
+    components: { Dropdown },
+    template: `
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="space-y-3">
+          <h4 class="font-medium">Trigger icons via props</h4>
+          <Dropdown trigger-text="Left icon" trigger-icon-left="menu">
+            <li><a>Item 1</a></li>
+            <li><a>Item 2</a></li>
+          </Dropdown>
+          <Dropdown trigger-text="Right icon" trigger-icon-right="settings">
+            <li><a>Item 1</a></li>
+            <li><a>Item 2</a></li>
+          </Dropdown>
+          <Dropdown trigger-text="Both icons" trigger-icon-left="user" trigger-icon-right="chevron-right">
+            <li><a>Item 1</a></li>
+            <li><a>Item 2</a></li>
+          </Dropdown>
+        </div>
+        <div class="space-y-3">
+          <h4 class="font-medium">Trigger icons via slots</h4>
+          <Dropdown trigger-text="Custom slots" :toggle-chevron="false">
+            <template #trigger-icon-left>
+              <span aria-hidden="true">⭐</span>
+            </template>
+            <template #trigger-icon-right>
+              <span class="badge badge-xs" aria-hidden="true">!</span>
+            </template>
+            <li><a>Item 1</a></li>
+            <li><a>Item 2</a></li>
+          </Dropdown>
+        </div>
+      </div>
+    `,
+  }),
+}
+
+export const ItemIcons: Story = {
+  render: () => ({
+    components: { Dropdown },
+    template: `
+      <Dropdown trigger-text="Items with icons">
+        <li><a><span class="me-2" aria-hidden="true">🔍</span>Search</a></li>
+        <li><a><span class="me-2" aria-hidden="true">⚙️</span>Settings</a></li>
+        <li><a><span class="me-2" aria-hidden="true">📧</span>Messages</a></li>
+        <li><a class="text-error"><span class="me-2" aria-hidden="true">🚪</span>Logout</a></li>
+      </Dropdown>
+    `,
+  }),
+}
+
 export const AllPositions: Story = {
     render: () => ({
         components: { Dropdown },
@@ -381,7 +464,7 @@ export const CustomExamples: Story = {
         template: `
       <div class="space-y-4">
         <!-- With Icons -->
-        <Dropdown>
+        <Dropdown trigger-icon-left="user">
           <template #trigger>
             <button>Menu ▼</button>
           </template>
@@ -393,7 +476,7 @@ export const CustomExamples: Story = {
         </Dropdown>
         
         <!-- Custom Trigger -->
-        <Dropdown>
+        <Dropdown :toggle-chevron="false">
           <template #trigger>
             <button>
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
