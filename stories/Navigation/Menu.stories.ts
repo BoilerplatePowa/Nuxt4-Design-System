@@ -12,6 +12,10 @@ const meta: Meta<typeof Menu> = {
             control: { type: 'select' },
             options: ['default', 'compact', 'horizontal'],
         },
+        compact: {
+            control: { type: 'boolean' },
+            description: 'Compact spacing for items',
+        },
         size: {
             control: { type: 'select' },
             options: ['xs', 'sm', 'md', 'lg'],
@@ -19,6 +23,7 @@ const meta: Meta<typeof Menu> = {
         rounded: {
             control: { type: 'boolean' },
         },
+        onItemClick: { action: 'item-click' },
     },
 }
 
@@ -26,21 +31,20 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 const sampleMenuItems = [
-    { label: 'Dashboard', href: '/dashboard', icon: '📊' },
-    { label: 'Users', href: '/users', icon: '👥', badge: '12' },
-    { label: 'Products', href: '/products', icon: '📦' },
-    { divider: true },
+    { label: 'Dashboard', href: '/dashboard', icon: 'search' },
+    { label: 'Users', href: '/users', icon: 'users', badge: '12' },
+    { label: 'Products', href: '/products', icon: 'library' },
     { title: 'Settings' },
-    { label: 'Profile', href: '/profile', icon: '👤' },
-    { label: 'Account', href: '/account', icon: '⚙️' },
-    { label: 'Logout', href: '/logout', icon: '🚪' },
+    { label: 'Profile', href: '/profile', icon: 'user' },
+    { label: 'Account', href: '/account', icon: 'settings' },
+    { label: 'Logout', href: '/logout', icon: 'log-out' },
 ]
 
 const hierarchicalMenu = [
-    { label: 'Home', href: '/', icon: '🏠' },
+    { label: 'Home', href: '/', icon: 'home' },
     {
         label: 'Products',
-        icon: '📦',
+        icon: 'shopping-cart',
         children: [
             { label: 'Electronics', href: '/products/electronics' },
             { label: 'Clothing', href: '/products/clothing' },
@@ -49,27 +53,35 @@ const hierarchicalMenu = [
     },
     {
         label: 'Services',
-        icon: '🛠️',
+        icon: 'settings-2',
         children: [
             { label: 'Consulting', href: '/services/consulting' },
             { label: 'Support', href: '/services/support' },
             { label: 'Training', href: '/services/training' },
         ],
     },
-    { label: 'About', href: '/about', icon: 'ℹ️' },
-    { label: 'Contact', href: '/contact', icon: '📞' },
+    { label: 'About', href: '/about', icon: 'info' },
+    { label: 'Contact', href: '/contact', icon: 'phone' },
 ]
 
 export const Default: Story = {
     args: {
         items: sampleMenuItems,
     },
+    render: (args) => ({
+        components: { Menu },
+        setup() {
+            return { args }
+        },
+        template: '<Menu v-bind="args" @item-click="args.onItemClick" />',
+    }),
 }
 
 export const Compact: Story = {
     args: {
         items: sampleMenuItems,
         variant: 'compact',
+        compact: true,
     },
 }
 
@@ -83,17 +95,18 @@ export const Horizontal: Story = {
             { label: 'Contact', href: '/contact' },
         ],
         variant: 'horizontal',
+        compact: true,
     },
 }
 
 export const WithIcons: Story = {
     args: {
         items: [
-            { label: 'Dashboard', href: '/dashboard', icon: '📊' },
-            { label: 'Analytics', href: '/analytics', icon: '📈' },
-            { label: 'Reports', href: '/reports', icon: '📄' },
-            { label: 'Settings', href: '/settings', icon: '⚙️' },
-            { label: 'Help', href: '/help', icon: '❓' },
+            { label: 'Dashboard', href: '/dashboard', icon: 'bar-chart' },
+            { label: 'Analytics', href: '/analytics', icon: 'line-chart' },
+            { label: 'Reports', href: '/reports', icon: 'file' },
+            { label: 'Settings', href: '/settings', icon: 'settings' },
+            { label: 'Help', href: '/help', icon: 'help-circle' },
         ],
     },
 }
@@ -101,16 +114,16 @@ export const WithIcons: Story = {
 export const WithBadges: Story = {
     args: {
         items: [
-            { label: 'Inbox', href: '/inbox', icon: '📧', badge: '5' },
-            { label: 'Messages', href: '/messages', icon: '💬', badge: '12' },
+            { label: 'Inbox', href: '/inbox', icon: 'mail', badge: '5' },
+            { label: 'Messages', href: '/messages', icon: 'message-square', badge: '12' },
             {
                 label: 'Notifications',
                 href: '/notifications',
-                icon: '🔔',
+                icon: 'bell',
                 badge: '3',
             },
-            { label: 'Tasks', href: '/tasks', icon: '✅', badge: '8' },
-            { label: 'Archive', href: '/archive', icon: '📁' },
+            { label: 'Tasks', href: '/tasks', icon: 'check-circle', badge: '8' },
+            { label: 'Archive', href: '/archive', icon: 'archive' },
         ],
     },
 }
@@ -131,9 +144,9 @@ export const Sizes: Story = {
           <Menu 
             size="xs"
             :items="[
-              { label: 'Home', href: '/', icon: '🏠' },
-              { label: 'About', href: '/about', icon: 'ℹ️' },
-              { label: 'Contact', href: '/contact', icon: '📞' }
+              { label: 'Home', href: '/', icon: 'home' },
+              { label: 'About', href: '/about', icon: 'info' },
+              { label: 'Contact', href: '/contact', icon: 'phone' }
             ]"
           />
         </div>
@@ -143,9 +156,9 @@ export const Sizes: Story = {
           <Menu 
             size="sm"
             :items="[
-              { label: 'Home', href: '/', icon: '🏠' },
-              { label: 'About', href: '/about', icon: 'ℹ️' },
-              { label: 'Contact', href: '/contact', icon: '📞' }
+              { label: 'Home', href: '/', icon: 'home' },
+              { label: 'About', href: '/about', icon: 'info' },
+              { label: 'Contact', href: '/contact', icon: 'phone' }
             ]"
           />
         </div>
@@ -155,9 +168,9 @@ export const Sizes: Story = {
           <Menu 
             size="md"
             :items="[
-              { label: 'Home', href: '/', icon: '🏠' },
-              { label: 'About', href: '/about', icon: 'ℹ️' },
-              { label: 'Contact', href: '/contact', icon: '📞' }
+              { label: 'Home', href: '/', icon: 'home' },
+              { label: 'About', href: '/about', icon: 'info' },
+              { label: 'Contact', href: '/contact', icon: 'phone' }
             ]"
           />
         </div>
@@ -167,9 +180,9 @@ export const Sizes: Story = {
           <Menu 
             size="lg"
             :items="[
-              { label: 'Home', href: '/', icon: '🏠' },
-              { label: 'About', href: '/about', icon: 'ℹ️' },
-              { label: 'Contact', href: '/contact', icon: '📞' }
+              { label: 'Home', href: '/', icon: 'home' },
+              { label: 'About', href: '/about', icon: 'info' },
+              { label: 'Contact', href: '/contact', icon: 'phone' }
             ]"
           />
         </div>
@@ -218,12 +231,10 @@ export const SidebarLayout: Story = {
               { title: 'Main' },
               { label: 'Dashboard', href: '/dashboard', icon: '📊', active: true },
               { label: 'Analytics', href: '/analytics', icon: '📈' },
-              { divider: true },
               { title: 'Management' },
               { label: 'Users', href: '/users', icon: '👥', badge: '24' },
               { label: 'Products', href: '/products', icon: '📦', badge: '156' },
               { label: 'Orders', href: '/orders', icon: '🛒', badge: '12' },
-              { divider: true },
               { title: 'System' },
               { label: 'Settings', href: '/settings', icon: '⚙️' },
               { label: 'Logs', href: '/logs', icon: '📄' },
@@ -257,12 +268,11 @@ export const DropdownMenu: Story = {
             tabindex="0"
             class="dropdown-content z-[1] p-2 shadow bg-base-100 rounded-box w-52"
             :items="[
-              { label: 'Profile', href: '/profile', icon: '👤' },
-              { label: 'Account Settings', href: '/settings', icon: '⚙️' },
-              { label: 'Billing', href: '/billing', icon: '💳' },
-              { divider: true },
-              { label: 'Help & Support', href: '/help', icon: '❓' },
-              { label: 'Logout', href: '/logout', icon: '🚪' }
+              { label: 'Profile', href: '/profile', icon: 'user' },
+              { label: 'Account Settings', href: '/settings', icon: 'settings' },
+              { label: 'Billing', href: '/billing', icon: 'credit-card' },
+              { label: 'Help & Support', href: '/help', icon: 'help-circle' },
+              { label: 'Logout', href: '/logout', icon: 'log-out' }
             ]"
           />
         </div>
@@ -281,10 +291,9 @@ export const DropdownMenu: Story = {
             class="dropdown-content z-[1] p-2 shadow bg-base-100 rounded-box w-64"
             :items="[
               { title: 'Notifications' },
-              { label: 'New message from John', href: '#', icon: '💬' },
-              { label: 'Your order has shipped', href: '#', icon: '📦' },
-              { label: 'Payment received', href: '#', icon: '💰' },
-              { divider: true },
+              { label: 'New message from John', href: '#', icon: 'message-square' },
+              { label: 'Your order has shipped', href: '#', icon: 'shopping-cart' },
+              { label: 'Payment received', href: '#', icon: 'dollar-sign' },
               { label: 'View all notifications', href: '/notifications' }
             ]"
           />

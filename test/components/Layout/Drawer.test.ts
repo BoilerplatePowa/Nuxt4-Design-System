@@ -121,12 +121,7 @@ describe('Drawer', () => {
             expect(wrapper.vm.drawerClasses).toBe('drawer-end')
         })
 
-        it('should compute side classes correctly for right position', () => {
-            wrapper = mount(Drawer, {
-                props: { position: 'right' },
-            })
-            expect(wrapper.vm.sideClasses).toBe('drawer-side-right')
-        })
+        // Removed sideClasses test: daisyUI doesn't require custom side class
 
         it('should compute aside classes correctly for different widths', () => {
             const testCases = [
@@ -309,6 +304,13 @@ describe('Drawer', () => {
             expect(wrapper.find('.drawer-side').exists()).toBe(true)
             expect(wrapper.find('.drawer-overlay').exists()).toBe(true)
             expect(wrapper.find('aside').exists()).toBe(true)
+        })
+
+        it('should hide overlay when backdrop is false', () => {
+            wrapper = mount(Drawer, {
+                props: { backdrop: false },
+            })
+            expect(wrapper.find('.drawer-overlay').exists()).toBe(false)
         })
 
         it('should show close button when showCloseButton is true', () => {

@@ -14,23 +14,37 @@
         </div>
 
         <div class="drawer-side" :class="sideClasses">
-            <label :for="drawerId" class="drawer-overlay" @click="close" />
+            <label
+                v-if="backdrop"
+                :for="drawerId"
+                aria-label="close sidebar"
+                class="drawer-overlay"
+                @click="close"
+            ></label>
 
             <aside :class="asideClasses">
                 <div v-if="showCloseButton" class="flex justify-end p-4">
                     <button class="btn btn-sm btn-circle btn-ghost" @click="close">✕</button>
                 </div>
-
-                <slot name="drawer" :close="close">
-                    <!-- Drawer content here -->
-                    <div class="p-4">
-                        <h3 class="text-lg font-bold mb-4">Drawer Content</h3>
-                        <ul class="menu">
-                            <li><a>Sidebar Item 1</a></li>
-                            <li><a>Sidebar Item 2</a></li>
-                        </ul>
+                <div :class="iconSidebarContainerClasses">
+                    <div class="w-full">
+                        <slot name="header" :open="isOpen" :toggle="toggle" :close="close" :drawer-id="drawerId" />
                     </div>
-                </slot>
+                    <div class="w-full grow overflow-auto">
+                        <slot name="body" :open="isOpen" :toggle="toggle" :close="close" :drawer-id="drawerId">
+                            <Menu
+                                :items="items"
+                                :open="isOpen"
+                                :toggle="toggle"
+                                :close="close"
+                                :drawer-id="drawerId"
+                            />
+                        </slot>
+                    </div>
+                    <div class="w-full">
+                        <slot name="bottom" :open="isOpen" :toggle="toggle" :close="close" :drawer-id="drawerId" />
+                    </div>
+                </div>
             </aside>
         </div>
     </div>
@@ -38,17 +52,22 @@
 
 <script setup lang="ts">
 import { computed, watch, useId } from 'vue'
+import type { MenuItem } from '../../shared/types.d'
 
 // SSR-safe id
 const uid = useId()
 
 interface Props {
-    position?: 'left' | 'right' | 'top' | 'bottom'
+    position?: 'left' | 'right'
     width?: 'sm' | 'md' | 'lg' | 'xl' | 'full'
     backdrop?: boolean
     persistent?: boolean
     showCloseButton?: boolean
     id?: string
+    forceOpen?: boolean
+    /** Enable icon-only sidebar behavior with is-drawer-open/close variants */
+    iconOnly?: boolean
+    items?: MenuItem[]
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -58,9 +77,10 @@ const props = withDefaults(defineProps<Props>(), {
     persistent: false,
     showCloseButton: true,
     id: undefined,
+    forceOpen: false,
+    iconOnly: false,
 })
 
-// Use defineModel for v-model support (Vue 3.4+)
 const isOpen = defineModel<boolean>({ default: false })
 
 const emit = defineEmits<{
@@ -82,44 +102,39 @@ watch(isOpen, (newValue) => {
 const drawerClasses = computed(() => {
     const classes = []
 
-    // Position classes
     if (props.position === 'right') {
         classes.push('drawer-end')
     }
-    // Default left position doesn't need a class
 
-    return classes.join(' ')
-})
-
-const sideClasses = computed(() => {
-    const classes = []
-
-    // Position specific classes
-    if (props.position === 'right') {
-        classes.push('drawer-side-right')
+    if (props.forceOpen) {
+        classes.push('drawer-open')
     }
 
     return classes.join(' ')
 })
+
+const sideClasses = computed(() => [
+    props.iconOnly ? 'is-drawer-close:overflow-visible' : '',
+]
+    .filter(Boolean)
+    .join(' '))
 
 const asideClasses = computed(() => {
-    const baseClasses = ['bg-base-200', 'text-base-content', 'min-h-full']
+    const baseClasses = ['bg-base-200', 'text-base-content', 'min-h-full', 'flex', 'flex-col']
 
-    // Width classes
-    if (props.width === 'sm') {
-        baseClasses.push('w-64')
-    } else if (props.width === 'md') {
-        baseClasses.push('w-80')
-    } else if (props.width === 'lg') {
-        baseClasses.push('w-96')
-    } else if (props.width === 'xl') {
-        baseClasses.push('w-[28rem]')
-    } else if (props.width === 'full') {
-        baseClasses.push('w-full')
-    }
 
     return baseClasses.join(' ')
 })
+
+const iconSidebarContainerClasses = computed(() => [
+    'is-drawer-close:w-14',
+    'is-drawer-open:w-64',
+    'bg-base-200',
+    'flex',
+    'flex-col',
+    'items-start',
+    'min-h-full',
+].join(' '))
 
 const toggle = () => {
     isOpen.value = !isOpen.value
@@ -145,6 +160,9 @@ const handleKeydown = (event: KeyboardEvent) => {
 if (typeof window !== 'undefined') {
     window.addEventListener('keydown', handleKeydown)
 }
+
+// Expose methods for external triggers (template ref)
+defineExpose({ open, close, toggle })
 </script>
 
 <style scoped lang="postcss">

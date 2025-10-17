@@ -3,12 +3,10 @@
         <slot>
             <li v-for="item in items" :key="getItemKey(item)">
                 <!-- Menu title -->
-                <h2 v-if="item.title" class="menu-title">
+                <h2 v-if="item.title && !compact" class="menu-title">
                     {{ item.title }}
                 </h2>
-
-                <!-- Divider -->
-                <hr v-else-if="item.divider" />
+                <div v-else-if="item.title && compact" class="divider menu-title"/>
 
                 <!-- Link item -->
                 <a
@@ -17,9 +15,16 @@
                     :class="getItemClasses(item)"
                     @click="handleItemClick(item, $event)"
                 >
-                    <span v-if="item.icon" v-html="item.icon" />
-                    {{ item.label }}
-                    <span v-if="item.badge" class="badge badge-sm">{{ item.badge }}</span>
+                    <div v-if="compact && item.icon">
+                        <Icon :name="item.icon" />
+                        <Badge v-if="item.badge" :value="item.badge" size="xs" variant="primary" class="absolute -right-2 top-0">{{ item.badge }}</Badge>
+                    </div>
+
+                    <div v-else class="flex items-center gap-2 w-full">
+                        <Icon v-if="item.icon" :name="item.icon" class="" />
+                        <span class="">{{ item.label }}</span>
+                        <span v-if="item.badge" class="badge badge-sm">{{ item.badge }}</span>
+                    </div>
                 </a>
 
                 <!-- Button item -->
@@ -30,9 +35,13 @@
                     :disabled="item.disabled"
                     @click="handleItemClick(item, $event)"
                 >
-                    <span v-if="item.icon" v-html="item.icon" />
-                    {{ item.label }}
-                    <span v-if="item.badge" class="badge badge-sm">{{ item.badge }}</span>
+                    <Icon v-if="compact && item.icon" :name="item.icon" />
+
+                    <div v-else class="flex items-center gap-2">
+                        <Icon v-if="item.icon" :name="item.icon" />
+                        <span>{{ item.label }}</span>
+                        <span v-if="item.badge" class="badge badge-sm">{{ item.badge }}</span>
+                    </div>
                 </button>
 
                 <!-- Submenu -->
@@ -44,9 +53,13 @@
                             :class="getItemClasses(child)"
                             @click="handleItemClick(child, $event)"
                         >
-                            <span v-if="child.icon" v-html="child.icon" />
-                            {{ child.label }}
-                            <span v-if="child.badge" class="badge badge-sm">{{ child.badge }}</span>
+                            <Icon v-if="compact && item.icon" :name="item.icon" />
+
+                            <div v-else class="flex items-center gap-2">
+                                <Icon v-if="item.icon" :name="item.icon" />
+                                <span>{{ item.label }}</span>
+                                <span v-if="item.badge" class="badge badge-sm">{{ item.badge }}</span>
+                            </div>
                         </a>
                         <button
                             v-else
@@ -55,9 +68,13 @@
                             :disabled="child.disabled"
                             @click="handleItemClick(child, $event)"
                         >
-                            <span v-if="child.icon" v-html="child.icon" />
-                            {{ child.label }}
-                            <span v-if="child.badge" class="badge badge-sm">{{ child.badge }}</span>
+                            <Icon v-if="compact && item.icon" :name="item.icon" />
+
+                            <div v-else class="flex items-center gap-2">
+                                <Icon v-if="item.icon" :name="item.icon" />
+                                <span>{{ item.label }}</span>
+                                <span v-if="item.badge" class="badge badge-sm">{{ item.badge }}</span>
+                            </div>
                         </button>
                     </li>
                 </ul>
@@ -68,29 +85,21 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-
-interface MenuItem {
-    label?: string
-    value?: string | number
-    href?: string
-    icon?: string
-    badge?: string | number
-    disabled?: boolean
-    active?: boolean
-    title?: string // For menu section titles
-    divider?: boolean // For dividers
-    children?: MenuItem[] // For submenus
-}
+import Icon from '../Icons/Icon.vue'
+import type { MenuItem, Size } from '../../shared/types.d'
+import Badge from '../DataDisplay/Badge.vue'
 
 interface Props {
     items?: MenuItem[]
-    size?: 'xs' | 'sm' | 'md' | 'lg'
+    compact?: boolean
+    size?: Size
     variant?: 'default' | 'compact' | 'horizontal'
     rounded?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
     items: () => [],
+    compact: false,
     size: 'md',
     variant: 'default',
     rounded: false,
@@ -120,7 +129,7 @@ const menuClasses = computed(() => {
     }
 
     // Background and styling
-    baseClasses.push('bg-base-200', 'w-56', 'p-2')
+    baseClasses.push('bg-base-200', 'h-full')
 
     if (props.rounded) {
         baseClasses.push('rounded-box')
@@ -146,6 +155,10 @@ const getItemClasses = (item: MenuItem): string => {
 
     if (item.disabled) {
         classes.push('disabled')
+    }
+    
+    if (props.compact) {
+        classes.push('p-2')
     }
 
     return classes.join(' ')

@@ -63,3 +63,15 @@ export type BtnStyle = keyof typeof btnStyleMap;
 export type BtnSize = keyof typeof btnSizeMap;
 export type BtnBehavior = keyof typeof btnBehaviorMap;
 export type BtnModifier = keyof typeof btnModifierMap;
+
+export interface MenuItem {
+    label?: string
+    value?: string | number
+    href?: string
+    icon?: IconName
+    badge?: string | number
+    disabled?: boolean
+    active?: boolean
+    title?: string // For menu section titles
+    children?: MenuItem[] // For submenus
+}
