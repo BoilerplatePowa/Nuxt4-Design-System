@@ -14,7 +14,7 @@ const meta: Meta<typeof Pagination> = {
         },
         variant: {
             control: { type: 'select' },
-            options: ['default', 'bordered', 'ghost'],
+            options: ['default', 'outline', 'ghost'],
         },
         showLabels: {
             control: { type: 'boolean' },
@@ -157,11 +157,11 @@ export const Variants: Story = {
         </div>
         
         <div class="text-center">
-          <h3 class="text-lg font-bold mb-4">Bordered</h3>
+          <h3 class="text-lg font-bold mb-4">Outline</h3>
           <Pagination 
             :current-page="page2"
             :total-pages="10"
-            variant="bordered"
+            variant="outline"
             @page-change="page2 = $event"
           />
         </div>

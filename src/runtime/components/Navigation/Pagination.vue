@@ -1,9 +1,12 @@
 <template>
-    <div class="join">
+    <div class="join" role="navigation" aria-label="Pagination">
         <!-- Previous button -->
         <button
             :class="buttonClasses"
             :disabled="currentPage <= 1 || disabled"
+            :aria-disabled="currentPage <= 1 || disabled"
+            aria-label="Previous page"
+            type="button"
             @click="goToPage(currentPage - 1)"
         >
             <slot name="prev-icon">
@@ -24,27 +27,47 @@
             </button>
 
             <!-- First ellipsis -->
-            <span v-if="showFirstLast && currentPage > 4" :class="ellipsisClasses"> ... </span>
+            <button
+                v-if="showFirstLast && currentPage > 4"
+                :class="ellipsisClasses"
+                disabled
+                aria-disabled="true"
+                type="button"
+            >
+                ...
+            </button>
 
             <!-- Visible page numbers -->
             <button
                 v-for="page in visiblePages"
                 :key="page"
                 :class="getPageButtonClasses(page)"
+                :aria-current="page === currentPage ? 'page' : undefined"
+                :aria-label="`Go to page ${page}`"
+                type="button"
                 @click="goToPage(page)"
             >
                 {{ page }}
             </button>
 
             <!-- Last ellipsis -->
-            <span v-if="showFirstLast && currentPage < totalPages - 3" :class="ellipsisClasses">
+            <button
+                v-if="showFirstLast && currentPage < totalPages - 3"
+                :class="ellipsisClasses"
+                disabled
+                aria-disabled="true"
+                type="button"
+            >
                 ...
-            </span>
+            </button>
 
             <!-- Last page -->
             <button
                 v-if="showFirstLast && currentPage < totalPages - 2"
                 :class="getPageButtonClasses(totalPages)"
+                :aria-current="totalPages === currentPage ? 'page' : undefined"
+                :aria-label="`Go to page ${totalPages}`"
+                type="button"
                 @click="goToPage(totalPages)"
             >
                 {{ totalPages }}
@@ -55,6 +78,9 @@
         <button
             :class="buttonClasses"
             :disabled="currentPage >= totalPages || disabled"
+            :aria-disabled="currentPage >= totalPages || disabled"
+            aria-label="Next page"
+            type="button"
             @click="goToPage(currentPage + 1)"
         >
             <span v-if="showLabels" class="hidden sm:inline mr-2">Next</span>
@@ -195,7 +221,7 @@ const endItem = computed(() => {
 })
 
 const getPageButtonClasses = (page: number): string => {
-    const classes = [...buttonClasses.value]
+    const classes = buttonClasses.value.split(' ')
 
     if (page === props.currentPage) {
         classes.push('btn-active')
