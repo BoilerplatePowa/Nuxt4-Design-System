@@ -35,7 +35,7 @@
                     :disabled="item.disabled"
                     @click="handleItemClick(item, $event)"
                 >
-                    <Icon v-if="compact && item.icon" :name="item.icon" />
+                    <Icon v-if="compact && item.icon" :name="item.icon" :size="size"/>
 
                     <div v-else class="flex items-center gap-2">
                         <Icon v-if="item.icon" :name="item.icon" />
@@ -45,20 +45,21 @@
                 </button>
 
                 <!-- Submenu -->
-                <ul v-if="item.children && item.children.length > 0" class="menu">
+                <ul v-if="item.children && item.children.length > 0" class="menu w-full">
                     <li v-for="child in item.children" :key="getItemKey(child)">
                         <a
                             v-if="child.href"
                             :href="child.href"
                             :class="getItemClasses(child)"
                             @click="handleItemClick(child, $event)"
+                            :data-tip="child.label"
                         >
-                            <Icon v-if="compact && item.icon" :name="item.icon" />
+                            <Icon v-if="compact && child.icon" :name="child.icon" :size="size" />
 
                             <div v-else class="flex items-center gap-2">
-                                <Icon v-if="item.icon" :name="item.icon" />
-                                <span>{{ item.label }}</span>
-                                <span v-if="item.badge" class="badge badge-sm">{{ item.badge }}</span>
+                                <Icon v-if="child.icon" :name="child.icon" />
+                                <span>{{ child.label }}</span>
+                                <span v-if="child.badge" class="badge badge-sm">{{ child.badge }}</span>
                             </div>
                         </a>
                         <button
@@ -67,13 +68,14 @@
                             :class="getItemClasses(child)"
                             :disabled="child.disabled"
                             @click="handleItemClick(child, $event)"
+                            :data-tip="child.label"
                         >
-                            <Icon v-if="compact && item.icon" :name="item.icon" />
+                            <Icon v-if="compact && child.icon" :name="child.icon" />
 
                             <div v-else class="flex items-center gap-2">
-                                <Icon v-if="item.icon" :name="item.icon" />
-                                <span>{{ item.label }}</span>
-                                <span v-if="item.badge" class="badge badge-sm">{{ item.badge }}</span>
+                                <Icon v-if="child.icon" :name="child.icon" />
+                                <span>{{ child.label }}</span>
+                                <span v-if="child.badge" class="badge badge-sm">{{ child.badge }}</span>
                             </div>
                         </button>
                     </li>
@@ -147,7 +149,7 @@ const getItemKey = (item: MenuItem): string => {
 }
 
 const getItemClasses = (item: MenuItem): string => {
-    const classes = []
+    const classes = ['w-full']
 
     if (item.active) {
         classes.push('active')

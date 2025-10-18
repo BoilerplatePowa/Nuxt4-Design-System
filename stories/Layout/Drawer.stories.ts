@@ -5,9 +5,20 @@ const meta: Meta<typeof Drawer> = {
     title: 'Layout/Drawer',
     component: Drawer,
     parameters: {
-        layout: 'fullscreen',
+        layout: 'padded',
+        docs: {
+            description: {
+                component:
+                    'DaisyUI drawer wrapper with Vue 3.5 defineModel() support. Slots: content, top, body, bottom (header slot deprecated). Emits open/close events. Props include mode (default|sidebar), position, width, backdrop, persistent, showCloseButton, id, forceOpen, items.'
+            }
+        }
     },
+    tags: ['autodocs'],
     argTypes: {
+        mode: {
+            control: { type: 'select' },
+            options: ['default', 'sidebar'],
+        },
         position: {
             control: { type: 'select' },
             options: ['left', 'right'],
@@ -16,7 +27,9 @@ const meta: Meta<typeof Drawer> = {
             control: { type: 'select' },
             options: ['sm', 'md', 'lg', 'xl', 'full'],
         },
-        // variant removed
+        id: {
+            control: { type: 'text' },
+        },
         showCloseButton: {
             control: { type: 'boolean' },
         },
@@ -29,19 +42,30 @@ const meta: Meta<typeof Drawer> = {
         forceOpen: {
             control: { type: 'boolean' },
         },
-        iconOnly: {
-            control: { type: 'boolean' },
+        items: {
+            control: { type: 'array' },
         },
+        // event actions
+        open: { action: 'open' },
+        close: { action: 'close' },
     },
     args: {
+        mode: 'default',
         position: 'left',
         width: 'md',
-        // variant removed
         showCloseButton: true,
         persistent: false,
         backdrop: true,
         forceOpen: false,
-        iconOnly: false,
+        items: [
+            { label: 'Dashboard', icon: 'home', href: '#' },
+            {
+                label: 'Reports',
+                icon: 'library',
+            },
+            { label: 'Settings', icon: 'settings', href: '#' },
+            { label: 'Support', icon: 'help-circle', href: '#' },
+        ],
     },
 }
 
@@ -60,68 +84,11 @@ export const DefaultVariant: Story = {
             return { args }
         },
         template: `
-      <div class="h-screen">
-        <div class="p-4">
-          <button class="btn btn-primary" @click="drawerOpen = !drawerOpen">
-            {{ drawerOpen ? 'Close' : 'Open' }} Drawer
-          </button>
-        </div>
-
-        <Drawer v-model="drawerOpen" v-bind="args">
-          <template #content>
-            <div class="p-8">
-              <h1 class="text-3xl font-bold mb-4">Default Drawer</h1>
-              <p class="opacity-70">Use the external button to open/close.</p>
+            <div class="h-screen">
+              <Drawer v-model="drawerOpen" v-bind="args" @open="args.open" @close="args.close">
+              </Drawer>
             </div>
-          </template>
-
-          <template #header="{ drawerId }">
-            <div class="flex items-center gap-2">
-              <span class="text-lg font-bold">Project</span>
-              <div v-if="args.iconOnly" class="ml-auto is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Open/Close">
-                <label :for="drawerId" class="btn btn-ghost btn-circle drawer-button is-drawer-open:rotate-y-180">⇄</label>
-              </div>
-            </div>
-          </template>
-          <template #body>
-            <ul class="menu w-full">
-              <li>
-                <a>
-                  <span class="inline-block size-4">🏠</span>
-                  <span class="is-drawer-close:hidden">Dashboard</span>
-                </a>
-              </li>
-              <li>
-                <a>
-                  <span class="inline-block size-4">📄</span>
-                  <span class="is-drawer-close:hidden">Reports</span>
-                </a>
-              </li>
-              <li>
-                <a>
-                  <span class="inline-block size-4">⚙️</span>
-                  <span class="is-drawer-close:hidden">Settings</span>
-                </a>
-              </li>
-              <li>
-                <a>
-                  <span class="inline-block size-4">🆘</span>
-                  <span class="is-drawer-close:hidden">Support</span>
-                </a>
-              </li>
-            </ul>
-          </template>
-          <template #bottom>
-            <div class="pt-2 border-t border-base-300">
-              <button class="btn btn-ghost w-full">
-                <span class="inline-block size-4">🚪</span>
-                <span class="is-drawer-close:hidden">Logout</span>
-              </button>
-            </div>
-          </template>
-        </Drawer>
-      </div>
-    `,
+        `,
     }),
 }
 
@@ -144,49 +111,40 @@ export const DefaultVariantRight: Story = {
             Toggle Right Drawer
           </button>
         </div>
-        <Drawer v-model="drawerOpen" v-bind="args">
+        <Drawer v-model="drawerOpen" v-bind="args" @open="args.open" @close="args.close" />
+      </div>
+    `,
+    }),
+}
+
+export const WithItemsProp: Story = {
+    args: {
+        items: [
+            { label: 'Dashboard', icon: '🏠', href: '#' },
+            { label: 'Reports', icon: '📄', href: '#', children: [
+                { label: 'Monthly', href: '#' },
+                { label: 'Annual', href: '#' },
+            ]},
+            { label: 'Settings', icon: '⚙️', href: '#' },
+        ],
+    },
+    render: (args) => ({
+        components: { Drawer },
+        data() {
+            return {
+                drawerOpen: true,
+            }
+        },
+        setup() {
+            return { args }
+        },
+        template: `
+      <div class="h-screen">
+        <Drawer v-model="drawerOpen" v-bind="args" @open="args.open" @close="args.close">
           <template #content>
-            <div class="p-8">
-              <h1 class="text-3xl font-bold mb-4">Right Drawer</h1>
-              <p class="opacity-70">Slides in from the right.</p>
-            </div>
-          </template>
-          <template #header="{ drawerId }">
-            <div class="flex items-center gap-2">
-              <span class="text-lg font-bold">Settings</span>
-              <div v-if="args.iconOnly" class="ml-auto is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Open/Close">
-                <label :for="drawerId" class="btn btn-ghost btn-circle drawer-button is-drawer-open:rotate-y-180">⇄</label>
-              </div>
-            </div>
-          </template>
-          <template #body>
-            <ul class="menu w-full">
-              <li>
-                <a>
-                  <span class="inline-block size-4">🛠️</span>
-                  <span class="is-drawer-close:hidden">General</span>
-                </a>
-              </li>
-              <li>
-                <a>
-                  <span class="inline-block size-4">🔔</span>
-                  <span class="is-drawer-close:hidden">Notifications</span>
-                </a>
-              </li>
-              <li>
-                <a>
-                  <span class="inline-block size-4">🔐</span>
-                  <span class="is-drawer-close:hidden">Security</span>
-                </a>
-              </li>
-            </ul>
-          </template>
-          <template #bottom>
-            <div class="pt-2 border-t border-base-300">
-              <button class="btn btn-ghost w-full">
-                <span class="inline-block size-4">🚪</span>
-                <span class="is-drawer-close:hidden">Close</span>
-              </button>
+            <div class="p-6">
+              <h2 class="text-xl font-semibold">Drawer with items prop</h2>
+              <p class="opacity-70">Body slot omitted to render built-in Menu from items.</p>
             </div>
           </template>
         </Drawer>
@@ -195,4 +153,94 @@ export const DefaultVariantRight: Story = {
     }),
 }
 
-// Sidebar/minified variant removed
+export const SidebarMode: Story = {
+    args: {
+        mode: 'sidebar',
+        items: [
+            { label: 'Home', icon: 'home', href: '#' },
+            { label: 'Search', icon: 'magnifyingGlass', href: '#' },
+            { label: 'Settings', icon: 'cog6Tooth', href: '#' },
+        ],
+    },
+    render: (args) => ({
+        components: { Drawer },
+        data() {
+            return {
+                drawerOpen: true,
+            }
+        },
+        setup() {
+            return { args }
+        },
+        template: `
+      <div class="h-screen">
+        <Drawer v-model="drawerOpen" v-bind="args" @open="args.open" @close="args.close">
+          <template #content>
+            <div class="p-4">
+              <p class="opacity-70">Sidebar mode with compact Menu and chevron toggles in top area.</p>
+            </div>
+          </template>
+        </Drawer>
+      </div>
+    `,
+    }),
+}
+
+export const ForceOpen: Story = {
+    args: { forceOpen: true },
+    render: (args) => ({
+        components: { Drawer },
+        setup() {
+            return { args }
+        },
+        template: `
+      <div class="h-screen">
+        <!-- When forceOpen is true, omit v-model -->
+        <Drawer v-bind="args" @open="args.open" @close="args.close">
+          <template #content>
+            <div class="p-8">
+              <h1 class="text-2xl font-bold mb-2">Always Open</h1>
+              <p class="opacity-70">The drawer stays open using the <code>forceOpen</code> prop.</p>
+            </div>
+          </template>
+        </Drawer>
+      </div>
+    `,
+    }),
+}
+
+export const Playground: Story = {
+    args: {
+        mode: 'default',
+        position: 'left',
+        width: 'md',
+        showCloseButton: true,
+        persistent: false,
+        backdrop: true,
+        forceOpen: false,
+        items: [
+            { label: 'Home', icon: 'home', href: '#' },
+            { label: 'Search', icon: 'magnifyingGlass', href: '#' },
+            { label: 'Settings', icon: 'cog6Tooth', href: '#' },
+        ],
+    },
+    render: (args) => ({
+        components: { Drawer },
+        data() {
+            return {
+                drawerOpen: false,
+            }
+        },
+        setup() {
+            return { args }
+        },
+        template: `
+      <div class="h-screen">
+        <div class="p-4 flex gap-2">
+          <button class="btn" @click="drawerOpen = !drawerOpen">Toggle Drawer</button>
+        </div>
+        <Drawer v-model="drawerOpen" v-bind="args" @open="args.open" @close="args.close" />
+      </div>
+    `,
+    }),
+}

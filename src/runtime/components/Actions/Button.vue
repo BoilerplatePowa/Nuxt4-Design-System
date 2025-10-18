@@ -177,7 +177,6 @@ const computedAriaDescribedby = computed(() => {
 })
 
 const executeAction = (event: MouseEvent | KeyboardEvent) => {
-    console.log('executeAction')
     if (props.disabled || props.loading) return
 
     if (props.confirmAction) {

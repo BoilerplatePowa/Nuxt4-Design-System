@@ -9,8 +9,9 @@ import { computed } from 'vue'
 
 interface Props {
     text?: string
-    orientation?: 'horizontal' | 'vertical'
+    orientation?: '' | 'horizontal' | 'vertical'
     variant?:
+        | ''
         | 'neutral'
         | 'primary'
         | 'secondary'
@@ -23,8 +24,8 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-    orientation: 'horizontal',
-    variant: 'neutral',
+    orientation: '',
+    variant: '',
     position: 'center',
 })
 
@@ -34,7 +35,7 @@ const dividerClasses = computed(() => {
     // Orientation
     if (props.orientation === 'vertical') {
         baseClasses.push('divider-vertical')
-    } else {
+    } else if (props.orientation === 'horizontal') {
         baseClasses.push('divider-horizontal')
     }
 
@@ -70,7 +71,3 @@ const dividerClasses = computed(() => {
     return baseClasses.join(' ')
 })
 </script>
-
-<style scoped lang="postcss">
-/* DaisyUI handles most divider styling */
-</style>

@@ -86,7 +86,6 @@ interface Props {
     zIndex?: number
 }
 
-// Use defineModel() for v-model (Vue 3.5+ best practice)
 const model = defineModel<boolean>({ default: false })
 
 const props = withDefaults(defineProps<Props>(), {
