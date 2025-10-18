@@ -11,7 +11,7 @@ const meta: Meta<typeof Card> = {
         layout: 'centered',
         docs: {
             description: {
-                component: 'A flexible card component with optional header, body and footer.',
+                component: 'A flexible card component with optional header, body and footer. Stories include examples aligned with daisyUI Card docs.',
             },
         },
     },
@@ -1092,6 +1092,106 @@ export const InteractiveCards: Story = {
             </Card>
           </div>
         </div>
+      </div>
+    `,
+    }),
+}
+
+// === Doc-aligned examples from daisyUI Card docs ===
+export const DocsBasic: Story = {
+    render: () => ({
+        components: { Card, Button },
+        template: `
+      <div class="w-96">
+        <Card>
+          <template #image>
+            <img src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp" alt="Shoes" />
+          </template>
+          <h2 class="card-title">Card Title</h2>
+          <p>A card component has a figure, a body part, and inside body there are title and actions parts</p>
+          <template #actions>
+            <Button variant="primary">Buy Now</Button>
+          </template>
+        </Card>
+      </div>
+    `,
+    }),
+}
+
+export const DocsPricing: Story = {
+    render: () => ({
+        components: { Card, Button },
+        template: `
+      <div class="w-96">
+        <Card>
+          <span class="badge badge-xs badge-warning">Most Popular</span>
+          <div class="flex justify-between">
+            <h2 class="text-3xl font-bold">Premium</h2>
+            <span class="text-xl">$29/mo</span>
+          </div>
+          <ul class="mt-6 flex flex-col gap-2 text-xs">
+            <li>
+              <svg xmlns="http://www.w3.org/2000/svg" class="size-4 me-2 inline-block text-success" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+              <span>High-resolution image generation</span>
+            </li>
+            <li>
+              <svg xmlns="http://www.w3.org/2000/svg" class="size-4 me-2 inline-block text-success" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+              <span>Customizable style templates</span>
+            </li>
+            <li>
+              <svg xmlns="http://www.w3.org/2000/svg" class="size-4 me-2 inline-block text-success" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+              <span>Batch processing capabilities</span>
+            </li>
+            <li>
+              <svg xmlns="http://www.w3.org/2000/svg" class="size-4 me-2 inline-block text-success" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+              <span>AI-driven image enhancements</span>
+            </li>
+          </ul>
+          <template #actions>
+            <Button variant="primary">Subscribe</Button>
+          </template>
+        </Card>
+      </div>
+    `,
+    }),
+}
+
+export const DocsSideImage: Story = {
+    render: () => ({
+        components: { Card, Button },
+        template: `
+      <div class="w-full max-w-2xl">
+        <Card variant="side">
+          <template #image>
+            <img src="https://img.daisyui.com/images/stock/photo-1635805737707-575885ab0820.webp" alt="Movie" />
+          </template>
+          <h2 class="card-title">New movie is released!</h2>
+          <p>Click the button to watch on Jetflix app.</p>
+          <template #actions>
+            <Button variant="primary">Watch</Button>
+          </template>
+        </Card>
+      </div>
+    `,
+    }),
+}
+
+export const DocsResponsive: Story = {
+    render: () => ({
+        components: { Card, Button },
+        template: `
+      <div class="w-full max-w-2xl">
+        <!-- Apply responsive side layout at lg using merged class on root element -->
+        <Card class="lg:card-side">
+          <template #image>
+            <img src="https://img.daisyui.com/images/stock/photo-1494232410401-ad00d5433cfa.webp" alt="Album" />
+          </template>
+          <h2 class="card-title">New album is released!</h2>
+          <p>Click the button to listen on Spotiwhy app.</p>
+          <template #actions>
+            <Button variant="primary">Listen</Button>
+          </template>
+        </Card>
       </div>
     `,
     }),
