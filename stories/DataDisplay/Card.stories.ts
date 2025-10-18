@@ -11,7 +11,8 @@ const meta: Meta<typeof Card> = {
         layout: 'centered',
         docs: {
             description: {
-                component: 'A flexible card component with optional header, body and footer. Stories include examples aligned with daisyUI Card docs.',
+                component:
+                    'A flexible card component with optional header, body and footer. Stories include examples aligned with daisyUI Card docs.',
             },
         },
     },

@@ -1,28 +1,38 @@
 <template>
     <div class="drawer" :class="drawerClasses">
-        <input v-model="open" :id="drawerId" type="checkbox" class="drawer-toggle" />
+        <input :id="drawerId" v-model="open" type="checkbox" class="drawer-toggle" />
         <div class="drawer-content">
             <!-- drawer content -->
             <slot name="content" :drawer-id="drawerId">
-                <label v-if="mode === 'default'" :for="drawerId" class="btn drawer-button">Open drawer</label>
+                <label v-if="mode === 'default'" :for="drawerId" class="btn drawer-button"
+                    >Open drawer</label
+                >
             </slot>
         </div>
 
         <div class="drawer-side" :class="sideClasses">
             <label :for="drawerId" aria-label="close sidebar" class="drawer-overlay"></label>
-            <div class="is-drawer-close:w-14 is-drawer-open:w-48 bg-base-200 flex flex-col items-start min-h-full">
+            <div
+                class="is-drawer-close:w-14 is-drawer-open:w-48 bg-base-200 flex flex-col items-start min-h-full"
+            >
                 <div class="flex w-full p-2">
                     <div class="grow">
                         <slot name="top"></slot>
                     </div>
-                    <div class="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Open">
-                        <label :for="drawerId" class="btn btn-ghost btn-square drawer-button is-drawer-open:rotate-y-180">
+                    <div
+                        class="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                        data-tip="Open"
+                    >
+                        <label
+                            :for="drawerId"
+                            class="btn btn-ghost btn-square drawer-button is-drawer-open:rotate-y-180"
+                        >
                             <Icon name="chevron-right" size="md" />
                         </label>
                     </div>
                 </div>
                 <div class="divider px-2 m-0"></div>
-                <Menu :items="items" class="w-full grow" :compact="!open"/>
+                <Menu :items="items" class="w-full grow" :compact="!open" />
                 <div v-if="$slots.bottom">
                     <div class="divider px-2 m-0"></div>
                     <slot name="bottom"></slot>
@@ -83,11 +93,11 @@ const drawerClasses = computed(() => {
     return classes.join(' ')
 })
 
-const sideClasses = computed(() => [
-    props.mode === 'sidebar' ? 'is-drawer-close:overflow-visible drawer-open' : '',
-]
-    .filter(Boolean)
-    .join(' '))
+const sideClasses = computed(() =>
+    [props.mode === 'sidebar' ? 'is-drawer-close:overflow-visible drawer-open' : '']
+        .filter(Boolean)
+        .join(' ')
+)
 
 // Keyboard handling
 const handleKeydown = (event: KeyboardEvent) => {

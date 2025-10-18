@@ -86,19 +86,20 @@ const meta: Meta<typeof Dropdown> = {
         itemStyle: {
             control: { type: 'select' },
             options: ['outline', 'ghost', 'link', 'dash', 'soft'],
-            description: 'Menu item button style (default ghost)'
+            description: 'Menu item button style (default ghost)',
         },
         triggerIconLeft: {
             control: 'text',
-            description: 'Left icon name for trigger (overridden by `#trigger-icon-left` slot)'
+            description: 'Left icon name for trigger (overridden by `#trigger-icon-left` slot)',
         },
         triggerIconRight: {
             control: 'text',
-            description: 'Right icon name for trigger (overridden by `#trigger-icon-right` slot)'
+            description: 'Right icon name for trigger (overridden by `#trigger-icon-right` slot)',
         },
         toggleChevron: {
             control: 'boolean',
-            description: 'Show chevron toggle on the right when no custom right icon/slot is provided'
+            description:
+                'Show chevron toggle on the right when no custom right icon/slot is provided',
         },
         closeOnSelect: {
             control: 'boolean',
@@ -113,8 +114,8 @@ const meta: Meta<typeof Dropdown> = {
             description: 'Item click event',
         },
         onItemAction: {
-          action: 'item-action',
-          description: 'Item action event (payload: item, action, event)'
+            action: 'item-action',
+            description: 'Item action event (payload: item, action, event)',
         },
         onOpen: {
             action: 'open',
@@ -165,7 +166,11 @@ export const WithItems: Story = {
             { label: 'Edit', value: 'edit', action: 'edit' },
             { label: 'Delete', value: 'delete', action: 'delete' },
             { label: 'Archive', value: 'archive', disabled: true },
-            { label: 'Share', value: 'share', action: (item: any) => alert(`Shared: ${item.label}`) },
+            {
+                label: 'Share',
+                value: 'share',
+                action: (item: any) => alert(`Shared: ${item.label}`),
+            },
         ],
     },
     render: (args) => ({
@@ -366,9 +371,9 @@ export const AllSizes: Story = {
 }
 
 export const TriggerIcons: Story = {
-  render: () => ({
-    components: { Dropdown },
-    template: `
+    render: () => ({
+        components: { Dropdown },
+        template: `
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div class="space-y-3">
           <h4 class="font-medium">Trigger icons via props</h4>
@@ -400,13 +405,13 @@ export const TriggerIcons: Story = {
         </div>
       </div>
     `,
-  }),
+    }),
 }
 
 export const ItemIcons: Story = {
-  render: () => ({
-    components: { Dropdown },
-    template: `
+    render: () => ({
+        components: { Dropdown },
+        template: `
       <Dropdown trigger-text="Items with icons">
         <li><a><span class="me-2" aria-hidden="true">🔍</span>Search</a></li>
         <li><a><span class="me-2" aria-hidden="true">⚙️</span>Settings</a></li>
@@ -414,7 +419,7 @@ export const ItemIcons: Story = {
         <li><a class="text-error"><span class="me-2" aria-hidden="true">🚪</span>Logout</a></li>
       </Dropdown>
     `,
-  }),
+    }),
 }
 
 export const AllPositions: Story = {

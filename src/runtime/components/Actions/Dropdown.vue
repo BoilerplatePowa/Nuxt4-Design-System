@@ -80,6 +80,7 @@
 </template>
 
 <script setup lang="ts">
+import type { EmitFn } from 'vue'
 import { ref, computed, nextTick, useId } from 'vue'
 import { generateDropdownClasses } from '../../shared/utils/classGenerator'
 import type {
@@ -160,14 +161,12 @@ const triggerIconLeftFinal = computed(() => {
 })
 
 const triggerIconRightFinal = computed(() => {
-
     // If a right icon slot is provided, Button will render it; return undefined
     if (props.triggerIconRight) {
         return props.triggerIconRight
     }
     return props.toggleChevron ? (isOpen.value ? 'chevron-up' : 'chevron-down') : undefined
 })
-
 
 const isOpen = ref(false)
 const focusedIndex = ref(-1)
@@ -436,12 +435,12 @@ const handleItemClick = (item: DropdownItem, event: Event) => {
     if (typeof item.action === 'function') {
         try {
             item.action(item, event)
-        } catch (_err) {
+        } catch {
             // swallow errors from user-defined action to avoid breaking UI
         }
     } else if (typeof item.action === 'string') {
         emit('item-action', item, item.action, event)
-        ;(emit as any)(item.action, item, event)
+        ;(emit as EmitFn)(item.action, item, event)
     } else {
         emit('item-action', item, undefined, event)
     }

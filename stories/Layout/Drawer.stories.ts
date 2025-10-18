@@ -9,9 +9,9 @@ const meta: Meta<typeof Drawer> = {
         docs: {
             description: {
                 component:
-                    'DaisyUI drawer wrapper with Vue 3.5 defineModel() support. Slots: content, top, body, bottom (header slot deprecated). Emits open/close events. Props include mode (default|sidebar), position, width, backdrop, persistent, showCloseButton, id, forceOpen, items.'
-            }
-        }
+                    'DaisyUI drawer wrapper with Vue 3.5 defineModel() support. Slots: content, top, body, bottom (header slot deprecated). Emits open/close events. Props include mode (default|sidebar), position, width, backdrop, persistent, showCloseButton, id, forceOpen, items.',
+            },
+        },
     },
     tags: ['autodocs'],
     argTypes: {
@@ -121,10 +121,15 @@ export const WithItemsProp: Story = {
     args: {
         items: [
             { label: 'Dashboard', icon: '🏠', href: '#' },
-            { label: 'Reports', icon: '📄', href: '#', children: [
-                { label: 'Monthly', href: '#' },
-                { label: 'Annual', href: '#' },
-            ]},
+            {
+                label: 'Reports',
+                icon: '📄',
+                href: '#',
+                children: [
+                    { label: 'Monthly', href: '#' },
+                    { label: 'Annual', href: '#' },
+                ],
+            },
             { label: 'Settings', icon: '⚙️', href: '#' },
         ],
     },

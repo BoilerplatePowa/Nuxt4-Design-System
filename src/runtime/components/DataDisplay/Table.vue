@@ -1,8 +1,5 @@
 <template>
-    <div
-        class="overflow-x-auto"
-        :class="containerClasses"
-    >
+    <div class="overflow-x-auto" :class="containerClasses">
         <table :class="tableClasses">
             <thead v-if="showHeader">
                 <tr>

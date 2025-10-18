@@ -7,11 +7,10 @@ const meta: Meta<typeof Divider> = {
     parameters: {
         layout: 'padded',
         docs: {
-          description: {
-              component:
-                  'DaisyUI divider wrapper with Vue 3.5 defineModel() support.'
-          }
-      }
+            description: {
+                component: 'DaisyUI divider wrapper with Vue 3.5 defineModel() support.',
+            },
+        },
     },
     tags: ['autodocs'],
     argTypes: {
