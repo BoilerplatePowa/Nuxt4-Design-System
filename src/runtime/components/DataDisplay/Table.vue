@@ -1,5 +1,8 @@
 <template>
-    <div class="overflow-x-auto">
+    <div
+        class="overflow-x-auto"
+        :class="containerClasses"
+    >
         <table :class="tableClasses">
             <thead v-if="showHeader">
                 <tr>
@@ -90,14 +93,16 @@ interface TableColumn {
 interface Props {
     columns: TableColumn[]
     data?: Record<string, unknown>[]
-    size?: 'xs' | 'sm' | 'md' | 'lg'
-    variant?: 'default' | 'zebra' | 'compact' | 'bordered'
+    size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl'
+    variant?: 'default' | 'zebra' | 'bordered' | 'compact'
     selectable?: boolean
     hoverable?: boolean
     loading?: boolean
     showHeader?: boolean
     emptyText?: string
     rowKey?: string
+    pinRows?: boolean
+    pinCols?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -110,6 +115,8 @@ const props = withDefaults(defineProps<Props>(), {
     showHeader: true,
     emptyText: 'No data available',
     rowKey: 'id',
+    pinRows: false,
+    pinCols: false,
 })
 
 const emit = defineEmits<{
@@ -130,23 +137,34 @@ const tableClasses = computed(() => {
         baseClasses.push('table-sm')
     } else if (props.size === 'lg') {
         baseClasses.push('table-lg')
+    } else if (props.size === 'xl') {
+        baseClasses.push('table-xl')
+    }
+
+    // Back-compat: map deprecated 'compact' to small size if default size
+    if (props.variant === 'compact' && props.size === 'md') {
+        baseClasses.push('table-sm')
     }
 
     // Variant classes
     if (props.variant === 'zebra') {
         baseClasses.push('table-zebra')
-    } else if (props.variant === 'compact') {
-        baseClasses.push('table-compact')
-    } else if (props.variant === 'bordered') {
-        baseClasses.push('table-bordered')
     }
 
-    // Interactive classes
-    if (props.hoverable) {
-        baseClasses.push('table-hover')
-    }
+    // Pinned rows/cols (thead/tfoot sticky and sticky th)
+    if (props.pinRows) baseClasses.push('table-pin-rows')
+    if (props.pinCols) baseClasses.push('table-pin-cols')
 
     return baseClasses.join(' ')
+})
+
+// Optional container styling for bordered/background variant (per daisyUI docs)
+const containerClasses = computed(() => {
+    const classes: string[] = []
+    if (props.variant === 'bordered') {
+        classes.push('rounded-box', 'border', 'border-base-content/5', 'bg-base-100')
+    }
+    return classes.join(' ')
 })
 
 const sortedData = computed(() => {
@@ -189,6 +207,10 @@ const getRowClasses = (): string => {
 
     if (props.selectable) {
         classes.push('cursor-pointer')
+    }
+
+    if (props.hoverable) {
+        classes.push('transition-colors', 'hover:bg-base-200')
     }
 
     return classes.join(' ')

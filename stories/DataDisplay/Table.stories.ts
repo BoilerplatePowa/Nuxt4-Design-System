@@ -10,11 +10,11 @@ const meta: Meta<typeof Table> = {
     argTypes: {
         size: {
             control: { type: 'select' },
-            options: ['xs', 'sm', 'md', 'lg'],
+      options: ['xs', 'sm', 'md', 'lg', 'xl'],
         },
         variant: {
             control: { type: 'select' },
-            options: ['default', 'zebra', 'compact', 'bordered'],
+      options: ['default', 'zebra', 'bordered'],
         },
         selectable: {
             control: { type: 'boolean' },
@@ -28,6 +28,8 @@ const meta: Meta<typeof Table> = {
         showHeader: {
             control: { type: 'boolean' },
         },
+    pinRows: { control: { type: 'boolean' } },
+    pinCols: { control: { type: 'boolean' } },
     },
 }
 
@@ -111,7 +113,7 @@ export const Compact: Story = {
     args: {
         columns: sampleColumns,
         data: sampleData,
-        variant: 'compact',
+    size: 'sm',
     },
 }
 
@@ -135,8 +137,16 @@ export const LargeSize: Story = {
     args: {
         columns: sampleColumns,
         data: sampleData,
-        size: 'lg',
+    size: 'lg',
     },
+}
+
+export const ExtraLargeSize: Story = {
+  args: {
+    columns: sampleColumns,
+    data: sampleData,
+    size: 'xl',
+  },
 }
 
 export const Loading: Story = {
@@ -168,4 +178,13 @@ export const Selectable: Story = {
         data: sampleData,
         selectable: true,
     },
+}
+
+export const PinRowsAndCols: Story = {
+  args: {
+    columns: sampleColumns,
+    data: sampleData,
+    pinRows: true,
+    pinCols: true,
+  },
 }
