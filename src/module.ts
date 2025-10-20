@@ -20,7 +20,7 @@ export default defineNuxtModule<ModuleOptions>({
         configKey: 'nuxtDesignSystem',
         compatibility: {
             // Semver version of supported nuxt versions
-            nuxt: '>=4.0.3',
+            nuxt: '>=4.1.2',
         },
     },
     // Default configuration options of the Nuxt module

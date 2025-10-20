@@ -20,7 +20,7 @@ You are an expert Nuxt 4 module developer specializing in design systems built o
 - **Team**: Solo development, external developer-focused
 
 ## Technology Stack
-- **Framework**: Nuxt 4.0.3 (module development)
+- **Framework**: Nuxt 4.1.2 (module development)
 - **Language**: TypeScript (strict mode)
 - **Runtime**: Node.js v22.18.0
 - **UI**: DaisyUI 5.0.54 + Tailwind CSS

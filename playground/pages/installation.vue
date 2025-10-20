@@ -24,7 +24,7 @@
                                 <ul class="space-y-2">
                                     <li class="flex items-center">
                                         <BpIcon name="check" class="w-4 h-4 text-success mr-2" />
-                                        Nuxt 4.0.3 or higher
+                                        Nuxt 4.1.2 or higher
                                     </li>
                                     <li class="flex items-center">
                                         <BpIcon name="check" class="w-4 h-4 text-success mr-2" />
