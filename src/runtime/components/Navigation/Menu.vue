@@ -14,6 +14,7 @@
                     :href="item.href"
                     :class="getItemClasses(item)"
                     @click="handleItemClick(item, $event)"
+                    :data-tip="item.label"
                 >
                     <div v-if="compact && item.icon">
                         <Icon :name="item.icon" />
@@ -171,7 +172,7 @@ const getItemClasses = (item: MenuItem): string => {
     }
 
     if (props.compact) {
-        classes.push('p-2')
+        classes.push('tooltip tooltip-right p-2')
     }
 
     return classes.join(' ')

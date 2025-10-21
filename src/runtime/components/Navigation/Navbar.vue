@@ -2,7 +2,7 @@
     <div :class="navbarClasses">
         <div class="navbar-start">
             <Dropdown v-if="showMobileMenu && menuItems.length > 0" :items="menuItems" />
-            <a v-if="logo || title" :href="logoHref" class="btn btn-ghost text-xl navbar-brand">
+            <a v-if="logo || title" :href="logoHref" class="text-xl navbar-brand font-bold">
                 <img v-if="logo" :src="logo" :alt="logoAlt" class="h-8 w-auto" />
                 <span v-if="title">{{ title }}</span>
             </a>
@@ -35,7 +35,7 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-    logoHref: '/',
+    logoHref: '',
     logoAlt: 'Logo',
     variant: 'default',
     shadow: false,
