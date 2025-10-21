@@ -3,6 +3,7 @@
         <TransitionGroup :name="transitionName" tag="div" class="space-y-2">
             <Toast
                 v-for="(toast, index) in visibleToasts"
+                :id="`toast-${toast.id}`"
                 :key="toast.id"
                 :type="toast.type"
                 :title="toast.title"

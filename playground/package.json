@@ -8,9 +8,10 @@
         "generate": "nuxi generate"
     },
     "dependencies": {
-        "nuxt": "^4.1.2",
-        "tailwindcss": "^4.1.12",
+        "@boilerplatepowa/nuxt4-design-system": "file:../boilerplatepowa-nuxt4-design-system-1.0.12.tgz",
+        "@tailwindcss/vite": "^4.1.12",
         "daisyui": "^5.1.5",
-        "@tailwindcss/vite": "^4.1.12"
+        "nuxt": "^4.1.2",
+        "tailwindcss": "^4.1.12"
     }
 }

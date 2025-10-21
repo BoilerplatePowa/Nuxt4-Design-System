@@ -1,25 +1,7 @@
 <template>
     <div :class="navbarClasses">
         <div class="navbar-start">
-            <div v-if="showMobileMenu" class="dropdown navbar-mobile">
-                <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="M4 6h16M4 12h8m-8 6h16"
-                        />
-                    </svg>
-                </div>
-                <ul
-                    tabindex="0"
-                    class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
-                >
-                    <slot name="mobile-menu" />
-                </ul>
-            </div>
-
+            <Dropdown v-if="showMobileMenu && menuItems.length > 0" :items="menuItems" />
             <a v-if="logo || title" :href="logoHref" class="btn btn-ghost text-xl navbar-brand">
                 <img v-if="logo" :src="logo" :alt="logoAlt" class="h-8 w-auto" />
                 <span v-if="title">{{ title }}</span>
@@ -39,6 +21,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
+import Dropdown from '../Actions/Dropdown.vue'
 
 interface Props {
     title?: string
@@ -48,6 +31,7 @@ interface Props {
     variant?: 'default' | 'sticky' | 'glass'
     shadow?: boolean
     showMobileMenu?: boolean
+    menuItems?: []
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -56,6 +40,7 @@ const props = withDefaults(defineProps<Props>(), {
     variant: 'default',
     shadow: false,
     showMobileMenu: true,
+    menuItems: () => [],
 })
 
 const navbarClasses = computed(() => {
@@ -75,6 +60,8 @@ const navbarClasses = computed(() => {
 
     return baseClasses.join(' ')
 })
+
+// TODO : Update this component
 </script>
 
 <style scoped lang="postcss">

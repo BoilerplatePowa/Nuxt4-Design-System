@@ -1,5 +1,5 @@
 <template>
-    <Transition :name="transitionName" @enter="onEnter" @leave="onLeave">
+    <Transition :name="transitionName" :id="`toast-${props.id}`" @enter="onEnter" @leave="onLeave">
         <div
             v-if="visible"
             ref="toastRef"
@@ -59,6 +59,7 @@ import { computed, onMounted, onUnmounted, ref, nextTick } from 'vue'
 
 const props = withDefaults(
     defineProps<{
+        id: string
         type?: 'success' | 'error' | 'warning' | 'info'
         title?: string
         message: string
@@ -79,6 +80,7 @@ const props = withDefaults(
         announceToScreenReader?: boolean
     }>(),
     {
+        id: '',
         type: 'info',
         duration: 5000,
         closable: true,
