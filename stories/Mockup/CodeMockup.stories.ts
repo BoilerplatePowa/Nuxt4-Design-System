@@ -6,18 +6,34 @@ const meta: Meta<typeof CodeMockup> = {
     component: CodeMockup,
     parameters: {
         layout: 'padded',
+        docs: {
+            description: {
+                component: 'Code mockup component for displaying code blocks with terminal-like styling. Supports line prefixes, highlighting, and multiple color variants.'
+            }
+        }
     },
     argTypes: {
+        code: {
+            control: { type: 'text' },
+            description: 'Code content as string or array of CodeLine objects'
+        },
         variant: {
             control: { type: 'select' },
-            options: ['default', 'border', 'bg'],
+            options: ['default', 'primary', 'secondary', 'accent', 'neutral', 'info', 'success', 'warning', 'error'],
+            description: 'DaisyUI color variant'
         },
         language: {
             control: { type: 'text' },
+            description: 'Language for syntax highlighting'
         },
         showLineNumbers: {
             control: { type: 'boolean' },
+            description: 'Show line numbers as prefix'
         },
+        class: {
+            control: { type: 'text' },
+            description: 'Custom CSS classes'
+        }
     },
 }
 
@@ -26,34 +42,90 @@ type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
     args: {
-        code: `function hello() {
-  console.log("Hello, World!");
-}`,
+        code: 'npm i daisyui',
     },
 }
 
-export const JavaScript: Story = {
+export const WithPrefix: Story = {
     args: {
-        language: 'javascript',
-        code: `// Vue 3 Composition API Example
-import { ref, computed } from 'vue'
+        code: [
+            { content: 'npm i daisyui', prefix: '$' },
+            { content: 'installing...', prefix: '>', color: 'warning' },
+            { content: 'Done!', prefix: '>', color: 'success' }
+        ],
+    },
+}
 
-export default {
-  setup() {
-    const count = ref(0)
-    const doubleCount = computed(() => count.value * 2)
-    
-    function increment() {
-      count.value++
-    }
-    
-    return {
-      count,
-      doubleCount,
-      increment
-    }
-  }
-}`,
+export const MultiLine: Story = {
+    args: {
+        code: [
+            { content: 'npm i daisyui', prefix: '$' },
+            { content: 'installing...', prefix: '>', color: 'warning' },
+            { content: 'Done!', prefix: '>', color: 'success' }
+        ],
+    },
+}
+
+export const HighlightedLine: Story = {
+    args: {
+        code: [
+            { content: 'npm i daisyui', prefix: '1' },
+            { content: 'installing...', prefix: '2' },
+            { content: 'Error!', prefix: '3', highlight: true, color: 'warning' }
+        ],
+    },
+}
+
+export const LongLine: Story = {
+    args: {
+        code: 'Magnam dolore beatae necessitatibus nemopsum itaque sit. Et porro quae qui et et dolore ratione.',
+    },
+}
+
+export const WithoutPrefix: Story = {
+    args: {
+        code: 'without prefix',
+    },
+}
+
+export const WithColor: Story = {
+    args: {
+        code: 'can be any color!',
+        variant: 'primary',
+    },
+}
+
+export const TerminalExample: Story = {
+    args: {
+        code: [
+            { content: 'npm install @nuxt-design-system/core', prefix: '$' },
+            { content: 'installing packages...', prefix: '>', color: 'info' },
+            { content: 'added 1 package', prefix: '>', color: 'success' },
+            { content: 'Done in 2.3s', prefix: '>', color: 'success' }
+        ],
+    },
+}
+
+export const ErrorExample: Story = {
+    args: {
+        code: [
+            { content: 'npm run build', prefix: '$' },
+            { content: 'Building project...', prefix: '>' },
+            { content: 'Error: Module not found', prefix: '>', highlight: true, color: 'error' },
+            { content: 'Build failed', prefix: '>', color: 'error' }
+        ],
+    },
+}
+
+export const GitExample: Story = {
+    args: {
+        code: [
+            { content: 'git status', prefix: '$' },
+            { content: 'On branch main', prefix: '>' },
+            { content: 'Changes not staged for commit:', prefix: '>', color: 'warning' },
+            { content: '  modified: src/components/Button.vue', prefix: '>' },
+            { content: '  modified: src/stores/theme.ts', prefix: '>' }
+        ],
     },
 }
 
@@ -379,121 +451,105 @@ INSERT INTO todos (text) VALUES
     }),
 }
 
-export const CodeTutorial: Story = {
+export const AllVariants: Story = {
     render: () => ({
         components: { CodeMockup },
         template: `
-      <div class="max-w-4xl mx-auto space-y-8">
-        <div class="text-center">
-          <h2 class="text-2xl font-bold mb-4">Building a Vue Component</h2>
-          <p class="text-gray-600">Step-by-step guide to creating a reusable button component</p>
+      <div class="space-y-8">
+        <div>
+          <h3 class="text-lg font-bold mb-4">Default</h3>
+          <CodeMockup code="npm i daisyui" />
         </div>
         
-        <div class="space-y-6">
-          <div>
-            <h3 class="text-lg font-bold mb-3">Step 1: Basic Template</h3>
-            <CodeMockup 
-              language="vue"
-              :code="\`<template>
-  <button class="btn">
-    <slot />
-  </button>
-</template>\`"
-            />
-          </div>
-          
-          <div>
-            <h3 class="text-lg font-bold mb-3">Step 2: Add Props</h3>
-            <CodeMockup 
-              language="vue"
-              :code="\`<template>
-  <button :class="buttonClasses" :disabled="disabled">
-    <slot />
-  </button>
-</template>
-
-<script setup lang="ts">
-interface Props {
-  variant?: 'primary' | 'secondary' | 'outline'
-  size?: 'sm' | 'md' | 'lg'
-  disabled?: boolean
+        <div>
+          <h3 class="text-lg font-bold mb-4">With Prefix</h3>
+          <CodeMockup 
+            :code="[
+              { content: 'npm i daisyui', prefix: '$' },
+              { content: 'installing...', prefix: '>', color: 'warning' },
+              { content: 'Done!', prefix: '>', color: 'success' }
+            ]"
+          />
+        </div>
+        
+        <div>
+          <h3 class="text-lg font-bold mb-4">Highlighted Line</h3>
+          <CodeMockup 
+            :code="[
+              { content: 'npm i daisyui', prefix: '1' },
+              { content: 'installing...', prefix: '2' },
+              { content: 'Error!', prefix: '3', highlight: true, color: 'warning' }
+            ]"
+          />
+        </div>
+        
+        <div>
+          <h3 class="text-lg font-bold mb-4">Primary Color</h3>
+          <CodeMockup 
+            code="can be any color!"
+            variant="primary"
+          />
+        </div>
+        
+        <div>
+          <h3 class="text-lg font-bold mb-4">Success Color</h3>
+          <CodeMockup 
+            code="Build successful!"
+            variant="success"
+          />
+        </div>
+        
+        <div>
+          <h3 class="text-lg font-bold mb-4">Warning Color</h3>
+          <CodeMockup 
+            code="Warning: Deprecated API"
+            variant="warning"
+          />
+        </div>
+        
+        <div>
+          <h3 class="text-lg font-bold mb-4">Error Color</h3>
+          <CodeMockup 
+            code="Error: Build failed"
+            variant="error"
+          />
+        </div>
+      </div>
+    `,
+    }),
 }
 
-const props = withDefaults(defineProps<Props>(), {
-  variant: 'primary',
-  size: 'md',
-  disabled: false
-})
-</script>\`"
-            />
-          </div>
-          
-          <div>
-            <h3 class="text-lg font-bold mb-3">Step 3: Add Computed Classes</h3>
-            <CodeMockup 
-              language="vue"
-              :code="\`<script setup lang="ts">
-import { computed } from 'vue'
-
-// ... props definition
-
-const buttonClasses = computed(() => {
-  const classes = ['btn']
-  
-  // Variant classes
-  if (props.variant === 'primary') {
-    classes.push('btn-primary')
-  } else if (props.variant === 'secondary') {
-    classes.push('btn-secondary')
-  } else if (props.variant === 'outline') {
-    classes.push('btn-outline')
-  }
-  
-  // Size classes
-  if (props.size === 'sm') {
-    classes.push('btn-sm')
-  } else if (props.size === 'lg') {
-    classes.push('btn-lg')
-  }
-  
-  return classes.join(' ')
-})
-</script>\`"
-            />
-          </div>
-          
-          <div>
-            <h3 class="text-lg font-bold mb-3">Step 4: Usage Example</h3>
-            <CodeMockup 
-              language="vue"
-              :code="\`<template>
-  <div class="demo">
-    <Button variant="primary" size="lg">
-      Primary Button
-    </Button>
-    
-    <Button variant="outline" @click="handleClick">
-      Outline Button
-    </Button>
-    
-    <Button variant="secondary" :disabled="loading">
-      {{ loading ? 'Loading...' : 'Submit' }}
-    </Button>
-  </div>
-</template>
-
-<script setup>
-import { ref } from 'vue'
-import Button from './Button.vue'
-
-const loading = ref(false)
-
-function handleClick() {
-  console.log('Button clicked!')
-}
-</script>\`"
-            />
-          </div>
+export const InteractiveExample: Story = {
+    render: () => ({
+        components: { CodeMockup },
+        template: `
+      <div class="space-y-6">
+        <div>
+          <h3 class="text-lg font-bold mb-4">Terminal Session</h3>
+          <CodeMockup 
+            :code="[
+              { content: 'cd my-project', prefix: '$' },
+              { content: 'npm install', prefix: '$' },
+              { content: 'installing dependencies...', prefix: '>', color: 'info' },
+              { content: 'added 1,234 packages', prefix: '>', color: 'success' },
+              { content: 'npm run dev', prefix: '$' },
+              { content: 'Starting development server...', prefix: '>', color: 'info' },
+              { content: 'Server running on http://localhost:3000', prefix: '>', color: 'success' }
+            ]"
+          />
+        </div>
+        
+        <div>
+          <h3 class="text-lg font-bold mb-4">Git Workflow</h3>
+          <CodeMockup 
+            :code="[
+              { content: 'git add .', prefix: '$' },
+              { content: 'git commit -m "feat: add new component"', prefix: '$' },
+              { content: 'git push origin main', prefix: '$' },
+              { content: 'Pushing to origin/main...', prefix: '>', color: 'info' },
+              { content: 'Branch pushed successfully', prefix: '>', color: 'success' }
+            ]"
+          />
         </div>
       </div>
     `,
