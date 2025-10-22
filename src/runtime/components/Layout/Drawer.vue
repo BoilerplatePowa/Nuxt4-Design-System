@@ -33,7 +33,7 @@
                 </div>
                 <div class="divider px-2 m-0"></div>
                 <Menu :items="items" class="w-full grow" :compact="!model" />
-                <div v-if="$slots.bottom">
+                <div v-if="$slots.bottom" class="w-full">
                     <div class="divider px-2 m-0"></div>
                     <slot name="bottom"></slot>
                 </div>

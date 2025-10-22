@@ -1,7 +1,7 @@
 import tailwindcss from '@tailwindcss/vite'
 
 export default defineNuxtConfig({
-    modules: ['@boilerplatepowa/nuxt4-design-system'],
+    modules: ['../src/module'],
 
     // Enable pages for multi-page routing
     pages: true,

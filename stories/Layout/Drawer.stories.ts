@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite'
 import Drawer from '../../src/runtime/components/Layout/Drawer.vue'
+import Navbar from '../../src/runtime/components/Navigation/Navbar.vue'
 
 const meta: Meta<typeof Drawer> = {
     title: 'Layout/Drawer',
@@ -163,7 +164,7 @@ export const SidebarMode: Story = {
         ],
     },
     render: (args) => ({
-        components: { Drawer },
+        components: { Drawer, Navbar },
         data() {
             return {
                 drawerOpen: true,
@@ -175,11 +176,16 @@ export const SidebarMode: Story = {
         template: `
       <div class="h-screen">
         <Drawer v-model="drawerOpen" v-bind="args" @open="args.open" @close="args.close">
-          <template #content>
-            <div class="p-4">
-              <p class="opacity-70">Sidebar mode with compact Menu and chevron toggles in top area.</p>
-            </div>
-          </template>
+            <template #content>
+                <div class="flex flex-col h-full">
+                    <div>
+                        <Navbar title="Admin" :showMobileMenu="false" shadow>
+                        </Navbar>
+                    </div>
+                    <div class="p-4">
+                    </div>
+                </div>
+            </template>
         </Drawer>
       </div>
     `,
@@ -244,9 +250,6 @@ export const Playground: Story = {
         },
         template: `
       <div class="h-screen">
-        <div class="p-4 flex gap-2">
-          <button class="btn" @click="drawerOpen = !drawerOpen">Toggle Drawer</button>
-        </div>
         <Drawer v-model="drawerOpen" v-bind="args" @open="args.open" @close="args.close" />
       </div>
     `,
