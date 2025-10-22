@@ -106,11 +106,6 @@ export const DefaultVariantRight: Story = {
         },
         template: `
       <div class="h-screen">
-        <div class="p-4">
-          <button class="btn btn-secondary" @click="drawerOpen = !drawerOpen">
-            Toggle Right Drawer
-          </button>
-        </div>
         <Drawer v-model="drawerOpen" v-bind="args" @open="args.open" @close="args.close" />
       </div>
     `,
