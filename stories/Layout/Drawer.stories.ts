@@ -163,8 +163,8 @@ export const SidebarMode: Story = {
         mode: 'sidebar',
         items: [
             { label: 'Home', icon: 'home', href: '#' },
-            { label: 'Search', icon: 'magnifyingGlass', href: '#' },
-            { label: 'Settings', icon: 'cog6Tooth', href: '#' },
+            { label: 'Search', icon: 'search', href: '#' },
+            { label: 'Settings', icon: 'settings', href: '#' },
         ],
     },
     render: (args) => ({
@@ -192,7 +192,15 @@ export const SidebarMode: Story = {
 }
 
 export const ForceOpen: Story = {
-    args: { forceOpen: true },
+    args: { 
+        forceOpen: true,
+        mode: 'sidebar',
+        items: [
+            { label: 'Dashboard', icon: 'home', href: '#' },
+            { label: 'Analytics', icon: 'analytics', href: '#' },
+            { label: 'Settings', icon: 'settings', href: '#' }
+        ]
+    },
     render: (args) => ({
         components: { Drawer },
         setup() {
@@ -205,7 +213,7 @@ export const ForceOpen: Story = {
           <template #content>
             <div class="p-8">
               <h1 class="text-2xl font-bold mb-2">Always Open</h1>
-              <p class="opacity-70">The drawer stays open using the <code>forceOpen</code> prop.</p>
+              <p class="opacity-70">The drawer stays open using the <code>forceOpen</code> prop. Hover over the chevron button to see the tooltip.</p>
             </div>
           </template>
         </Drawer>

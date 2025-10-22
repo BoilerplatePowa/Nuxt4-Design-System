@@ -1,6 +1,6 @@
 <template>
     <div class="drawer" :class="drawerClasses">
-        <input :id="drawerId" v-model="open" type="checkbox" class="drawer-toggle" />
+        <input :id="drawerId" v-model="model" type="checkbox" class="drawer-toggle" />
         <div class="drawer-content">
             <!-- drawer content -->
             <slot name="content" :drawer-id="drawerId">
@@ -32,7 +32,7 @@
                     </div>
                 </div>
                 <div class="divider px-2 m-0"></div>
-                <Menu :items="items" class="w-full grow" :compact="!open" />
+                <Menu :items="items" class="w-full grow" :compact="!model" />
                 <div v-if="$slots.bottom">
                     <div class="divider px-2 m-0"></div>
                     <slot name="bottom"></slot>
@@ -74,8 +74,7 @@ const props = withDefaults(defineProps<Props>(), {
     mode: 'default',
 })
 
-const isOpen = defineModel<boolean>({ default: false })
-const open = ref(false)
+const model = defineModel<boolean>({ default: false })
 
 const drawerId = props.id || `drawer-${uid}`
 
@@ -101,7 +100,7 @@ const sideClasses = computed(() =>
 
 // Keyboard handling
 const handleKeydown = (event: KeyboardEvent) => {
-    if (event.key === 'Escape' && isOpen.value && !props.persistent) {
+    if (event.key === 'Escape' && model.value && !props.persistent) {
         close()
     }
 }
