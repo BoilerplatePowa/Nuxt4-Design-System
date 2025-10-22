@@ -10,9 +10,22 @@ const meta: Meta<typeof BrowserMockup> = {
     argTypes: {
         variant: {
             control: { type: 'select' },
-            options: ['default', 'border', 'bg'],
+            options: ['default', 'border', 'background'],
+        },
+        size: {
+            control: { type: 'select' },
+            options: ['sm', 'md', 'lg', 'xl'],
         },
         url: {
+            control: { type: 'text' },
+        },
+        showToolbar: {
+            control: { type: 'boolean' },
+        },
+        class: {
+            control: { type: 'text' },
+        },
+        contentClass: {
             control: { type: 'text' },
         },
     },
@@ -73,7 +86,7 @@ export const Variants: Story = {
         
         <div>
           <h3 class="text-lg font-bold mb-4">With Background</h3>
-          <BrowserMockup url="https://example.com" variant="bg">
+          <BrowserMockup url="https://example.com" variant="background">
             <div class="bg-base-200 p-8 text-center">
               <h2 class="text-2xl font-bold">Background Browser</h2>
               <p>Browser mockup with background styling</p>
@@ -220,6 +233,89 @@ export const Dashboard: Story = {
           </div>
         </div>
       </BrowserMockup>
+    `,
+    }),
+}
+
+export const Sizes: Story = {
+    render: () => ({
+        components: { BrowserMockup },
+        template: `
+      <div class="space-y-8">
+        <div>
+          <h3 class="text-lg font-bold mb-4">Small (sm)</h3>
+          <BrowserMockup url="https://example.com" size="sm">
+            <div class="bg-base-200 p-4 text-center">
+              <h2 class="text-lg font-bold">Small Browser</h2>
+              <p class="text-sm">Compact size for mobile previews</p>
+            </div>
+          </BrowserMockup>
+        </div>
+        
+        <div>
+          <h3 class="text-lg font-bold mb-4">Medium (md)</h3>
+          <BrowserMockup url="https://example.com" size="md">
+            <div class="bg-base-200 p-8 text-center">
+              <h2 class="text-2xl font-bold">Medium Browser</h2>
+              <p>Standard size for most use cases</p>
+            </div>
+          </BrowserMockup>
+        </div>
+        
+        <div>
+          <h3 class="text-lg font-bold mb-4">Large (lg)</h3>
+          <BrowserMockup url="https://example.com" size="lg">
+            <div class="bg-base-200 p-8 text-center">
+              <h2 class="text-2xl font-bold">Large Browser</h2>
+              <p>Larger size for detailed previews</p>
+            </div>
+          </BrowserMockup>
+        </div>
+        
+        <div>
+          <h3 class="text-lg font-bold mb-4">Extra Large (xl)</h3>
+          <BrowserMockup url="https://example.com" size="xl">
+            <div class="bg-base-200 p-8 text-center">
+              <h2 class="text-2xl font-bold">Extra Large Browser</h2>
+              <p>Maximum size for full-screen previews</p>
+            </div>
+          </BrowserMockup>
+        </div>
+      </div>
+    `,
+    }),
+}
+
+export const WithoutToolbar: Story = {
+    render: () => ({
+        components: { BrowserMockup },
+        template: `
+      <div class="space-y-8">
+        <div>
+          <h3 class="text-lg font-bold mb-4">Without Toolbar</h3>
+          <BrowserMockup url="https://example.com" :show-toolbar="false">
+            <div class="bg-base-200 p-8 text-center">
+              <h2 class="text-2xl font-bold">Clean Browser</h2>
+              <p>Browser mockup without address bar</p>
+            </div>
+          </BrowserMockup>
+        </div>
+        
+        <div>
+          <h3 class="text-lg font-bold mb-4">Custom Styling</h3>
+          <BrowserMockup 
+            url="https://example.com" 
+            variant="border"
+            class="shadow-2xl"
+            content-class="bg-gradient-to-br from-blue-50 to-indigo-100"
+          >
+            <div class="p-8 text-center">
+              <h2 class="text-2xl font-bold text-blue-800">Custom Styled Browser</h2>
+              <p class="text-blue-600">With custom classes and gradient background</p>
+            </div>
+          </BrowserMockup>
+        </div>
+      </div>
     `,
     }),
 }
