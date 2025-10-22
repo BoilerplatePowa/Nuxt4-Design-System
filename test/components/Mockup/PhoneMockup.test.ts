@@ -14,53 +14,80 @@ describe('PhoneMockup', () => {
         expect(wrapper.text()).toContain('Phone content')
     })
 
-    it('applies color classes correctly', () => {
-        const colors = ['black', 'white', 'gold', 'silver'] as const
-
-        colors.forEach((color) => {
-            const wrapper = mount(PhoneMockup, {
-                props: { color },
-                slots: { default: 'Content' },
-            })
-
-            expect(wrapper.classes()).toContain(`phone-${color}`)
-        })
-    })
-
-    it('applies size classes correctly', () => {
-        const sizes = ['sm', 'md', 'lg', 'xl'] as const
-
-        sizes.forEach((size) => {
-            const wrapper = mount(PhoneMockup, {
-                props: { size },
-                slots: { default: 'Content' },
-            })
-
-            if (size !== 'md') {
-                expect(wrapper.classes()).toContain(`phone-${size}`)
-            }
-        })
-    })
-
-    it('renders camera element', () => {
+    it('renders camera element with correct class', () => {
         const wrapper = mount(PhoneMockup, {
             slots: {
                 default: 'Phone content',
             },
         })
 
-        expect(wrapper.find('.camera').exists()).toBe(true)
+        expect(wrapper.find('.mockup-phone-camera').exists()).toBe(true)
     })
 
-    it('renders display area', () => {
+    it('renders display area with correct class', () => {
         const wrapper = mount(PhoneMockup, {
             slots: {
                 default: 'Display content',
             },
         })
 
-        expect(wrapper.find('.display').exists()).toBe(true)
-        expect(wrapper.find('.artboard').exists()).toBe(true)
+        expect(wrapper.find('.mockup-phone-display').exists()).toBe(true)
+    })
+
+    it('applies border color correctly', () => {
+        const wrapper = mount(PhoneMockup, {
+            props: {
+                borderColor: '#ff8938',
+            },
+            slots: {
+                default: 'Content',
+            },
+        })
+
+        expect(wrapper.classes()).toContain('border-[#ff8938]')
+    })
+
+    it('applies display class correctly', () => {
+        const wrapper = mount(PhoneMockup, {
+            props: {
+                displayClass: 'grid place-content-center',
+            },
+            slots: {
+                default: 'Content',
+            },
+        })
+
+        const display = wrapper.find('.mockup-phone-display')
+        expect(display.classes()).toContain('grid')
+        expect(display.classes()).toContain('place-content-center')
+    })
+
+    it('applies background color correctly', () => {
+        const wrapper = mount(PhoneMockup, {
+            props: {
+                backgroundColor: 'neutral-900',
+            },
+            slots: {
+                default: 'Content',
+            },
+        })
+
+        const display = wrapper.find('.mockup-phone-display')
+        expect(display.classes()).toContain('bg-neutral-900')
+    })
+
+    it('applies text color correctly', () => {
+        const wrapper = mount(PhoneMockup, {
+            props: {
+                textColor: 'white',
+            },
+            slots: {
+                default: 'Content',
+            },
+        })
+
+        const display = wrapper.find('.mockup-phone-display')
+        expect(display.classes()).toContain('text-white')
     })
 
     it('renders slot content in display area', () => {
@@ -74,32 +101,27 @@ describe('PhoneMockup', () => {
         expect(wrapper.text()).toContain('Mobile App Interface')
     })
 
-    it('has proper aspect ratio for phone dimensions', () => {
-        const wrapper = mount(PhoneMockup, {
-            slots: {
-                default: 'Content',
-            },
-        })
-
-        const artboard = wrapper.find('.artboard')
-        expect(artboard.classes()).toContain('phone-1')
-    })
-
-    it('combines size and color props correctly', () => {
+    it('combines multiple props correctly', () => {
         const wrapper = mount(PhoneMockup, {
             props: {
-                size: 'lg',
-                color: 'black',
+                borderColor: '#3b82f6',
+                backgroundColor: 'blue-50',
+                textColor: 'blue-900',
+                displayClass: 'flex items-center justify-center',
             },
             slots: {
-                default: 'Large black phone',
+                default: 'Custom styled phone',
             },
         })
 
-        expect(wrapper.classes()).toContain('mockup-phone')
-        expect(wrapper.classes()).toContain('phone-lg')
-        expect(wrapper.classes()).toContain('phone-black')
-        expect(wrapper.text()).toContain('Large black phone')
+        expect(wrapper.classes()).toContain('border-[#3b82f6]')
+        
+        const display = wrapper.find('.mockup-phone-display')
+        expect(display.classes()).toContain('bg-blue-50')
+        expect(display.classes()).toContain('text-blue-900')
+        expect(display.classes()).toContain('flex')
+        expect(display.classes()).toContain('items-center')
+        expect(display.classes()).toContain('justify-center')
     })
 
     it('renders complex content correctly', () => {
@@ -128,25 +150,11 @@ describe('PhoneMockup', () => {
         const wrapper = mount(PhoneMockup)
 
         expect(wrapper.classes()).toContain('mockup-phone')
-        expect(wrapper.find('.display').exists()).toBe(true)
-        expect(wrapper.find('.camera').exists()).toBe(true)
+        expect(wrapper.find('.mockup-phone-display').exists()).toBe(true)
+        expect(wrapper.find('.mockup-phone-camera').exists()).toBe(true)
     })
 
-    it('applies custom classes when provided', () => {
-        const wrapper = mount(PhoneMockup, {
-            props: {
-                class: 'custom-phone-class',
-            },
-            slots: {
-                default: 'Content',
-            },
-        })
-
-        expect(wrapper.classes()).toContain('mockup-phone')
-        expect(wrapper.classes()).toContain('custom-phone-class')
-    })
-
-    it('maintains proper structure', () => {
+    it('maintains proper DaisyUI structure', () => {
         const wrapper = mount(PhoneMockup, {
             slots: {
                 default: 'Test content',
@@ -155,12 +163,24 @@ describe('PhoneMockup', () => {
 
         // Should have proper DaisyUI mockup structure
         expect(wrapper.find('.mockup-phone').exists()).toBe(true)
-        expect(wrapper.find('.camera').exists()).toBe(true)
-        expect(wrapper.find('.display').exists()).toBe(true)
-        expect(wrapper.find('.artboard').exists()).toBe(true)
+        expect(wrapper.find('.mockup-phone-camera').exists()).toBe(true)
+        expect(wrapper.find('.mockup-phone-display').exists()).toBe(true)
 
-        // Content should be inside the artboard
-        const artboard = wrapper.find('.artboard')
-        expect(artboard.text()).toContain('Test content')
+        // Content should be inside the display
+        const display = wrapper.find('.mockup-phone-display')
+        expect(display.text()).toContain('Test content')
+    })
+
+    it('works with image content', () => {
+        const wrapper = mount(PhoneMockup, {
+            slots: {
+                default: '<img alt="wallpaper" src="https://example.com/image.jpg" />',
+            },
+        })
+
+        const img = wrapper.find('img')
+        expect(img.exists()).toBe(true)
+        expect(img.attributes('alt')).toBe('wallpaper')
+        expect(img.attributes('src')).toBe('https://example.com/image.jpg')
     })
 })
