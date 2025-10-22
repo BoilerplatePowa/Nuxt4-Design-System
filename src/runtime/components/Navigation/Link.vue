@@ -43,7 +43,7 @@ const emit = defineEmits<{
 }>()
 
 const linkClasses = computed(() => {
-    const baseClasses = ['link']
+    const baseClasses = ['link', 'flex', 'items-center', 'gap-2', 'justify-center']
 
     // Variant classes
     if (props.variant === 'primary') {
