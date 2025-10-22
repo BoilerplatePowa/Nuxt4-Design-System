@@ -145,4 +145,81 @@ describe('Dock', () => {
         const svgElements = wrapper.findAll('svg')
         expect(svgElements).toHaveLength(2)
     })
+
+    it('renders Icon component when icon prop is provided', () => {
+        const itemsWithIcon = [
+            {
+                id: 'home',
+                label: 'Home',
+                icon: 'home' as const,
+            },
+            {
+                id: 'settings',
+                label: 'Settings',
+                icon: 'settings' as const,
+            },
+        ]
+
+        const wrapper = mount(Dock, {
+            props: { items: itemsWithIcon },
+        })
+
+        // Check that Icon components are rendered within the dock buttons
+        const buttons = wrapper.findAll('button')
+        expect(buttons).toHaveLength(2)
+
+        // Check that each button contains an Icon component
+        buttons.forEach((button, index) => {
+            const iconComponent = button.findComponent({ name: 'Icon' })
+            expect(iconComponent.exists()).toBe(true)
+        })
+
+        // Check that icons have correct names by finding them within buttons
+        const firstButton = buttons[0]
+        const secondButton = buttons[1]
+
+        const firstIcon = firstButton.findComponent({ name: 'Icon' })
+        const secondIcon = secondButton.findComponent({ name: 'Icon' })
+
+        expect(firstIcon.props('name')).toBe('home')
+        expect(secondIcon.props('name')).toBe('settings')
+    })
+
+    it('applies correct icon size based on dock size', () => {
+        const itemsWithIcon = [
+            {
+                id: 'home',
+                label: 'Home',
+                icon: 'home' as const,
+            },
+        ]
+
+        const wrapper = mount(Dock, {
+            props: {
+                items: itemsWithIcon,
+                size: 'lg',
+            },
+        })
+
+        const iconComponent = wrapper.findComponent({ name: 'Icon' })
+        expect(iconComponent.props('size')).toBe(28) // lg size should be 28
+    })
+
+    it('applies active state styling to icons', () => {
+        const itemsWithIcon = [
+            {
+                id: 'home',
+                label: 'Home',
+                icon: 'home' as const,
+                active: true,
+            },
+        ]
+
+        const wrapper = mount(Dock, {
+            props: { items: itemsWithIcon },
+        })
+
+        const iconComponent = wrapper.findComponent({ name: 'Icon' })
+        expect(iconComponent.classes()).toContain('text-primary')
+    })
 })

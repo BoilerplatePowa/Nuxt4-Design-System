@@ -8,9 +8,10 @@ const meta: Meta<typeof Mask> = {
         layout: 'centered',
         docs: {
             description: {
-                component: 'Mask component that crops content to common shapes using DaisyUI mask classes. Supports various geometric shapes and half-mask modifiers.'
-            }
-        }
+                component:
+                    'Mask component that crops content to common shapes using DaisyUI mask classes. Supports various geometric shapes and half-mask modifiers.',
+            },
+        },
     },
     argTypes: {
         variant: {
@@ -32,32 +33,32 @@ const meta: Meta<typeof Mask> = {
                 'triangle-3',
                 'triangle-4',
             ],
-            description: 'DaisyUI mask shape variant'
+            description: 'DaisyUI mask shape variant',
         },
         size: {
             control: { type: 'select' },
             options: ['xs', 'sm', 'md', 'lg', 'xl'],
-            description: 'Mask size using Tailwind width/height classes'
+            description: 'Mask size using Tailwind width/height classes',
         },
         isHalf1: {
             control: { type: 'boolean' },
-            description: 'Half mask modifier - crops only the first half'
+            description: 'Half mask modifier - crops only the first half',
         },
         isHalf2: {
             control: { type: 'boolean' },
-            description: 'Half mask modifier - crops only the second half'
+            description: 'Half mask modifier - crops only the second half',
         },
         class: {
             control: { type: 'text' },
-            description: 'Custom CSS classes'
-        }
+            description: 'Custom CSS classes',
+        },
     },
     args: {
         variant: 'squircle',
         size: 'md',
         isHalf1: false,
-        isHalf2: false
-    }
+        isHalf2: false,
+    },
 }
 
 export default meta

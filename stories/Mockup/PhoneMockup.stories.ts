@@ -41,7 +41,7 @@ export const Default: Story = {
     args: {
         backgroundColor: 'neutral-900',
         textColor: 'white',
-        displayClass: 'grid place-content-center'
+        displayClass: 'grid place-content-center',
     },
     render: (args) => ({
         components: { PhoneMockup },
@@ -141,7 +141,7 @@ export const CustomStyling: Story = {
         borderColor: '#3b82f6',
         backgroundColor: 'blue-50',
         textColor: 'blue-900',
-        displayClass: 'flex items-center justify-center'
+        displayClass: 'flex items-center justify-center',
     },
     render: (args) => ({
         components: { PhoneMockup },

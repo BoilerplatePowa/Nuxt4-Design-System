@@ -27,12 +27,12 @@ describe('Drawer', () => {
                 global: { stubs: { Menu: true, Icon: true } },
             })
 
-            // Check initial state
-            expect(wrapper.vm.isOpen).toBe(false)
+            // Check initial state - model is the defineModel ref
+            expect(wrapper.vm.model).toBe(false)
 
             // Simulate opening the drawer via v-model
             await wrapper.setProps({ modelValue: true })
-            expect(wrapper.vm.isOpen).toBe(true)
+            expect(wrapper.vm.model).toBe(true)
         })
 
         it('checkbox reflects local open state', async () => {
@@ -44,15 +44,15 @@ describe('Drawer', () => {
             expect(checkbox.exists()).toBe(true)
             expect((checkbox.element as HTMLInputElement).checked).toBe(false)
 
-            // Toggle the local open ref and expect checkbox to reflect it
-            wrapper.vm.open = true
+            // Toggle the model ref and expect checkbox to reflect it
+            wrapper.vm.model = true
             await wrapper.vm.$nextTick()
             expect((checkbox.element as HTMLInputElement).checked).toBe(true)
         })
 
         it('should have default model value false', () => {
             wrapper = mount(Drawer, { global: { stubs: { Menu: true, Icon: true } } })
-            expect(wrapper.vm.isOpen).toBe(false)
+            expect(wrapper.vm.model).toBe(false)
         })
     })
 
@@ -176,15 +176,15 @@ describe('Drawer', () => {
             expect(wrapper.find('.drawer-overlay').exists()).toBe(true)
         })
 
-        it('should bind checkbox to isOpen state', async () => {
+        it('should bind checkbox to model state', async () => {
             wrapper = mount(Drawer, { global: { stubs: { Menu: true, Icon: true } } })
             const checkbox = wrapper.find('.drawer-toggle')
 
             expect(checkbox.attributes('type')).toBe('checkbox')
             expect(checkbox.element.checked).toBe(false)
 
-            // updating local open ref should reflect on checkbox
-            wrapper.vm.open = true
+            // updating model ref should reflect on checkbox
+            wrapper.vm.model = true
             await wrapper.vm.$nextTick()
             expect((checkbox.element as HTMLInputElement).checked).toBe(true)
         })

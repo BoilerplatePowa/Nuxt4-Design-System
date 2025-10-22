@@ -122,10 +122,11 @@ describe('Navbar', () => {
         const wrapper = mount(Navbar, {
             props: {
                 showMobileMenu: true,
+                menuItems: [{ label: 'Home', href: '/' }],
             },
         })
 
-        expect(wrapper.find('.navbar-mobile').exists()).toBe(true)
+        expect(wrapper.findComponent({ name: 'Dropdown' }).exists()).toBe(true)
     })
 
     it('does not render mobile menu when showMobileMenu is false', () => {
@@ -135,7 +136,7 @@ describe('Navbar', () => {
             },
         })
 
-        expect(wrapper.find('.navbar-mobile').exists()).toBe(false)
+        expect(wrapper.findComponent({ name: 'Dropdown' }).exists()).toBe(false)
     })
 
     it('combines all props and slots correctly', () => {

@@ -1,5 +1,5 @@
 <template>
-    <Transition :name="transitionName" :id="`toast-${props.id}`" @enter="onEnter" @leave="onLeave">
+    <Transition :id="`toast-${props.id}`" :name="transitionName" @enter="onEnter" @leave="onLeave">
         <div
             v-if="visible"
             ref="toastRef"

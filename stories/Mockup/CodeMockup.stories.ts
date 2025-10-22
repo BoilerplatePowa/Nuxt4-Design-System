@@ -8,32 +8,43 @@ const meta: Meta<typeof CodeMockup> = {
         layout: 'padded',
         docs: {
             description: {
-                component: 'Code mockup component for displaying code blocks with terminal-like styling. Supports line prefixes, highlighting, and multiple color variants.'
-            }
-        }
+                component:
+                    'Code mockup component for displaying code blocks with terminal-like styling. Supports line prefixes, highlighting, and multiple color variants.',
+            },
+        },
     },
     argTypes: {
         code: {
             control: { type: 'text' },
-            description: 'Code content as string or array of CodeLine objects'
+            description: 'Code content as string or array of CodeLine objects',
         },
         variant: {
             control: { type: 'select' },
-            options: ['default', 'primary', 'secondary', 'accent', 'neutral', 'info', 'success', 'warning', 'error'],
-            description: 'DaisyUI color variant'
+            options: [
+                'default',
+                'primary',
+                'secondary',
+                'accent',
+                'neutral',
+                'info',
+                'success',
+                'warning',
+                'error',
+            ],
+            description: 'DaisyUI color variant',
         },
         language: {
             control: { type: 'text' },
-            description: 'Language for syntax highlighting'
+            description: 'Language for syntax highlighting',
         },
         showLineNumbers: {
             control: { type: 'boolean' },
-            description: 'Show line numbers as prefix'
+            description: 'Show line numbers as prefix',
         },
         class: {
             control: { type: 'text' },
-            description: 'Custom CSS classes'
-        }
+            description: 'Custom CSS classes',
+        },
     },
 }
 
@@ -51,7 +62,7 @@ export const WithPrefix: Story = {
         code: [
             { content: 'npm i daisyui', prefix: '$' },
             { content: 'installing...', prefix: '>', color: 'warning' },
-            { content: 'Done!', prefix: '>', color: 'success' }
+            { content: 'Done!', prefix: '>', color: 'success' },
         ],
     },
 }
@@ -61,7 +72,7 @@ export const MultiLine: Story = {
         code: [
             { content: 'npm i daisyui', prefix: '$' },
             { content: 'installing...', prefix: '>', color: 'warning' },
-            { content: 'Done!', prefix: '>', color: 'success' }
+            { content: 'Done!', prefix: '>', color: 'success' },
         ],
     },
 }
@@ -71,7 +82,7 @@ export const HighlightedLine: Story = {
         code: [
             { content: 'npm i daisyui', prefix: '1' },
             { content: 'installing...', prefix: '2' },
-            { content: 'Error!', prefix: '3', highlight: true, color: 'warning' }
+            { content: 'Error!', prefix: '3', highlight: true, color: 'warning' },
         ],
     },
 }
@@ -101,7 +112,7 @@ export const TerminalExample: Story = {
             { content: 'npm install @nuxt-design-system/core', prefix: '$' },
             { content: 'installing packages...', prefix: '>', color: 'info' },
             { content: 'added 1 package', prefix: '>', color: 'success' },
-            { content: 'Done in 2.3s', prefix: '>', color: 'success' }
+            { content: 'Done in 2.3s', prefix: '>', color: 'success' },
         ],
     },
 }
@@ -112,7 +123,7 @@ export const ErrorExample: Story = {
             { content: 'npm run build', prefix: '$' },
             { content: 'Building project...', prefix: '>' },
             { content: 'Error: Module not found', prefix: '>', highlight: true, color: 'error' },
-            { content: 'Build failed', prefix: '>', color: 'error' }
+            { content: 'Build failed', prefix: '>', color: 'error' },
         ],
     },
 }
@@ -124,7 +135,7 @@ export const GitExample: Story = {
             { content: 'On branch main', prefix: '>' },
             { content: 'Changes not staged for commit:', prefix: '>', color: 'warning' },
             { content: '  modified: src/components/Button.vue', prefix: '>' },
-            { content: '  modified: src/stores/theme.ts', prefix: '>' }
+            { content: '  modified: src/stores/theme.ts', prefix: '>' },
         ],
     },
 }

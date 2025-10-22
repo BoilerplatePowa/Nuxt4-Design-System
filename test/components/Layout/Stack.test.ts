@@ -13,7 +13,7 @@ describe('Stack', () => {
 
         it('applies custom modifier class', () => {
             const wrapper = mount(Stack, {
-                props: { modifier: 'stack-top' }
+                props: { modifier: 'stack-top' },
             })
 
             expect(wrapper.classes()).toContain('stack')
@@ -22,7 +22,7 @@ describe('Stack', () => {
 
         it('applies custom class', () => {
             const wrapper = mount(Stack, {
-                props: { class: 'h-20 w-32' }
+                props: { class: 'h-20 w-32' },
             })
 
             expect(wrapper.classes()).toContain('stack')
@@ -35,7 +35,7 @@ describe('Stack', () => {
     describe('rendering', () => {
         it('renders slot content', () => {
             const wrapper = mount(Stack, {
-                slots: { default: 'Stack content' }
+                slots: { default: 'Stack content' },
             })
             expect(wrapper.text()).toBe('Stack content')
         })
@@ -43,14 +43,10 @@ describe('Stack', () => {
         it('renders multiple children', () => {
             const wrapper = mount(Stack, {
                 slots: {
-                    default: [
-                        '<div>Item 1</div>',
-                        '<div>Item 2</div>',
-                        '<div>Item 3</div>'
-                    ]
-                }
+                    default: ['<div>Item 1</div>', '<div>Item 2</div>', '<div>Item 3</div>'],
+                },
             })
-            
+
             expect(wrapper.findAll('div')).toHaveLength(4) // 3 slot divs + wrapper div
         })
     })
@@ -58,10 +54,10 @@ describe('Stack', () => {
     describe('props', () => {
         it('accepts valid modifier values', () => {
             const validModifiers = ['stack-top', 'stack-bottom', 'stack-start', 'stack-end']
-            
-            validModifiers.forEach(modifier => {
+
+            validModifiers.forEach((modifier) => {
                 const wrapper = mount(Stack, {
-                    props: { modifier }
+                    props: { modifier },
                 })
                 expect(wrapper.classes()).toContain(modifier)
             })
@@ -83,8 +79,8 @@ describe('Stack', () => {
             const wrapper = mount(Stack, {
                 attrs: {
                     'data-testid': 'stack-component',
-                    'aria-label': 'Stack container'
-                }
+                    'aria-label': 'Stack container',
+                },
             })
 
             expect(wrapper.attributes('data-testid')).toBe('stack-component')

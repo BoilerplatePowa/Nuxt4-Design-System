@@ -43,7 +43,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, useId } from 'vue'
+import { computed, useId } from 'vue'
 import type { MenuItem } from '../../shared/types.d'
 import Menu from '../Navigation/Menu.vue'
 import Icon from '../Icons/Icon.vue'

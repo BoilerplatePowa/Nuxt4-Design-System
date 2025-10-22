@@ -115,7 +115,7 @@ describe('PhoneMockup', () => {
         })
 
         expect(wrapper.classes()).toContain('border-[#3b82f6]')
-        
+
         const display = wrapper.find('.mockup-phone-display')
         expect(display.classes()).toContain('bg-blue-50')
         expect(display.classes()).toContain('text-blue-900')

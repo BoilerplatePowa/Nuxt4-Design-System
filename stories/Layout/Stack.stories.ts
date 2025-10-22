@@ -8,24 +8,25 @@ const meta: Meta<typeof Stack> = {
         layout: 'centered',
         docs: {
             description: {
-                component: 'Stack visually puts elements on top of each other. Based on DaisyUI 5 stack component.'
-            }
-        }
+                component:
+                    'Stack visually puts elements on top of each other. Based on DaisyUI 5 stack component.',
+            },
+        },
     },
     argTypes: {
         modifier: {
             control: { type: 'select' },
             options: ['stack-top', 'stack-bottom', 'stack-start', 'stack-end'],
-            description: 'DaisyUI stack modifier for alignment'
+            description: 'DaisyUI stack modifier for alignment',
         },
         class: {
             control: { type: 'text' },
-            description: 'Custom CSS classes'
-        }
+            description: 'Custom CSS classes',
+        },
     },
     args: {
-        modifier: 'stack-bottom'
-    }
+        modifier: 'stack-bottom',
+    },
 }
 
 export default meta
@@ -33,7 +34,7 @@ type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
     args: {
-        modifier: 'stack-bottom'
+        modifier: 'stack-bottom',
     },
     render: (args) => ({
         components: { Stack },
@@ -54,7 +55,7 @@ export const Default: Story = {
 
 export const StackedImages: Story = {
     args: {
-        modifier: 'stack-bottom'
+        modifier: 'stack-bottom',
     },
     render: (args) => ({
         components: { Stack },
@@ -75,7 +76,7 @@ export const StackedImages: Story = {
 
 export const StackedCards: Story = {
     args: {
-        modifier: 'stack-bottom'
+        modifier: 'stack-bottom',
     },
     render: (args) => ({
         components: { Stack },
@@ -147,7 +148,7 @@ export const Modifiers: Story = {
 
 export const Notifications: Story = {
     args: {
-        modifier: 'stack-bottom'
+        modifier: 'stack-bottom',
     },
     render: (args) => ({
         components: { Stack },
@@ -184,6 +185,6 @@ export const Notifications: Story = {
 export const Playground: Story = {
     args: {
         modifier: 'stack-bottom',
-        class: 'h-20 w-32'
-    }
+        class: 'h-20 w-32',
+    },
 }

@@ -8,23 +8,24 @@ const meta: Meta<typeof WindowMockup> = {
         layout: 'padded',
         docs: {
             description: {
-                component: 'Window mockup shows a box that looks like an operating system window. Based on DaisyUI mockup-window component.'
-            }
-        }
+                component:
+                    'Window mockup shows a box that looks like an operating system window. Based on DaisyUI mockup-window component.',
+            },
+        },
     },
     argTypes: {
         isBordered: {
             control: { type: 'boolean' },
-            description: 'Add border styling to the window mockup'
+            description: 'Add border styling to the window mockup',
         },
         hasBackground: {
             control: { type: 'boolean' },
-            description: 'Add background color to the window mockup'
+            description: 'Add background color to the window mockup',
         },
         class: {
             control: { type: 'text' },
-            description: 'Custom CSS classes'
-        }
+            description: 'Custom CSS classes',
+        },
     },
 }
 
@@ -48,7 +49,7 @@ export const Default: Story = {
 
 export const WithBorder: Story = {
     args: {
-        isBordered: true
+        isBordered: true,
     },
     render: (args) => ({
         components: { WindowMockup },
@@ -65,7 +66,7 @@ export const WithBorder: Story = {
 
 export const WithBackground: Story = {
     args: {
-        hasBackground: true
+        hasBackground: true,
     },
     render: (args) => ({
         components: { WindowMockup },

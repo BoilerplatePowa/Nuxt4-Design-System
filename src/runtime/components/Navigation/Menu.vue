@@ -13,8 +13,8 @@
                     v-else-if="item.href"
                     :href="item.href"
                     :class="getItemClasses(item)"
-                    @click="handleItemClick(item, $event)"
                     :data-tip="item.label"
+                    @click="handleItemClick(item, $event)"
                 >
                     <div v-if="compact && item.icon">
                         <Icon :name="item.icon" />

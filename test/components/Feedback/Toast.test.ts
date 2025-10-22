@@ -7,6 +7,7 @@ describe('Toast', () => {
         const wrapper = mount(Toast, {
             props: {
                 message: 'Test toast message',
+                id: 'test-toast-1',
             },
         })
 
@@ -22,6 +23,7 @@ describe('Toast', () => {
                 props: {
                     message: 'Test message',
                     type,
+                    id: `test-toast-${type}`,
                 },
             })
 
@@ -45,6 +47,7 @@ describe('Toast', () => {
             props: {
                 title: 'Toast Title',
                 message: 'Toast message',
+                id: 'test-toast-title',
             },
         })
 
@@ -56,6 +59,7 @@ describe('Toast', () => {
         const wrapper = mount(Toast, {
             props: {
                 message: 'Toast message',
+                id: 'test-toast-no-title',
             },
         })
 
@@ -67,6 +71,7 @@ describe('Toast', () => {
             props: {
                 message: 'Closable toast',
                 closable: true,
+                id: 'test-toast-closable',
             },
         })
 
@@ -78,6 +83,7 @@ describe('Toast', () => {
             props: {
                 message: 'Non-closable toast',
                 closable: false,
+                id: 'test-toast-non-closable',
             },
         })
 
@@ -89,6 +95,7 @@ describe('Toast', () => {
             props: {
                 message: 'Test toast',
                 closable: true,
+                id: 'test-toast-close-event',
             },
         })
 
@@ -108,6 +115,7 @@ describe('Toast', () => {
                 message: 'Fixed toast',
                 fixed: true,
                 position: 'top-right',
+                id: 'test-toast-fixed',
             },
         })
 
@@ -123,6 +131,7 @@ describe('Toast', () => {
             props: {
                 message: 'Inline toast',
                 fixed: false,
+                id: 'test-toast-inline',
             },
         })
 
@@ -147,6 +156,7 @@ describe('Toast', () => {
                     message: 'Positioned toast',
                     fixed: true,
                     position,
+                    id: `test-toast-${position}`,
                 },
             })
 
@@ -165,6 +175,7 @@ describe('Toast', () => {
                 message: 'Auto-dismiss toast',
                 duration: 1000,
                 persistent: false,
+                id: 'test-toast-auto-dismiss',
             },
         })
 
@@ -186,6 +197,7 @@ describe('Toast', () => {
                 message: 'Persistent toast',
                 duration: 1000,
                 persistent: true,
+                id: 'test-toast-persistent',
             },
         })
 
@@ -200,6 +212,7 @@ describe('Toast', () => {
         const wrapper = mount(Toast, {
             props: {
                 message: 'Base message',
+                id: 'test-toast-slot',
             },
             slots: {
                 default: '<span class="custom-content">Custom toast content</span>',
@@ -214,6 +227,7 @@ describe('Toast', () => {
         const wrapper = mount(Toast, {
             props: {
                 message: 'Toast with actions',
+                id: 'test-toast-actions',
             },
             slots: {
                 actions: '<button class="custom-action">Action</button>',
@@ -230,6 +244,7 @@ describe('Toast', () => {
                 message: 'Test toast',
                 fixed: true,
                 position: 'top-right',
+                id: 'test-toast-transition',
             },
         })
 
@@ -242,6 +257,7 @@ describe('Toast', () => {
             props: {
                 message: 'Keyboard accessible toast',
                 closable: true,
+                id: 'test-toast-keyboard',
             },
         })
 

@@ -18,27 +18,27 @@ interface Props {
 
 const props = withDefaults(defineProps<Props>(), {
     isBordered: false,
-    hasBackground: false
+    hasBackground: false,
 })
 
 const mockupClasses = computed(() => {
     const baseClasses = ['mockup-window']
-    
+
     // Add border if specified
     if (props.isBordered) {
         baseClasses.push('border', 'border-base-300')
     }
-    
+
     // Add background if specified
     if (props.hasBackground) {
         baseClasses.push('bg-base-100', 'border', 'border-base-300')
     }
-    
+
     // Add custom classes
     if (props.class) {
         baseClasses.push(props.class)
     }
-    
+
     return baseClasses
 })
 </script>

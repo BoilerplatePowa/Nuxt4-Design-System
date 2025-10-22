@@ -12,7 +12,7 @@ describe('WindowMockup', () => {
 
         it('applies border classes when isBordered is true', () => {
             const wrapper = mount(WindowMockup, {
-                props: { isBordered: true }
+                props: { isBordered: true },
             })
 
             expect(wrapper.classes()).toContain('mockup-window')
@@ -22,7 +22,7 @@ describe('WindowMockup', () => {
 
         it('applies background classes when hasBackground is true', () => {
             const wrapper = mount(WindowMockup, {
-                props: { hasBackground: true }
+                props: { hasBackground: true },
             })
 
             expect(wrapper.classes()).toContain('mockup-window')
@@ -33,7 +33,7 @@ describe('WindowMockup', () => {
 
         it('applies custom classes when provided', () => {
             const wrapper = mount(WindowMockup, {
-                props: { class: 'w-full max-w-md' }
+                props: { class: 'w-full max-w-md' },
             })
 
             expect(wrapper.classes()).toContain('mockup-window')
@@ -45,7 +45,7 @@ describe('WindowMockup', () => {
     describe('rendering', () => {
         it('renders slot content', () => {
             const wrapper = mount(WindowMockup, {
-                slots: { default: 'Hello World!' }
+                slots: { default: 'Hello World!' },
             })
 
             expect(wrapper.text()).toBe('Hello World!')
@@ -54,8 +54,8 @@ describe('WindowMockup', () => {
         it('renders complex slot content', () => {
             const wrapper = mount(WindowMockup, {
                 slots: {
-                    default: '<div class="p-4">Complex content</div>'
-                }
+                    default: '<div class="p-4">Complex content</div>',
+                },
             })
 
             expect(wrapper.find('.p-4').exists()).toBe(true)
@@ -73,7 +73,7 @@ describe('WindowMockup', () => {
 
         it('accepts isBordered prop', () => {
             const wrapper = mount(WindowMockup, {
-                props: { isBordered: true }
+                props: { isBordered: true },
             })
 
             expect(wrapper.props('isBordered')).toBe(true)
@@ -81,7 +81,7 @@ describe('WindowMockup', () => {
 
         it('accepts hasBackground prop', () => {
             const wrapper = mount(WindowMockup, {
-                props: { hasBackground: true }
+                props: { hasBackground: true },
             })
 
             expect(wrapper.props('hasBackground')).toBe(true)
@@ -89,7 +89,7 @@ describe('WindowMockup', () => {
 
         it('accepts class prop', () => {
             const wrapper = mount(WindowMockup, {
-                props: { class: 'custom-class' }
+                props: { class: 'custom-class' },
             })
 
             expect(wrapper.props('class')).toBe('custom-class')
@@ -106,8 +106,8 @@ describe('WindowMockup', () => {
         it('maintains semantic structure', () => {
             const wrapper = mount(WindowMockup, {
                 slots: {
-                    default: '<main>Main content</main>'
-                }
+                    default: '<main>Main content</main>',
+                },
             })
 
             expect(wrapper.find('main').exists()).toBe(true)

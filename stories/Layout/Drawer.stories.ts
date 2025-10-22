@@ -192,14 +192,14 @@ export const SidebarMode: Story = {
 }
 
 export const ForceOpen: Story = {
-    args: { 
+    args: {
         forceOpen: true,
         mode: 'sidebar',
         items: [
             { label: 'Dashboard', icon: 'home', href: '#' },
             { label: 'Analytics', icon: 'analytics', href: '#' },
-            { label: 'Settings', icon: 'settings', href: '#' }
-        ]
+            { label: 'Settings', icon: 'settings', href: '#' },
+        ],
     },
     render: (args) => ({
         components: { Drawer },

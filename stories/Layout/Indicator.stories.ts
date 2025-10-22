@@ -8,54 +8,73 @@ const meta: Meta<typeof Indicator> = {
         layout: 'centered',
         docs: {
             description: {
-                component: 'Indicator component for placing elements on the corner of another element. Supports status indicators, badges, and custom content.'
-            }
-        }
+                component:
+                    'Indicator component for placing elements on the corner of another element. Supports status indicators, badges, and custom content.',
+            },
+        },
     },
     argTypes: {
         type: {
             control: { type: 'select' },
             options: ['status', 'badge', 'custom'],
-            description: 'Type of indicator to display'
+            description: 'Type of indicator to display',
         },
         content: {
             control: { type: 'text' },
-            description: 'Content to display in the indicator'
+            description: 'Content to display in the indicator',
         },
         horizontal: {
             control: { type: 'select' },
             options: ['start', 'center', 'end'],
-            description: 'Horizontal position of the indicator'
+            description: 'Horizontal position of the indicator',
         },
         vertical: {
             control: { type: 'select' },
             options: ['top', 'middle', 'bottom'],
-            description: 'Vertical position of the indicator'
+            description: 'Vertical position of the indicator',
         },
         variant: {
             control: { type: 'select' },
-            options: ['primary', 'secondary', 'accent', 'neutral', 'info', 'success', 'warning', 'error'],
-            description: 'Badge variant (for badge type)'
+            options: [
+                'primary',
+                'secondary',
+                'accent',
+                'neutral',
+                'info',
+                'success',
+                'warning',
+                'error',
+            ],
+            description: 'Badge variant (for badge type)',
         },
         size: {
             control: { type: 'select' },
             options: ['xs', 'sm', 'md', 'lg'],
-            description: 'Badge size (for badge type)'
+            description: 'Badge size (for badge type)',
         },
         statusVariant: {
             control: { type: 'select' },
-            options: ['neutral', 'primary', 'secondary', 'accent', 'info', 'success', 'warning', 'error'],
-            description: 'Status variant (for status type)'
+            options: [
+                'neutral',
+                'primary',
+                'secondary',
+                'accent',
+                'info',
+                'success',
+                'warning',
+                'error',
+            ],
+            description: 'Status variant (for status type)',
         },
         statusSize: {
             control: { type: 'select' },
             options: ['xs', 'sm', 'md', 'lg'],
-            description: 'Status size (for status type)'
+            description: 'Status size (for status type)',
         },
         showIndicator: {
             control: { type: 'boolean' },
-            description: 'Show or hide the indicator'
-        }
+            description: 'Show or hide the indicator',
+        },
     },
 }
 
@@ -69,7 +88,7 @@ export const Default: Story = {
         variant: 'primary',
         size: 'md',
         horizontal: 'end',
-        vertical: 'top'
+        vertical: 'top',
     },
     render: (args) => ({
         components: { Indicator },
@@ -393,4 +412,3 @@ export const AllPositions: Story = {
     `,
     }),
 }
-

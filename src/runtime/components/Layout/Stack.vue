@@ -15,13 +15,13 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-    modifier: 'stack-bottom'
+    modifier: 'stack-bottom',
 })
 
 const stackClasses = computed(() => [
     'stack', // DaisyUI base class
     props.modifier,
-    props.class
+    props.class,
 ])
 </script>
 

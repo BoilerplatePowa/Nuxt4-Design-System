@@ -13,8 +13,9 @@
             <div class="mb-12">
                 <h1 class="text-5xl font-bold mb-4">Drawer</h1>
                 <p class="text-xl text-base-content/70 max-w-3xl">
-                    A responsive sidebar layout component that slides in from the side. Perfect for navigation menus, 
-                    settings panels, and content drawers. Supports both default and sidebar modes with full customization.
+                    A responsive sidebar layout component that slides in from the side. Perfect for
+                    navigation menus, settings panels, and content drawers. Supports both default
+                    and sidebar modes with full customization.
                 </p>
             </div>
 
@@ -24,12 +25,15 @@
                 <div class="card bg-base-200 shadow-xl">
                     <div class="card-body">
                         <p class="text-sm text-base-content/70 mb-4">
-                            Simple drawer with toggle button. Click the button to open/close the drawer.
+                            Simple drawer with toggle button. Click the button to open/close the
+                            drawer.
                         </p>
                         <div class="drawer">
                             <input id="basic-drawer" type="checkbox" class="drawer-toggle" />
                             <div class="drawer-content">
-                                <label for="basic-drawer" class="btn btn-primary">Open Drawer</label>
+                                <label for="basic-drawer" class="btn btn-primary"
+                                    >Open Drawer</label
+                                >
                             </div>
                             <div class="drawer-side">
                                 <label
@@ -55,12 +59,15 @@
                 <div class="card bg-base-200 shadow-xl">
                     <div class="card-body">
                         <p class="text-sm text-base-content/70 mb-4">
-                            Drawer positioned on the right side using the <code>drawer-end</code> class.
+                            Drawer positioned on the right side using the
+                            <code>drawer-end</code> class.
                         </p>
                         <div class="drawer drawer-end">
                             <input id="right-drawer" type="checkbox" class="drawer-toggle" />
                             <div class="drawer-content">
-                                <label for="right-drawer" class="btn btn-secondary">Open Right Drawer</label>
+                                <label for="right-drawer" class="btn btn-secondary"
+                                    >Open Right Drawer</label
+                                >
                             </div>
                             <div class="drawer-side">
                                 <label
@@ -91,7 +98,9 @@
                         <div class="drawer">
                             <input id="custom-drawer" type="checkbox" class="drawer-toggle" />
                             <div class="drawer-content">
-                                <label for="custom-drawer" class="btn btn-accent">Open Custom Drawer</label>
+                                <label for="custom-drawer" class="btn btn-accent"
+                                    >Open Custom Drawer</label
+                                >
                             </div>
                             <div class="drawer-side">
                                 <label
@@ -103,9 +112,11 @@
                                     <!-- Header -->
                                     <div class="flex items-center justify-between mb-6">
                                         <h3 class="text-lg font-semibold">Settings</h3>
-                                        <label for="custom-drawer" class="btn btn-ghost btn-sm">✕</label>
+                                        <label for="custom-drawer" class="btn btn-ghost btn-sm"
+                                            >✕</label
+                                        >
                                     </div>
-                                    
+
                                     <!-- Body -->
                                     <div class="space-y-4">
                                         <div class="form-control">
@@ -118,14 +129,14 @@
                                                 <option>Auto</option>
                                             </select>
                                         </div>
-                                        
+
                                         <div class="form-control">
                                             <label class="label cursor-pointer">
                                                 <span class="label-text">Notifications</span>
                                                 <input type="checkbox" class="toggle" checked />
                                             </label>
                                         </div>
-                                        
+
                                         <div class="form-control">
                                             <label class="label cursor-pointer">
                                                 <span class="label-text">Email Updates</span>
@@ -133,12 +144,16 @@
                                             </label>
                                         </div>
                                     </div>
-                                    
+
                                     <!-- Footer -->
                                     <div class="mt-8 pt-4 border-t border-base-300">
                                         <div class="flex gap-2">
-                                            <button class="btn btn-primary btn-sm flex-1">Save</button>
-                                            <button class="btn btn-ghost btn-sm flex-1">Cancel</button>
+                                            <button class="btn btn-primary btn-sm flex-1">
+                                                Save
+                                            </button>
+                                            <button class="btn btn-ghost btn-sm flex-1">
+                                                Cancel
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -154,14 +169,22 @@
                 <div class="card bg-base-200 shadow-xl">
                     <div class="card-body">
                         <p class="text-sm text-base-content/70 mb-4">
-                            A drawer that stays open and doesn't close when clicking outside. Perfect for navigation sidebars.
+                            A drawer that stays open and doesn't close when clicking outside.
+                            Perfect for navigation sidebars.
                         </p>
                         <div class="drawer drawer-open">
-                            <input id="persistent-drawer" type="checkbox" class="drawer-toggle" checked />
+                            <input
+                                id="persistent-drawer"
+                                type="checkbox"
+                                class="drawer-toggle"
+                                checked
+                            />
                             <div class="drawer-content">
                                 <div class="p-4">
                                     <h3 class="text-lg font-semibold mb-2">Main Content</h3>
-                                    <p class="text-base-content/70">This content area is always visible. The drawer stays open.</p>
+                                    <p class="text-base-content/70">
+                                        This content area is always visible. The drawer stays open.
+                                    </p>
                                 </div>
                             </div>
                             <div class="drawer-side">
@@ -186,17 +209,34 @@
                 <div class="card bg-base-200 shadow-xl">
                     <div class="card-body">
                         <p class="text-sm text-base-content/70 mb-4">
-                            Sidebar mode creates a collapsible navigation sidebar with a toggle button. Perfect for admin dashboards and applications with complex navigation.
+                            Sidebar mode creates a collapsible navigation sidebar with a toggle
+                            button. Perfect for admin dashboards and applications with complex
+                            navigation.
                         </p>
                         <div class="drawer drawer-open">
-                            <input id="sidebar-drawer" type="checkbox" class="drawer-toggle" checked />
+                            <input
+                                id="sidebar-drawer"
+                                type="checkbox"
+                                class="drawer-toggle"
+                                checked
+                            />
                             <div class="drawer-content">
                                 <div class="p-4">
                                     <div class="flex items-center justify-between mb-4">
                                         <h3 class="text-lg font-semibold">Dashboard</h3>
                                         <label for="sidebar-drawer" class="btn btn-ghost btn-sm">
-                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                                            <svg
+                                                class="w-4 h-4"
+                                                fill="none"
+                                                stroke="currentColor"
+                                                viewBox="0 0 24 24"
+                                            >
+                                                <path
+                                                    stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                    stroke-width="2"
+                                                    d="M4 6h16M4 12h16M4 18h16"
+                                                ></path>
                                             </svg>
                                         </label>
                                     </div>
@@ -224,62 +264,135 @@
                                     <div class="flex items-center justify-between mb-6">
                                         <h3 class="text-lg font-semibold">Admin Panel</h3>
                                         <label for="sidebar-drawer" class="btn btn-ghost btn-sm">
-                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                            <svg
+                                                class="w-4 h-4"
+                                                fill="none"
+                                                stroke="currentColor"
+                                                viewBox="0 0 24 24"
+                                            >
+                                                <path
+                                                    stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                    stroke-width="2"
+                                                    d="M6 18L18 6M6 6l12 12"
+                                                ></path>
                                             </svg>
                                         </label>
                                     </div>
                                     <ul class="menu">
                                         <li>
                                             <a class="active">
-                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z"></path>
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5a2 2 0 012-2h4a2 2 0 012 2v2H8V5z"></path>
+                                                <svg
+                                                    class="w-4 h-4"
+                                                    fill="none"
+                                                    stroke="currentColor"
+                                                    viewBox="0 0 24 24"
+                                                >
+                                                    <path
+                                                        stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                        stroke-width="2"
+                                                        d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z"
+                                                    ></path>
+                                                    <path
+                                                        stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                        stroke-width="2"
+                                                        d="M8 5a2 2 0 012-2h4a2 2 0 012 2v2H8V5z"
+                                                    ></path>
                                                 </svg>
                                                 Dashboard
                                             </a>
                                         </li>
                                         <li>
                                             <a>
-                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                                                <svg
+                                                    class="w-4 h-4"
+                                                    fill="none"
+                                                    stroke="currentColor"
+                                                    viewBox="0 0 24 24"
+                                                >
+                                                    <path
+                                                        stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                        stroke-width="2"
+                                                        d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                                                    ></path>
                                                 </svg>
                                                 Users
                                             </a>
                                         </li>
                                         <li>
                                             <a>
-                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                                                <svg
+                                                    class="w-4 h-4"
+                                                    fill="none"
+                                                    stroke="currentColor"
+                                                    viewBox="0 0 24 24"
+                                                >
+                                                    <path
+                                                        stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                        stroke-width="2"
+                                                        d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+                                                    ></path>
                                                 </svg>
                                                 Analytics
                                             </a>
                                         </li>
                                         <li>
                                             <a>
-                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                                <svg
+                                                    class="w-4 h-4"
+                                                    fill="none"
+                                                    stroke="currentColor"
+                                                    viewBox="0 0 24 24"
+                                                >
+                                                    <path
+                                                        stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                        stroke-width="2"
+                                                        d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+                                                    ></path>
+                                                    <path
+                                                        stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                        stroke-width="2"
+                                                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                                                    ></path>
                                                 </svg>
                                                 Settings
                                             </a>
                                         </li>
                                         <li>
                                             <a>
-                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                                <svg
+                                                    class="w-4 h-4"
+                                                    fill="none"
+                                                    stroke="currentColor"
+                                                    viewBox="0 0 24 24"
+                                                >
+                                                    <path
+                                                        stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                        stroke-width="2"
+                                                        d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                                                    ></path>
                                                 </svg>
                                                 Help
                                             </a>
                                         </li>
                                     </ul>
-                                    
+
                                     <div class="divider my-4"></div>
-                                    
+
                                     <div class="flex items-center gap-3">
                                         <div class="avatar">
                                             <div class="w-8 rounded-full">
-                                                <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" alt="User avatar">
+                                                <img
+                                                    src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+                                                    alt="User avatar"
+                                                />
                                             </div>
                                         </div>
                                         <div class="flex-1">
@@ -287,8 +400,18 @@
                                             <div class="text-xs text-base-content/70">Admin</div>
                                         </div>
                                         <button class="btn btn-ghost btn-sm">
-                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+                                            <svg
+                                                class="w-4 h-4"
+                                                fill="none"
+                                                stroke="currentColor"
+                                                viewBox="0 0 24 24"
+                                            >
+                                                <path
+                                                    stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                    stroke-width="2"
+                                                    d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+                                                ></path>
                                             </svg>
                                         </button>
                                     </div>
@@ -305,7 +428,8 @@
                 <div class="card bg-base-200 shadow-xl">
                     <div class="card-body">
                         <p class="text-sm text-base-content/70 mb-4">
-                            A sidebar that can be collapsed to show only icons, perfect for space-constrained layouts.
+                            A sidebar that can be collapsed to show only icons, perfect for
+                            space-constrained layouts.
                         </p>
                         <div class="drawer">
                             <input id="collapsible-sidebar" type="checkbox" class="drawer-toggle" />
@@ -313,8 +437,18 @@
                                 <div class="p-4">
                                     <div class="flex items-center gap-4 mb-4">
                                         <label for="collapsible-sidebar" class="btn btn-primary">
-                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                                            <svg
+                                                class="w-4 h-4"
+                                                fill="none"
+                                                stroke="currentColor"
+                                                viewBox="0 0 24 24"
+                                            >
+                                                <path
+                                                    stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                    stroke-width="2"
+                                                    d="M4 6h16M4 12h16M4 18h16"
+                                                ></path>
                                             </svg>
                                             Toggle Sidebar
                                         </label>
@@ -326,15 +460,21 @@
                                                 <h4 class="card-title">Recent Activity</h4>
                                                 <div class="space-y-2">
                                                     <div class="flex items-center gap-2 text-sm">
-                                                        <div class="w-2 h-2 bg-success rounded-full"></div>
+                                                        <div
+                                                            class="w-2 h-2 bg-success rounded-full"
+                                                        ></div>
                                                         User login successful
                                                     </div>
                                                     <div class="flex items-center gap-2 text-sm">
-                                                        <div class="w-2 h-2 bg-info rounded-full"></div>
+                                                        <div
+                                                            class="w-2 h-2 bg-info rounded-full"
+                                                        ></div>
                                                         New order received
                                                     </div>
                                                     <div class="flex items-center gap-2 text-sm">
-                                                        <div class="w-2 h-2 bg-warning rounded-full"></div>
+                                                        <div
+                                                            class="w-2 h-2 bg-warning rounded-full"
+                                                        ></div>
                                                         System update available
                                                     </div>
                                                 </div>
@@ -344,9 +484,15 @@
                                             <div class="card-body">
                                                 <h4 class="card-title">Quick Actions</h4>
                                                 <div class="flex flex-wrap gap-2">
-                                                    <button class="btn btn-sm btn-primary">New User</button>
-                                                    <button class="btn btn-sm btn-secondary">Generate Report</button>
-                                                    <button class="btn btn-sm btn-accent">Send Notification</button>
+                                                    <button class="btn btn-sm btn-primary">
+                                                        New User
+                                                    </button>
+                                                    <button class="btn btn-sm btn-secondary">
+                                                        Generate Report
+                                                    </button>
+                                                    <button class="btn btn-sm btn-accent">
+                                                        Send Notification
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
@@ -357,18 +503,46 @@
                                 <div class="p-4 w-64 min-h-full bg-base-100 text-base-content">
                                     <div class="flex items-center justify-between mb-6">
                                         <h3 class="text-lg font-semibold">Navigation</h3>
-                                        <label for="collapsible-sidebar" class="btn btn-ghost btn-sm">
-                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                        <label
+                                            for="collapsible-sidebar"
+                                            class="btn btn-ghost btn-sm"
+                                        >
+                                            <svg
+                                                class="w-4 h-4"
+                                                fill="none"
+                                                stroke="currentColor"
+                                                viewBox="0 0 24 24"
+                                            >
+                                                <path
+                                                    stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                    stroke-width="2"
+                                                    d="M6 18L18 6M6 6l12 12"
+                                                ></path>
                                             </svg>
                                         </label>
                                     </div>
                                     <ul class="menu">
                                         <li>
                                             <a class="active">
-                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z"></path>
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5a2 2 0 012-2h4a2 2 0 012 2v2H8V5z"></path>
+                                                <svg
+                                                    class="w-4 h-4"
+                                                    fill="none"
+                                                    stroke="currentColor"
+                                                    viewBox="0 0 24 24"
+                                                >
+                                                    <path
+                                                        stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                        stroke-width="2"
+                                                        d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z"
+                                                    ></path>
+                                                    <path
+                                                        stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                        stroke-width="2"
+                                                        d="M8 5a2 2 0 012-2h4a2 2 0 012 2v2H8V5z"
+                                                    ></path>
                                                 </svg>
                                                 Dashboard
                                             </a>
@@ -376,8 +550,18 @@
                                         <li>
                                             <details>
                                                 <summary>
-                                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                                                    <svg
+                                                        class="w-4 h-4"
+                                                        fill="none"
+                                                        stroke="currentColor"
+                                                        viewBox="0 0 24 24"
+                                                    >
+                                                        <path
+                                                            stroke-linecap="round"
+                                                            stroke-linejoin="round"
+                                                            stroke-width="2"
+                                                            d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                                                        ></path>
                                                     </svg>
                                                     Users
                                                 </summary>
@@ -391,8 +575,18 @@
                                         <li>
                                             <details>
                                                 <summary>
-                                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                                                    <svg
+                                                        class="w-4 h-4"
+                                                        fill="none"
+                                                        stroke="currentColor"
+                                                        viewBox="0 0 24 24"
+                                                    >
+                                                        <path
+                                                            stroke-linecap="round"
+                                                            stroke-linejoin="round"
+                                                            stroke-width="2"
+                                                            d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+                                                        ></path>
                                                     </svg>
                                                     Reports
                                                 </summary>
@@ -405,9 +599,24 @@
                                         </li>
                                         <li>
                                             <a>
-                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                                <svg
+                                                    class="w-4 h-4"
+                                                    fill="none"
+                                                    stroke="currentColor"
+                                                    viewBox="0 0 24 24"
+                                                >
+                                                    <path
+                                                        stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                        stroke-width="2"
+                                                        d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+                                                    ></path>
+                                                    <path
+                                                        stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                        stroke-width="2"
+                                                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                                                    ></path>
                                                 </svg>
                                                 Settings
                                             </a>
@@ -441,7 +650,10 @@
                                         <td><code>mode</code></td>
                                         <td><code>'default' | 'sidebar'</code></td>
                                         <td><code>'default'</code></td>
-                                        <td>Display mode - default for overlays, sidebar for persistent navigation</td>
+                                        <td>
+                                            Display mode - default for overlays, sidebar for
+                                            persistent navigation
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td><code>position</code></td>
@@ -488,7 +700,7 @@
                                 </tbody>
                             </table>
                         </div>
-                        
+
                         <h3 class="text-xl font-semibold mb-4 mt-8">Slots</h3>
                         <div class="overflow-x-auto">
                             <table class="table table-zebra w-full">
@@ -625,7 +837,9 @@ const menuItems = [
                     <!-- Advanced Sidebar with User Profile -->
                     <div class="card bg-base-200 shadow-xl">
                         <div class="card-body">
-                            <h3 class="text-lg font-semibold mb-2">Advanced Sidebar with User Profile</h3>
+                            <h3 class="text-lg font-semibold mb-2">
+                                Advanced Sidebar with User Profile
+                            </h3>
                             <div class="mockup-code">
                                 <pre><code>&lt;template&gt;
   &lt;Drawer 
@@ -719,7 +933,7 @@ definePageMeta({ title: 'Drawer', description: 'Drawer layout examples' })
 const user = ref({
     name: 'John Doe',
     role: 'Administrator',
-    avatar: '/avatar.jpg'
+    avatar: '/avatar.jpg',
 })
 
 function setTheme(theme: string) {

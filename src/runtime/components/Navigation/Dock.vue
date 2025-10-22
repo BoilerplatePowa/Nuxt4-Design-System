@@ -7,11 +7,14 @@
             :disabled="item.disabled"
             @click="handleItemClick(item, index, $event)"
         >
-            <!-- Icon -->
-            <div v-if="item.icon" class="size-[1.2em]">
-                <component :is="item.icon" class="w-full h-full" />
-            </div>
-            
+            <!-- Icon using Icon component -->
+            <Icon
+                v-if="item.icon"
+                :name="item.icon"
+                :size="getIconSize()"
+                :class="getIconClasses(item)"
+            />
+
             <!-- Avatar -->
             <img
                 v-else-if="item.avatar"
@@ -19,14 +22,14 @@
                 :alt="item.label || ''"
                 class="size-[1.2em] rounded-full object-cover"
             />
-            
+
             <!-- SVG Icon (if provided as string) -->
             <div v-else-if="item.svg" class="size-[1.2em]" v-html="item.svg"></div>
-            
+
             <!-- Label -->
             <span v-if="item.label" class="dock-label">{{ item.label }}</span>
         </button>
-        
+
         <!-- Additional content slot -->
         <slot />
     </div>
@@ -34,11 +37,13 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
+import Icon from '../Icons/Icon.vue'
+import type { IconName } from '../../shared/types.d'
 
 interface DockItem {
     id?: string | number
     label?: string
-    icon?: any
+    icon?: IconName
     avatar?: string
     svg?: string
     disabled?: boolean
@@ -67,17 +72,13 @@ const emit = defineEmits<{
     itemClick: [item: DockItem, index: number, event: Event]
 }>()
 
-const dockClasses = computed(() => [
-    'dock',
-    `dock-${props.size}`,
-    props.class
-])
+const dockClasses = computed(() => ['dock', `dock-${props.size}`, props.class])
 
 const getButtonClasses = (item: DockItem) => [
     'dock-item',
     {
-        'dock-active': isActive(item)
-    }
+        'dock-active': isActive(item),
+    },
 ]
 
 const getItemKey = (item: DockItem, index: number) => {
@@ -104,6 +105,27 @@ const handleItemClick = (item: DockItem, index: number, event: Event) => {
     }
 
     emit('itemClick', item, index, event)
+}
+
+const getIconSize = () => {
+    const sizeMap = {
+        xs: 16,
+        sm: 20,
+        md: 24,
+        lg: 28,
+        xl: 32,
+    }
+    return sizeMap[props.size] || 24
+}
+
+const getIconClasses = (item: DockItem) => {
+    const classes = ['w-full h-full']
+
+    if (isActive(item)) {
+        classes.push('text-primary')
+    }
+
+    return classes.join(' ')
 }
 </script>
 

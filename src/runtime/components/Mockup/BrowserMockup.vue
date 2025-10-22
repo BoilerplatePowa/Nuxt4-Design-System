@@ -34,7 +34,7 @@ const props = withDefaults(defineProps<Props>(), {
     url: 'https://daisyui.com',
     variant: 'default',
     size: 'md',
-    showToolbar: true
+    showToolbar: true,
 })
 
 const mockupClasses = computed(() => {
@@ -76,15 +76,15 @@ const mockupClasses = computed(() => {
 
 const contentClasses = computed(() => {
     const baseClasses = []
-    
+
     // Add border-top for content area when using border variant
     if (props.variant === 'border') {
         baseClasses.push('border-t', 'border-base-300')
     }
-    
+
     // Default content styling
     baseClasses.push('grid', 'place-content-center')
-    
+
     // Height based on size
     switch (props.size) {
         case 'sm':

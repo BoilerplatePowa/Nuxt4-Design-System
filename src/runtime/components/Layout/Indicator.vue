@@ -1,18 +1,12 @@
 <template>
     <div class="indicator">
         <!-- Status indicator -->
-        <span 
-            v-if="showIndicator && type === 'status'" 
-            :class="statusIndicatorClasses"
-        >
+        <span v-if="showIndicator && type === 'status'" :class="statusIndicatorClasses">
             <slot name="indicator" />
         </span>
 
         <!-- Badge indicator -->
-        <span 
-            v-else-if="showIndicator && type === 'badge'" 
-            :class="badgeIndicatorClasses"
-        >
+        <span v-else-if="showIndicator && type === 'badge'" :class="badgeIndicatorClasses">
             <slot name="indicator">
                 {{ content }}
             </slot>
@@ -41,11 +35,27 @@ interface Props {
     /** Vertical position */
     vertical?: 'top' | 'middle' | 'bottom'
     /** Badge variant for badge type */
-    variant?: 'primary' | 'secondary' | 'accent' | 'neutral' | 'info' | 'success' | 'warning' | 'error'
+    variant?:
+        | 'primary'
+        | 'secondary'
+        | 'accent'
+        | 'neutral'
+        | 'info'
+        | 'success'
+        | 'warning'
+        | 'error'
     /** Badge size for badge type */
     size?: 'xs' | 'sm' | 'md' | 'lg'
     /** Status variant for status type */
-    statusVariant?: 'neutral' | 'primary' | 'secondary' | 'accent' | 'info' | 'success' | 'warning' | 'error'
+    statusVariant?:
+        | 'neutral'
+        | 'primary'
+        | 'secondary'
+        | 'accent'
+        | 'info'
+        | 'success'
+        | 'warning'
+        | 'error'
     /** Status size for status type */
     statusSize?: 'xs' | 'sm' | 'md' | 'lg'
     /** Show/hide indicator */
@@ -68,7 +78,7 @@ const props = withDefaults(defineProps<Props>(), {
 // Status indicator classes
 const statusIndicatorClasses = computed(() => {
     const baseClasses = ['indicator-item', 'status']
-    
+
     // Position classes
     if (props.vertical === 'top') {
         baseClasses.push('indicator-top')
@@ -77,7 +87,7 @@ const statusIndicatorClasses = computed(() => {
     } else if (props.vertical === 'bottom') {
         baseClasses.push('indicator-bottom')
     }
-    
+
     if (props.horizontal === 'start') {
         baseClasses.push('indicator-start')
     } else if (props.horizontal === 'center') {
@@ -85,7 +95,7 @@ const statusIndicatorClasses = computed(() => {
     } else if (props.horizontal === 'end') {
         baseClasses.push('indicator-end')
     }
-    
+
     // Status variant classes
     if (props.statusVariant === 'neutral') {
         baseClasses.push('status-neutral')
@@ -104,7 +114,7 @@ const statusIndicatorClasses = computed(() => {
     } else if (props.statusVariant === 'error') {
         baseClasses.push('status-error')
     }
-    
+
     // Status size classes
     if (props.statusSize === 'xs') {
         baseClasses.push('status-xs')
@@ -113,14 +123,14 @@ const statusIndicatorClasses = computed(() => {
     } else if (props.statusSize === 'lg') {
         baseClasses.push('status-lg')
     }
-    
+
     return baseClasses.join(' ')
 })
 
 // Badge indicator classes
 const badgeIndicatorClasses = computed(() => {
     const baseClasses = ['indicator-item', 'badge']
-    
+
     // Position classes
     if (props.vertical === 'top') {
         baseClasses.push('indicator-top')
@@ -129,7 +139,7 @@ const badgeIndicatorClasses = computed(() => {
     } else if (props.vertical === 'bottom') {
         baseClasses.push('indicator-bottom')
     }
-    
+
     if (props.horizontal === 'start') {
         baseClasses.push('indicator-start')
     } else if (props.horizontal === 'center') {
@@ -137,7 +147,7 @@ const badgeIndicatorClasses = computed(() => {
     } else if (props.horizontal === 'end') {
         baseClasses.push('indicator-end')
     }
-    
+
     // Badge variant classes
     if (props.variant === 'primary') {
         baseClasses.push('badge-primary')
@@ -156,7 +166,7 @@ const badgeIndicatorClasses = computed(() => {
     } else if (props.variant === 'error') {
         baseClasses.push('badge-error')
     }
-    
+
     // Badge size classes
     if (props.size === 'xs') {
         baseClasses.push('badge-xs')
@@ -165,7 +175,7 @@ const badgeIndicatorClasses = computed(() => {
     } else if (props.size === 'lg') {
         baseClasses.push('badge-lg')
     }
-    
+
     return baseClasses.join(' ')
 })
 </script>

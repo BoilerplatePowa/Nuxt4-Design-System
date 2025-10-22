@@ -6,8 +6,8 @@ describe('BrowserMockup', () => {
     it('renders with default props', () => {
         const wrapper = mount(BrowserMockup, {
             slots: {
-                default: '<div>Test content</div>'
-            }
+                default: '<div>Test content</div>',
+            },
         })
 
         expect(wrapper.find('.mockup-browser').exists()).toBe(true)
@@ -18,7 +18,7 @@ describe('BrowserMockup', () => {
 
     it('applies correct classes for default variant', () => {
         const wrapper = mount(BrowserMockup)
-        
+
         expect(wrapper.classes()).toContain('mockup-browser')
         expect(wrapper.classes()).toContain('w-full')
         expect(wrapper.classes()).toContain('max-w-lg')
@@ -26,9 +26,9 @@ describe('BrowserMockup', () => {
 
     it('applies correct classes for border variant', () => {
         const wrapper = mount(BrowserMockup, {
-            props: { variant: 'border' }
+            props: { variant: 'border' },
         })
-        
+
         expect(wrapper.classes()).toContain('mockup-browser')
         expect(wrapper.classes()).toContain('border-base-300')
         expect(wrapper.classes()).toContain('border')
@@ -37,9 +37,9 @@ describe('BrowserMockup', () => {
 
     it('applies correct classes for background variant', () => {
         const wrapper = mount(BrowserMockup, {
-            props: { variant: 'background' }
+            props: { variant: 'background' },
         })
-        
+
         expect(wrapper.classes()).toContain('mockup-browser')
         expect(wrapper.classes()).toContain('border')
         expect(wrapper.classes()).toContain('border-base-300')
@@ -51,12 +51,12 @@ describe('BrowserMockup', () => {
             { size: 'sm', expectedClass: 'max-w-sm' },
             { size: 'md', expectedClass: 'max-w-lg' },
             { size: 'lg', expectedClass: 'max-w-2xl' },
-            { size: 'xl', expectedClass: 'max-w-4xl' }
+            { size: 'xl', expectedClass: 'max-w-4xl' },
         ]
 
         sizes.forEach(({ size, expectedClass }) => {
             const wrapper = mount(BrowserMockup, {
-                props: { size }
+                props: { size },
             })
             expect(wrapper.classes()).toContain(expectedClass)
         })
@@ -64,7 +64,7 @@ describe('BrowserMockup', () => {
 
     it('hides toolbar when showToolbar is false', () => {
         const wrapper = mount(BrowserMockup, {
-            props: { showToolbar: false }
+            props: { showToolbar: false },
         })
 
         expect(wrapper.find('.mockup-browser-toolbar').exists()).toBe(false)
@@ -72,7 +72,7 @@ describe('BrowserMockup', () => {
 
     it('shows toolbar when showToolbar is true', () => {
         const wrapper = mount(BrowserMockup, {
-            props: { showToolbar: true }
+            props: { showToolbar: true },
         })
 
         expect(wrapper.find('.mockup-browser-toolbar').exists()).toBe(true)
@@ -81,7 +81,7 @@ describe('BrowserMockup', () => {
     it('displays custom URL', () => {
         const customUrl = 'https://example.com'
         const wrapper = mount(BrowserMockup, {
-            props: { url: customUrl }
+            props: { url: customUrl },
         })
 
         expect(wrapper.find('.input').text()).toBe(customUrl)
@@ -90,7 +90,7 @@ describe('BrowserMockup', () => {
     it('applies custom class', () => {
         const customClass = 'custom-browser-class'
         const wrapper = mount(BrowserMockup, {
-            props: { class: customClass }
+            props: { class: customClass },
         })
 
         expect(wrapper.classes()).toContain(customClass)
@@ -99,7 +99,7 @@ describe('BrowserMockup', () => {
     it('applies custom content class', () => {
         const customContentClass = 'custom-content-class'
         const wrapper = mount(BrowserMockup, {
-            props: { contentClass: customContentClass }
+            props: { contentClass: customContentClass },
         })
 
         // Find the content div (the one that's not the toolbar)
@@ -111,8 +111,8 @@ describe('BrowserMockup', () => {
         const slotContent = '<div class="test-slot">Slot content</div>'
         const wrapper = mount(BrowserMockup, {
             slots: {
-                default: slotContent
-            }
+                default: slotContent,
+            },
         })
 
         expect(wrapper.html()).toContain(slotContent)
@@ -120,7 +120,7 @@ describe('BrowserMockup', () => {
 
     it('applies correct content classes for border variant', () => {
         const wrapper = mount(BrowserMockup, {
-            props: { variant: 'border' }
+            props: { variant: 'border' },
         })
 
         const contentDiv = wrapper.find('.mockup-browser > div:not(.mockup-browser-toolbar)')
@@ -135,12 +135,12 @@ describe('BrowserMockup', () => {
             { size: 'sm', expectedClass: 'h-48' },
             { size: 'md', expectedClass: 'h-80' },
             { size: 'lg', expectedClass: 'h-96' },
-            { size: 'xl', expectedClass: 'h-[32rem]' }
+            { size: 'xl', expectedClass: 'h-[32rem]' },
         ]
 
         sizeHeights.forEach(({ size, expectedClass }) => {
             const wrapper = mount(BrowserMockup, {
-                props: { size }
+                props: { size },
             })
             const contentDiv = wrapper.find('.mockup-browser > div:not(.mockup-browser-toolbar)')
             expect(contentDiv.classes()).toContain(expectedClass)

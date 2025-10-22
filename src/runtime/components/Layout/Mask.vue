@@ -9,7 +9,7 @@ import { computed } from 'vue'
 
 /**
  * Mask component props following DaisyUI 5.0.54 specifications
- * 
+ *
  * @example
  * ```vue
  * <Mask variant="circle" size="lg">
@@ -49,18 +49,18 @@ const props = withDefaults(defineProps<Props>(), {
     variant: 'squircle',
     size: 'md',
     isHalf1: false,
-    isHalf2: false
+    isHalf2: false,
 })
 
 // Computed classes following DaisyUI patterns
 const maskClasses = computed(() => {
     const classes = ['mask']
-    
+
     // Add variant class
     if (props.variant) {
         classes.push(`mask-${props.variant}`)
     }
-    
+
     // Add half modifiers
     if (props.isHalf1) {
         classes.push('mask-half-1')
@@ -68,25 +68,25 @@ const maskClasses = computed(() => {
     if (props.isHalf2) {
         classes.push('mask-half-2')
     }
-    
+
     // Add size classes
     const sizeMap = {
         xs: 'w-12 h-12',
-        sm: 'w-16 h-16', 
+        sm: 'w-16 h-16',
         md: 'w-20 h-20',
         lg: 'w-24 h-24',
-        xl: 'w-32 h-32'
+        xl: 'w-32 h-32',
     }
-    
+
     if (props.size && sizeMap[props.size]) {
         classes.push(...sizeMap[props.size].split(' '))
     }
-    
+
     // Add custom classes
     if (props.class) {
         classes.push(props.class)
     }
-    
+
     return classes
 })
 </script>
