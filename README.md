@@ -231,7 +231,7 @@ Both themes are fully compatible with all DaisyUI components and can be easily c
 
 - **Smart Class Generation** using component maps for consistent styling
 - **Flexible Props API** with color, style, size, and modifier combinations
-- **Icon Integration** with Lucide Vue Next icons
+- **Icon Integration** with direct Lucide Vue Next component usage (tree-shakeable)
 - **Loading States** and interactive feedback
 - **Form Validation** with VeeValidate and Yup schemas
 

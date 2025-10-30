@@ -1,6 +1,15 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite'
 import Drawer from '../../src/runtime/components/Layout/Drawer.vue'
 import Navbar from '../../src/runtime/components/Navigation/Navbar.vue'
+import {
+    Home,
+    Library,
+    Settings,
+    HelpCircle,
+    FileText,
+    Search,
+    BarChart,
+} from 'lucide-vue-next'
 
 const meta: Meta<typeof Drawer> = {
     title: 'Layout/Drawer',
@@ -46,6 +55,10 @@ const meta: Meta<typeof Drawer> = {
         items: {
             control: { type: 'array' },
         },
+        glass: {
+            control: { type: 'boolean' },
+            description: 'Apply glass effect with padding and rounded corners',
+        },
         // event actions
         open: { action: 'open' },
         close: { action: 'close' },
@@ -58,14 +71,15 @@ const meta: Meta<typeof Drawer> = {
         persistent: false,
         backdrop: true,
         forceOpen: false,
+        glass: false,
         items: [
-            { label: 'Dashboard', icon: 'home', href: '#' },
+            { label: 'Dashboard', icon: Home, href: '#' },
             {
                 label: 'Reports',
-                icon: 'library',
+                icon: Library,
             },
-            { label: 'Settings', icon: 'settings', href: '#' },
-            { label: 'Support', icon: 'help-circle', href: '#' },
+            { label: 'Settings', icon: Settings, href: '#' },
+            { label: 'Support', icon: HelpCircle, href: '#' },
         ],
     },
 }
@@ -85,7 +99,7 @@ export const DefaultVariant: Story = {
             return { args }
         },
         template: `
-            <div class="h-screen">
+            <div class="h-screen border-2">
               <Drawer v-model="drawerOpen" v-bind="args" @open="args.open" @close="args.close">
               </Drawer>
             </div>
@@ -116,17 +130,17 @@ export const DefaultVariantRight: Story = {
 export const WithItemsProp: Story = {
     args: {
         items: [
-            { label: 'Dashboard', icon: '🏠', href: '#' },
+            { label: 'Dashboard', icon: Home, href: '#' },
             {
                 label: 'Reports',
-                icon: '📄',
+                icon: FileText,
                 href: '#',
                 children: [
                     { label: 'Monthly', href: '#' },
                     { label: 'Annual', href: '#' },
                 ],
             },
-            { label: 'Settings', icon: '⚙️', href: '#' },
+            { label: 'Settings', icon: Settings, href: '#' },
         ],
     },
     render: (args) => ({
@@ -158,9 +172,9 @@ export const SidebarMode: Story = {
     args: {
         mode: 'sidebar',
         items: [
-            { label: 'Home', icon: 'home', href: '#' },
-            { label: 'Search', icon: 'search', href: '#' },
-            { label: 'Settings', icon: 'settings', href: '#' },
+            { label: 'Home', icon: Home, href: '#' },
+            { label: 'Search', icon: Search, href: '#' },
+            { label: 'Settings', icon: Settings, href: '#' },
         ],
     },
     render: (args) => ({
@@ -197,9 +211,9 @@ export const ForceOpen: Story = {
         forceOpen: true,
         mode: 'sidebar',
         items: [
-            { label: 'Dashboard', icon: 'home', href: '#' },
-            { label: 'Analytics', icon: 'analytics', href: '#' },
-            { label: 'Settings', icon: 'settings', href: '#' },
+            { label: 'Dashboard', icon: Home, href: '#' },
+            { label: 'Analytics', icon: BarChart, href: '#' },
+            { label: 'Settings', icon: Settings, href: '#' },
         ],
     },
     render: (args) => ({
@@ -223,6 +237,44 @@ export const ForceOpen: Story = {
     }),
 }
 
+export const GlassVariant: Story = {
+    args: {
+        glass: true,
+        mode: 'sidebar',
+        forceOpen: true,
+        items: [
+            { label: 'Home', icon: Home, href: '#' },
+            { label: 'Search', icon: Search, href: '#' },
+            { label: 'Analytics', icon: BarChart, href: '#' },
+            { label: 'Settings', icon: Settings, href: '#' },
+        ],
+    },
+    render: (args) => ({
+        components: { Drawer, Navbar },
+        setup() {
+            return { args }
+        },
+        template: `
+      <div class="h-screen bg-gradient-to-br from-purple-500 via-pink-500 to-red-500">
+        <Drawer v-bind="args" @open="args.open" @close="args.close">
+          <template #content>
+            <div class="flex flex-col h-full">
+              <Navbar title="Glass Effect" :showMobileMenu="false" glass />
+              <div class="p-8">
+                <h1 class="text-3xl font-bold mb-4 text-white">Glass Drawer</h1>
+                <p class="text-white opacity-90">
+                  The sidebar has a beautiful glass effect with rounded corners and subtle padding.
+                  Perfect for modern, elegant designs with colorful backgrounds.
+                </p>
+              </div>
+            </div>
+          </template>
+        </Drawer>
+      </div>
+    `,
+    }),
+}
+
 export const Playground: Story = {
     args: {
         mode: 'default',
@@ -233,9 +285,9 @@ export const Playground: Story = {
         backdrop: true,
         forceOpen: false,
         items: [
-            { label: 'Home', icon: 'home', href: '#' },
-            { label: 'Search', icon: 'magnifyingGlass', href: '#' },
-            { label: 'Settings', icon: 'cog6Tooth', href: '#' },
+            { label: 'Home', icon: Home, href: '#' },
+            { label: 'Search', icon: Search, href: '#' },
+            { label: 'Settings', icon: Settings, href: '#' },
         ],
     },
     render: (args) => ({

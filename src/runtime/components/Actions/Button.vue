@@ -17,21 +17,21 @@
     >
         <span v-if="loading" class="loading loading-spinner loading-sm" aria-hidden="true" />
         <slot v-if="$slots['icon-left']" name="icon-left" />
-        <Icon v-else-if="iconLeft" :name="iconLeft" :size="iconSize" />
+        <component v-else-if="iconLeft" :is="iconLeft" :size="getIconSize(iconSize)" />
         <span v-if="$slots.default" :class="{ 'sr-only': loading && hideTextOnLoading }">
             <slot />
         </span>
         <span v-if="loading && loadingText" class="ml-1">{{ loadingText }}</span>
 
         <slot v-if="$slots['icon-right']" name="icon-right" />
-        <Icon v-else-if="iconRight" :name="iconRight" :size="iconSize" />
+        <component v-else-if="iconRight" :is="iconRight" :size="getIconSize(iconSize)" />
     </button>
 </template>
 
 <script setup lang="ts">
 import { computed, ref, nextTick, onMounted, onUnmounted } from 'vue'
-import type { IconName, Size, BtnColor, BtnStyle, BtnSize, BtnModifier } from '../../shared/types.d'
-import Icon from '../../components/Icons/Icon.vue'
+import type { Component } from 'vue'
+import type { Size, BtnColor, BtnStyle, BtnSize, BtnModifier } from '../../shared/types.d'
 import { generateBtnClasses } from '../../shared/utils/classGenerator'
 
 interface Props {
@@ -66,8 +66,8 @@ interface Props {
     confirmAction?: boolean
     confirmText?: string
     autoFocus?: boolean
-    iconLeft?: IconName
-    iconRight?: IconName
+    iconLeft?: Component // Vue component (e.g., Lucide icon component)
+    iconRight?: Component // Vue component (e.g., Lucide icon component)
     iconSize?: Size | number
 }
 
@@ -236,6 +236,21 @@ onUnmounted(() => {
         clearTimeout(debounceTimer)
     }
 })
+
+const getIconSize = (size: Size | number) => {
+    if (typeof size === 'number') {
+        return size
+    }
+    const sizeMap = {
+        xs: 16,
+        sm: 20,
+        md: 24,
+        lg: 32,
+        xl: 40,
+        '2xl': 48,
+    }
+    return sizeMap[size as keyof typeof sizeMap] || 24
+}
 
 // Expose methods for parent component access
 defineExpose({

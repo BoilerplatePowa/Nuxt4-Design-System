@@ -1,90 +1,45 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite'
-import Icon from '../../src/runtime/components/Icons/Icon.vue'
+import { Heart, Star, Settings, User, Home, Search, Mail, Phone, Calendar, Clock, MapPin, Download, Upload, Edit, Delete, Plus, Minus, Check, X, Menu, Info, HelpCircle, IceCream, Zap, CheckCircle, AlertCircle, XCircle } from 'lucide-vue-next'
 
-const meta: Meta<typeof Icon> = {
-    title: 'Icons/Icon',
-    component: Icon,
+const meta: Meta = {
+    title: 'Icons/Lucide Icons',
+    component: Heart,
     parameters: {
         layout: 'centered',
         docs: {
             description: {
-                component:
-                    'A flexible icon component that wraps Lucide icons with consistent styling and props.',
+                component: 'Direct Lucide icon components with customizable size and color.',
             },
         },
     },
     tags: ['autodocs'],
-    argTypes: {
-        name: {
-            control: { type: 'text' },
-            description: 'Icon name from Lucide library',
-        },
-        size: {
-            control: { type: 'select' },
-            options: ['xs', 'sm', 'md', 'lg', 'xl', '2xl'],
-            description: 'Icon size',
-        },
-        strokeWidth: {
-            control: { type: 'number', min: 0.5, max: 3, step: 0.5 },
-            description: 'Stroke width of the icon',
-        },
-        color: {
-            control: { type: 'select' },
-            options: [
-                'primary',
-                'secondary',
-                'accent',
-                'neutral',
-                'info',
-                'success',
-                'warning',
-                'error',
-            ],
-            description: 'Text color class',
-        },
-        ariaLabel: {
-            control: { type: 'text' },
-            description: 'Accessibility label',
-        },
-        ariaHidden: {
-            control: { type: 'boolean' },
-            description: 'Hide from screen readers',
-        },
-    },
 }
 
 export default meta
 type Story = StoryObj<typeof meta>
 
-// Default icon for playground
+// Default icon showcase
 export const Default: Story = {
-    args: {
-        name: 'heart',
-        size: 'md',
-    },
-    render: (args) => ({
-        components: { Icon },
-        setup() {
-            return { args }
-        },
-        template: '<Icon v-bind="args" />',
+    render: () => ({
+        components: { Heart },
+        template: '<Heart class="w-6 h-6 text-primary" />',
     }),
 }
 
 // Sizes showcase
 export const Sizes: Story = {
     render: () => ({
-        components: { Icon },
+        components: { Heart },
         template: `
       <div class="space-y-3">
         <h3 class="text-lg font-semibold mb-2">Size Variants</h3>
         <div class="flex items-center gap-3">
-          <Icon name="heart" size="xs" />
-          <Icon name="heart" size="sm" />
-          <Icon name="heart" size="md" />
-          <Icon name="heart" size="lg" />
-          <Icon name="heart" size="xl" />
-          <Icon name="heart" size="2xl" />
+          <Heart class="w-4 h-4" />
+          <Heart class="w-5 h-5" />
+          <Heart class="w-6 h-6" />
+          <Heart class="w-8 h-8" />
+          <Heart class="w-10 h-10" />
+          <Heart class="w-12 h-12" />
         </div>
       </div>
     `,
@@ -94,18 +49,18 @@ export const Sizes: Story = {
 // Colors showcase
 export const Colors: Story = {
     render: () => ({
-        components: { Icon },
+        components: { CheckCircle, AlertCircle, XCircle, Info, Heart, Star, Settings },
         template: `
       <div class="space-y-3">
         <h3 class="text-lg font-semibold mb-2">Color Variants</h3>
         <div class="flex items-center gap-3">
-          <Icon name="check-circle" size="lg" color="success" />
-          <Icon name="alert-circle" size="lg" color="warning" />
-          <Icon name="x-circle" size="lg" color="error" />
-          <Icon name="info" size="lg" color="info" />
-          <Icon name="heart" size="lg" color="primary" />
-          <Icon name="star" size="lg" color="secondary" />
-          <Icon name="settings" size="lg" color="accent" />
+          <CheckCircle class="w-8 h-8 text-success" />
+          <AlertCircle class="w-8 h-8 text-warning" />
+          <XCircle class="w-8 h-8 text-error" />
+          <Info class="w-8 h-8 text-info" />
+          <Heart class="w-8 h-8 text-primary" />
+          <Star class="w-8 h-8 text-secondary" />
+          <Settings class="w-8 h-8 text-accent" />
         </div>
       </div>
     `,
@@ -115,35 +70,35 @@ export const Colors: Story = {
 // Icon collection
 export const IconCollection: Story = {
     render: () => ({
-        components: { Icon },
+        components: { Heart, Star, Settings, User, Home, Search, Mail, Phone, Calendar, Clock, MapPin, Download, Upload, Edit, Delete, Plus, Minus, Check, X, Menu, Info, HelpCircle, IceCream, Zap },
         template: `
       <div class="space-y-3">
         <h3 class="text-lg font-semibold mb-2">Common Icons</h3>
         <div class="grid grid-cols-8 gap-3 p-2">
-          <Icon name="heart" size="md" />
-          <Icon name="star" size="md" />
-          <Icon name="settings" size="md" />
-          <Icon name="user" size="md" />
-          <Icon name="home" size="md" />
-          <Icon name="search" size="md" />
-          <Icon name="mail" size="md" />
-          <Icon name="phone" size="md" />
-          <Icon name="calendar" size="md" />
-          <Icon name="clock" size="md" />
-          <Icon name="map-pin" size="md" />
-          <Icon name="download" size="md" />
-          <Icon name="upload" size="md" />
-          <Icon name="edit" size="md" />
-          <Icon name="delete" size="md" />
-          <Icon name="plus" size="md" />
-          <Icon name="minus" size="md" />
-          <Icon name="check" size="md" />
-          <Icon name="x" size="md" />
-          <Icon name="menu" size="md" />
-          <Icon name="info" size="md" />
-          <Icon name="help-circle" size="md" />
-          <Icon name="ice-cream" size="md" />
-          <Icon name="zap" size="md" />
+          <Heart class="w-6 h-6" />
+          <Star class="w-6 h-6" />
+          <Settings class="w-6 h-6" />
+          <User class="w-6 h-6" />
+          <Home class="w-6 h-6" />
+          <Search class="w-6 h-6" />
+          <Mail class="w-6 h-6" />
+          <Phone class="w-6 h-6" />
+          <Calendar class="w-6 h-6" />
+          <Clock class="w-6 h-6" />
+          <MapPin class="w-6 h-6" />
+          <Download class="w-6 h-6" />
+          <Upload class="w-6 h-6" />
+          <Edit class="w-6 h-6" />
+          <Delete class="w-6 h-6" />
+          <Plus class="w-6 h-6" />
+          <Minus class="w-6 h-6" />
+          <Check class="w-6 h-6" />
+          <X class="w-6 h-6" />
+          <Menu class="w-6 h-6" />
+          <Info class="w-6 h-6" />
+          <HelpCircle class="w-6 h-6" />
+          <IceCream class="w-6 h-6" />
+          <Zap class="w-6 h-6" />
         </div>
       </div>
     `,
@@ -152,22 +107,42 @@ export const IconCollection: Story = {
 
 // Interactive playground
 export const Playground: Story = {
-    args: {
-        name: 'heart',
-        size: 'md',
-        color: undefined,
-        strokeWidth: 2,
-    },
-    render: (args) => ({
-        components: { Icon },
-        setup() {
-            return { args }
-        },
+    render: () => ({
+        components: { Heart, Star, Settings, User, Home, Search, Mail, Phone, Calendar, Clock, MapPin, Download, Upload, Edit, Delete, Plus, Minus, Check, X, Menu, Info, HelpCircle, IceCream, Zap, CheckCircle, AlertCircle, XCircle },
         template: `
-      <div class="space-y-3">
-        <Icon v-bind="args" />
+      <div class="space-y-6">
+        <div class="text-center">
+          <Heart class="w-12 h-12 text-primary mx-auto mb-4" />
+          <h3 class="text-lg font-semibold mb-2">Lucide Icons</h3>
+          <p class="text-sm text-gray-600 mb-4">
+            Direct Lucide icon components with Tailwind CSS classes
+          </p>
+        </div>
+        
+        <div class="grid grid-cols-4 gap-4">
+          <div class="text-center p-4 border rounded-lg">
+            <Heart class="w-8 h-8 text-error mx-auto mb-2" />
+            <p class="text-sm">Heart</p>
+          </div>
+          <div class="text-center p-4 border rounded-lg">
+            <Star class="w-8 h-8 text-warning mx-auto mb-2" />
+            <p class="text-sm">Star</p>
+          </div>
+          <div class="text-center p-4 border rounded-lg">
+            <Settings class="w-8 h-8 text-accent mx-auto mb-2" />
+            <p class="text-sm">Settings</p>
+          </div>
+          <div class="text-center p-4 border rounded-lg">
+            <User class="w-8 h-8 text-primary mx-auto mb-2" />
+            <p class="text-sm">User</p>
+          </div>
+        </div>
+        
         <div class="text-sm text-gray-600">
-          Use the controls above to customize this icon
+          <p>Usage example:</p>
+          <code class="block bg-gray-100 p-2 rounded mt-2">
+            &lt;Heart class="w-6 h-6 text-primary" /&gt;
+          </code>
         </div>
       </div>
     `,

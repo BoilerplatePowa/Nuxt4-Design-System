@@ -121,13 +121,19 @@ npm run build
 </template>
 ```
 
-### Icon Component
+### Icon Usage
+
+Icons are now passed as components directly (see [Icon Migration Guide](../ICON-MIGRATION-GUIDE.md)):
 
 ```vue
+<script setup lang="ts">
+import { Heart, Star, Settings } from 'lucide-vue-next'
+</script>
+
 <template>
-    <Icon name="heart" class="w-6 h-6 text-red-500" />
-    <Icon name="star" class="w-8 h-8 text-yellow-500" />
-    <Icon name="settings" class="w-5 h-5 text-blue-500" />
+    <component :is="Heart" class="w-6 h-6 text-red-500" />
+    <component :is="Star" class="w-8 h-8 text-yellow-500" />
+    <component :is="Settings" class="w-5 h-5 text-blue-500" />
 </template>
 ```
 

@@ -17,7 +17,7 @@
                     @click="handleItemClick(item, $event)"
                 >
                     <div v-if="compact && item.icon">
-                        <Icon :name="item.icon" />
+                        <component :is="item.icon" />
                         <Badge
                             v-if="item.badge"
                             :value="item.badge"
@@ -29,7 +29,7 @@
                     </div>
 
                     <div v-else class="flex items-center gap-2 w-full">
-                        <Icon v-if="item.icon" :name="item.icon" class="" />
+                        <component v-if="item.icon" :is="item.icon" class="" />
                         <span class="">{{ item.label }}</span>
                         <span v-if="item.badge" class="badge badge-sm">{{ item.badge }}</span>
                     </div>
@@ -43,10 +43,10 @@
                     :disabled="item.disabled"
                     @click="handleItemClick(item, $event)"
                 >
-                    <Icon v-if="compact && item.icon" :name="item.icon" :size="size" />
+                    <component v-if="compact && item.icon" :is="item.icon" />
 
                     <div v-else class="flex items-center gap-2">
-                        <Icon v-if="item.icon" :name="item.icon" />
+                        <component v-if="item.icon" :is="item.icon" />
                         <span>{{ item.label }}</span>
                         <span v-if="item.badge" class="badge badge-sm">{{ item.badge }}</span>
                     </div>
@@ -62,10 +62,10 @@
                             :data-tip="child.label"
                             @click="handleItemClick(child, $event)"
                         >
-                            <Icon v-if="compact && child.icon" :name="child.icon" :size="size" />
+                            <component v-if="compact && child.icon" :is="child.icon" />
 
                             <div v-else class="flex items-center gap-2">
-                                <Icon v-if="child.icon" :name="child.icon" />
+                                <component v-if="child.icon" :is="child.icon" />
                                 <span>{{ child.label }}</span>
                                 <span v-if="child.badge" class="badge badge-sm">{{
                                     child.badge
@@ -80,10 +80,10 @@
                             :data-tip="child.label"
                             @click="handleItemClick(child, $event)"
                         >
-                            <Icon v-if="compact && child.icon" :name="child.icon" />
+                            <component v-if="compact && child.icon" :is="child.icon" />
 
                             <div v-else class="flex items-center gap-2">
-                                <Icon v-if="child.icon" :name="child.icon" />
+                                <component v-if="child.icon" :is="child.icon" />
                                 <span>{{ child.label }}</span>
                                 <span v-if="child.badge" class="badge badge-sm">{{
                                     child.badge
@@ -99,7 +99,6 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import Icon from '../Icons/Icon.vue'
 import type { MenuItem, Size } from '../../shared/types.d'
 import Badge from '../DataDisplay/Badge.vue'
 
@@ -142,8 +141,7 @@ const menuClasses = computed(() => {
         baseClasses.push('menu-horizontal')
     }
 
-    // Background and styling
-    baseClasses.push('bg-base-200', 'h-full')
+    baseClasses.push('h-full')
 
     if (props.rounded) {
         baseClasses.push('rounded-box')
@@ -187,7 +185,3 @@ const handleItemClick = (item: MenuItem, event: Event) => {
     emit('item-click', item, event)
 }
 </script>
-
-<style scoped lang="postcss">
-/* DaisyUI handles most menu styling */
-</style>

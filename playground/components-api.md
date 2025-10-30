@@ -36,8 +36,8 @@ The primary button component with extensive customization options.
 | `ariaPressed`       | `boolean`                         | `undefined`       | Pressed state for accessibility  |
 | `ariaExpanded`      | `boolean`                         | `undefined`       | Expanded state for accessibility |
 | `ariaDescribedby`   | `string`                          | `undefined`       | Element ID that describes button |
-| `iconLeft`          | `IconName`                        | `undefined`       | Left icon name                   |
-| `iconRight`         | `IconName`                        | `undefined`       | Right icon name                  |
+| `iconLeft`          | `Component`                       | `undefined`       | Left icon component              |
+| `iconRight`         | `Component`                       | `undefined`       | Right icon component             |
 | `iconSize`          | `Size \| number`                  | `24`              | Icon size                        |
 
 #### Events
@@ -69,12 +69,16 @@ The primary button component with extensive customization options.
 </BpButton>
 
 <!-- With icons -->
-<BpButton iconLeft="heart" iconRight="arrow-right" color="accent">
+<script setup lang="ts">
+import { Heart, ArrowRight, Settings } from 'lucide-vue-next'
+</script>
+
+<BpButton :icon-left="Heart" :icon-right="ArrowRight" color="accent">
   Like & Continue
 </BpButton>
 
 <!-- Circle button -->
-<BpButton circle iconLeft="settings" color="neutral" />
+<BpButton circle :icon-left="Settings" color="neutral" />
 ```
 
 #### Color Variants (`BtnColor`)
@@ -115,203 +119,58 @@ type BtnSize =
 
 ---
 
-## 🎨 Icons Category
+## 🎨 Icons Usage
 
-### Icon Component (`Icon`)
+### Direct Icon Component Integration
 
-A flexible icon component using Lucide Vue Next icons.
+Icons are now passed as components directly instead of using a centralized Icon component. This allows for better tree-shaking and flexibility.
 
-#### Props
-
-| Prop          | Type                   | Default      | Description              |
-| ------------- | ---------------------- | ------------ | ------------------------ |
-| `name`        | `IconName`             | **required** | Icon name from icon map  |
-| `size`        | `Size \| number`       | `24`         | Icon size                |
-| `strokeWidth` | `number`               | `2`          | Stroke width             |
-| `color`       | `ThemeColor \| string` | `undefined`  | Icon color               |
-| `class`       | `string`               | `undefined`  | Additional CSS classes   |
-| `ariaLabel`   | `string`               | `undefined`  | Accessibility label      |
-| `ariaHidden`  | `boolean`              | `true`       | Hide from screen readers |
-
-#### Examples
+#### Basic Usage
 
 ```vue
-<!-- Basic usage -->
-<Icon name="heart" />
+<script setup lang="ts">
+import { Heart, Star, Settings } from 'lucide-vue-next'
+</script>
 
-<!-- With size and color -->
-<Icon name="star" size="lg" color="warning" />
+<template>
+  <!-- Direct component rendering -->
+  <component :is="Heart" class="w-6 h-6 text-red-500" />
+  <component :is="Star" class="w-8 h-8 text-yellow-500" />
+  <component :is="Settings" class="w-5 h-5 text-blue-500" />
+</template>
+```
 
-<!-- Custom size -->
-<Icon name="settings" :size="32" class="text-primary" />
+#### With Button Component
 
-<!-- With accessibility -->
-<Icon name="info" ariaLabel="Information" :ariaHidden="false" />
+```vue
+<script setup lang="ts">
+import { Save, ArrowRight } from 'lucide-vue-next'
+</script>
+
+<template>
+  <BpButton :icon-left="Save" :icon-right="ArrowRight" color="primary">
+    Save & Continue
+  </BpButton>
+</template>
 ```
 
 #### Available Icons
 
-The component supports all icons from Lucide Vue Next:
+The design system supports all icons from Lucide Vue Next. Import only the icons you need:
 
 ```typescript
-// Common icons
-;('heart',
-    'star',
-    'settings',
-    'user',
-    'home',
-    'search',
-    'mail',
-    'phone',
-    'calendar',
-    'download',
-    'upload',
-    'edit',
-    'delete',
-    'plus',
-    'minus',
-    'check',
-    'x',
-    'arrow-left',
-    'arrow-right',
-    'arrow-up',
-    'arrow-down',
-    'menu',
-    'info',
-    'alert-circle',
-    'check-circle',
-    'x-circle',
-    'help-circle',
-    'eye',
-    'eye-off',
-    'lock',
-    'unlock',
-    'zap',
-    'chevron-down',
-    'chevron-up',
-    'chevron-left',
-    'chevron-right',
-    'filter',
-    'sort-asc',
-    'sort-desc',
-    'refresh-cw',
-    'rotate-ccw',
-    'rotate-cw',
-    'zoom-in',
-    'zoom-out',
-    'maximize',
-    'minimize',
-    'external-link',
-    'link',
-    'copy',
-    'share',
-    'bookmark',
-    'flag',
-    'thumbs-up',
-    'thumbs-down',
-    'message-circle',
-    'message-square',
-    'bell',
-    'shield',
-    'award',
-    'gift',
-    'shopping-cart',
-    'credit-card',
-    'dollar-sign',
-    'percent',
-    'trending-up',
-    'trending-down',
-    'activity',
-    'bar-chart',
-    'pie-chart',
-    'line-chart',
-    'database',
-    'server',
-    'monitor',
-    'smartphone',
-    'tablet',
-    'laptop',
-    'printer',
-    'camera',
-    'video',
-    'music',
-    'file',
-    'folder',
-    'archive',
-    'trash-2',
-    'save',
-    'download-cloud',
-    'upload-cloud',
-    'cloud',
-    'wifi',
-    'bluetooth',
-    'battery',
-    'power',
-    'volume',
-    'volume1',
-    'volume2',
-    'volume-x',
-    'mic',
-    'mic-off',
-    'headphones',
-    'speaker',
-    'radio',
-    'tv',
-    'gamepad-2',
-    'mouse',
-    'keyboard',
-    'hard-drive',
-    'cpu',
-    'thermometer',
-    'droplets',
-    'sun',
-    'moon',
-    'cloud-rain',
-    'cloud-snow',
-    'wind',
-    'umbrella',
-    'snowflake',
-    'flame',
-    'sparkles',
-    'ice-cream',
-    'heart-off',
-    'star-off',
-    'settings-2',
-    'users',
-    'building',
-    'map',
-    'navigation',
-    'globe',
-    'mail-open',
-    'phone-call',
-    'phone-incoming',
-    'phone-outgoing',
-    'calendar-days',
-    'calendar-range',
-    'clock-1',
-    'clock-2',
-    'clock-3',
-    'clock-4',
-    'clock-5',
-    'clock-6',
-    'clock-7',
-    'clock-8',
-    'clock-9',
-    'clock-10',
-    'clock-11',
-    'clock-12',
-    'map-pin-off',
-    'navigation-2',
-    'navigation-off',
-    'edit-2',
-    'edit-3',
-    'trash',
-    'plus-circle',
-    'minus-circle',
-    'x-square',
-    'alert-triangle',
-    'alert-octagon')
+import {
+    Heart, Star, Settings, User, Home, Search,
+    Mail, Phone, Calendar, Download, Upload,
+    Edit, Trash2, Plus, Minus, Check, X,
+    ArrowLeft, ArrowRight, ArrowUp, ArrowDown,
+    Menu, Info, AlertCircle, CheckCircle, XCircle,
+    HelpCircle, Eye, EyeOff, Lock, Unlock
+    // ... and many more
+} from 'lucide-vue-next'
 ```
+
+**See [Icon Migration Guide](../ICON-MIGRATION-GUIDE.md) for complete migration instructions.**
 
 ---
 
@@ -367,22 +226,11 @@ export const btnModifierMap = {
 } as const
 ```
 
-### Icon Mapping
+### Icon Size Utilities
 
 ```typescript
-// Icon component mapping
-export const iconMap = {
-    heart: Heart,
-    star: Star,
-    settings: Settings,
-    user: User,
-    home: Home,
-    search: Search,
-    // ... more icons
-} as const
-
-// Size mapping
-export const sizeMap = {
+// Icon size mapping for consistent sizing
+export const iconSizeMap = {
     xs: 16,
     sm: 20,
     md: 24,
@@ -390,6 +238,12 @@ export const sizeMap = {
     xl: 40,
     '2xl': 48,
 } as const
+
+// Usage with Lucide icons
+import { Settings } from 'lucide-vue-next'
+
+// Pass size as prop
+<component :is="Settings" :size="iconSizeMap.lg" />
 ```
 
 ---

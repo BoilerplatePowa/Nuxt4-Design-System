@@ -80,7 +80,7 @@
 </template>
 
 <script setup lang="ts">
-import type { EmitFn } from 'vue'
+import type { EmitFn, Component } from 'vue'
 import { ref, computed, nextTick, useId } from 'vue'
 import { generateDropdownClasses } from '../../shared/utils/classGenerator'
 import type {
@@ -88,7 +88,7 @@ import type {
     dropdownModifierMap,
 } from '../../shared/componentsMaps/actions/dropdownMap'
 import Button from './Button.vue'
-import type { IconName, BtnColor, BtnStyle, BtnSize } from '../../shared/types.d'
+import type { BtnColor, BtnStyle, BtnSize } from '../../shared/types.d'
 
 // SSR-safe id generation
 const uid = useId()
@@ -126,8 +126,8 @@ interface Props {
     itemColor?: BtnColor
     itemStyle?: BtnStyle
     // Trigger icon customization
-    triggerIconLeft?: IconName | null
-    triggerIconRight?: IconName | null
+    triggerIconLeft?: Component | null // Vue component (e.g., Lucide icon component)
+    triggerIconRight?: Component | null // Vue component (e.g., Lucide icon component)
     // When true (default), shows chevron toggle if right icon not provided/overridden by slot
     toggleChevron?: boolean
 }
@@ -160,12 +160,15 @@ const triggerIconLeftFinal = computed(() => {
     return props.triggerIconLeft === null ? undefined : props.triggerIconLeft
 })
 
+// Import chevron icons for default toggle behavior
+import { ChevronUp, ChevronDown } from 'lucide-vue-next'
+
 const triggerIconRightFinal = computed(() => {
     // If a right icon slot is provided, Button will render it; return undefined
     if (props.triggerIconRight) {
         return props.triggerIconRight
     }
-    return props.toggleChevron ? (isOpen.value ? 'chevron-up' : 'chevron-down') : undefined
+    return props.toggleChevron ? (isOpen.value ? ChevronUp : ChevronDown) : undefined
 })
 
 const isOpen = ref(false)

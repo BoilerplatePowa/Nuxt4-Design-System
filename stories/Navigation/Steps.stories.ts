@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite'
 import { ref } from 'vue'
 import Steps from '../../src/runtime/components/Navigation/Steps.vue'
-import Icon from '../../src/runtime/components/Icons/Icon.vue'
 import Button from '../../src/runtime/components/Actions/Button.vue'
 import Card from '../../src/runtime/components/DataDisplay/Card.vue'
 import Avatar from '../../src/runtime/components/DataDisplay/Avatar.vue'
+import { CheckCircle, MapPin, User, Settings, Heart, Check, Package, Truck, Home, ClipboardList, Code, TestTube, Rocket } from 'lucide-vue-next'
 
 const meta: Meta<typeof Steps> = {
     title: 'Navigation/Steps',
@@ -436,7 +436,7 @@ export const CheckoutProcess: Story = {
               <p>Thank you! Your order has been placed successfully.</p>
               <div class="bg-success/20 p-4 rounded-lg mt-4">
                 <div class="flex items-center gap-2">
-                  <Icon name="check-circle" class="text-success" />
+                  <CheckCircle class="w-5 h-5 text-success" />
                   <span class="font-medium">Order #12345 confirmed</span>
                 </div>
               </div>
@@ -466,7 +466,7 @@ export const CheckoutProcess: Story = {
 
 export const ProgressTracking: Story = {
     render: () => ({
-        components: { Steps, Card, Icon },
+        components: { Steps, Card, MapPin },
         setup() {
             const orderStep = ref(2)
             const orderSteps = orderTrackingSteps
@@ -507,7 +507,7 @@ export const ProgressTracking: Story = {
             
             <div class="mt-4 p-4 bg-base-200 rounded-lg">
               <div class="flex items-center gap-2 mb-2">
-                <Icon name="map-pin" size="sm" />
+                <MapPin class="w-4 h-4" />
                 <span class="font-medium">Current Location</span>
               </div>
               <p class="text-sm">Package is in transit to your local distribution center</p>
@@ -521,7 +521,7 @@ export const ProgressTracking: Story = {
 
 export const CustomContent: Story = {
     render: () => ({
-        components: { Steps, Icon },
+        components: { Steps, ClipboardList, Code, TestTube, Rocket },
         template: `
       <Steps 
         :steps="[
@@ -536,10 +536,9 @@ export const CustomContent: Story = {
         <template #step-0="{ step, isActive, isCompleted }">
           <div class="text-center">
             <div class="mb-2">
-              <Icon 
-                name="clipboard-list" 
+              <ClipboardList 
+                class="w-8 h-8"
                 :class="{ 'text-primary': isActive, 'text-success': isCompleted }" 
-                size="lg"
               />
             </div>
             <div class="font-medium">{{ step.title }}</div>
@@ -550,10 +549,9 @@ export const CustomContent: Story = {
         <template #step-1="{ step, isActive, isCompleted }">
           <div class="text-center">
             <div class="mb-2">
-              <Icon 
-                name="code" 
+              <Code 
+                class="w-8 h-8"
                 :class="{ 'text-primary': isActive, 'text-success': isCompleted }" 
-                size="lg"
               />
             </div>
             <div class="font-medium">{{ step.title }}</div>
@@ -564,10 +562,9 @@ export const CustomContent: Story = {
         <template #step-2="{ step, isActive, isCompleted }">
           <div class="text-center">
             <div class="mb-2">
-              <Icon 
-                name="test-tube" 
+              <TestTube 
+                class="w-8 h-8"
                 :class="{ 'text-primary': isActive, 'text-success': isCompleted }" 
-                size="lg"
               />
             </div>
             <div class="font-medium">{{ step.title }}</div>
@@ -578,10 +575,9 @@ export const CustomContent: Story = {
         <template #step-3="{ step, isActive, isCompleted }">
           <div class="text-center">
             <div class="mb-2">
-              <Icon 
-                name="rocket" 
+              <Rocket 
+                class="w-8 h-8"
                 :class="{ 'text-primary': isActive, 'text-success': isCompleted }" 
-                size="lg"
               />
             </div>
             <div class="font-medium">{{ step.title }}</div>
@@ -595,7 +591,7 @@ export const CustomContent: Story = {
 
 export const InteractiveSteps: Story = {
     render: () => ({
-        components: { Steps, Button, Card, Avatar, Icon },
+        components: { Steps, Button, Card, Avatar, User, Settings, CheckCircle },
         setup() {
             const currentStep = ref(0)
             const steps = [
@@ -655,7 +651,7 @@ export const InteractiveSteps: Story = {
             <div v-if="currentStep === 0" class="space-y-4">
               <div class="text-center">
                 <Avatar size="lg" fallback-color="primary" class="mx-auto mb-4">
-                  <Icon name="user" size="lg" />
+                  <User class="w-8 h-8" />
                 </Avatar>
                 <h3 class="text-xl font-bold mb-2">Personal Information</h3>
                 <p class="opacity-70">Tell us about yourself</p>
@@ -670,7 +666,7 @@ export const InteractiveSteps: Story = {
             <div v-else-if="currentStep === 1" class="space-y-4">
               <div class="text-center">
                 <Avatar size="lg" fallback-color="secondary" class="mx-auto mb-4">
-                  <Icon name="settings" size="lg" />
+                  <Settings class="w-8 h-8" />
                 </Avatar>
                 <h3 class="text-xl font-bold mb-2">Preferences</h3>
                 <p class="opacity-70">Set your communication preferences</p>
@@ -685,7 +681,7 @@ export const InteractiveSteps: Story = {
             <div v-else-if="currentStep === 2" class="space-y-4">
               <div class="text-center">
                 <Avatar size="lg" fallback-color="success" class="mx-auto mb-4">
-                  <Icon name="check-circle" size="lg" />
+                  <CheckCircle class="w-8 h-8" />
                 </Avatar>
                 <h3 class="text-xl font-bold mb-2">Confirmation</h3>
                 <p class="opacity-70">Review your information</p>

@@ -12,10 +12,10 @@
                 <!-- daisyUI input wrapper with inline content -->
                 <label :class="[inputClasses, errorMessage ? 'input-error' : undefined]">
                     <!-- Left icon -->
-                    <Icon
+                    <component
                         v-if="leftIcon"
-                        :name="leftIcon"
-                        :size="size"
+                        :is="leftIcon"
+                        :size="getIconSize(size)"
                         class="opacity-50"
                         :aria-hidden="true"
                     />
@@ -52,18 +52,18 @@
                         :aria-label="showPassword ? 'Hide password' : 'Show password'"
                     >
                         <template #on>
-                            <Icon name="eye" :size="size" class="opacity-50" />
+                            <component :is="EyeIcon" :size="getIconSize(size)" class="opacity-50" />
                         </template>
                         <template #off>
-                            <Icon name="eye-off" :size="size" class="opacity-50" />
+                            <component :is="EyeOffIcon" :size="getIconSize(size)" class="opacity-50" />
                         </template>
                     </Swap>
 
                     <!-- Right icon (only show if not password type or if no swap button) -->
-                    <Icon
+                    <component
                         v-if="rightIcon && type !== 'password'"
-                        :name="rightIcon"
-                        :size="size"
+                        :is="rightIcon"
+                        :size="getIconSize(size)"
                         class="opacity-50"
                         :aria-hidden="true"
                     />
@@ -105,10 +105,12 @@
 
 <script setup lang="ts">
 import { computed, ref, onMounted, onUnmounted, watch, useId } from 'vue'
+import type { Component } from 'vue'
 import { Field } from 'vee-validate'
-import Icon from '../Icons/Icon.vue'
+import { sizeMap } from '../../shared/map'
+import { Eye as EyeIcon, EyeOff as EyeOffIcon } from 'lucide-vue-next'
 import Swap from '../Actions/Swap.vue'
-import type { InputType, Size, Variant, IconName, MaskType } from '../../shared/types.d'
+import type { InputType, Size, Variant, MaskType } from '../../shared/types.d'
 import IMask from 'imask'
 
 // SSR-safe id generation with optional override via props
@@ -197,10 +199,10 @@ interface InputProps {
     size?: Size
     // Input variant/style
     variant?: Variant
-    // Left icon name
-    leftIcon?: IconName | undefined
-    // Right icon name
-    rightIcon?: IconName | undefined
+    // Left icon component
+    leftIcon?: Component // Vue component (e.g., Lucide icon component)
+    // Right icon component
+    rightIcon?: Component // Vue component (e.g., Lucide icon component)
     // Whether input is disabled
     disabled?: boolean
     // Whether input is readonly
@@ -373,6 +375,10 @@ const handleFocus = (event: FocusEvent) => {
 
 const handleBlur = (event: FocusEvent) => {
     emit('blur', event)
+}
+
+const getIconSize = (size: Size) => {
+    return sizeMap[size as keyof typeof sizeMap] || 24
 }
 </script>
 

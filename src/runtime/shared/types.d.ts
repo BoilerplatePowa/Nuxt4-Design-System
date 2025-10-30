@@ -1,3 +1,4 @@
+import type { Component } from "vue";
 import type { iconMap, inputTypesMap, sizeMap, variantMap } from "./map";
 import type {
     btnColorMap,
@@ -7,7 +8,7 @@ import type {
     btnModifierMap,
 } from "./componentsMaps/actions/btnMap";
 
-export type IconName = keyof typeof iconMap;
+// IconName type removed - use string for icon names with direct Lucide imports
 export type InputType = (typeof inputTypesMap)[number];
 export type Size = keyof typeof sizeMap;
 export type Fill = "none" | "currentColor" | "transparent";
@@ -68,7 +69,7 @@ export interface MenuItem {
     label?: string
     value?: string | number
     href?: string
-    icon?: IconName
+    icon?: Component // Vue component (e.g., Lucide icon component)
     badge?: string | number
     disabled?: boolean
     active?: boolean

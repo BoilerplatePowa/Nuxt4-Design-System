@@ -7,8 +7,7 @@
                 :class="getStepClasses(step, index)"
             >
                 <span class="step-icon">
-                    <Icon v-if="step.icon" :name="step.icon" />
-                    <Icon v-else-if="step.completed || isStepCompleted(index)" name="check" />
+                    <component v-if="step.icon" :is="step.icon" />
                     <span v-else-if="props.showNumbers">{{ index + 1 }}</span>
                 </span>
                 <div>
@@ -35,14 +34,14 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import type { IconName, Variant } from '../../shared/types.d'
-import Icon from '../Icons/Icon.vue'
+import type { Component } from 'vue'
+import type { Variant } from '../../shared/types.d'
 
 interface Step {
     title?: string
     description?: string
     value?: string | number
-    icon?: IconName
+    icon?: Component // Vue component (e.g., Lucide icon component)
     content?: string
     completed?: boolean
     disabled?: boolean

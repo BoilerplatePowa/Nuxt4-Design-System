@@ -7,10 +7,10 @@
             :disabled="item.disabled"
             @click="handleItemClick(item, index, $event)"
         >
-            <!-- Icon using Icon component -->
-            <Icon
+            <!-- Icon using direct component -->
+            <component
                 v-if="item.icon"
-                :name="item.icon"
+                :is="item.icon"
                 :size="getIconSize()"
                 :class="getIconClasses(item)"
             />
@@ -37,13 +37,12 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import Icon from '../Icons/Icon.vue'
-import type { IconName } from '../../shared/types.d'
+import type { Component } from 'vue'
 
 interface DockItem {
     id?: string | number
     label?: string
-    icon?: IconName
+    icon?: Component // Vue component (e.g., Lucide icon component)
     avatar?: string
     svg?: string
     disabled?: boolean

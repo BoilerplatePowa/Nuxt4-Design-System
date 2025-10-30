@@ -53,9 +53,9 @@
                     variant="outline"
                     size="sm"
                     :disabled="isNavigating"
+                    :icon-left="ChevronLeftIcon"
                     @click="goToPreviousStep"
                 >
-                    <Icon name="chevron-left" size="sm" />
                     <span class="hidden sm:inline">{{ previousButtonText }}</span>
                 </Button>
                 <div v-else class="flex-1" />
@@ -67,7 +67,7 @@
                     size="sm"
                     :disabled="isNavigating || meta.valid === false"
                     :loading="isNavigating"
-                    :icon-right="isLastStep ? 'check' : 'chevron-right'"
+                    :icon-right="isLastStep ? CheckIcon : ChevronRightIcon"
                 >
                     <span>{{ isLastStep ? submitButtonText : nextButtonText }}</span>
                 </Button>
@@ -85,19 +85,18 @@
         <!-- Step Summary (Optional) -->
         <div v-if="showSummary && !isFirstStep" class="step-summary">
             <h4 class="summary-header">
-                <Icon name="check-circle" size="sm" class="summary-icon" />
+                <component :is="CheckCircleIcon" :size="getIconSize('sm')" class="summary-icon" />
                 Previous Steps Summary
             </h4>
             <div class="summary-list">
                 <div v-for="(step, index) in completedSteps" :key="index" class="summary-item">
                     <div class="summary-item-left">
                         <div class="badge badge-success badge-sm">
-                            <Icon name="check" size="xs" class="summary-check-icon" />
+                            <component :is="CheckIcon" :size="getIconSize('xs')" class="summary-check-icon" />
                         </div>
                         <span class="text-sm font-medium">{{ step.title }}</span>
                     </div>
-                    <Button type="button" variant="ghost" size="xs" @click="goToStep(index)">
-                        <Icon name="edit" size="xs" />
+                    <Button type="button" variant="ghost" size="xs" :icon-left="EditIcon" @click="goToStep(index)">
                         <span class="hidden sm:inline ml-1">Edit</span>
                     </Button>
                 </div>
@@ -108,20 +107,28 @@
 
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue'
+import type { Component } from 'vue'
 import { Form } from 'vee-validate'
 import * as yup from 'yup'
 import Steps from '../Navigation/Steps.vue'
 import Button from '../Actions/Button.vue'
-import Icon from '../Icons/Icon.vue'
+import { sizeMap } from '../../shared/map'
+import {
+    ChevronLeft as ChevronLeftIcon,
+    ChevronRight as ChevronRightIcon,
+    Check as CheckIcon,
+    CheckCircle as CheckCircleIcon,
+    Edit as EditIcon,
+} from 'lucide-vue-next'
 import Progress from '../Feedback/Progress.vue'
-import type { IconName, Variant } from '../../shared/types.d'
+import type { Variant } from '../../shared/types.d'
 import Avatar from '../DataDisplay/Avatar.vue'
 
 interface WizardStep {
     title: string
     description?: string
     schema?: Record<string, unknown>
-    icon?: IconName
+    icon?: Component // Vue component (e.g., Lucide icon component)
     value?: string | number
 }
 
@@ -328,6 +335,10 @@ defineExpose({
         currentStep.value = 0
     },
 })
+
+const getIconSize = (size: string) => {
+    return sizeMap[size as keyof typeof sizeMap] || 24
+}
 </script>
 
 <!-- Styles are imported from src/assets/css/form-wizard.css -->

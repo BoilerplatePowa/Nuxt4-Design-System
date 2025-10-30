@@ -50,7 +50,7 @@
                             generateInitials(name)
                         }}</span>
                         <span v-else-if="placeholder" class="opacity-60">{{ placeholder }}</span>
-                        <Icon v-else :name="fallbackIcon" :size="size" />
+                        <component v-else-if="fallbackIcon" :is="fallbackIcon" :size="getIconSize(size)" />
                     </slot>
                 </div>
             </div>
@@ -60,10 +60,11 @@
 
 <script setup lang="ts">
 import { computed, ref } from 'vue'
+import type { Component } from 'vue'
 import Badge from './Badge.vue'
-import type { Variant, IconName } from '../../shared/types.d'
+import type { Variant } from '../../shared/types.d'
+import { sizeMap } from '../../shared/map'
 import Status from '../DataDisplay/Status.vue'
-import Icon from '../Icons/Icon.vue'
 
 interface Props {
     src?: string
@@ -83,7 +84,7 @@ interface Props {
     loading?: boolean
     lazy?: boolean
     fallbackColor?: 'primary' | 'secondary' | 'accent' | 'neutral' | 'random'
-    fallbackIcon?: IconName
+    fallbackIcon?: Component // Vue component (e.g., Lucide icon component)
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -96,7 +97,7 @@ const props = withDefaults(defineProps<Props>(), {
     loading: false,
     lazy: true,
     fallbackColor: 'neutral',
-    fallbackIcon: 'user',
+    fallbackIcon: undefined,
 })
 
 const emit = defineEmits<{
@@ -222,4 +223,8 @@ const presenceStatusVariant = computed(() => {
 
     return 'neutral'
 })
+
+const getIconSize = (size: string) => {
+    return sizeMap[size as keyof typeof sizeMap] || 24
+}
 </script>

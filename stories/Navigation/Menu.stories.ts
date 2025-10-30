@@ -1,5 +1,28 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite'
 import Menu from '../../src/runtime/components/Navigation/Menu.vue'
+import {
+    Home,
+    Users,
+    Library,
+    Settings,
+    User,
+    LogOut,
+    ShoppingCart,
+    Settings2,
+    Info,
+    Phone,
+    BarChart,
+    LineChart,
+    File,
+    HelpCircle,
+    Mail,
+    MessageSquare,
+    Bell,
+    CheckCircle,
+    Archive,
+    CreditCard,
+    DollarSign,
+} from 'lucide-vue-next'
 
 const meta: Meta<typeof Menu> = {
     title: 'Navigation/Menu',
@@ -23,7 +46,7 @@ const meta: Meta<typeof Menu> = {
         rounded: {
             control: { type: 'boolean' },
         },
-        onItemClick: { action: 'item-click' },
+        'onItem-click': { action: 'item-click' },
     },
 }
 
@@ -31,20 +54,20 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 const sampleMenuItems = [
-    { label: 'Dashboard', href: '/dashboard', icon: 'search' },
-    { label: 'Users', href: '/users', icon: 'users', badge: '12' },
-    { label: 'Products', href: '/products', icon: 'library' },
+    { label: 'Dashboard', href: '/dashboard', icon: Home },
+    { label: 'Users', href: '/users', icon: Users, badge: '12' },
+    { label: 'Products', href: '/products', icon: Library },
     { title: 'Settings' },
-    { label: 'Profile', href: '/profile', icon: 'user' },
-    { label: 'Account', href: '/account', icon: 'settings' },
-    { label: 'Logout', href: '/logout', icon: 'log-out' },
+    { label: 'Profile', href: '/profile', icon: User },
+    { label: 'Account', href: '/account', icon: Settings },
+    { label: 'Logout', href: '/logout', icon: LogOut },
 ]
 
 const hierarchicalMenu = [
-    { label: 'Home', href: '/', icon: 'home' },
+    { label: 'Home', href: '/', icon: Home },
     {
         label: 'Products',
-        icon: 'shopping-cart',
+        icon: ShoppingCart,
         children: [
             { label: 'Electronics', href: '/products/electronics' },
             { label: 'Clothing', href: '/products/clothing' },
@@ -53,15 +76,15 @@ const hierarchicalMenu = [
     },
     {
         label: 'Services',
-        icon: 'settings-2',
+        icon: Settings2,
         children: [
             { label: 'Consulting', href: '/services/consulting' },
             { label: 'Support', href: '/services/support' },
             { label: 'Training', href: '/services/training' },
         ],
     },
-    { label: 'About', href: '/about', icon: 'info' },
-    { label: 'Contact', href: '/contact', icon: 'phone' },
+    { label: 'About', href: '/about', icon: Info },
+    { label: 'Contact', href: '/contact', icon: Phone },
 ]
 
 export const Default: Story = {
@@ -73,7 +96,7 @@ export const Default: Story = {
         setup() {
             return { args }
         },
-        template: '<Menu v-bind="args" @item-click="args.onItemClick" />',
+        template: '<Menu v-bind="args" @item-click="args[\'onItem-click\']" />',
     }),
 }
 
@@ -102,11 +125,11 @@ export const Horizontal: Story = {
 export const WithIcons: Story = {
     args: {
         items: [
-            { label: 'Dashboard', href: '/dashboard', icon: 'bar-chart' },
-            { label: 'Analytics', href: '/analytics', icon: 'line-chart' },
-            { label: 'Reports', href: '/reports', icon: 'file' },
-            { label: 'Settings', href: '/settings', icon: 'settings' },
-            { label: 'Help', href: '/help', icon: 'help-circle' },
+            { label: 'Dashboard', href: '/dashboard', icon: BarChart },
+            { label: 'Analytics', href: '/analytics', icon: LineChart },
+            { label: 'Reports', href: '/reports', icon: File },
+            { label: 'Settings', href: '/settings', icon: Settings },
+            { label: 'Help', href: '/help', icon: HelpCircle },
         ],
     },
 }
@@ -114,16 +137,16 @@ export const WithIcons: Story = {
 export const WithBadges: Story = {
     args: {
         items: [
-            { label: 'Inbox', href: '/inbox', icon: 'mail', badge: '5' },
-            { label: 'Messages', href: '/messages', icon: 'message-square', badge: '12' },
+            { label: 'Inbox', href: '/inbox', icon: Mail, badge: '5' },
+            { label: 'Messages', href: '/messages', icon: MessageSquare, badge: '12' },
             {
                 label: 'Notifications',
                 href: '/notifications',
-                icon: 'bell',
+                icon: Bell,
                 badge: '3',
             },
-            { label: 'Tasks', href: '/tasks', icon: 'check-circle', badge: '8' },
-            { label: 'Archive', href: '/archive', icon: 'archive' },
+            { label: 'Tasks', href: '/tasks', icon: CheckCircle, badge: '8' },
+            { label: 'Archive', href: '/archive', icon: Archive },
         ],
     },
 }
@@ -137,54 +160,34 @@ export const Hierarchical: Story = {
 export const Sizes: Story = {
     render: () => ({
         components: { Menu },
+        setup() {
+            const menuItems = [
+                { label: 'Home', href: '/', icon: Home },
+                { label: 'About', href: '/about', icon: Info },
+                { label: 'Contact', href: '/contact', icon: Phone },
+            ]
+            return { menuItems }
+        },
         template: `
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div>
           <h3 class="text-lg font-bold mb-4">Extra Small</h3>
-          <Menu 
-            size="xs"
-            :items="[
-              { label: 'Home', href: '/', icon: 'home' },
-              { label: 'About', href: '/about', icon: 'info' },
-              { label: 'Contact', href: '/contact', icon: 'phone' }
-            ]"
-          />
+          <Menu size="xs" :items="menuItems" />
         </div>
         
         <div>
           <h3 class="text-lg font-bold mb-4">Small</h3>
-          <Menu 
-            size="sm"
-            :items="[
-              { label: 'Home', href: '/', icon: 'home' },
-              { label: 'About', href: '/about', icon: 'info' },
-              { label: 'Contact', href: '/contact', icon: 'phone' }
-            ]"
-          />
+          <Menu size="sm" :items="menuItems" />
         </div>
         
         <div>
           <h3 class="text-lg font-bold mb-4">Medium</h3>
-          <Menu 
-            size="md"
-            :items="[
-              { label: 'Home', href: '/', icon: 'home' },
-              { label: 'About', href: '/about', icon: 'info' },
-              { label: 'Contact', href: '/contact', icon: 'phone' }
-            ]"
-          />
+          <Menu size="md" :items="menuItems" />
         </div>
         
         <div>
           <h3 class="text-lg font-bold mb-4">Large</h3>
-          <Menu 
-            size="lg"
-            :items="[
-              { label: 'Home', href: '/', icon: 'home' },
-              { label: 'About', href: '/about', icon: 'info' },
-              { label: 'Contact', href: '/contact', icon: 'phone' }
-            ]"
-          />
+          <Menu size="lg" :items="menuItems" />
         </div>
       </div>
     `,
@@ -218,6 +221,22 @@ export const CustomContent: Story = {
 export const SidebarLayout: Story = {
     render: () => ({
         components: { Menu },
+        setup() {
+            const sidebarItems = [
+                { title: 'Main' },
+                { label: 'Dashboard', href: '/dashboard', icon: BarChart, active: true },
+                { label: 'Analytics', href: '/analytics', icon: LineChart },
+                { title: 'Management' },
+                { label: 'Users', href: '/users', icon: Users, badge: '24' },
+                { label: 'Products', href: '/products', icon: Library, badge: '156' },
+                { label: 'Orders', href: '/orders', icon: ShoppingCart, badge: '12' },
+                { title: 'System' },
+                { label: 'Settings', href: '/settings', icon: Settings },
+                { label: 'Logs', href: '/logs', icon: File },
+                { label: 'Logout', href: '/logout', icon: LogOut },
+            ]
+            return { sidebarItems }
+        },
         template: `
       <div class="flex h-96">
         <div class="w-64 bg-base-200 p-4">
@@ -226,21 +245,7 @@ export const SidebarLayout: Story = {
             <p class="text-sm opacity-70">Welcome back, John</p>
           </div>
           
-          <Menu 
-            :items="[
-              { title: 'Main' },
-              { label: 'Dashboard', href: '/dashboard', icon: '📊', active: true },
-              { label: 'Analytics', href: '/analytics', icon: '📈' },
-              { title: 'Management' },
-              { label: 'Users', href: '/users', icon: '👥', badge: '24' },
-              { label: 'Products', href: '/products', icon: '📦', badge: '156' },
-              { label: 'Orders', href: '/orders', icon: '🛒', badge: '12' },
-              { title: 'System' },
-              { label: 'Settings', href: '/settings', icon: '⚙️' },
-              { label: 'Logs', href: '/logs', icon: '📄' },
-              { label: 'Logout', href: '/logout', icon: '🚪' }
-            ]"
-          />
+          <Menu :items="sidebarItems" />
         </div>
         
         <div class="flex-1 p-8 bg-base-100">
@@ -255,6 +260,23 @@ export const SidebarLayout: Story = {
 export const DropdownMenu: Story = {
     render: () => ({
         components: { Menu },
+        setup() {
+            const userMenuItems = [
+                { label: 'Profile', href: '/profile', icon: User },
+                { label: 'Account Settings', href: '/settings', icon: Settings },
+                { label: 'Billing', href: '/billing', icon: CreditCard },
+                { label: 'Help & Support', href: '/help', icon: HelpCircle },
+                { label: 'Logout', href: '/logout', icon: LogOut },
+            ]
+            const notificationItems = [
+                { title: 'Notifications' },
+                { label: 'New message from John', href: '#', icon: MessageSquare },
+                { label: 'Your order has shipped', href: '#', icon: ShoppingCart },
+                { label: 'Payment received', href: '#', icon: DollarSign },
+                { label: 'View all notifications', href: '/notifications' },
+            ]
+            return { userMenuItems, notificationItems }
+        },
         template: `
       <div class="flex gap-4">
         <div class="dropdown">
@@ -267,13 +289,7 @@ export const DropdownMenu: Story = {
           <Menu 
             tabindex="0"
             class="dropdown-content z-[1] p-2 shadow bg-base-100 rounded-box w-52"
-            :items="[
-              { label: 'Profile', href: '/profile', icon: 'user' },
-              { label: 'Account Settings', href: '/settings', icon: 'settings' },
-              { label: 'Billing', href: '/billing', icon: 'credit-card' },
-              { label: 'Help & Support', href: '/help', icon: 'help-circle' },
-              { label: 'Logout', href: '/logout', icon: 'log-out' }
-            ]"
+            :items="userMenuItems"
           />
         </div>
         
@@ -289,13 +305,7 @@ export const DropdownMenu: Story = {
           <Menu 
             tabindex="0"
             class="dropdown-content z-[1] p-2 shadow bg-base-100 rounded-box w-64"
-            :items="[
-              { title: 'Notifications' },
-              { label: 'New message from John', href: '#', icon: 'message-square' },
-              { label: 'Your order has shipped', href: '#', icon: 'shopping-cart' },
-              { label: 'Payment received', href: '#', icon: 'dollar-sign' },
-              { label: 'View all notifications', href: '/notifications' }
-            ]"
+            :items="notificationItems"
           />
         </div>
       </div>

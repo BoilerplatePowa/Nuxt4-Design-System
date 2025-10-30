@@ -2,7 +2,6 @@ import { iconMap } from './map'
 
 // Re-export all types from types.d.ts
 export type {
-    IconName,
     InputType,
     Size,
     Fill,

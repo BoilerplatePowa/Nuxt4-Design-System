@@ -26,14 +26,14 @@
                 <div class="card bg-base-200 shadow-xl">
                     <div class="card-body">
                         <div class="grid sm:grid-cols-4 gap-6 items-center">
-                            <BpIcon name="heart" class="w-8 h-8 text-error" />
-                            <BpIcon name="star" class="w-8 h-8 text-warning" />
-                            <BpIcon name="check-circle" class="w-8 h-8 text-success" />
-                            <BpIcon name="info" class="w-8 h-8 text-info" />
-                            <BpIcon name="zap" class="w-10 h-10 text-primary" />
-                            <BpIcon name="settings" class="w-10 h-10 text-secondary" />
-                            <BpIcon name="user" class="w-6 h-6 text-accent" />
-                            <BpIcon name="home" class="w-6 h-6 text-neutral" />
+                            <Heart class="w-8 h-8 text-error" />
+                            <Star class="w-8 h-8 text-warning" />
+                            <CheckCircle class="w-8 h-8 text-success" />
+                            <Info class="w-8 h-8 text-info" />
+                            <Zap class="w-10 h-10 text-primary" />
+                            <Settings class="w-10 h-10 text-secondary" />
+                            <User class="w-6 h-6 text-accent" />
+                            <Home class="w-6 h-6 text-neutral" />
                         </div>
                     </div>
                 </div>
@@ -47,10 +47,10 @@
                         <div class="mockup-code text-left">
                             <pre
                                 data-prefix="<"
-                            ><code>&lt;BpIcon name="heart" class="w-6 h-6 text-error" /&gt;</code></pre>
+                            ><code>&lt;Heart class="w-6 h-6 text-error" /&gt;</code></pre>
                             <pre
                                 data-prefix="<"
-                            ><code>&lt;BpButton&gt;&lt;BpIcon name="zap" class="w-4 h-4 mr-2" /&gt;Click&lt;/BpButton&gt;</code></pre>
+                            ><code>&lt;BpButton&gt;&lt;Zap class="w-4 h-4 mr-2" /&gt;Click&lt;/BpButton&gt;</code></pre>
                         </div>
                     </div>
                 </div>
@@ -77,6 +77,9 @@
 </template>
 
 <script setup lang="ts">
+import { onMounted } from 'vue'
+import { Heart, Star, CheckCircle, Info, Zap, Settings, User, Home } from 'lucide-vue-next'
+
 definePageMeta({
     title: 'BpIcon Component',
     description: 'Props, examples, and usage for BpIcon',

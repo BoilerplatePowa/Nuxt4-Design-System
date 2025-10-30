@@ -8,7 +8,7 @@ import Textarea from '../../src/runtime/components/DataInput/Textarea.vue'
 import Checkbox from '../../src/runtime/components/DataInput/Checkbox.vue'
 import Toggle from '../../src/runtime/components/DataInput/Toggle.vue'
 import Avatar from '../../src/runtime/components/DataDisplay/Avatar.vue'
-import Icon from '../../src/runtime/components/Icons/Icon.vue'
+import { User, Settings, CheckCircle, Heart, Mail, Lock, MapPin, Building, Globe, CreditCard, ShoppingCart, Check, Loading } from 'lucide-vue-next'
 
 const meta: Meta<typeof FormWizard> = {
     title: 'Data Input/FormWizard',
@@ -944,7 +944,7 @@ export const EnhancedSteps: Story = {
         showSummary: true,
     },
     render: (args) => ({
-        components: { FormWizard, Input, Checkbox, Avatar, Icon },
+        components: { FormWizard, Input, Checkbox, Avatar, User, Settings, CheckCircle, Heart },
         setup() {
             const currentStep = ref(args.modelValue)
             const stepData = ref<Record<string, any>>({})
@@ -992,7 +992,7 @@ export const EnhancedSteps: Story = {
             <div class="space-y-6">
               <div class="text-center">
                 <Avatar size="lg" fallback-color="primary" class="mx-auto mb-4">
-                  <Icon name="user" size="lg" />
+                  <User class="w-8 h-8" />
                 </Avatar>
                 <h3 class="text-xl font-bold mb-2">Account Setup</h3>
                 <p class="opacity-70">Create your account to get started.</p>
@@ -1033,7 +1033,7 @@ export const EnhancedSteps: Story = {
             <div class="space-y-6">
               <div class="text-center">
                 <Avatar size="lg" fallback-color="secondary" class="mx-auto mb-4">
-                  <Icon name="settings" size="lg" />
+                  <Settings class="w-8 h-8" />
                 </Avatar>
                 <h3 class="text-xl font-bold mb-2">Profile Information</h3>
                 <p class="opacity-70">Tell us about yourself.</p>
@@ -1070,7 +1070,7 @@ export const EnhancedSteps: Story = {
             <div class="space-y-6">
               <div class="text-center">
                 <Avatar size="lg" fallback-color="accent" class="mx-auto mb-4">
-                  <Icon name="heart" size="lg" />
+                  <Heart class="w-8 h-8" />
                 </Avatar>
                 <h3 class="text-xl font-bold mb-2">Preferences</h3>
                 <p class="opacity-70">Set your communication preferences.</p>
@@ -1103,7 +1103,7 @@ export const EnhancedSteps: Story = {
             <div class="space-y-6">
               <div class="text-center">
                 <Avatar size="lg" fallback-color="success" class="mx-auto mb-4">
-                  <Icon name="check-circle" size="lg" />
+                  <CheckCircle class="w-8 h-8" />
                 </Avatar>
                 <h3 class="text-xl font-bold mb-2">Verification</h3>
                 <p class="opacity-70">Review and confirm your information.</p>
@@ -1138,7 +1138,7 @@ export const EnhancedSteps: Story = {
 
 export const InteractiveWizard: Story = {
     render: () => ({
-        components: { FormWizard, Input, Checkbox, Select, Avatar, Icon },
+        components: { FormWizard, Input, Checkbox, Select, Avatar, User, Settings, CheckCircle, Heart, Mail, Lock, MapPin, Building, Globe, CreditCard, ShoppingCart, Check, Loading },
         setup() {
             const currentStep = ref(0)
             const stepData = ref<Record<string, any>>({})
@@ -1290,12 +1290,12 @@ export const InteractiveWizard: Story = {
             <h2 class="text-2xl font-bold mb-2">Interactive Form Wizard</h2>
             <p class="opacity-70">Try navigating through the steps and filling out the forms.</p>
             <div class="alert alert-info mt-4">
-              <Icon name="user" size="sm" />
+              <User class="w-4 h-4" />
               <span><strong>Auto-advance feature:</strong> Step 1 will automatically advance to Step 2 when valid and submitted!</span>
             </div>
             
             <div v-if="isAutoAdvancing" class="alert alert-success mt-4">
-              <Icon name="loading" size="sm" class="animate-spin" />
+              <Loading class="w-4 h-4 animate-spin" />
               <span><strong>Auto-advancing to step 2...</strong></span>
             </div>
           </div>
@@ -1322,7 +1322,7 @@ export const InteractiveWizard: Story = {
                     class="mx-auto mb-4"
                     alt="Personal Info"
                   >
-                    <Icon name="user" size="lg" />
+                    <User class="w-8 h-8" />
                   </Avatar>
                   <h3 class="text-xl font-bold mb-2">Personal Information</h3>
                   <p class="opacity-70">Please provide your basic details.</p>
@@ -1358,7 +1358,7 @@ export const InteractiveWizard: Story = {
                   <pre class="text-xs">{{ safeStringify(errors, 2) }}</pre>
                   
                   <div v-if="meta.valid && meta.dirty" class="alert alert-success mt-4">
-                    <Icon name="check-circle" size="sm" />
+                    <CheckCircle class="w-4 h-4" />
                     <span>Form is valid! Click "Next" to auto-advance to step 2.</span>
                   </div>
                 </div>
@@ -1374,7 +1374,7 @@ export const InteractiveWizard: Story = {
                     fallback-color="secondary" 
                     class="mx-auto mb-4"
                   >
-                    <Icon name="settings" size="lg" />
+                    <Settings class="w-8 h-8" />
                   </Avatar>
                   <h3 class="text-xl font-bold mb-2">Preferences</h3>
                   <p class="opacity-70">Set your communication preferences.</p>
@@ -1416,7 +1416,7 @@ export const InteractiveWizard: Story = {
                     fallback-color="success" 
                     class="mx-auto mb-4"
                   >
-                    <Icon name="check-circle" size="lg" />
+                    <CheckCircle class="w-8 h-8" />
                   </Avatar>
                   <h3 class="text-xl font-bold mb-2">Confirmation</h3>
                   <p class="opacity-70">Review your information and confirm.</p>
@@ -1460,7 +1460,7 @@ export const InteractiveWizard: Story = {
             fallback-color="success" 
             class="mx-auto mb-6"
           >
-            <Icon name="check-circle" size="xl" />
+            <CheckCircle class="w-12 h-12" />
           </Avatar>
           <h2 class="text-2xl font-bold mb-4">Wizard Completed!</h2>
           <p class="opacity-70 mb-6">Thank you for completing the form wizard.</p>

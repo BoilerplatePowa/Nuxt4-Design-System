@@ -4,38 +4,38 @@
         <div class="drawer-content">
             <!-- drawer content -->
             <slot name="content" :drawer-id="drawerId">
-                <label v-if="mode === 'default'" :for="drawerId" class="btn drawer-button"
-                    >Open drawer</label
-                >
+                <label v-if="mode === 'default'" :for="drawerId" class="btn drawer-button">
+                    Open drawer
+                </label>
             </slot>
         </div>
 
         <div class="drawer-side" :class="sideClasses">
             <label :for="drawerId" aria-label="close sidebar" class="drawer-overlay"></label>
-            <div
-                class="is-drawer-close:w-14 is-drawer-open:w-48 bg-base-200 flex flex-col items-start min-h-full"
-            >
-                <div class="flex w-full p-2">
-                    <div class="grow">
-                        <slot name="top"></slot>
-                    </div>
-                    <div
-                        class="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                        data-tip="Open"
-                    >
-                        <label
-                            :for="drawerId"
-                            class="btn btn-ghost btn-square drawer-button is-drawer-open:rotate-y-180"
+            <div :class=" glass ? 'h-full pl-2 py-2' : 'h-full'">
+                <div :class="sidebarContentClasses">
+                    <div class="flex w-full p-2">
+                        <div class="grow">
+                            <slot name="top"></slot>
+                        </div>
+                        <div
+                            class="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                            data-tip="Open"
                         >
-                            <Icon name="chevron-right" size="md" />
-                        </label>
+                            <label
+                                :for="drawerId"
+                                class="btn btn-ghost btn-square drawer-button is-drawer-open:rotate-y-180"
+                            >
+                                <ChevronRight />
+                            </label>
+                        </div>
                     </div>
-                </div>
-                <div class="divider px-2 m-0"></div>
-                <Menu :items="items" class="w-full grow" :compact="!model" />
-                <div v-if="$slots.bottom" class="w-full">
                     <div class="divider px-2 m-0"></div>
-                    <slot name="bottom"></slot>
+                    <Menu :items="items" class="w-full grow" :compact="!model" />
+                    <div v-if="$slots.bottom" class="w-full">
+                        <div class="divider px-2 m-0"></div>
+                        <slot name="bottom"></slot>
+                    </div>
                 </div>
             </div>
         </div>
@@ -43,10 +43,10 @@
 </template>
 
 <script setup lang="ts">
-import { computed, useId } from 'vue'
+import { computed, useId, onMounted, onUnmounted } from 'vue'
 import type { MenuItem } from '../../shared/types.d'
 import Menu from '../Navigation/Menu.vue'
-import Icon from '../Icons/Icon.vue'
+import { ChevronRight } from 'lucide-vue-next'
 
 // SSR-safe id
 const uid = useId()
@@ -61,6 +61,7 @@ interface Props {
     forceOpen?: boolean
     mode?: 'default' | 'sidebar'
     items?: MenuItem[]
+    glass?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -72,6 +73,7 @@ const props = withDefaults(defineProps<Props>(), {
     id: undefined,
     forceOpen: false,
     mode: 'default',
+    glass: false,
 })
 
 const model = defineModel<boolean>({ default: false })
@@ -98,6 +100,30 @@ const sideClasses = computed(() =>
         .join(' ')
 )
 
+const sidebarContentClasses = computed(() => {
+    const classes = [
+        'is-drawer-close:w-14',
+        'is-drawer-open:w-48',
+        'flex',
+        'flex-col',
+        'items-start',
+        'min-h-full',
+    ]
+
+    if (props.glass) {
+        classes.push('glass', 'rounded-box')
+    } else {
+        classes.push('bg-base-200')
+    }
+
+    return classes.join(' ')
+})
+
+// Close drawer function
+const close = () => {
+    model.value = false
+}
+
 // Keyboard handling
 const handleKeydown = (event: KeyboardEvent) => {
     if (event.key === 'Escape' && model.value && !props.persistent) {
@@ -105,8 +131,16 @@ const handleKeydown = (event: KeyboardEvent) => {
     }
 }
 
-// Add event listener for escape key
-if (typeof window !== 'undefined') {
-    window.addEventListener('keydown', handleKeydown)
-}
+// Add event listener for escape key with proper cleanup
+onMounted(() => {
+    if (typeof window !== 'undefined') {
+        window.addEventListener('keydown', handleKeydown)
+    }
+})
+
+onUnmounted(() => {
+    if (typeof window !== 'undefined') {
+        window.removeEventListener('keydown', handleKeydown)
+    }
+})
 </script>

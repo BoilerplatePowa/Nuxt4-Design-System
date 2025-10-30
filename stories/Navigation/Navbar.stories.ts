@@ -30,10 +30,18 @@ const meta: Meta<typeof Navbar> = {
             control: 'text',
             description: 'Logo link URL',
         },
-        variant: {
+        styleVariant: {
             control: { type: 'select' },
-            options: ['default', 'sticky', 'glass'],
+            options: ['default', 'sticky'],
             description: 'Navbar style variant',
+        },
+        glass: {
+            control: 'boolean',
+            description: 'Apply glass effect (can be combined with any styleVariant)',
+        },
+        glassOpacity: {
+            control: { type: 'range', min: 0, max: 1, step: 0.1 },
+            description: 'Glass effect opacity (0-1)',
         },
         shadow: {
             control: 'boolean',
@@ -142,7 +150,7 @@ export const WithLogo: Story = {
 export const Glass: Story = {
     args: {
         title: 'Glass Nav',
-        variant: 'glass',
+        glass: true,
     },
     render: (args) => ({
         components: { Navbar },
@@ -150,25 +158,27 @@ export const Glass: Story = {
             return { args, menuItems }
         },
         template: `
-      <div>
-        <Navbar v-bind="args">
-          <template #menu>
-            <ul class="menu menu-horizontal px-1">
-              <li v-for="item in menuItems" :key="item.label">
-                <a :href="item.href" :class="{ 'active': item.active }">
-                  {{ item.label }}
-                </a>
-              </li>
-            </ul>
-          </template>
-          <template #actions>
-            <button class="btn btn-ghost">Login</button>
-            <button class="btn btn-primary">Get Started</button>
-          </template>
-        </Navbar>
+      <div class="h-[80vh] h-[80vh] bg-gradient-to-r from-blue-400 via-blue-300 to-blue-400">
+        <div class="p-2">
+          <Navbar v-bind="args">
+            <template #menu>
+              <ul class="menu menu-horizontal px-4">
+                <li v-for="item in menuItems" :key="item.label">
+                  <a :href="item.href" :class="{ 'active': item.active }">
+                    {{ item.label }}
+                  </a>
+                </li>
+              </ul>
+            </template>
+            <template #actions>
+              <button class="btn bg-neutra btn-ghost">Login</button>
+              <button class="btn btn-primary">Get Started</button>
+            </template>
+          </Navbar>
+        </div>
         
         <!-- Background content to show glass effect -->
-        <div class="hero min-h-screen bg-gradient-to-r from-purple-400 via-pink-500 to-red-500">
+        <div class="hero h-[80vh]">
           <div class="hero-content text-center text-white">
             <div class="max-w-md">
               <h1 class="mb-5 text-5xl font-bold">Glass Navbar</h1>
@@ -403,6 +413,51 @@ export const Dashboard: Story = {
     }),
     args: {
         title: 'Admin Panel',
-        variant: 'sticky',
+        styleVariant: 'sticky',
     },
+}
+
+export const StickyGlass: Story = {
+    args: {
+        title: 'Sticky Glass Nav',
+        styleVariant: 'sticky',
+        glass: true,
+        shadow: true,
+    },
+    render: (args) => ({
+        components: { Navbar },
+        setup() {
+            return { args, menuItems }
+        },
+        template: `
+      <div class="bg-gradient-to-b from-purple-400 via-pink-300 to-red-300 min-h-screen">
+        <Navbar v-bind="args">
+          <template #menu>
+            <ul class="menu menu-horizontal px-4">
+              <li v-for="item in menuItems" :key="item.label">
+                <a :href="item.href" :class="{ 'active': item.active }">
+                  {{ item.label }}
+                </a>
+              </li>
+            </ul>
+          </template>
+          <template #actions>
+            <button class="btn btn-ghost">Login</button>
+            <button class="btn btn-primary">Get Started</button>
+          </template>
+        </Navbar>
+        
+        <!-- Long content to demonstrate sticky behavior -->
+        <div class="p-8 space-y-8">
+          <div v-for="i in 10" :key="i" class="card bg-base-100 shadow-xl">
+            <div class="card-body">
+              <h2 class="card-title">Section {{ i }}</h2>
+              <p>Scroll down to see the sticky glass navbar stay at the top with a beautiful glass effect over the gradient background.</p>
+              <p class="text-sm opacity-70">The glass effect is combined with sticky positioning, demonstrating the flexibility of the new prop structure.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    `,
+    }),
 }

@@ -14,11 +14,11 @@
                     </p>
                     <div class="flex flex-wrap gap-4 justify-center">
                         <NuxtLink to="/components" class="btn btn-primary btn-lg">
-                            <BpIcon name="eye" class="w-5 h-5 mr-2" />
+                            <Eye class="w-5 h-5 mr-2" />
                             View Components
                         </NuxtLink>
                         <NuxtLink to="/installation" class="btn btn-outline btn-lg">
-                            <BpIcon name="download" class="w-5 h-5 mr-2" />
+                            <Download class="w-5 h-5 mr-2" />
                             Get Started
                         </NuxtLink>
                         <a
@@ -26,7 +26,7 @@
                             target="_blank"
                             class="btn btn-ghost btn-lg"
                         >
-                            <BpIcon name="external-link" class="w-5 h-5 mr-2" />
+                            <ExternalLink class="w-5 h-5 mr-2" />
                             GitHub
                         </a>
                     </div>
@@ -47,7 +47,7 @@
                 <div class="grid md:grid-cols-3 gap-8">
                     <div class="card bg-base-200 shadow-xl">
                         <div class="card-body text-center">
-                            <BpIcon name="zap" class="w-12 h-12 text-primary mx-auto mb-4" />
+                            <Zap class="w-12 h-12 text-primary mx-auto mb-4" />
                             <h3 class="card-title justify-center">Lightning Fast</h3>
                             <p>
                                 Optimized for performance with tree-shaking, lazy loading, and
@@ -58,7 +58,7 @@
 
                     <div class="card bg-base-200 shadow-xl">
                         <div class="card-body text-center">
-                            <BpIcon name="settings" class="w-12 h-12 text-secondary mx-auto mb-4" />
+                            <Settings class="w-12 h-12 text-secondary mx-auto mb-4" />
                             <h3 class="card-title justify-center">Theme Ready</h3>
                             <p>
                                 Multiple DaisyUI themes with easy switching and customization
@@ -69,7 +69,7 @@
 
                     <div class="card bg-base-200 shadow-xl">
                         <div class="card-body text-center">
-                            <BpIcon name="shield" class="w-12 h-12 text-accent mx-auto mb-4" />
+                            <Shield class="w-12 h-12 text-accent mx-auto mb-4" />
                             <h3 class="card-title justify-center">Accessibility First</h3>
                             <p>
                                 WCAG 2.1 AA compliant with proper ARIA support and keyboard
@@ -157,7 +157,7 @@
                     <div class="card bg-base-200 shadow-xl">
                         <div class="card-body text-center">
                             <div class="flex justify-center mb-4">
-                                <BpIcon name="heart" class="w-8 h-8 text-error" />
+                                <Heart class="w-8 h-8 text-error" />
                             </div>
                             <h3 class="card-title justify-center text-lg">Icon</h3>
                             <p class="text-sm text-base-content/70">Lucide Vue Next icons</p>
@@ -178,7 +178,7 @@
                         <div class="card-body text-center">
                             <div class="flex justify-center mb-4">
                                 <div class="alert alert-info">
-                                    <BpIcon name="info" class="w-4 h-4" />
+                                    <Info class="w-4 h-4" />
                                     <span>Alert</span>
                                 </div>
                             </div>
@@ -202,7 +202,7 @@
                 <div class="stats shadow w-full">
                     <div class="stat">
                         <div class="stat-figure text-primary">
-                            <BpIcon name="archive" class="w-8 h-8" />
+                            <Archive class="w-8 h-8" />
                         </div>
                         <div class="stat-title">Components</div>
                         <div class="stat-value text-primary">50+</div>
@@ -211,7 +211,7 @@
 
                     <div class="stat">
                         <div class="stat-figure text-secondary">
-                            <BpIcon name="settings" class="w-8 h-8" />
+                            <Settings class="w-8 h-8" />
                         </div>
                         <div class="stat-title">Themes</div>
                         <div class="stat-value text-secondary">20+</div>
@@ -220,7 +220,7 @@
 
                     <div class="stat">
                         <div class="stat-figure text-accent">
-                            <BpIcon name="zap" class="w-8 h-8" />
+                            <Zap class="w-8 h-8" />
                         </div>
                         <div class="stat-title">Performance</div>
                         <div class="stat-value text-accent">90+</div>
@@ -233,6 +233,8 @@
 </template>
 
 <script setup lang="ts">
+import { Eye, Download, ExternalLink, Zap, Settings, Shield, Heart, Info, Archive } from 'lucide-vue-next'
+
 // Page metadata
 definePageMeta({
     title: 'Home',

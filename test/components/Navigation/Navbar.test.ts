@@ -48,21 +48,30 @@ describe('Navbar', () => {
         expect(link.attributes('href')).toBe('/')
     })
 
-    it('applies variant classes correctly', () => {
-        const variants = ['default', 'sticky', 'glass'] as const
+    it('applies styleVariant classes correctly', () => {
+        const variants = ['default', 'sticky'] as const
 
-        variants.forEach((variant) => {
+        variants.forEach((styleVariant) => {
             const wrapper = mount(Navbar, {
-                props: { variant },
+                props: { styleVariant },
             })
 
-            if (variant === 'sticky') {
+            if (styleVariant === 'sticky') {
                 expect(wrapper.classes()).toContain('sticky')
                 expect(wrapper.classes()).toContain('top-0')
-            } else if (variant === 'glass') {
-                expect(wrapper.classes()).toContain('glass')
             }
         })
+    })
+
+    it('applies glass effect when glass prop is true', () => {
+        const wrapper = mount(Navbar, {
+            props: {
+                glass: true,
+            },
+        })
+
+        expect(wrapper.classes()).toContain('glass')
+        expect(wrapper.classes()).toContain('rounded-lg')
     })
 
     it('applies shadow when shadow prop is true', () => {
@@ -145,7 +154,7 @@ describe('Navbar', () => {
                 title: 'My App',
                 logo: 'https://example.com/logo.png',
                 logoHref: '/',
-                variant: 'sticky',
+                styleVariant: 'sticky',
                 shadow: true,
                 showMobileMenu: true,
             },
@@ -181,14 +190,29 @@ describe('Navbar', () => {
         expect(wrapper.classes()).toContain('navbar')
     })
 
-    it('applies glass effect correctly', () => {
+    it('combines glass with sticky variant', () => {
         const wrapper = mount(Navbar, {
             props: {
-                variant: 'glass',
+                styleVariant: 'sticky',
+                glass: true,
             },
         })
 
+        // Should have both sticky and glass classes
+        expect(wrapper.classes()).toContain('sticky')
+        expect(wrapper.classes()).toContain('top-0')
         expect(wrapper.classes()).toContain('glass')
-        expect(wrapper.classes()).toContain('backdrop-blur')
+        expect(wrapper.classes()).toContain('rounded-lg')
+    })
+
+    it('does not apply glass effect when glass prop is false', () => {
+        const wrapper = mount(Navbar, {
+            props: {
+                glass: false,
+            },
+        })
+
+        expect(wrapper.classes()).not.toContain('glass')
+        expect(wrapper.classes()).not.toContain('rounded-lg')
     })
 })

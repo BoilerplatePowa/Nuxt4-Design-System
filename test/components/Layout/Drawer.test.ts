@@ -89,6 +89,14 @@ describe('Drawer', () => {
             expect(wrapper.props('id')).toBe('custom-drawer-id')
         })
 
+        it('should accept glass prop', () => {
+            wrapper = mount(Drawer, {
+                props: { glass: true },
+                global: { stubs: { Menu: true, Icon: true } },
+            })
+            expect(wrapper.props('glass')).toBe(true)
+        })
+
         it('should generate unique id when not provided', () => {
             wrapper = mount(Drawer, { global: { stubs: { Menu: true, Icon: true } } })
             expect(wrapper.vm.drawerId).toMatch(/^drawer-/)
@@ -128,6 +136,28 @@ describe('Drawer', () => {
             expect(wrapper.vm.drawerClasses).toContain('drawer-open')
             expect(wrapper.find('.drawer-side').classes().join(' ')).toContain('drawer-open')
         })
+
+        it('applies glass classes when glass prop is true', () => {
+            wrapper = mount(Drawer, {
+                props: { glass: true },
+                global: { stubs: { Menu: true, Icon: true } },
+            })
+            expect(wrapper.vm.sidebarContentClasses).toContain('glass')
+            expect(wrapper.vm.sidebarContentClasses).toContain('p-0.5')
+            expect(wrapper.vm.sidebarContentClasses).toContain('rounded-box')
+            expect(wrapper.vm.sidebarContentClasses).not.toContain('bg-base-200')
+        })
+
+        it('applies bg-base-200 when glass prop is false', () => {
+            wrapper = mount(Drawer, {
+                props: { glass: false },
+                global: { stubs: { Menu: true, Icon: true } },
+            })
+            expect(wrapper.vm.sidebarContentClasses).toContain('bg-base-200')
+            expect(wrapper.vm.sidebarContentClasses).not.toContain('glass')
+            expect(wrapper.vm.sidebarContentClasses).not.toContain('p-0.5')
+            expect(wrapper.vm.sidebarContentClasses).not.toContain('rounded-box')
+        })
     })
     // Methods/events are not exposed in current component; removed corresponding tests
 
@@ -138,6 +168,61 @@ describe('Drawer', () => {
                 'keydown',
                 expect.any(Function)
             )
+        })
+
+        it('should remove keyboard event listener on unmount', () => {
+            wrapper = mount(Drawer, { global: { stubs: { Menu: true, Icon: true } } })
+            wrapper.unmount()
+            expect(global.window.removeEventListener).toHaveBeenCalledWith(
+                'keydown',
+                expect.any(Function)
+            )
+        })
+
+        it('should close drawer when escape key is pressed', async () => {
+            wrapper = mount(Drawer, {
+                props: { modelValue: true },
+                global: { stubs: { Menu: true, Icon: true } },
+            })
+
+            // Simulate escape key press
+            const escapeEvent = new KeyboardEvent('keydown', { key: 'Escape' })
+            wrapper.vm.handleKeydown(escapeEvent)
+            await wrapper.vm.$nextTick()
+
+            expect(wrapper.vm.model).toBe(false)
+        })
+
+        it('should not close drawer when persistent is true', async () => {
+            wrapper = mount(Drawer, {
+                props: { modelValue: true, persistent: true },
+                global: { stubs: { Menu: true, Icon: true } },
+            })
+
+            // Simulate escape key press
+            const escapeEvent = new KeyboardEvent('keydown', { key: 'Escape' })
+            wrapper.vm.handleKeydown(escapeEvent)
+            await wrapper.vm.$nextTick()
+
+            // Should remain open because persistent is true
+            expect(wrapper.vm.model).toBe(true)
+        })
+    })
+
+    describe('close method', () => {
+        it('should close the drawer when close() is called', async () => {
+            wrapper = mount(Drawer, {
+                props: { modelValue: true },
+                global: { stubs: { Menu: true, Icon: true } },
+            })
+
+            expect(wrapper.vm.model).toBe(true)
+
+            // Call close method
+            wrapper.vm.close()
+            await wrapper.vm.$nextTick()
+
+            expect(wrapper.vm.model).toBe(false)
         })
     })
 

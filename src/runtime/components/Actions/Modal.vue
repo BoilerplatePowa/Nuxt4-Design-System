@@ -34,10 +34,9 @@
                         size="xs"
                         circle
                         aria-label="Close modal"
+                        :icon-left="XIcon"
                         @click="close"
-                    >
-                        <Icon name="x" size="sm" />
-                    </Button>
+                    />
                 </header>
 
                 <!-- Body -->
@@ -68,7 +67,7 @@
 <script setup lang="ts">
 import { computed, nextTick, ref, watch, onUnmounted, useId } from 'vue'
 import Button from './Button.vue'
-import Icon from '../Icons/Icon.vue'
+import { X as XIcon } from 'lucide-vue-next'
 
 // SSR-safe ids
 const uid = useId()
