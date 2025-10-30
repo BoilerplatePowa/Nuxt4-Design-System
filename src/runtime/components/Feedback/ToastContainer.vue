@@ -1,6 +1,6 @@
 <template>
     <div :class="containerClasses">
-        <TransitionGroup :name="transitionName" tag="div" class="space-y-2">
+        <TransitionGroup :name="transitionName" class="flex flex-col gap-2" tag="div">
             <Toast
                 v-for="(toast, index) in visibleToasts"
                 :id="`toast-${toast.id}`"
@@ -8,9 +8,12 @@
                 :type="toast.type"
                 :title="toast.title"
                 :message="toast.message"
-                :closable="toast.closable"
-                :persistent="true"
+                :duration="toast.duration"
+                :closable="toast.closable !== false"
+                :persistent="false"
                 :fixed="false"
+                :show-progress="true"
+                :pause-on-hover="true"
                 :style="{ zIndex: maxToasts - index }"
                 @close="removeToast(toast.id)"
             />
@@ -19,21 +22,61 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, watch, onUnmounted } from 'vue'
+/**
+ * ToastContainer Component
+ * 
+ * A container component that manages a stack of toast notifications.
+ * 
+ * Features:
+ * - Automatic positioning (6 positions available)
+ * - Stacking with max limit
+ * - Auto-dismiss with progress bar (handled by Toast component)
+ * - Smooth enter/exit animations
+ * - Responsive z-index management
+ * - Theme-aware using DaisyUI colors
+ * 
+ * @example
+ * ```vue
+ * <BpToastContainer 
+ *   :toasts="toasts" 
+ *   position="top-right"
+ *   :max-toasts="5"
+ *   @remove-toast="removeToast"
+ * />
+ * ```
+ */
+import { computed } from 'vue'
 import Toast from './Toast.vue'
 
+/**
+ * Toast item interface
+ * Represents a single toast notification in the queue
+ */
 export interface ToastItem {
+    /** Unique identifier for the toast */
     id: string | number
+    /** Toast type determines color and icon */
     type?: 'success' | 'error' | 'warning' | 'info'
+    /** Optional title displayed above the message */
     title?: string
+    /** Main message content */
     message: string
+    /** Auto-dismiss duration in milliseconds (0 = no auto-dismiss) */
     duration?: number
+    /** Whether the toast can be manually closed */
     closable?: boolean
+    /** Timestamp when toast was created (for sorting) */
     timestamp: number
 }
 
+/**
+ * ToastContainer Props
+ * Manages a stack of toast notifications with automatic positioning
+ */
 interface Props {
+    /** Array of toast items to display */
     toasts?: ToastItem[]
+    /** Position of the toast container on screen */
     position?:
         | 'top-right'
         | 'top-left'
@@ -41,6 +84,7 @@ interface Props {
         | 'bottom-left'
         | 'top-center'
         | 'bottom-center'
+    /** Maximum number of toasts to display simultaneously */
     maxToasts?: number
 }
 
@@ -54,15 +98,20 @@ const emit = defineEmits<{
     'remove-toast': [id: string | number]
 }>()
 
-const timers = ref<Map<string | number, ReturnType<typeof setTimeout>>>(new Map())
-
-// Sort toasts by timestamp (oldest first) and limit to maxToasts
+/**
+ * Sort toasts by timestamp (oldest first) and limit to maxToasts
+ * Oldest toasts appear at the top/start of the list
+ */
 const visibleToasts = computed(() => {
     return [...props.toasts]
         .sort((a, b) => a.timestamp - b.timestamp) // Oldest first (will appear at top)
         .slice(0, props.maxToasts)
 })
 
+/**
+ * Container positioning classes
+ * Uses Tailwind + DaisyUI for responsive positioning
+ */
 const containerClasses = computed(() => {
     const baseClasses = [
         'toast-container',
@@ -71,6 +120,7 @@ const containerClasses = computed(() => {
         'flex',
         'flex-col',
         'pointer-events-none',
+        'gap-2', // Spacing between toasts
     ]
 
     // Position classes
@@ -103,6 +153,9 @@ const containerClasses = computed(() => {
     return baseClasses.join(' ')
 })
 
+/**
+ * Transition animation based on position
+ */
 const transitionName = computed(() => {
     if (props.position.includes('right')) {
         return 'toast-stack-right'
@@ -113,46 +166,13 @@ const transitionName = computed(() => {
     }
 })
 
+/**
+ * Remove toast and emit event
+ * Note: Toast component handles its own timer now, no need for external timers
+ */
 const removeToast = (id: string | number) => {
-    // Clear timer if exists
-    const timer = timers.value.get(id)
-    if (timer) {
-        clearTimeout(timer)
-        timers.value.delete(id)
-    }
-
     emit('remove-toast', id)
 }
-
-const startTimer = (toast: ToastItem) => {
-    if (toast.duration && toast.duration > 0) {
-        const timer = setTimeout(() => {
-            removeToast(toast.id)
-        }, toast.duration)
-
-        timers.value.set(toast.id, timer)
-    }
-}
-
-// Watch for new toasts and start their timers
-watch(
-    () => props.toasts,
-    (newToasts, oldToasts) => {
-        // Find newly added toasts
-        const oldIds = new Set(oldToasts?.map((t) => t.id) || [])
-        const newItems = newToasts.filter((t) => !oldIds.has(t.id))
-
-        // Start timers for new toasts
-        newItems.forEach((toast) => {
-            startTimer(toast)
-        })
-    },
-    { immediate: true, deep: true }
-)
-onUnmounted(() => {
-    timers.value.forEach((timer) => clearTimeout(timer))
-    timers.value.clear()
-})
 </script>
 
 <style scoped>

@@ -50,6 +50,18 @@
                     />
                 </svg>
             </button>
+            
+            <!-- Progress bar - shows remaining time (100% to 0%) -->
+            <div
+                v-if="showProgress && !persistent && duration > 0"
+                class="absolute bottom-0 left-0 right-0 h-1 bg-base-300/30 overflow-hidden rounded-b-lg"
+            >
+                <div
+                    ref="progressBarRef"
+                    :class="progressBarClasses"
+                    :style="progressBarStyle"
+                />
+            </div>
         </div>
     </Transition>
 </template>
@@ -103,9 +115,15 @@ const emit = defineEmits<{
 const visible = ref(true)
 const toastRef = ref<HTMLElement>()
 const closeButtonRef = ref<HTMLElement>()
+const progressBarRef = ref<HTMLElement>()
 let timer: ReturnType<typeof setTimeout> | null = null
 
-let progressInterval: ReturnType<typeof setInterval> | null = null
+// Progress tracking (starts at 100% and counts down to 0%)
+const progress = ref(100)
+const isPaused = ref(false)
+const startTime = ref(0)
+const remainingTime = ref(0)
+let progressAnimationFrame: number | null = null
 
 // Computed properties
 const ariaLabel = computed(() => {
@@ -120,6 +138,7 @@ const closeButtonLabel = computed(() => {
 const containerClasses = computed(() => {
     const baseClasses = [
         'toast-container',
+        'relative',
         'flex',
         'items-start',
         'p-4',
@@ -129,6 +148,7 @@ const containerClasses = computed(() => {
         'w-full',
         'backdrop-blur-sm',
         'border',
+        'overflow-hidden',
     ]
 
     // Only add positioning classes when fixed is true
@@ -247,30 +267,100 @@ const iconComponent = computed(() => {
     }
 })
 
+const progressBarClasses = computed(() => {
+    const baseClasses = ['h-full', 'transition-all', 'duration-100', 'ease-linear']
+
+    // Use DaisyUI semantic colors that work with themes
+    switch (props.type) {
+        case 'success':
+            baseClasses.push('bg-success')
+            break
+        case 'error':
+            baseClasses.push('bg-error')
+            break
+        case 'warning':
+            baseClasses.push('bg-warning')
+            break
+        case 'info':
+        default:
+            baseClasses.push('bg-info')
+            break
+    }
+
+    return baseClasses.join(' ')
+})
+
+const progressBarStyle = computed(() => ({
+    width: `${progress.value}%`,
+    transition: isPaused.value ? 'none' : 'width 100ms linear',
+}))
+
+const updateProgress = () => {
+    if (isPaused.value || !props.duration) return
+
+    const elapsed = Date.now() - startTime.value
+    const progressPercent = Math.max(100 - (elapsed / props.duration) * 100, 0)
+    progress.value = progressPercent
+
+    if (progressPercent > 0) {
+        progressAnimationFrame = requestAnimationFrame(updateProgress)
+    }
+}
+
 const startTimer = () => {
     if (!props.persistent && props.duration > 0) {
+        startTime.value = Date.now()
+        remainingTime.value = props.duration
+        progress.value = 100 // Start at 100% (full bar)
+        isPaused.value = false
+
+        // Start the countdown timer
         timer = setTimeout(() => {
             close()
         }, props.duration)
+
+        // Start the progress animation
+        if (props.showProgress) {
+            progressAnimationFrame = requestAnimationFrame(updateProgress)
+        }
     }
 }
 
 const pauseTimer = () => {
     if (!props.pauseOnHover) return
 
+    isPaused.value = true
+
+    // Calculate remaining time
+    const elapsed = Date.now() - startTime.value
+    remainingTime.value = props.duration - elapsed
+
+    // Clear timer and animation
     if (timer) {
         clearTimeout(timer)
         timer = null
     }
-    if (progressInterval) {
-        clearInterval(progressInterval)
-        progressInterval = null
+    if (progressAnimationFrame) {
+        cancelAnimationFrame(progressAnimationFrame)
+        progressAnimationFrame = null
     }
 }
 
 const resumeTimer = () => {
-    if (!props.pauseOnHover) return
-    startTimer()
+    if (!props.pauseOnHover || remainingTime.value <= 0) return
+
+    isPaused.value = false
+    startTime.value = Date.now()
+
+    // Resume with remaining time
+    timer = setTimeout(() => {
+        close()
+    }, remainingTime.value)
+
+    // Resume progress animation
+    if (props.showProgress) {
+        progressAnimationFrame = requestAnimationFrame(updateProgress)
+    }
 }
 
 const handleKeydown = (event: KeyboardEvent) => {
@@ -283,14 +373,14 @@ const close = () => {
     emit('before-close')
     visible.value = false
 
-    // Cleanup timers
+    // Cleanup timers and animations
     if (timer) {
         clearTimeout(timer)
         timer = null
     }
-    if (progressInterval) {
-        clearInterval(progressInterval)
-        progressInterval = null
+    if (progressAnimationFrame) {
+        cancelAnimationFrame(progressAnimationFrame)
+        progressAnimationFrame = null
     }
 
     emit('close')
@@ -328,8 +418,8 @@ onUnmounted(() => {
     if (timer) {
         clearTimeout(timer)
     }
-    if (progressInterval) {
-        clearInterval(progressInterval)
+    if (progressAnimationFrame) {
+        cancelAnimationFrame(progressAnimationFrame)
     }
 })
 

@@ -701,3 +701,84 @@ export const ProgressToast: Story = {
     `,
     }),
 }
+
+export const WithProgressBar: Story = {
+    render: () => ({
+        components: { Toast, ToastContainer },
+        setup() {
+            const toast = useToast()
+            return toast
+        },
+        template: `
+      <div>
+        <div class="p-8 space-y-4">
+          <h3 class="text-lg font-semibold">Toast with Progress Bar</h3>
+          <p class="text-gray-600 mb-4">
+            Each toast shows a visual progress bar at the bottom that counts down from 100% to 0%.
+            The progress bar starts full and shrinks to empty, showing exactly how much time remains.
+          </p>
+          
+          <div class="alert alert-info mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="stroke-current shrink-0 w-6 h-6">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+            <span>💡 <strong>Pro tip:</strong> Hover over any toast to pause the countdown!</span>
+          </div>
+          
+          <div class="flex gap-2 flex-wrap mb-4">
+            <button @click="success('Operation completed successfully!', { duration: 3000 })" class="btn btn-success btn-sm">
+              Success (3s)
+            </button>
+            <button @click="error('An error occurred!', { duration: 5000 })" class="btn btn-error btn-sm">
+              Error (5s)
+            </button>
+            <button @click="warning('Warning: Please review!', { duration: 4000 })" class="btn btn-warning btn-sm">
+              Warning (4s)
+            </button>
+            <button @click="info('New information available', { duration: 3000 })" class="btn btn-info btn-sm">
+              Info (3s)
+            </button>
+          </div>
+
+          <div class="divider">Advanced Options</div>
+
+          <div class="flex gap-2 flex-wrap">
+            <button 
+              @click="success('Watch the progress bar countdown!', { title: 'Long Duration', duration: 10000 })" 
+              class="btn btn-primary btn-sm"
+            >
+              Long Duration (10s)
+            </button>
+            <button 
+              @click="info('This one is super fast!', { title: 'Quick Toast', duration: 2000 })" 
+              class="btn btn-secondary btn-sm"
+            >
+              Quick (2s)
+            </button>
+            <button 
+              @click="addToast('Multiple toasts at once!', { type: 'info', duration: 5000 })" 
+              class="btn btn-accent btn-sm"
+            >
+              Add Multiple
+            </button>
+            <button @click="clearAll()" class="btn btn-outline btn-sm">
+              Clear All
+            </button>
+          </div>
+
+          <div class="text-sm text-gray-500 mt-4">
+            Active toasts: <span class="font-semibold">{{ toasts.length }}</span>
+          </div>
+        </div>
+        
+        <!-- ToastContainer manages the stacking -->
+        <ToastContainer 
+          :toasts="toasts" 
+          position="top-right"
+          :max-toasts="5"
+          @remove-toast="removeToast"
+        />
+      </div>
+    `,
+    }),
+}
