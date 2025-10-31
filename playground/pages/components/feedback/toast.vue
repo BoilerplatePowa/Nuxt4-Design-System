@@ -25,8 +25,8 @@
                         <div class="alert alert-info mb-4">
                             <BpIcon name="info" class="w-5 h-5" />
                             <span>
-                                The progress bar starts at 100% and counts down to 0%, showing remaining time. Hover
-                                over a toast to pause the countdown!
+                                The progress bar starts at 100% and counts down to 0%, showing
+                                remaining time. Hover over a toast to pause the countdown!
                             </span>
                         </div>
 
@@ -119,7 +119,7 @@ import { useToast } from '#imports'
 
 definePageMeta({ title: 'Toast', description: 'Toast examples with progress bar' })
 
-const { toasts, success, error, warning, info, addToast, removeToast, clearAll } = useToast()
+const { toasts, success, error, warning, info, removeToast, clearAll } = useToast()
 
 function showSuccess() {
     success('Operation completed successfully!', {

@@ -233,7 +233,17 @@
 </template>
 
 <script setup lang="ts">
-import { Eye, Download, ExternalLink, Zap, Settings, Shield, Heart, Info, Archive } from 'lucide-vue-next'
+import {
+    Eye,
+    Download,
+    ExternalLink,
+    Zap,
+    Settings,
+    Shield,
+    Heart,
+    Info,
+    Archive,
+} from 'lucide-vue-next'
 
 // Page metadata
 definePageMeta({

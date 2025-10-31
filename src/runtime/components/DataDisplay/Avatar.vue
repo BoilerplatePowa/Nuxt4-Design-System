@@ -50,7 +50,11 @@
                             generateInitials(name)
                         }}</span>
                         <span v-else-if="placeholder" class="opacity-60">{{ placeholder }}</span>
-                        <component v-else-if="fallbackIcon" :is="fallbackIcon" :size="getIconSize(size)" />
+                        <component
+                            :is="fallbackIcon"
+                            v-else-if="fallbackIcon"
+                            :size="getIconSize(size)"
+                        />
                     </slot>
                 </div>
             </div>

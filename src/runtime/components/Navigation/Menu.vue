@@ -29,7 +29,7 @@
                     </div>
 
                     <div v-else class="flex items-center gap-2 w-full">
-                        <component v-if="item.icon" :is="item.icon" class="" />
+                        <component :is="item.icon" v-if="item.icon" class="" />
                         <span class="">{{ item.label }}</span>
                         <span v-if="item.badge" class="badge badge-sm">{{ item.badge }}</span>
                     </div>
@@ -43,10 +43,10 @@
                     :disabled="item.disabled"
                     @click="handleItemClick(item, $event)"
                 >
-                    <component v-if="compact && item.icon" :is="item.icon" />
+                    <component :is="item.icon" v-if="compact && item.icon" />
 
                     <div v-else class="flex items-center gap-2">
-                        <component v-if="item.icon" :is="item.icon" />
+                        <component :is="item.icon" v-if="item.icon" />
                         <span>{{ item.label }}</span>
                         <span v-if="item.badge" class="badge badge-sm">{{ item.badge }}</span>
                     </div>
@@ -62,10 +62,10 @@
                             :data-tip="child.label"
                             @click="handleItemClick(child, $event)"
                         >
-                            <component v-if="compact && child.icon" :is="child.icon" />
+                            <component :is="child.icon" v-if="compact && child.icon" />
 
                             <div v-else class="flex items-center gap-2">
-                                <component v-if="child.icon" :is="child.icon" />
+                                <component :is="child.icon" v-if="child.icon" />
                                 <span>{{ child.label }}</span>
                                 <span v-if="child.badge" class="badge badge-sm">{{
                                     child.badge
@@ -80,10 +80,10 @@
                             :data-tip="child.label"
                             @click="handleItemClick(child, $event)"
                         >
-                            <component v-if="compact && child.icon" :is="child.icon" />
+                            <component :is="child.icon" v-if="compact && child.icon" />
 
                             <div v-else class="flex items-center gap-2">
-                                <component v-if="child.icon" :is="child.icon" />
+                                <component :is="child.icon" v-if="child.icon" />
                                 <span>{{ child.label }}</span>
                                 <span v-if="child.badge" class="badge badge-sm">{{
                                     child.badge

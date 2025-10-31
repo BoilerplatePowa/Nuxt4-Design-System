@@ -50,17 +50,13 @@
                     />
                 </svg>
             </button>
-            
+
             <!-- Progress bar - shows remaining time (100% to 0%) -->
             <div
                 v-if="showProgress && !persistent && duration > 0"
                 class="absolute bottom-0 left-0 right-0 h-1 bg-base-300/30 overflow-hidden rounded-b-lg"
             >
-                <div
-                    ref="progressBarRef"
-                    :class="progressBarClasses"
-                    :style="progressBarStyle"
-                />
+                <div ref="progressBarRef" :class="progressBarClasses" :style="progressBarStyle" />
             </div>
         </div>
     </Transition>
@@ -331,9 +327,9 @@ const pauseTimer = () => {
 
     isPaused.value = true
 
-    // Calculate remaining time
+    // Calculate remaining time based on current progress
     const elapsed = Date.now() - startTime.value
-    remainingTime.value = props.duration - elapsed
+    remainingTime.value = Math.max(0, props.duration - elapsed)
 
     // Clear timer and animation
     if (timer) {
@@ -350,6 +346,8 @@ const resumeTimer = () => {
     if (!props.pauseOnHover || remainingTime.value <= 0) return
 
     isPaused.value = false
+
+    // Update start time to current time for accurate progress calculation
     startTime.value = Date.now()
 
     // Resume with remaining time
@@ -357,9 +355,29 @@ const resumeTimer = () => {
         close()
     }, remainingTime.value)
 
-    // Resume progress animation
+    // Resume progress animation with adjusted calculation
     if (props.showProgress) {
-        progressAnimationFrame = requestAnimationFrame(updateProgress)
+        // Store the current progress when resuming
+        const pausedProgress = progress.value
+        const remainingTimeSnapshot = remainingTime.value
+
+        // Update progress calculation to continue from paused state
+        const resumeUpdateProgress = () => {
+            if (isPaused.value) return
+
+            const elapsed = Date.now() - startTime.value
+            const progressPercent = Math.max(
+                pausedProgress - (elapsed / remainingTimeSnapshot) * pausedProgress,
+                0
+            )
+            progress.value = progressPercent
+
+            if (progressPercent > 0) {
+                progressAnimationFrame = requestAnimationFrame(resumeUpdateProgress)
+            }
+        }
+
+        progressAnimationFrame = requestAnimationFrame(resumeUpdateProgress)
     }
 }
 

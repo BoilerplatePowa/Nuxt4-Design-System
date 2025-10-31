@@ -1,5 +1,5 @@
 import type { Component } from "vue";
-import type { iconMap, inputTypesMap, sizeMap, variantMap } from "./map";
+import type { inputTypesMap, sizeMap, variantMap } from "./map";
 import type {
     btnColorMap,
     btnStyleMap,
@@ -75,4 +75,22 @@ export interface MenuItem {
     active?: boolean
     title?: string // For menu section titles
     children?: MenuItem[] // For submenus
+}
+
+export interface BreadcrumbItem {
+    label: string
+    href?: string
+    icon?: Component // Vue component (e.g., Lucide icon component)
+    value?: string | number
+    disabled?: boolean
+    active?: boolean
+}
+
+export interface BreadcrumbOptions {
+    replace?: boolean // Replace all breadcrumbs or add to existing
+    maxItems?: number // Maximum number of breadcrumbs to show
+    autoHome?: boolean // Automatically add home breadcrumb
+    homeLabel?: string // Label for home breadcrumb
+    homeHref?: string // Href for home breadcrumb
+    homeIcon?: Component // Vue component (e.g., Lucide icon component)
 }

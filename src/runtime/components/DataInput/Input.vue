@@ -13,8 +13,8 @@
                 <label :class="[inputClasses, errorMessage ? 'input-error' : undefined]">
                     <!-- Left icon -->
                     <component
-                        v-if="leftIcon"
                         :is="leftIcon"
+                        v-if="leftIcon"
                         :size="getIconSize(size)"
                         class="opacity-50"
                         :aria-hidden="true"
@@ -55,14 +55,18 @@
                             <component :is="EyeIcon" :size="getIconSize(size)" class="opacity-50" />
                         </template>
                         <template #off>
-                            <component :is="EyeOffIcon" :size="getIconSize(size)" class="opacity-50" />
+                            <component
+                                :is="EyeOffIcon"
+                                :size="getIconSize(size)"
+                                class="opacity-50"
+                            />
                         </template>
                     </Swap>
 
                     <!-- Right icon (only show if not password type or if no swap button) -->
                     <component
-                        v-if="rightIcon && type !== 'password'"
                         :is="rightIcon"
+                        v-if="rightIcon && type !== 'password'"
                         :size="getIconSize(size)"
                         class="opacity-50"
                         :aria-hidden="true"

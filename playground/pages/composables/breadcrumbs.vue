@@ -10,37 +10,40 @@
             </div>
 
             <!-- Breadcrumb Provider -->
-            <BreadcrumbProvider 
-                size="md" 
-                :max-items="5"
-                class="mb-6"
-            />
+            <BreadcrumbProvider size="md" :max-items="5" class="mb-6" />
 
             <!-- Demo Controls -->
             <div class="card bg-base-100 shadow-lg">
                 <div class="card-body">
                     <h2 class="card-title">Breadcrumb Controls</h2>
-                    
+
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <!-- Set Breadcrumbs -->
                         <div class="space-y-2">
                             <h3 class="font-semibold">Set Breadcrumbs</h3>
                             <div class="flex flex-wrap gap-2">
-                                <button 
-                                    class="btn btn-sm btn-primary" 
+                                <button
+                                    class="btn btn-sm btn-primary"
                                     @click="setPageBreadcrumbs('Products')"
                                 >
                                     Set Page
                                 </button>
-                                <button 
-                                    class="btn btn-sm btn-secondary" 
+                                <button
+                                    class="btn btn-sm btn-secondary"
                                     @click="setSectionBreadcrumbs('Products', 'Electronics')"
                                 >
                                     Set Section
                                 </button>
-                                <button 
-                                    class="btn btn-sm btn-accent" 
-                                    @click="setNestedBreadcrumbs(['Products', 'Electronics', 'Laptops', 'Gaming'])"
+                                <button
+                                    class="btn btn-sm btn-accent"
+                                    @click="
+                                        setNestedBreadcrumbs([
+                                            'Products',
+                                            'Electronics',
+                                            'Laptops',
+                                            'Gaming',
+                                        ])
+                                    "
                                 >
                                     Set Nested
                                 </button>
@@ -51,20 +54,20 @@
                         <div class="space-y-2">
                             <h3 class="font-semibold">Add Breadcrumbs</h3>
                             <div class="flex flex-wrap gap-2">
-                                <button 
-                                    class="btn btn-sm btn-info" 
+                                <button
+                                    class="btn btn-sm btn-info"
                                     @click="addBreadcrumb({ label: 'Category', value: 'category' })"
                                 >
                                     Add Category
                                 </button>
-                                <button 
-                                    class="btn btn-sm btn-success" 
+                                <button
+                                    class="btn btn-sm btn-success"
                                     @click="addBreadcrumb({ label: 'Product', value: 'product' })"
                                 >
                                     Add Product
                                 </button>
-                                <button 
-                                    class="btn btn-sm btn-warning" 
+                                <button
+                                    class="btn btn-sm btn-warning"
                                     @click="addBreadcrumb({ label: 'Details', value: 'details' })"
                                 >
                                     Add Details
@@ -76,24 +79,24 @@
                         <div class="space-y-2">
                             <h3 class="font-semibold">Navigation</h3>
                             <div class="flex flex-wrap gap-2">
-                                <button 
-                                    class="btn btn-sm btn-outline" 
-                                    @click="goBack(1)"
+                                <button
+                                    class="btn btn-sm btn-outline"
                                     :disabled="breadcrumbs.length <= 1"
+                                    @click="goBack(1)"
                                 >
                                     Go Back 1
                                 </button>
-                                <button 
-                                    class="btn btn-sm btn-outline" 
-                                    @click="goBack(2)"
+                                <button
+                                    class="btn btn-sm btn-outline"
                                     :disabled="breadcrumbs.length <= 2"
+                                    @click="goBack(2)"
                                 >
                                     Go Back 2
                                 </button>
-                                <button 
-                                    class="btn btn-sm btn-outline" 
-                                    @click="clearBreadcrumbs"
+                                <button
+                                    class="btn btn-sm btn-outline"
                                     :disabled="breadcrumbs.length === 0"
+                                    @click="clearBreadcrumbs"
                                 >
                                     Clear All
                                 </button>
@@ -104,16 +107,10 @@
                         <div class="space-y-2">
                             <h3 class="font-semibold">Utilities</h3>
                             <div class="flex flex-wrap gap-2">
-                                <button 
-                                    class="btn btn-sm btn-ghost" 
-                                    @click="showCurrentPath"
-                                >
+                                <button class="btn btn-sm btn-ghost" @click="showCurrentPath">
                                     Show Path
                                 </button>
-                                <button 
-                                    class="btn btn-sm btn-ghost" 
-                                    @click="showCurrentItem"
-                                >
+                                <button class="btn btn-sm btn-ghost" @click="showCurrentItem">
                                     Show Current
                                 </button>
                             </div>
@@ -129,13 +126,19 @@
                     <div class="space-y-2">
                         <p><strong>Breadcrumbs Count:</strong> {{ breadcrumbs.length }}</p>
                         <p><strong>Current Path:</strong> {{ getCurrentPath() }}</p>
-                        <p><strong>Current Item:</strong> {{ getCurrentItem()?.label || 'None' }}</p>
+                        <p>
+                            <strong>Current Item:</strong> {{ getCurrentItem()?.label || 'None' }}
+                        </p>
                         <p><strong>All Items:</strong></p>
                         <ul class="list-disc list-inside ml-4">
                             <li v-for="(item, index) in breadcrumbs" :key="index">
-                                {{ item.label }} 
-                                <span v-if="item.active" class="badge badge-sm badge-primary">Active</span>
-                                <span v-if="item.href" class="badge badge-sm badge-secondary">Link</span>
+                                {{ item.label }}
+                                <span v-if="item.active" class="badge badge-sm badge-primary"
+                                    >Active</span
+                                >
+                                <span v-if="item.href" class="badge badge-sm badge-secondary"
+                                    >Link</span
+                                >
                             </li>
                         </ul>
                     </div>
@@ -149,7 +152,9 @@
                     <div class="space-y-4">
                         <div>
                             <h4 class="font-semibold mb-2">Basic Usage</h4>
-                            <pre class="bg-base-300 p-3 rounded text-sm overflow-x-auto"><code>// In any component
+                            <pre
+                                class="bg-base-300 p-3 rounded text-sm overflow-x-auto"
+                            ><code>// In any component
 const { setPageBreadcrumbs, addBreadcrumb } = useBreadcrumbs()
 
 // Set page breadcrumbs with auto home
@@ -162,7 +167,9 @@ addBreadcrumb({ label: 'Laptops', value: 'laptops' })</code></pre>
 
                         <div>
                             <h4 class="font-semibold mb-2">Advanced Usage</h4>
-                            <pre class="bg-base-300 p-3 rounded text-sm overflow-x-auto"><code>// Set nested breadcrumbs
+                            <pre
+                                class="bg-base-300 p-3 rounded text-sm overflow-x-auto"
+                            ><code>// Set nested breadcrumbs
 setNestedBreadcrumbs(['Products', 'Electronics', 'Laptops'])
 
 // Set section breadcrumbs
@@ -197,7 +204,7 @@ const {
     goBack,
     clearBreadcrumbs,
     getCurrentPath,
-    getCurrentItem
+    getCurrentItem,
 } = useBreadcrumbs()
 
 // Initialize with some breadcrumbs

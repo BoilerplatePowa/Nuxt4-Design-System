@@ -12,7 +12,7 @@
 
         <div class="drawer-side" :class="sideClasses">
             <label :for="drawerId" aria-label="close sidebar" class="drawer-overlay"></label>
-            <div :class=" glass ? 'h-full pl-2 py-2' : 'h-full'">
+            <div :class="glass ? 'h-full pl-2 py-2' : 'h-full'">
                 <div :class="sidebarContentClasses">
                     <div class="flex w-full p-2">
                         <div class="grow">

@@ -17,14 +17,14 @@
     >
         <span v-if="loading" class="loading loading-spinner loading-sm" aria-hidden="true" />
         <slot v-if="$slots['icon-left']" name="icon-left" />
-        <component v-else-if="iconLeft" :is="iconLeft" :size="getIconSize(iconSize)" />
+        <component :is="iconLeft" v-else-if="iconLeft" :size="getIconSize(iconSize)" />
         <span v-if="$slots.default" :class="{ 'sr-only': loading && hideTextOnLoading }">
             <slot />
         </span>
         <span v-if="loading && loadingText" class="ml-1">{{ loadingText }}</span>
 
         <slot v-if="$slots['icon-right']" name="icon-right" />
-        <component v-else-if="iconRight" :is="iconRight" :size="getIconSize(iconSize)" />
+        <component :is="iconRight" v-else-if="iconRight" :size="getIconSize(iconSize)" />
     </button>
 </template>
 

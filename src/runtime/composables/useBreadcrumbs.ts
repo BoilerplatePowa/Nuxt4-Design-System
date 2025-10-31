@@ -1,25 +1,9 @@
-import { ref, readonly } from 'vue'
+import { ref } from 'vue'
+import type { BreadcrumbItem, BreadcrumbOptions } from '../shared/types.d'
+import { Home } from 'lucide-vue-next'
 
 // Global breadcrumbs state
 const breadcrumbs = ref<BreadcrumbItem[]>([])
-
-export interface BreadcrumbItem {
-    label: string
-    href?: string
-    icon?: string
-    value?: string | number
-    disabled?: boolean
-    active?: boolean
-}
-
-export interface BreadcrumbOptions {
-    replace?: boolean // Replace all breadcrumbs or add to existing
-    maxItems?: number // Maximum number of breadcrumbs to show
-    autoHome?: boolean // Automatically add home breadcrumb
-    homeLabel?: string // Label for home breadcrumb
-    homeHref?: string // Href for home breadcrumb
-    homeIcon?: string // Icon for home breadcrumb
-}
 
 export function useBreadcrumbs() {
     const setBreadcrumbs = (items: BreadcrumbItem[], options: BreadcrumbOptions = {}) => {
@@ -29,7 +13,7 @@ export function useBreadcrumbs() {
             autoHome = false,
             homeLabel = 'Home',
             homeHref = '/',
-            homeIcon = 'home'
+            homeIcon = Home,
         } = options
 
         let newBreadcrumbs = [...items]
@@ -40,7 +24,7 @@ export function useBreadcrumbs() {
                 label: homeLabel,
                 href: homeHref,
                 icon: homeIcon,
-                value: 'home'
+                value: 'home',
             }
             newBreadcrumbs = [homeItem, ...newBreadcrumbs]
         }
@@ -49,10 +33,10 @@ export function useBreadcrumbs() {
         if (maxItems && newBreadcrumbs.length > maxItems) {
             const firstItem = newBreadcrumbs[0]
             const lastItems = newBreadcrumbs.slice(-(maxItems - 2))
-            const ellipsis: BreadcrumbItem = { 
-                label: '...', 
+            const ellipsis: BreadcrumbItem = {
+                label: '...',
                 disabled: true,
-                value: 'ellipsis'
+                value: 'ellipsis',
             }
             newBreadcrumbs = [firstItem, ellipsis, ...lastItems]
         }
@@ -75,7 +59,7 @@ export function useBreadcrumbs() {
 
     const addBreadcrumb = (item: BreadcrumbItem) => {
         // Mark all existing items as not active
-        breadcrumbs.value.forEach(breadcrumb => {
+        breadcrumbs.value.forEach((breadcrumb) => {
             breadcrumb.active = false
         })
 
@@ -87,10 +71,10 @@ export function useBreadcrumbs() {
     }
 
     const removeBreadcrumb = (value: string | number) => {
-        const index = breadcrumbs.value.findIndex(item => item.value === value)
+        const index = breadcrumbs.value.findIndex((item) => item.value === value)
         if (index > -1) {
             breadcrumbs.value.splice(index, 1)
-            
+
             // Mark the last item as active
             if (breadcrumbs.value.length > 0) {
                 breadcrumbs.value.forEach((item, idx) => {
@@ -107,7 +91,7 @@ export function useBreadcrumbs() {
     const goBack = (steps: number = 1) => {
         if (breadcrumbs.value.length > steps) {
             breadcrumbs.value.splice(-steps)
-            
+
             // Mark the last item as active
             if (breadcrumbs.value.length > 0) {
                 breadcrumbs.value.forEach((item, index) => {
@@ -118,11 +102,14 @@ export function useBreadcrumbs() {
     }
 
     const getCurrentPath = () => {
-        return breadcrumbs.value.map(item => item.label).join(' / ')
+        return breadcrumbs.value.map((item) => item.label).join(' / ')
     }
 
     const getCurrentItem = () => {
-        return breadcrumbs.value.find(item => item.active) || breadcrumbs.value[breadcrumbs.value.length - 1]
+        return (
+            breadcrumbs.value.find((item) => item.active) ||
+            breadcrumbs.value[breadcrumbs.value.length - 1]
+        )
     }
 
     // Convenience methods for common breadcrumb patterns
@@ -130,23 +117,27 @@ export function useBreadcrumbs() {
         const items: BreadcrumbItem[] = [
             {
                 label: pageName,
-                value: pageName.toLowerCase().replace(/\s+/g, '-')
-            }
+                value: pageName.toLowerCase().replace(/\s+/g, '-'),
+            },
         ]
         return setBreadcrumbs(items, { autoHome: true, ...options })
     }
 
-    const setSectionBreadcrumbs = (section: string, page: string, options: BreadcrumbOptions = {}) => {
+    const setSectionBreadcrumbs = (
+        section: string,
+        page: string,
+        options: BreadcrumbOptions = {}
+    ) => {
         const items: BreadcrumbItem[] = [
             {
                 label: section,
                 href: `/${section.toLowerCase()}`,
-                value: section.toLowerCase()
+                value: section.toLowerCase(),
             },
             {
                 label: page,
-                value: page.toLowerCase().replace(/\s+/g, '-')
-            }
+                value: page.toLowerCase().replace(/\s+/g, '-'),
+            },
         ]
         return setBreadcrumbs(items, { autoHome: true, ...options })
     }
@@ -155,13 +146,13 @@ export function useBreadcrumbs() {
         const items: BreadcrumbItem[] = path.map((segment, index) => ({
             label: segment,
             href: index < path.length - 1 ? `/${path.slice(0, index + 1).join('/')}` : undefined,
-            value: segment.toLowerCase().replace(/\s+/g, '-')
+            value: segment.toLowerCase().replace(/\s+/g, '-'),
         }))
         return setBreadcrumbs(items, { autoHome: true, ...options })
     }
 
     return {
-        breadcrumbs: readonly(breadcrumbs),
+        breadcrumbs,
         setBreadcrumbs,
         addBreadcrumb,
         removeBreadcrumb,

@@ -90,6 +90,9 @@ import type {
 import Button from './Button.vue'
 import type { BtnColor, BtnStyle, BtnSize } from '../../shared/types.d'
 
+// Import chevron icons for default toggle behavior
+import { ChevronUp, ChevronDown } from 'lucide-vue-next'
+
 // SSR-safe id generation
 const uid = useId()
 
@@ -159,9 +162,6 @@ const triggerIconLeftFinal = computed(() => {
     // If a left icon slot is provided, Button will render it; return undefined
     return props.triggerIconLeft === null ? undefined : props.triggerIconLeft
 })
-
-// Import chevron icons for default toggle behavior
-import { ChevronUp, ChevronDown } from 'lucide-vue-next'
 
 const triggerIconRightFinal = computed(() => {
     // If a right icon slot is provided, Button will render it; return undefined

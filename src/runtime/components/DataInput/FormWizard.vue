@@ -92,11 +92,21 @@
                 <div v-for="(step, index) in completedSteps" :key="index" class="summary-item">
                     <div class="summary-item-left">
                         <div class="badge badge-success badge-sm">
-                            <component :is="CheckIcon" :size="getIconSize('xs')" class="summary-check-icon" />
+                            <component
+                                :is="CheckIcon"
+                                :size="getIconSize('xs')"
+                                class="summary-check-icon"
+                            />
                         </div>
                         <span class="text-sm font-medium">{{ step.title }}</span>
                     </div>
-                    <Button type="button" variant="ghost" size="xs" :icon-left="EditIcon" @click="goToStep(index)">
+                    <Button
+                        type="button"
+                        variant="ghost"
+                        size="xs"
+                        :icon-left="EditIcon"
+                        @click="goToStep(index)"
+                    >
                         <span class="hidden sm:inline ml-1">Edit</span>
                     </Button>
                 </div>

@@ -24,9 +24,9 @@
 <script setup lang="ts">
 /**
  * ToastContainer Component
- * 
+ *
  * A container component that manages a stack of toast notifications.
- * 
+ *
  * Features:
  * - Automatic positioning (6 positions available)
  * - Stacking with max limit
@@ -34,11 +34,11 @@
  * - Smooth enter/exit animations
  * - Responsive z-index management
  * - Theme-aware using DaisyUI colors
- * 
+ *
  * @example
  * ```vue
- * <BpToastContainer 
- *   :toasts="toasts" 
+ * <BpToastContainer
+ *   :toasts="toasts"
  *   position="top-right"
  *   :max-toasts="5"
  *   @remove-toast="removeToast"

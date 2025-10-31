@@ -202,7 +202,7 @@ The boilerplate CSS provides a pre-optimized setup that includes:
 
 ### 🎨 **Comprehensive Component Library**
 
-- **60+ Components** across 6 categories (Actions, DataDisplay, DataInput, Feedback, Layout, Navigation)
+- **61+ Components** across 6 categories (Actions, DataDisplay, DataInput, Feedback, Layout, Navigation)
 - **Full DaisyUI 5.1.5 Integration** with proper class mapping
 - **TypeScript Support** with strict typing and IntelliSense
 - **Accessibility First** with WCAG 2.1 AA compliance
@@ -271,10 +271,11 @@ Both themes are fully compatible with all DaisyUI components and can be easily c
 - **TextDiff** - Side-by-side text comparison
 - **Timeline** - Event timeline displays
 
-### Data Input (17 components)
+### Data Input (18 components)
 
 - **Calendar** - Date picker with range selection
 - **Checkbox** - Form checkboxes with validation
+- **DataMigration** - 🆕 Visual data migration interface with intelligent auto-matching, connection lines, and Pinia state management
 - **Fieldset** - Form field grouping
 - **FileInput** - File upload with drag & drop
 - **Filter** - Data filtering controls

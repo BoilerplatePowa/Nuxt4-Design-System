@@ -9,11 +9,11 @@
                         :class="getItemClasses(item, index)"
                         @click="handleItemClick(item, index, $event)"
                     >
-                        <span v-if="item.icon" class="mr-2" v-html="item.icon" />
+                        <component :is="item.icon" v-if="item.icon" />
                         {{ item.label }}
                     </a>
                     <span v-else :class="getItemClasses(item, index)">
-                        <span v-if="item.icon" class="mr-2" v-html="item.icon" />
+                        <component :is="item.icon" v-if="item.icon" />
                         {{ item.label }}
                     </span>
                 </li>
@@ -24,18 +24,12 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-
-interface BreadcrumbItem {
-    label: string
-    href?: string
-    icon?: string
-    value?: string | number
-    disabled?: boolean
-}
+import type { Size } from '../../shared/types'
+import { BreadcrumbItem } from '../../shared/types.d'
 
 interface Props {
     items?: BreadcrumbItem[]
-    size?: 'xs' | 'sm' | 'md' | 'lg'
+    size?: Size
     maxItems?: number
     showHomeIcon?: boolean
     separator?: string
@@ -109,7 +103,3 @@ const handleItemClick = (item: BreadcrumbItem, index: number, event: Event) => {
     emit('item-click', item, index, event)
 }
 </script>
-
-<style scoped lang="postcss">
-/* DaisyUI handles most breadcrumbs styling */
-</style>

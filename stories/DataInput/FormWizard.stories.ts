@@ -8,7 +8,7 @@ import Textarea from '../../src/runtime/components/DataInput/Textarea.vue'
 import Checkbox from '../../src/runtime/components/DataInput/Checkbox.vue'
 import Toggle from '../../src/runtime/components/DataInput/Toggle.vue'
 import Avatar from '../../src/runtime/components/DataDisplay/Avatar.vue'
-import { User, Settings, CheckCircle, Heart, Mail, Lock, MapPin, Building, Globe, CreditCard, ShoppingCart, Check, Loading } from 'lucide-vue-next'
+import { User, Settings, CheckCircle, Heart, Mail, Lock, MapPin, Building, Globe, CreditCard, ShoppingCart, Check, Loader } from 'lucide-vue-next'
 
 const meta: Meta<typeof FormWizard> = {
     title: 'Data Input/FormWizard',
@@ -1138,7 +1138,7 @@ export const EnhancedSteps: Story = {
 
 export const InteractiveWizard: Story = {
     render: () => ({
-        components: { FormWizard, Input, Checkbox, Select, Avatar, User, Settings, CheckCircle, Heart, Mail, Lock, MapPin, Building, Globe, CreditCard, ShoppingCart, Check, Loading },
+        components: { FormWizard, Input, Checkbox, Select, Avatar, User, Settings, CheckCircle, Heart, Mail, Lock, MapPin, Building, Globe, CreditCard, ShoppingCart, Check, Loader },
         setup() {
             const currentStep = ref(0)
             const stepData = ref<Record<string, any>>({})
@@ -1295,7 +1295,7 @@ export const InteractiveWizard: Story = {
             </div>
             
             <div v-if="isAutoAdvancing" class="alert alert-success mt-4">
-              <Loading class="w-4 h-4 animate-spin" />
+              <Loader class="w-4 h-4 animate-spin" />
               <span><strong>Auto-advancing to step 2...</strong></span>
             </div>
           </div>

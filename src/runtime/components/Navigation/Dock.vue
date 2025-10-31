@@ -9,8 +9,8 @@
         >
             <!-- Icon using direct component -->
             <component
-                v-if="item.icon"
                 :is="item.icon"
+                v-if="item.icon"
                 :size="getIconSize()"
                 :class="getIconClasses(item)"
             />

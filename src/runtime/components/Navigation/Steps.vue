@@ -7,7 +7,7 @@
                 :class="getStepClasses(step, index)"
             >
                 <span class="step-icon">
-                    <component v-if="step.icon" :is="step.icon" />
+                    <component :is="step.icon" v-if="step.icon" />
                     <span v-else-if="props.showNumbers">{{ index + 1 }}</span>
                 </span>
                 <div>
