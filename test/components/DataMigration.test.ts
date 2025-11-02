@@ -1,13 +1,8 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest'
+import { describe, it, expect, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
-import { createPinia, setActivePinia } from 'pinia'
 import DataMigration from '../../src/runtime/components/DataInput/DataMigration.vue'
-import { useMigrationStore } from '../../src/runtime/composables/useMigration'
 
 describe('DataMigration', () => {
-    beforeEach(() => {
-        setActivePinia(createPinia())
-    })
 
     const mockOldData = [
         { id: 1, name: 'John Doe', email: 'john@example.com' },
@@ -29,7 +24,6 @@ describe('DataMigration', () => {
                     newData: mockNewData,
                 },
                 global: {
-                    plugins: [createPinia()],
                     stubs: {
                         Button: true,
                         Badge: true,
@@ -54,7 +48,6 @@ describe('DataMigration', () => {
                     description: 'Migrate your data here',
                 },
                 global: {
-                    plugins: [createPinia()],
                     stubs: {
                         Button: true,
                         Badge: true,
@@ -77,7 +70,6 @@ describe('DataMigration', () => {
                     newData: mockNewData,
                 },
                 global: {
-                    plugins: [createPinia()],
                     stubs: {
                         Button: true,
                         Badge: true,
@@ -105,7 +97,6 @@ describe('DataMigration', () => {
                     keyField: 'customId',
                 },
                 global: {
-                    plugins: [createPinia()],
                     stubs: {
                         Button: true,
                         Badge: true,
@@ -128,7 +119,6 @@ describe('DataMigration', () => {
                     displayField: 'email',
                 },
                 global: {
-                    plugins: [createPinia()],
                     stubs: {
                         Button: true,
                         Badge: true,
@@ -153,7 +143,6 @@ describe('DataMigration', () => {
                     newData: mockNewData,
                 },
                 global: {
-                    plugins: [createPinia()],
                     stubs: {
                         Button: true,
                         Badge: true,
@@ -165,8 +154,6 @@ describe('DataMigration', () => {
                 },
             })
 
-            const store = useMigrationStore()
-
             // Click old item
             const oldRow = wrapper.find('[data-old-id="1"]')
             await oldRow.trigger('click')
@@ -175,12 +162,14 @@ describe('DataMigration', () => {
             const newRow = wrapper.find('[data-new-id="101"]')
             await newRow.trigger('click')
 
-            // Check store
-            expect(store.linkedPairs).toHaveLength(1)
-            expect(store.linkedPairs[0]).toMatchObject({
-                oldId: 1,
-                newId: 101,
-            })
+            // Check that link-created event was emitted
+            expect(wrapper.emitted('link-created')).toBeTruthy()
+            expect(wrapper.emitted('link-created')?.[0]).toMatchObject([
+                {
+                    oldId: '1',  // IDs are converted to strings
+                    newId: '101',
+                },
+            ])
         })
 
         it('emits link-created event', async () => {
@@ -190,7 +179,6 @@ describe('DataMigration', () => {
                     newData: mockNewData,
                 },
                 global: {
-                    plugins: [createPinia()],
                     stubs: {
                         Button: true,
                         Badge: true,
@@ -213,8 +201,8 @@ describe('DataMigration', () => {
             expect(wrapper.emitted('link-created')).toBeTruthy()
             expect(wrapper.emitted('link-created')?.[0]).toMatchObject([
                 {
-                    oldId: 1,
-                    newId: 101,
+                    oldId: '1',  // IDs are converted to strings
+                    newId: '101',
                 },
             ])
         })
@@ -226,7 +214,6 @@ describe('DataMigration', () => {
                     newData: mockNewData,
                 },
                 global: {
-                    plugins: [createPinia()],
                     stubs: {
                         Button: true,
                         Badge: true,
@@ -238,20 +225,18 @@ describe('DataMigration', () => {
                 },
             })
 
-            const store = useMigrationStore()
-
             // Create link
             const oldRow = wrapper.find('[data-old-id="1"]')
             await oldRow.trigger('click')
             const newRow = wrapper.find('[data-new-id="101"]')
             await newRow.trigger('click')
 
-            expect(store.linkedPairs).toHaveLength(1)
+            expect(wrapper.emitted('link-created')).toBeTruthy()
 
             // Click linked item to remove
             await oldRow.trigger('click')
 
-            expect(store.linkedPairs).toHaveLength(0)
+            expect(wrapper.emitted('link-removed')).toBeTruthy()
             expect(wrapper.emitted('link-removed')).toBeTruthy()
         })
     })
@@ -264,7 +249,6 @@ describe('DataMigration', () => {
                     newData: mockNewData,
                 },
                 global: {
-                    plugins: [createPinia()],
                     stubs: {
                         Button: true,
                         Badge: true,
@@ -304,7 +288,6 @@ describe('DataMigration', () => {
                     newData: mockNewData,
                 },
                 global: {
-                    plugins: [createPinia()],
                     stubs: {
                         Button: true,
                         Badge: true,
@@ -319,21 +302,29 @@ describe('DataMigration', () => {
                 },
             })
 
-            const store = useMigrationStore()
-
             // No links - 0%
             let progress = wrapper.find('.progress')
             expect(progress.attributes('data-value')).toBe('0')
 
             // Add one link - 33.33%
-            store.addLink(1, 101)
+            const oldRow1 = wrapper.find('[data-old-id="1"]')
+            const newRow1 = wrapper.find('[data-new-id="101"]')
+            await oldRow1.trigger('click')
+            await newRow1.trigger('click')
             await wrapper.vm.$nextTick()
             progress = wrapper.find('.progress')
             expect(parseFloat(progress.attributes('data-value') || '0')).toBeCloseTo(33.33, 1)
 
             // Add all links - 100%
-            store.addLink(2, 102)
-            store.addLink(3, 103)
+            const oldRow2 = wrapper.find('[data-old-id="2"]')
+            const newRow2 = wrapper.find('[data-new-id="102"]')
+            await oldRow2.trigger('click')
+            await newRow2.trigger('click')
+            
+            const oldRow3 = wrapper.find('[data-old-id="3"]')
+            const newRow3 = wrapper.find('[data-new-id="103"]')
+            await oldRow3.trigger('click')
+            await newRow3.trigger('click')
             await wrapper.vm.$nextTick()
             progress = wrapper.find('.progress')
             expect(parseFloat(progress.attributes('data-value') || '0')).toBeCloseTo(100, 0)
@@ -349,7 +340,6 @@ describe('DataMigration', () => {
                     showAutoMatch: true,
                 },
                 global: {
-                    plugins: [createPinia()],
                     stubs: {
                         Button: {
                             template: '<button><slot /></button>',
@@ -374,7 +364,6 @@ describe('DataMigration', () => {
                     showAutoMatch: false,
                 },
                 global: {
-                    plugins: [createPinia()],
                     stubs: {
                         Button: {
                             template: '<button><slot /></button>',
@@ -400,7 +389,6 @@ describe('DataMigration', () => {
                     newData: mockNewData,
                 },
                 global: {
-                    plugins: [createPinia()],
                     stubs: {
                         Button: true,
                         Badge: true,
@@ -423,7 +411,6 @@ describe('DataMigration', () => {
                     layout: 'vertical',
                 },
                 global: {
-                    plugins: [createPinia()],
                     stubs: {
                         Button: true,
                         Badge: true,
@@ -448,7 +435,6 @@ describe('DataMigration', () => {
                     ariaLabel: 'Custom migration interface',
                 },
                 global: {
-                    plugins: [createPinia()],
                     stubs: {
                         Button: true,
                         Badge: true,
@@ -472,7 +458,6 @@ describe('DataMigration', () => {
                     newData: mockNewData,
                 },
                 global: {
-                    plugins: [createPinia()],
                     stubs: {
                         Button: {
                             template: '<button @click="$emit(\'click\')"><slot /></button>',
@@ -487,12 +472,21 @@ describe('DataMigration', () => {
                 },
             })
 
-            const store = useMigrationStore()
+            // Create links by clicking table rows
+            const oldRow1 = wrapper.find('[data-old-id="1"]')
+            const newRow1 = wrapper.find('[data-new-id="101"]')
+            await oldRow1.trigger('click')
+            await newRow1.trigger('click')
 
-            // Create all links
-            store.addLink(1, 101)
-            store.addLink(2, 102)
-            store.addLink(3, 103)
+            const oldRow2 = wrapper.find('[data-old-id="2"]')
+            const newRow2 = wrapper.find('[data-new-id="102"]')
+            await oldRow2.trigger('click')
+            await newRow2.trigger('click')
+
+            const oldRow3 = wrapper.find('[data-old-id="3"]')
+            const newRow3 = wrapper.find('[data-new-id="103"]')
+            await oldRow3.trigger('click')
+            await newRow3.trigger('click')
 
             await wrapper.vm.$nextTick()
 
@@ -515,7 +509,6 @@ describe('DataMigration', () => {
                     newData: mockNewData,
                 },
                 global: {
-                    plugins: [createPinia()],
                     stubs: {
                         Button: {
                             template: '<button @click="$emit(\'click\')"><slot /></button>',
@@ -530,8 +523,11 @@ describe('DataMigration', () => {
                 },
             })
 
-            const store = useMigrationStore()
-            store.addLink(1, 101)
+            // Create a link by clicking table rows
+            const oldRow = wrapper.find('[data-old-id="1"]')
+            const newRow = wrapper.find('[data-new-id="101"]')
+            await oldRow.trigger('click')
+            await newRow.trigger('click')
 
             await wrapper.vm.$nextTick()
 

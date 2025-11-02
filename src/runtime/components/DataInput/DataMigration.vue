@@ -10,8 +10,8 @@
                     </p>
                 </div>
                 <div class="flex items-center gap-2">
-                    <Badge :color="migrationStore.linkedPairs.length > 0 ? 'success' : 'neutral'">
-                        {{ migrationStore.linkedPairs.length }} / {{ oldData.length }} Linked
+                    <Badge :color="linkedPairs.length > 0 ? 'success' : 'neutral'">
+                        {{ linkedPairs.length }} / {{ oldData.length }} Linked
                     </Badge>
                     <Button
                         v-if="showAutoMatch"
@@ -20,7 +20,7 @@
                         :icon-left="SparklesIcon"
                         :loading="isAutoMatching"
                         :disabled="
-                            isAutoMatching || migrationStore.linkedPairs.length === oldData.length
+                            isAutoMatching || linkedPairs.length === oldData.length
                         "
                         @click="handleAutoMatch"
                     >
@@ -30,7 +30,7 @@
                         variant="ghost"
                         size="sm"
                         :icon-left="RefreshCwIcon"
-                        :disabled="migrationStore.linkedPairs.length === 0"
+                        :disabled="linkedPairs.length === 0"
                         @click="handleReset"
                     >
                         Reset
@@ -292,7 +292,6 @@ import Progress from '../Feedback/Progress.vue'
 import Input from './Input.vue'
 import Status from '../DataDisplay/Status.vue'
 import Modal from '../Actions/Modal.vue'
-import { useMigrationStore } from '../../composables/useMigration'
 import {
     Database as DatabaseIcon,
     Search as SearchIcon,
@@ -384,8 +383,8 @@ const emit = defineEmits<{
     export: [mappings: LinkedPair[]]
 }>()
 
-// Store
-const migrationStore = useMigrationStore()
+// Local state (no Pinia needed!)
+const linkedPairs = ref<LinkedPair[]>([])
 
 // Refs
 const oldTableRef = ref<HTMLElement>()
@@ -416,7 +415,7 @@ const oldColumns = computed<ColumnDef<MigrationItem>[]>(() => [
     columnHelper.display({
         id: 'index',
         header: '#',
-        cell: ({ row }) => row.index + 1,
+        cell: ({ row }: { row: Row<MigrationItem> }) => row.index + 1,
         meta: {
             className: 'w-12',
         },
@@ -424,7 +423,7 @@ const oldColumns = computed<ColumnDef<MigrationItem>[]>(() => [
     columnHelper.accessor(props.displayField, {
         id: 'display',
         header: props.displayField,
-        cell: ({ row }) => {
+        cell: ({ row }: { row: Row<MigrationItem> }) => {
             const item = row.original
             return h('div', { class: 'flex items-center gap-2' }, [
                 h(isLinked(item) ? CheckCircle2Icon : CircleIcon, {
@@ -440,7 +439,7 @@ const oldColumns = computed<ColumnDef<MigrationItem>[]>(() => [
               columnHelper.display({
                   id: 'matchScore',
                   header: 'Match',
-                  cell: ({ row }) => {
+                  cell: ({ row }: { row: Row<MigrationItem> }) => {
                       const item = row.original
                       const score = getMatchScore(item)
                       return score
@@ -467,7 +466,7 @@ const oldColumns = computed<ColumnDef<MigrationItem>[]>(() => [
             const item = row.original
             return h(Status, {
                 color: isLinked(item) ? 'success' : 'neutral',
-                size: 8,
+                size: 'xs',
             })
         },
         meta: {
@@ -481,7 +480,7 @@ const newColumns = computed<ColumnDef<MigrationItem>[]>(() => [
     columnHelper.display({
         id: 'index',
         header: '#',
-        cell: ({ row }) => row.index + 1,
+        cell: ({ row }: { row: Row<MigrationItem> }) => row.index + 1,
         meta: {
             className: 'w-12',
         },
@@ -489,7 +488,7 @@ const newColumns = computed<ColumnDef<MigrationItem>[]>(() => [
     columnHelper.accessor(props.displayField, {
         id: 'display',
         header: props.displayField,
-        cell: ({ row }) => {
+        cell: ({ row }: { row: Row<MigrationItem> }) => {
             const item = row.original
             return h('div', { class: 'flex items-center gap-2' }, [
                 h(isLinkedTarget(item) ? CheckCircle2Icon : CircleIcon, {
@@ -505,7 +504,7 @@ const newColumns = computed<ColumnDef<MigrationItem>[]>(() => [
               columnHelper.display({
                   id: 'reverseMatchScore',
                   header: 'Match',
-                  cell: ({ row }) => {
+                  cell: ({ row }: { row: Row<MigrationItem> }) => {
                       const item = row.original
                       const score = getReverseMatchScore(item)
                       return score
@@ -528,11 +527,11 @@ const newColumns = computed<ColumnDef<MigrationItem>[]>(() => [
     columnHelper.display({
         id: 'status',
         header: 'Status',
-        cell: ({ row }) => {
+        cell: ({ row }: { row: Row<MigrationItem> }) => {
             const item = row.original
             return h(Status, {
                 color: isLinkedTarget(item) ? 'success' : 'neutral',
-                size: 8,
+                size: 'xs',
             })
         },
         meta: {
@@ -540,6 +539,40 @@ const newColumns = computed<ColumnDef<MigrationItem>[]>(() => [
         },
     }),
 ])
+
+// Fuse.js instances for fuzzy matching (must be before filtered data)
+const oldFuse = computed(
+    () =>
+        new Fuse(props.oldData, {
+            keys: [props.displayField],
+            threshold: 0.4,
+            includeScore: true,
+        })
+)
+
+const newFuse = computed(
+    () =>
+        new Fuse(props.newData, {
+            keys: [props.displayField],
+            threshold: 0.4,
+            includeScore: true,
+        })
+)
+
+// Filtered data (must be before tables)
+const filteredOldData = computed(() => {
+    if (!oldSearchQuery.value) return props.oldData
+
+    const results = oldFuse.value.search(oldSearchQuery.value)
+    return results.map((result) => result.item)
+})
+
+const filteredNewData = computed(() => {
+    if (!newSearchQuery.value) return props.newData
+
+    const results = newFuse.value.search(newSearchQuery.value)
+    return results.map((result) => result.item)
+})
 
 // TanStack Tables
 const oldTable = useVueTable({
@@ -602,26 +635,7 @@ const newTable = useVueTable({
     },
 })
 
-// Fuse.js instances for fuzzy matching
-const oldFuse = computed(
-    () =>
-        new Fuse(props.oldData, {
-            keys: [props.displayField],
-            threshold: 0.4,
-            includeScore: true,
-        })
-)
-
-const newFuse = computed(
-    () =>
-        new Fuse(props.newData, {
-            keys: [props.displayField],
-            threshold: 0.4,
-            includeScore: true,
-        })
-)
-
-// Computed
+// Additional Computed Properties
 const wrapperClasses = computed(() => [
     'data-migration',
     'w-full',
@@ -641,27 +655,13 @@ const layoutClasses = computed(() => [
     'relative',
 ])
 
-const filteredOldData = computed(() => {
-    if (!oldSearchQuery.value) return props.oldData
-
-    const results = oldFuse.value.search(oldSearchQuery.value)
-    return results.map((result) => result.item)
-})
-
-const filteredNewData = computed(() => {
-    if (!newSearchQuery.value) return props.newData
-
-    const results = newFuse.value.search(newSearchQuery.value)
-    return results.map((result) => result.item)
-})
-
 const progressPercentage = computed(() => {
     if (props.oldData.length === 0) return 0
-    return (migrationStore.linkedPairs.length / props.oldData.length) * 100
+    return (linkedPairs.value.length / props.oldData.length) * 100
 })
 
 const visibleConnections = computed(() => {
-    return migrationStore.linkedPairs.filter((pair) => {
+    return linkedPairs.value.filter((pair) => {
         const oldItem = props.oldData.find((item) => getItemKey(item) === pair.oldId)
         const newItem = props.newData.find((item) => getItemKey(item) === pair.newId)
 
@@ -675,14 +675,54 @@ const visibleConnections = computed(() => {
     })
 })
 
-const canExport = computed(() => migrationStore.linkedPairs.length > 0)
+const canExport = computed(() => linkedPairs.value.length > 0)
 
 const canComplete = computed(() => {
     // Require all old items to be linked
-    return migrationStore.linkedPairs.length === props.oldData.length
+    return linkedPairs.value.length === props.oldData.length
 })
 
 // Methods
+/**
+ * Add a link between old and new items
+ */
+const addLink = (oldId: string | number, newId: string | number, confidence?: number) => {
+    const existingIndex = linkedPairs.value.findIndex(
+        (pair) => pair.oldId === oldId && pair.newId === newId
+    )
+
+    if (existingIndex !== -1) {
+        // Update existing link
+        linkedPairs.value[existingIndex] = {
+            ...linkedPairs.value[existingIndex],
+            confidence,
+        }
+    } else {
+        // Add new link
+        linkedPairs.value.push({ oldId, newId, confidence })
+    }
+}
+
+/**
+ * Remove a link between old and new items
+ */
+const removeLink = (oldId: string | number, newId: string | number) => {
+    const index = linkedPairs.value.findIndex(
+        (pair) => pair.oldId === oldId && pair.newId === newId
+    )
+
+    if (index !== -1) {
+        linkedPairs.value.splice(index, 1)
+    }
+}
+
+/**
+ * Clear all links
+ */
+const clearLinks = () => {
+    linkedPairs.value = []
+}
+
 const getItemKey = (item: MigrationItem): string | number => {
     const key = item[props.keyField]
     return key !== null && key !== undefined ? String(key) : ''
@@ -695,17 +735,17 @@ const getDisplayValue = (item: MigrationItem): string => {
 
 const isLinked = (item: MigrationItem): boolean => {
     const key = getItemKey(item)
-    return migrationStore.linkedPairs.some((pair) => pair.oldId === key)
+    return linkedPairs.value.some((pair) => pair.oldId === key)
 }
 
 const isLinkedTarget = (item: MigrationItem): boolean => {
     const key = getItemKey(item)
-    return migrationStore.linkedPairs.some((pair) => pair.newId === key)
+    return linkedPairs.value.some((pair) => pair.newId === key)
 }
 
 const getLinkedPair = (oldItem: MigrationItem): LinkedPair | undefined => {
     const key = getItemKey(oldItem)
-    return migrationStore.linkedPairs.find((pair) => pair.oldId === key)
+    return linkedPairs.value.find((pair) => pair.oldId === key)
 }
 
 const getMatchScore = (oldItem: MigrationItem): number | null => {
@@ -715,7 +755,7 @@ const getMatchScore = (oldItem: MigrationItem): number | null => {
 
 const getReverseMatchScore = (newItem: MigrationItem): number | null => {
     const key = getItemKey(newItem)
-    const pair = migrationStore.linkedPairs.find((p) => p.newId === key)
+    const pair = linkedPairs.value.find((p) => p.newId === key)
     return pair?.confidence ?? null
 }
 
@@ -758,7 +798,7 @@ const handleOldItemClick = (item: MigrationItem) => {
     if (isLinked(item)) {
         const pair = getLinkedPair(item)
         if (pair) {
-            migrationStore.removeLink(pair.oldId, pair.newId)
+            removeLink(pair.oldId, pair.newId)
             emit('link-removed', pair)
         }
         selectedOldItem.value = null
@@ -777,9 +817,9 @@ const handleOldItemClick = (item: MigrationItem) => {
 const handleNewItemClick = (item: MigrationItem) => {
     // If already linked and not allowing multiple, unlink
     if (isLinkedTarget(item) && !props.allowMultipleLinks) {
-        const pair = migrationStore.linkedPairs.find((p) => p.newId === getItemKey(item))
+        const pair = linkedPairs.value.find((p) => p.newId === getItemKey(item))
         if (pair) {
-            migrationStore.removeLink(pair.oldId, pair.newId)
+            removeLink(pair.oldId, pair.newId)
             emit('link-removed', pair)
         }
         selectedNewItem.value = null
@@ -806,7 +846,7 @@ const createLink = (oldItem: MigrationItem, newItem: MigrationItem) => {
 
     const pair: LinkedPair = { oldId, newId, confidence }
 
-    migrationStore.addLink(oldId, newId, confidence)
+    addLink(oldId, newId, confidence)
     emit('link-created', pair)
 
     // Clear selections
@@ -885,7 +925,7 @@ const handleAutoMatch = async () => {
                         continue
                     }
 
-                    migrationStore.addLink(oldId, newId, confidence)
+                    addLink(oldId, newId, confidence)
                     newPairs.push({ oldId, newId, confidence })
                 }
             }
@@ -906,7 +946,7 @@ const handleReset = () => {
 }
 
 const confirmReset = () => {
-    migrationStore.clearLinks()
+    clearLinks()
     selectedOldItem.value = null
     selectedNewItem.value = null
     showResetModal.value = false
@@ -914,11 +954,11 @@ const confirmReset = () => {
 }
 
 const handleExport = () => {
-    emit('export', migrationStore.linkedPairs)
+    emit('export', linkedPairs.value)
 }
 
 const handleComplete = () => {
-    emit('complete', migrationStore.linkedPairs)
+    emit('complete', linkedPairs.value)
 }
 
 const getLinkingHint = (): string => {
@@ -998,15 +1038,15 @@ const getConnectionClasses = (_pair: LinkedPair): string[] => {
 }
 
 const handleConnectionClick = (pair: LinkedPair) => {
-    migrationStore.removeLink(pair.oldId, pair.newId)
+    removeLink(pair.oldId, pair.newId)
     emit('link-removed', pair)
     updateConnections()
 }
 
 // Lifecycle
 onMounted(() => {
-    // Initialize store
-    migrationStore.initialize()
+    // Initialize local state (no store needed!)
+    linkedPairs.value = []
 
     // Setup resize observer
     const resizeObserver = new ResizeObserver(() => {
