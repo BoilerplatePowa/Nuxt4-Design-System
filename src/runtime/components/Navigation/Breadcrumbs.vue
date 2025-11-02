@@ -25,7 +25,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import type { Size } from '../../shared/types'
-import { BreadcrumbItem } from '../../shared/types.d'
+import type { BreadcrumbItem } from '../../shared/types.d'
 
 interface Props {
     items?: BreadcrumbItem[]

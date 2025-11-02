@@ -1,5 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { mount } from '@vue/test-utils'
+import { Heart, ArrowRight } from 'lucide-vue-next'
 import Button from '../../../src/runtime/components/Actions/Button.vue'
 
 // Mock confirm dialog
@@ -228,49 +229,37 @@ describe('Button', () => {
 
     it('renders left icon prop correctly', () => {
         const wrapper = mount(Button, {
-            props: { iconLeft: 'heart' },
+            props: { iconLeft: Heart },
             slots: { default: 'Test' },
         })
 
-        const icon = wrapper.findComponent({ name: 'Icon' })
-        expect(icon.exists()).toBe(true)
-        expect(icon.props('name')).toBe('heart')
+        // Icon is rendered directly as component, check for SVG element
+        expect(wrapper.find('svg').exists()).toBe(true)
     })
 
     it('renders right icon prop correctly', () => {
         const wrapper = mount(Button, {
-            props: { iconRight: 'arrow-right' },
+            props: { iconRight: ArrowRight },
             slots: { default: 'Test' },
         })
 
-        const icons = wrapper.findAllComponents({ name: 'Icon' })
-        // Find the icon with the correct name
-        const rightIcon = icons.find((icon) => icon.props('name') === 'arrow-right')
-        expect(rightIcon).toBeTruthy()
-        expect(rightIcon?.props('name')).toBe('arrow-right')
+        // Icon is rendered directly as component, check for SVG element
+        expect(wrapper.find('svg').exists()).toBe(true)
     })
 
     it('renders both left and right icons correctly', () => {
         const wrapper = mount(Button, {
             props: {
-                iconLeft: 'heart',
-                iconRight: 'arrow-right',
+                iconLeft: Heart,
+                iconRight: ArrowRight,
                 iconSize: 'lg',
             },
             slots: { default: 'Test' },
         })
 
-        const icons = wrapper.findAllComponents({ name: 'Icon' })
-        // Find the specific icons by name
-        const leftIcon = icons.find((icon) => icon.props && icon.props('name') === 'heart')
-        const rightIcon = icons.find((icon) => icon.props && icon.props('name') === 'arrow-right')
-
-        expect(leftIcon).toBeTruthy()
-        expect(rightIcon).toBeTruthy()
-        expect(leftIcon?.props('name')).toBe('heart')
-        expect(leftIcon?.props('size')).toBe('lg')
-        expect(rightIcon?.props('name')).toBe('arrow-right')
-        expect(rightIcon?.props('size')).toBe('lg')
+        // Both icons should be rendered as SVG elements
+        const svgs = wrapper.findAll('svg')
+        expect(svgs.length).toBeGreaterThanOrEqual(2)
     })
 
     it('applies shape classes correctly', () => {

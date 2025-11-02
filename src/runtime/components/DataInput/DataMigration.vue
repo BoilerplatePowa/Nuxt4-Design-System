@@ -19,9 +19,7 @@
                         size="sm"
                         :icon-left="SparklesIcon"
                         :loading="isAutoMatching"
-                        :disabled="
-                            isAutoMatching || linkedPairs.length === oldData.length
-                        "
+                        :disabled="isAutoMatching || linkedPairs.length === oldData.length"
                         @click="handleAutoMatch"
                     >
                         Auto-Match

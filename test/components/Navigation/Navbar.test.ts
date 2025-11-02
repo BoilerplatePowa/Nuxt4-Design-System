@@ -6,8 +6,9 @@ describe('Navbar', () => {
     it('renders correctly with default props', () => {
         const wrapper = mount(Navbar)
 
-        expect(wrapper.classes()).toContain('navbar')
+        // Navbar class is on the inner div, not the root wrapper
         expect(wrapper.find('.navbar').exists()).toBe(true)
+        expect(wrapper.find('.navbar').classes()).toContain('navbar')
     })
 
     it('renders title when provided', () => {
@@ -57,8 +58,9 @@ describe('Navbar', () => {
             })
 
             if (styleVariant === 'sticky') {
-                expect(wrapper.classes()).toContain('sticky')
-                expect(wrapper.classes()).toContain('top-0')
+                const navbarElement = wrapper.find('.navbar')
+                expect(navbarElement.classes()).toContain('sticky')
+                expect(navbarElement.classes()).toContain('top-0')
             }
         })
     })
@@ -70,8 +72,9 @@ describe('Navbar', () => {
             },
         })
 
-        expect(wrapper.classes()).toContain('glass')
-        expect(wrapper.classes()).toContain('rounded-lg')
+        const navbarElement = wrapper.find('.navbar')
+        expect(navbarElement.classes()).toContain('glass')
+        expect(navbarElement.classes()).toContain('rounded-lg')
     })
 
     it('applies shadow when shadow prop is true', () => {
@@ -81,7 +84,8 @@ describe('Navbar', () => {
             },
         })
 
-        expect(wrapper.classes()).toContain('shadow-lg')
+        const navbarElement = wrapper.find('.navbar')
+        expect(navbarElement.classes()).toContain('shadow-lg')
     })
 
     it('does not apply shadow when shadow prop is false', () => {
@@ -165,9 +169,10 @@ describe('Navbar', () => {
             },
         })
 
-        expect(wrapper.classes()).toContain('navbar')
-        expect(wrapper.classes()).toContain('sticky')
-        expect(wrapper.classes()).toContain('shadow-lg')
+        const navbarElement = wrapper.find('.navbar')
+        expect(navbarElement.classes()).toContain('navbar')
+        expect(navbarElement.classes()).toContain('sticky')
+        expect(navbarElement.classes()).toContain('shadow-lg')
         expect(wrapper.text()).toContain('My App')
         expect(wrapper.text()).toContain('Extra Brand Content')
         expect(wrapper.text()).toContain('Navigation')
@@ -186,8 +191,9 @@ describe('Navbar', () => {
         })
 
         // Should have responsive utility classes
-        expect(wrapper.find('.navbar').exists()).toBe(true)
-        expect(wrapper.classes()).toContain('navbar')
+        const navbarElement = wrapper.find('.navbar')
+        expect(navbarElement.exists()).toBe(true)
+        expect(navbarElement.classes()).toContain('navbar')
     })
 
     it('combines glass with sticky variant', () => {
@@ -199,10 +205,11 @@ describe('Navbar', () => {
         })
 
         // Should have both sticky and glass classes
-        expect(wrapper.classes()).toContain('sticky')
-        expect(wrapper.classes()).toContain('top-0')
-        expect(wrapper.classes()).toContain('glass')
-        expect(wrapper.classes()).toContain('rounded-lg')
+        const navbarElement = wrapper.find('.navbar')
+        expect(navbarElement.classes()).toContain('sticky')
+        expect(navbarElement.classes()).toContain('top-0')
+        expect(navbarElement.classes()).toContain('glass')
+        expect(navbarElement.classes()).toContain('rounded-lg')
     })
 
     it('does not apply glass effect when glass prop is false', () => {

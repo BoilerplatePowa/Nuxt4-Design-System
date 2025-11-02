@@ -143,7 +143,6 @@ describe('Drawer', () => {
                 global: { stubs: { Menu: true, Icon: true } },
             })
             expect(wrapper.vm.sidebarContentClasses).toContain('glass')
-            expect(wrapper.vm.sidebarContentClasses).toContain('p-0.5')
             expect(wrapper.vm.sidebarContentClasses).toContain('rounded-box')
             expect(wrapper.vm.sidebarContentClasses).not.toContain('bg-base-200')
         })

@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
+import { User } from 'lucide-vue-next'
 import Avatar from '../../../src/runtime/components/DataDisplay/Avatar.vue'
 
 describe('Avatar', () => {
@@ -243,7 +244,11 @@ describe('Avatar', () => {
     })
 
     it('shows icon when no content is provided', () => {
-        const wrapper = mount(Avatar, {})
+        const wrapper = mount(Avatar, {
+            props: {
+                fallbackIcon: User,
+            },
+        })
 
         expect(wrapper.find('svg').exists()).toBe(true)
     })
