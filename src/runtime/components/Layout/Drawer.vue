@@ -95,7 +95,7 @@ const drawerClasses = computed(() => {
 })
 
 const sideClasses = computed(() =>
-    [props.mode === 'sidebar' ? 'overflow-visible drawer-open' : ''].filter(Boolean).join(' ')
+    [props.mode === 'sidebar' ? '!overflow-visible drawer-open' : ''].filter(Boolean).join(' ')
 )
 
 const sidebarContentClasses = computed(() => {
@@ -106,7 +106,7 @@ const sidebarContentClasses = computed(() => {
         'flex-col',
         'items-start',
         'min-h-full',
-        'transition-all',
+        '!transition-all',
     ]
 
     if (props.glass) {
