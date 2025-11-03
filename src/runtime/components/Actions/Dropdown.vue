@@ -88,26 +88,13 @@ import type {
     dropdownModifierMap,
 } from '../../shared/componentsMaps/actions/dropdownMap'
 import Button from './Button.vue'
-import type { BtnColor, BtnStyle, BtnSize } from '../../shared/types.d'
+import type { BtnColor, BtnStyle, BtnSize, DropdownItem } from '../../shared/types.d'
 
 // Import chevron icons for default toggle behavior
 import { ChevronUp, ChevronDown } from 'lucide-vue-next'
 
 // SSR-safe id generation
 const uid = useId()
-
-interface DropdownItem {
-    label: string
-    value?: string | number
-    href?: string
-    disabled?: boolean
-    divider?: boolean
-    active?: boolean
-    // Optional action executed or emitted when item is clicked
-    action?: string | ((item: DropdownItem, event: Event) => void)
-    // Optional type to render a separator line
-    type?: 'separator'
-}
 
 interface Props {
     items?: DropdownItem[]

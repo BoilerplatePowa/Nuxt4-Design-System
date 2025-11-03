@@ -67,7 +67,7 @@ import { computed, onMounted, onUnmounted, ref, nextTick } from 'vue'
 
 const props = withDefaults(
     defineProps<{
-        id: string
+        id?: string
         type?: 'success' | 'error' | 'warning' | 'info'
         title?: string
         message: string

@@ -30,6 +30,9 @@ export default createConfigForNuxt({
 
             // Prettier handles all formatting
             'prettier/prettier': 'error',
+
+            // Disable unified-signatures rule that crashes on Vue 3 defineEmits
+            '@typescript-eslint/unified-signatures': 'off',
         },
     })
     .append({

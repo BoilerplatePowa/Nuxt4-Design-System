@@ -92,7 +92,7 @@
 </template>
 
 <script setup lang="ts">
-type DropdownItem = { label: string; value?: string | number; href?: string; disabled?: boolean }
+import type { DropdownItem } from '../../../../src/runtime/shared/types.d'
 
 const items: DropdownItem[] = [
     { label: 'Edit', value: 'edit' },

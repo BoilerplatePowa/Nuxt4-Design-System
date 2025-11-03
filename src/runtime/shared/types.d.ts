@@ -94,3 +94,16 @@ export interface BreadcrumbOptions {
     homeHref?: string // Href for home breadcrumb
     homeIcon?: Component // Vue component (e.g., Lucide icon component)
 }
+
+export interface DropdownItem {
+    label: string
+    value?: string | number
+    href?: string
+    disabled?: boolean
+    divider?: boolean
+    active?: boolean
+    // Optional action executed or emitted when item is clicked
+    action?: string | ((item: DropdownItem, event: Event) => void)
+    // Optional type to render a separator line
+    type?: 'separator'
+}
