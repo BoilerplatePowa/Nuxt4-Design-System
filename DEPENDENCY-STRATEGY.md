@@ -45,9 +45,7 @@ These are libraries that:
 #### Optional Peer Dependencies
 ```json
 {
-  "@tanstack/vue-table": "^8.0.0",  // Only for DataMigration component
-  "fuse.js": "^7.0.0",              // Only for DataMigration component
-  "pinia": "^2.2.0 || ^2.3.0"       // Only for DataMigration component
+  // No optional peer dependencies currently
 }
 ```
 
@@ -64,8 +62,6 @@ These are only needed during development, testing, and documentation:
 ```json
 {
   "@pinia/nuxt": "^0.9.0",          // For testing Pinia integration
-  "fuse.js": "^7.0.0",              // For testing DataMigration
-  "pinia": "^2.3.0",                // For testing DataMigration
   "@nuxt/test-utils": "^3.19.2",   // Testing utilities
   "@storybook/*": "^9.1.4",         // Documentation
   "vitest": "^3.2.4",               // Testing framework
@@ -73,71 +69,26 @@ These are only needed during development, testing, and documentation:
 }
 ```
 
-## DataMigration Component Strategy
-
-The DataMigration component uses **optional peer dependencies**:
-
-### Why Optional?
-
-1. **Not all consumers need it**: Most users won't use DataMigration
-2. **Reduces barrier to entry**: Users don't need to install extra deps just to use other components
-3. **Clear opt-in**: Users explicitly install what they need
-
-### Installation Flow
-
-**For users NOT using DataMigration:**
-```bash
-npm install @boilerplatepowa/nuxt4-design-system
-# No additional dependencies needed!
-```
-
-**For users using DataMigration:**
-```bash
-npm install @boilerplatepowa/nuxt4-design-system
-npm install @tanstack/vue-table fuse.js pinia  # Only install when needed
-```
-
-### Warning System
-
-When a user tries to use DataMigration without the dependencies, they'll see:
-
-```
-⚠️ DataMigration component requires peer dependencies:
-  - @tanstack/vue-table ^8.0.0
-  - fuse.js ^7.0.0
-  - pinia ^2.2.0 || ^2.3.0
-
-Install them with: npm install @tanstack/vue-table fuse.js pinia
-```
-
 ## Benefits of This Strategy
 
 ### ✅ For Package Consumers
 
-1. **Smaller Initial Bundle**: Don't pay for features you don't use
-2. **Version Control**: Use the Pinia/Fuse.js version you prefer
-3. **No Conflicts**: Single version of Pinia across entire app
+1. **Smaller Bundle Size**: Only necessary dependencies are bundled
+2. **Version Control**: Use compatible versions of peer dependencies
+3. **No Conflicts**: Single version of peer dependencies across entire app
 4. **Clear Dependencies**: Know exactly what's required
 
 ### ✅ For Package Maintainers
 
-1. **Flexibility**: Can support multiple Pinia versions
-2. **Less Maintenance**: Don't need to update for every Pinia release
+1. **Flexibility**: Can support multiple versions of peer dependencies
+2. **Less Maintenance**: Don't need to update for every peer dependency release
 3. **Clear Boundaries**: Explicit about what's bundled vs external
 4. **Better Testing**: Test against multiple peer dependency versions
 
 ### ✅ For Bundle Size
 
-**Without DataMigration:**
 - Design System: ~150KB
 - Total: ~150KB
-
-**With DataMigration:**
-- Design System: ~150KB
-- TanStack Vue Table: ~35KB
-- Fuse.js: ~25KB
-- Pinia: ~20KB (if not already installed)
-- Total: ~230KB (or ~210KB if Pinia already present)
 
 ## Comparison: Before vs After
 
@@ -154,33 +105,21 @@ Install them with: npm install @tanstack/vue-table fuse.js pinia
 ```
 
 **Problems:**
-- All users install Fuse.js even if they never use DataMigration
-- Potential version conflict if user already has Pinia
+- Potential version conflicts
 - Larger package size
 - Unnecessary dependencies
 
-### ✅ After (Optional peer dependencies)
+### ✅ After (Clean dependencies)
 
-```json
-{
-  "peerDependencies": {
-    "@tanstack/vue-table": "^8.0.0",
-    "fuse.js": "^7.0.0",
-    "pinia": "^2.2.0 || ^2.3.0"
-  },
-  "peerDependenciesMeta": {
-    "@tanstack/vue-table": { "optional": true },
-    "fuse.js": { "optional": true },
-    "pinia": { "optional": true }
-  }
-}
-```
+All dependencies are properly categorized:
+- Required dependencies are bundled
+- Required peer dependencies are clearly listed
+- Optional peer dependencies are used only when needed
 
 **Benefits:**
-- Users only install what they need
 - No version conflicts
-- Smaller package for most users
-- Clear opt-in model
+- Smaller package size
+- Clear dependency structure
 
 ## Best Practices
 
@@ -202,43 +141,14 @@ Install them with: npm install @tanstack/vue-table fuse.js pinia
 - Want to reduce barrier to entry
 - Library is only used by specific components
 
-## Migration Guide for Consumers
-
-If you were using an older version with bundled dependencies:
-
-### Before
-```bash
-npm install @boilerplatepowa/nuxt4-design-system
-# Everything bundled, larger package
-```
-
-### After
-```bash
-npm install @boilerplatepowa/nuxt4-design-system
-
-# Only if using DataMigration:
-npm install @tanstack/vue-table fuse.js pinia
-```
-
 ## Testing Strategy
 
-We test against multiple peer dependency versions:
-
-```json
-{
-  "@tanstack/vue-table": ["^8.0.0"],
-  "pinia": ["^2.2.0", "^2.3.0"],
-  "fuse.js": ["^7.0.0"]
-}
-```
-
-This ensures compatibility across versions.
+We test against all required peer dependency versions to ensure compatibility across different project setups.
 
 ## Summary
 
 ✅ **dependencies**: Internal implementation (bundled)  
 ✅ **peerDependencies**: Required by all consumers  
-✅ **optional peerDependencies**: Required by specific features  
 ✅ **devDependencies**: Development and testing only  
 
 This strategy provides the best balance of:

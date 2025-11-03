@@ -271,11 +271,10 @@ Both themes are fully compatible with all DaisyUI components and can be easily c
 - **TextDiff** - Side-by-side text comparison
 - **Timeline** - Event timeline displays
 
-### Data Input (18 components)
+### Data Input (17 components)
 
 - **Calendar** - Date picker with range selection
 - **Checkbox** - Form checkboxes with validation
-- **DataMigration** - 🆕 Visual data migration interface with intelligent auto-matching, connection lines, and Pinia state management
 - **Fieldset** - Form field grouping
 - **FileInput** - File upload with drag & drop
 - **Filter** - Data filtering controls
