@@ -6,6 +6,7 @@ This guide explains how to use [act](https://github.com/nektos/act) to run your 
 
 - Docker installed and running
 - act installed (`brew install act` on macOS)
+- **For Apple M-series chips**: The `.actrc` file is pre-configured with `--container-architecture linux/amd64` for compatibility
 
 ## Important Notes
 
@@ -144,11 +145,13 @@ docker run hello-world
 If you encounter platform compatibility issues:
 
 ```bash
-# Use specific platform
-act --platform ubuntu-latest=catthehacker/ubuntu:act-latest
+# Use specific platform with architecture (for M-series chips)
+act --platform ubuntu-latest=catthehacker/ubuntu:act-latest --container-architecture linux/amd64
 
 # Or update .actrc with different platform mappings
 ```
+
+**Note**: The `.actrc` file already includes `--container-architecture linux/amd64` for M-series chip compatibility.
 
 ### Permission Issues
 
@@ -308,6 +311,10 @@ jobs:
 ### Issue: "Out of memory"
 
 **Solution**: Increase Docker memory limit or use smaller platform images.
+
+### Issue: "bind: operation not permitted" or port binding errors
+
+**Solution**: The `.actrc` file includes `--artifact-server-path=""` to disable the artifact server and avoid port binding issues. If you still encounter this error, make sure Docker has proper permissions and is running correctly.
 
 ## Resources
 

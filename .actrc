@@ -1,8 +1,9 @@
 # act configuration file
 # See: https://github.com/nektos/act#configuration
 
-# Use specific platform (linux/amd64 for better compatibility)
+# Use specific platform (linux/amd64 for better compatibility on M-series chips)
 --platform ubuntu-latest=catthehacker/ubuntu:act-latest
+--container-architecture linux/amd64
 
 # Use specific platform for other runners
 --platform ubuntu-22.04=catthehacker/ubuntu:act-22.04
@@ -20,3 +21,6 @@
 
 # Use bind mounts for better performance
 --bind
+
+# Disable artifact server to avoid port binding issues
+--artifact-server-path=""
