@@ -1,5 +1,3 @@
-import { iconMap } from './map'
-
 // Re-export all types from types.d.ts
 export type {
     InputType,
@@ -19,5 +17,3 @@ export type {
     BtnBehavior,
     BtnModifier,
 } from './types.d'
-
-export const iconNameKeys = Object.keys(iconMap) as Array<keyof typeof iconMap>

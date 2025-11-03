@@ -111,7 +111,7 @@ const meta: Meta<typeof Button> = {
                 'check',
                 'x',
             ],
-            description: 'Left icon name from iconMap',
+            description: 'Left icon component',
         },
         iconRight: {
             control: { type: 'select' },
@@ -132,7 +132,7 @@ const meta: Meta<typeof Button> = {
                 'check',
                 'x',
             ],
-            description: 'Right icon name from iconMap',
+            description: 'Right icon component',
         },
         iconSize: {
             control: { type: 'select' },

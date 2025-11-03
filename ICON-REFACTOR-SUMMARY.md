@@ -10,6 +10,14 @@ Successfully replaced the centralized Icon component with direct component rende
 - Updated `MenuItem.icon` from `[Object, Function]` to `any` (Component instance)
 - Removed dependency on `iconMap`
 
+**File**: `src/runtime/shared/types.ts`
+- ✅ Removed `iconMap` import
+- ✅ Removed `iconNameKeys` export that depended on `iconMap`
+
+**File**: `src/runtime/shared/map.ts`
+- ✅ Removed all icon imports from `lucide-vue-next`
+- ✅ Removed entire `iconMap` export declaration
+
 ### 2. Components Updated
 
 #### Actions Components
@@ -210,7 +218,8 @@ Components now use Unicode symbols or emoji as fallbacks:
 ## Code Quality Improvements
 
 ### Removed Code
-- Removed `iconMap` from `shared/map.ts`
+- ✅ Removed `iconMap` from `shared/map.ts` (all icon imports and mapping object)
+- ✅ Removed `iconNameKeys` export from `shared/types.ts`
 - Removed `getIconComponent()` from 8 components
 - Removed `getIconSize()` from some components (kept inline where needed)
 - Removed Icon component entirely

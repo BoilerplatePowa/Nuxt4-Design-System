@@ -293,15 +293,16 @@ const menuItems = [
 ```vue
 <script setup lang="ts">
 import { Home, Settings, User } from 'lucide-vue-next'
+import type { Component } from 'vue'
 
-const iconMap = {
+const icons: Record<string, Component> = {
   home: Home,
   settings: Settings,
   user: User
 }
 
 const currentPage = ref('home')
-const currentIcon = computed(() => iconMap[currentPage.value])
+const currentIcon = computed(() => icons[currentPage.value])
 </script>
 
 <template>
