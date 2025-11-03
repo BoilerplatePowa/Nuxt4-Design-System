@@ -20,11 +20,13 @@
                         </div>
                         <div
                             class="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                            :class="model ? 'tooltip tooltip-right' : ''"
                             data-tip="Open"
                         >
                             <label
                                 :for="drawerId"
-                                class="btn btn-ghost btn-square drawer-button is-drawer-open:rotate-y-180 hover:bg-black/10 active:bg-black active:text-white border-0 shadow-none p-0"
+                                class="btn btn-ghost btn-square drawer-button hover:bg-base-content/10 active:bg-base-content active:text-base-100 border-0 shadow-none !p-0"
+                                :class="model ? 'rotate-y-180' : ''"
                             >
                                 <ChevronRight />
                             </label>
