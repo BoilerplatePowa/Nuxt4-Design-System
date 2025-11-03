@@ -18,10 +18,7 @@
                         <div class="grow">
                             <slot name="top"></slot>
                         </div>
-                        <div
-                            class="tooltip tooltip-right"
-                            :data-tip="model ? 'Close' : 'Open'"
-                        >
+                        <div class="tooltip tooltip-right" :data-tip="model ? 'Close' : 'Open'">
                             <label
                                 :for="drawerId"
                                 class="btn btn-ghost btn-square drawer-button hover:bg-base-content/10 active:bg-base-content active:text-base-100 border-0 shadow-none !p-0"
@@ -98,9 +95,7 @@ const drawerClasses = computed(() => {
 })
 
 const sideClasses = computed(() =>
-    [props.mode === 'sidebar' ? 'overflow-visible drawer-open' : '']
-        .filter(Boolean)
-        .join(' ')
+    [props.mode === 'sidebar' ? 'overflow-visible drawer-open' : ''].filter(Boolean).join(' ')
 )
 
 const sidebarContentClasses = computed(() => {
@@ -111,7 +106,7 @@ const sidebarContentClasses = computed(() => {
         'flex-col',
         'items-start',
         'min-h-full',
-        'transition-all'
+        'transition-all',
     ]
 
     if (props.glass) {
