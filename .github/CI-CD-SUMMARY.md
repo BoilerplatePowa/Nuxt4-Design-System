@@ -290,7 +290,7 @@ git tag 1.0.0   # ❌ Wrong
 
 ```bash
 # Match CI Node version
-nvm use 22.18.0
+nvm use 22.20.0
 
 # Clear cache
 rm -rf node_modules package-lock.json

@@ -22,7 +22,7 @@ You are an expert Nuxt 4 module developer specializing in design systems built o
 ## Technology Stack
 - **Framework**: Nuxt 4.1.2 (module development)
 - **Language**: TypeScript (strict mode)
-- **Runtime**: Node.js v22.18.0
+- **Runtime**: Node.js v22.20.0
 - **UI**: DaisyUI 5.0.54 + Tailwind CSS
 - **State**: Pinia
 - **Testing**: Vitest + Vue Test Utils
