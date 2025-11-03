@@ -24,7 +24,7 @@
                         >
                             <label
                                 :for="drawerId"
-                                class="btn btn-ghost btn-square drawer-button is-drawer-open:rotate-y-180"
+                                class="btn btn-ghost btn-square drawer-button is-drawer-open:rotate-y-180 hover:bg-black/10 active:bg-black active:text-white border-0 shadow-none p-0"
                             >
                                 <ChevronRight />
                             </label>
@@ -62,6 +62,7 @@ interface Props {
     mode?: 'default' | 'sidebar'
     items?: MenuItem[]
     glass?: boolean
+    glassOpacity?: number
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -74,6 +75,7 @@ const props = withDefaults(defineProps<Props>(), {
     forceOpen: false,
     mode: 'default',
     glass: false,
+    glassOpacity: 10,
 })
 
 const model = defineModel<boolean>({ default: false })
@@ -111,7 +113,7 @@ const sidebarContentClasses = computed(() => {
     ]
 
     if (props.glass) {
-        classes.push('glass', 'rounded-box')
+        classes.push('glass', 'rounded-box', `bg-base-content/${props.glassOpacity}`)
     } else {
         classes.push('bg-base-200')
     }

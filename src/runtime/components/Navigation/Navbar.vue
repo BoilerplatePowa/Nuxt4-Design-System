@@ -44,7 +44,7 @@ const props = withDefaults(defineProps<Props>(), {
     logoAlt: 'Logo',
     styleVariant: 'default',
     glass: false,
-    glassOpacity: 0.1,
+    glassOpacity: 20,
     shadow: false,
     showMobileMenu: true,
     menuItems: () => [],
@@ -60,7 +60,7 @@ const navbarClasses = computed(() => {
 
     // Glass effect (can be combined with other variants)
     if (props.glass) {
-        baseClasses.push('glass', 'rounded-lg', `bg-base-100/${props.glassOpacity * 100}`)
+        baseClasses.push('glass', 'rounded-lg', `bg-base-content/${props.glassOpacity}`)
     }
 
     // Shadow
