@@ -19,9 +19,8 @@
                             <slot name="top"></slot>
                         </div>
                         <div
-                            class="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                            :class="model ? 'tooltip tooltip-right' : ''"
-                            data-tip="Open"
+                            class="tooltip tooltip-right"
+                            :data-tip="model ? 'Close' : 'Open'"
                         >
                             <label
                                 :for="drawerId"
@@ -99,7 +98,7 @@ const drawerClasses = computed(() => {
 })
 
 const sideClasses = computed(() =>
-    [props.mode === 'sidebar' ? 'is-drawer-close:overflow-visible drawer-open' : '']
+    [props.mode === 'sidebar' ? 'overflow-visible drawer-open' : '']
         .filter(Boolean)
         .join(' ')
 )
@@ -112,6 +111,7 @@ const sidebarContentClasses = computed(() => {
         'flex-col',
         'items-start',
         'min-h-full',
+        'transition-all'
     ]
 
     if (props.glass) {
