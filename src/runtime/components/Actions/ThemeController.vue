@@ -117,7 +117,7 @@ const controllerClasses = computed(() => {
 })
 
 const buttonClasses = computed(() => {
-    const baseClasses = ['btn', 'btn-ghost', 'btn-square']
+    const baseClasses = ['btn', 'btn-ghost', 'btn-square', '!border-0', '!shadow-none', '!p-0']
 
     // Size classes
     if (props.size === 'xs') {

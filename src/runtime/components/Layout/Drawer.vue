@@ -21,7 +21,7 @@
                         <div class="tooltip tooltip-right" :data-tip="model ? 'Close' : 'Open'">
                             <label
                                 :for="drawerId"
-                                class="btn btn-ghost btn-square drawer-button hover:bg-base-content/10 active:bg-base-content active:text-base-100 border-0 shadow-none !p-0"
+                                class="btn btn-ghost btn-square drawer-button hover:bg-base-content/10 active:bg-base-content active:text-base-100 !border-0 !shadow-none !p-0"
                                 :class="model ? 'rotate-y-180' : ''"
                             >
                                 <ChevronRight />
