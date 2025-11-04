@@ -110,7 +110,7 @@
         </div>
 
         <!-- Toast Container -->
-        <!--<BpToastContainer :toasts="toasts" position="top-right" @remove-toast="removeToast" />-->
+        <!-- <BpToastContainer :toasts="toasts" position="top-right" @remove-toast="removeToast" /> -->
     </div>
 </template>
 
@@ -131,7 +131,7 @@ import { useToast } from '#imports'
 
 definePageMeta({ title: 'Toast', description: 'Toast examples with progress bar' })
 
-const { toasts, success, error, warning, info, removeToast, clearAll } = useToast()
+const { success, error, warning, info, clearAll } = useToast()
 
 function showSuccess() {
     success('Operation completed successfully!', {
