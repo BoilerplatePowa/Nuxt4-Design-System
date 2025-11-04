@@ -17,31 +17,66 @@
 
             <section class="mb-16">
                 <h2 class="text-3xl font-bold mb-6">Examples</h2>
+                
+                <!-- Basic Vertical Menu -->
                 <div class="card bg-base-200 shadow-xl mb-6">
                     <div class="card-body">
-                        <ul class="menu bg-base-100 w-56 rounded-box">
-                            <li><a>Item 1</a></li>
-                            <li>
-                                <details open>
-                                    <summary>Parent</summary>
-                                    <ul>
-                                        <li><a>Submenu 1</a></li>
-                                        <li><a>Submenu 2</a></li>
-                                    </ul>
-                                </details>
-                            </li>
-                            <li><a>Item 3</a></li>
-                        </ul>
+                        <h3 class="text-xl font-semibold mb-4">Vertical Menu</h3>
+                        <BpMenu
+                            :items="verticalMenuItems"
+                            rounded
+                            class="bg-base-100 w-56 rounded-box"
+                        />
                     </div>
                 </div>
 
+                <!-- Menu with Submenu -->
+                <div class="card bg-base-200 shadow-xl mb-6">
+                    <div class="card-body">
+                        <h3 class="text-xl font-semibold mb-4">Menu with Submenu</h3>
+                        <BpMenu
+                            :items="submenuItems"
+                            rounded
+                            class="bg-base-100 w-56 rounded-box"
+                        />
+                    </div>
+                </div>
+
+                <!-- Horizontal Menu -->
+                <div class="card bg-base-200 shadow-xl mb-6">
+                    <div class="card-body">
+                        <h3 class="text-xl font-semibold mb-4">Horizontal Menu</h3>
+                        <BpMenu
+                            :items="horizontalMenuItems"
+                            variant="horizontal"
+                            rounded
+                            class="bg-base-100 rounded-box"
+                        />
+                    </div>
+                </div>
+
+                <!-- Menu with Icons and Badges -->
+                <div class="card bg-base-200 shadow-xl mb-6">
+                    <div class="card-body">
+                        <h3 class="text-xl font-semibold mb-4">Menu with Icons and Badges</h3>
+                        <BpMenu
+                            :items="iconMenuItems"
+                            rounded
+                            class="bg-base-100 w-56 rounded-box"
+                        />
+                    </div>
+                </div>
+
+                <!-- Compact Menu -->
                 <div class="card bg-base-200 shadow-xl">
                     <div class="card-body">
-                        <ul class="menu menu-horizontal bg-base-100 rounded-box">
-                            <li><a>Link</a></li>
-                            <li><a>Link</a></li>
-                            <li><a>Link</a></li>
-                        </ul>
+                        <h3 class="text-xl font-semibold mb-4">Compact Menu</h3>
+                        <BpMenu
+                            :items="compactMenuItems"
+                            :compact="true"
+                            rounded
+                            class="bg-base-100 w-20 rounded-box"
+                        />
                     </div>
                 </div>
             </section>
@@ -66,9 +101,55 @@
 </template>
 
 <script setup lang="ts">
-import { ArrowLeft, Grid } from 'lucide-vue-next'
+import { ArrowLeft, Grid, Home, User, Settings, Mail, Bell, Search, FileText, Heart, Star } from 'lucide-vue-next'
+import type { MenuItem } from '../../../../src/runtime/shared/types.d'
 
 definePageMeta({ title: 'Menu', description: 'Menu examples' })
+
+// Basic vertical menu items
+const verticalMenuItems = ref<MenuItem[]>([
+    { label: 'Item 1', href: '/components/navigation/menu' },
+    { label: 'Item 2', href: '/components/navigation/menu' },
+    { label: 'Item 3', href: '/components/navigation/menu' },
+])
+
+// Menu with submenu
+const submenuItems = ref<MenuItem[]>([
+    { label: 'Item 1', href: '/components/navigation/menu' },
+    {
+        label: 'Parent',
+        children: [
+            { label: 'Submenu 1', href: '/components/navigation/menu' },
+            { label: 'Submenu 2', href: '/components/navigation/menu' },
+        ],
+    },
+    { label: 'Item 3', href: '/components/navigation/menu' },
+])
+
+// Horizontal menu items
+const horizontalMenuItems = ref<MenuItem[]>([
+    { label: 'Link 1', href: '/components/navigation/menu' },
+    { label: 'Link 2', href: '/components/navigation/menu' },
+    { label: 'Link 3', href: '/components/navigation/menu' },
+])
+
+// Menu with icons and badges
+const iconMenuItems = ref<MenuItem[]>([
+    { label: 'Home', href: '/', icon: Home },
+    { label: 'Profile', href: '/components/navigation/menu', icon: User, badge: '3' },
+    { label: 'Messages', href: '/components/navigation/menu', icon: Mail, badge: '12' },
+    { label: 'Notifications', href: '/components/navigation/menu', icon: Bell, active: true },
+    { label: 'Settings', href: '/components/navigation/menu', icon: Settings, disabled: true },
+])
+
+// Compact menu items
+const compactMenuItems = ref<MenuItem[]>([
+    { label: 'Home', href: '/', icon: Home },
+    { label: 'Search', href: '/components/navigation/menu', icon: Search },
+    { label: 'Documents', href: '/components/navigation/menu', icon: FileText },
+    { label: 'Favorites', href: '/components/navigation/menu', icon: Heart },
+    { label: 'Starred', href: '/components/navigation/menu', icon: Star },
+])
 
 function setTheme(theme: string) {
     if (import.meta.client) {

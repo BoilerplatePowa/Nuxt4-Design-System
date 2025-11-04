@@ -9,9 +9,9 @@
                 <div v-else-if="item.title && compact" class="divider menu-title" />
 
                 <!-- Link item -->
-                <button
+                <NuxtLink
                     v-else-if="item.href"
-                    type="button"
+                    :to="item.href"
                     :class="getItemClasses(item)"
                     :data-tip="item.label"
                     @click="handleItemClick(item, $event)"
@@ -33,7 +33,7 @@
                         <span class="">{{ item.label }}</span>
                         <span v-if="item.badge" class="badge badge-sm">{{ item.badge }}</span>
                     </div>
-                </button>
+                </NuxtLink>
 
                 <!-- Button item -->
                 <button
@@ -55,9 +55,9 @@
                 <!-- Submenu -->
                 <ul v-if="item.children && item.children.length > 0" class="menu w-full">
                     <li v-for="child in item.children" :key="getItemKey(child)">
-                        <button
+                        <NuxtLink
                             v-if="child.href"
-                            type="button"
+                            :to="child.href"
                             :class="getItemClasses(child)"
                             :data-tip="child.label"
                             @click="handleItemClick(child, $event)"
@@ -71,7 +71,7 @@
                                     child.badge
                                 }}</span>
                             </div>
-                        </button>
+                        </NuxtLink>
                         <button
                             v-else
                             type="button"
@@ -101,9 +101,6 @@
 import { computed } from 'vue'
 import type { MenuItem, Size } from '../../shared/types.d'
 import Badge from '../DataDisplay/Badge.vue'
-
-// navigateTo is auto-imported in Nuxt apps
-declare const navigateTo: ((to: string) => Promise<void>) | undefined
 
 interface Props {
     items?: MenuItem[]
@@ -179,22 +176,10 @@ const getItemClasses = (item: MenuItem): string => {
     return classes.join(' ')
 }
 
-const handleItemClick = async (item: MenuItem, event: Event) => {
+const handleItemClick = (item: MenuItem, event: Event) => {
     if (item.disabled) {
         event.preventDefault()
         return
-    }
-
-    // Navigate if href is provided
-    if (item.href) {
-        event.preventDefault()
-        // navigateTo is auto-imported in Nuxt apps
-        if (typeof navigateTo === 'function') {
-            await navigateTo(item.href)
-        } else {
-            // Fallback for non-Nuxt contexts
-            window.location.href = item.href
-        }
     }
 
     emit('item-click', item, event)
