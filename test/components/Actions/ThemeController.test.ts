@@ -137,7 +137,7 @@ describe('ThemeController', () => {
     it('emits themeChange event when button is clicked', async () => {
         mockTheme.value = 'light'
         const wrapper = mount(ThemeController, {
-            props: { 
+            props: {
                 variant: 'button',
                 lightTheme: 'light',
                 darkTheme: 'dark',
@@ -158,7 +158,7 @@ describe('ThemeController', () => {
     it('emits themeChange event when toggle is changed', async () => {
         mockTheme.value = 'light'
         const wrapper = mount(ThemeController, {
-            props: { 
+            props: {
                 variant: 'toggle',
                 lightTheme: 'light',
                 darkTheme: 'dark',
@@ -179,7 +179,7 @@ describe('ThemeController', () => {
     it('emits themeChange event when switch is changed', async () => {
         mockTheme.value = 'light'
         const wrapper = mount(ThemeController, {
-            props: { 
+            props: {
                 variant: 'switch',
                 lightTheme: 'light',
                 darkTheme: 'dark',
@@ -240,7 +240,7 @@ describe('ThemeController', () => {
         await wrapper.vm.$nextTick()
         const radioInputs = wrapper.findAll('input[type="radio"]')
         expect(radioInputs).toHaveLength(2)
-        
+
         // Verify radio inputs have correct attributes
         expect(radioInputs[0].attributes('value')).toBe('light')
         expect(radioInputs[1].attributes('value')).toBe('dark')
@@ -273,7 +273,7 @@ describe('ThemeController', () => {
         expect(options).toHaveLength(2)
         expect(options[0].text()).toBe('Custom Theme 1')
         expect(options[1].text()).toBe('Custom Theme 2')
-        
+
         // Verify select value matches current theme
         const select = wrapper.find('select')
         expect(select.element.value).toBe('custom1')
@@ -305,7 +305,9 @@ describe('ThemeController', () => {
             if (variant === 'button') {
                 expect(wrapper.find('button').attributes('aria-label')).toBe(customAriaLabel)
             } else if (variant === 'toggle' || variant === 'switch') {
-                expect(wrapper.find('input[type="checkbox"]').attributes('aria-label')).toBe(customAriaLabel)
+                expect(wrapper.find('input[type="checkbox"]').attributes('aria-label')).toBe(
+                    customAriaLabel
+                )
             } else if (variant === 'dropdown') {
                 expect(wrapper.find('select').attributes('aria-label')).toBe(customAriaLabel)
             }
@@ -344,7 +346,9 @@ describe('ThemeController', () => {
                     }
                 } else if (variant === 'toggle' || variant === 'switch') {
                     if (size !== 'md') {
-                        expect(wrapper.find('input[type="checkbox"]').classes()).toContain(`toggle-${size}`)
+                        expect(wrapper.find('input[type="checkbox"]').classes()).toContain(
+                            `toggle-${size}`
+                        )
                     }
                 } else if (variant === 'dropdown') {
                     if (size !== 'md') {
@@ -369,7 +373,7 @@ describe('ThemeController', () => {
         })
 
         await wrapper.vm.$nextTick()
-        
+
         // Change theme externally
         mockTheme.value = 'dark'
         await wrapper.vm.$nextTick()
@@ -388,7 +392,7 @@ describe('ThemeController', () => {
         })
 
         await wrapper.vm.$nextTick()
-        
+
         // Click to toggle to dark
         await wrapper.find('button').trigger('click')
         await wrapper.vm.$nextTick()
@@ -415,10 +419,10 @@ describe('ThemeController', () => {
         })
 
         await wrapper.vm.$nextTick()
-        
+
         // Should show dark icon since corporate is not synthwave
         expect(wrapper.find('.sun-icon').exists()).toBe(true)
-        
+
         // Toggle should switch to synthwave
         await wrapper.find('button').trigger('click')
         await wrapper.vm.$nextTick()

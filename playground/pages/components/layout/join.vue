@@ -58,6 +58,7 @@
 
 <script setup lang="ts">
 import { ArrowLeft, Grid } from 'lucide-vue-next'
+
 definePageMeta({ title: 'Join', description: 'Join examples' })
 
 function setTheme(theme: string) {

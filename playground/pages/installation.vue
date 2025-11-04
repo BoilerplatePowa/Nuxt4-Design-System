@@ -404,12 +404,6 @@
 
 <script setup lang="ts">
 // Page metadata
-definePageMeta({
-    title: 'Installation',
-    description:
-        'Complete installation guide for Nuxt Design System - step by step setup instructions',
-})
-
 import {
     CheckCircle,
     Check,
@@ -420,6 +414,12 @@ import {
     Eye,
     File,
 } from 'lucide-vue-next'
+
+definePageMeta({
+    title: 'Installation',
+    description:
+        'Complete installation guide for Nuxt Design System - step by step setup instructions',
+})
 
 // Theme management
 function setTheme(theme: string) {

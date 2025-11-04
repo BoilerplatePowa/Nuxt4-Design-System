@@ -63,6 +63,7 @@
 
 <script setup lang="ts">
 import { ArrowLeft, Grid } from 'lucide-vue-next'
+
 definePageMeta({ title: 'Select Component', description: 'Examples and usage for select' })
 
 function setTheme(theme: string) {

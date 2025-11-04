@@ -59,6 +59,7 @@
 
 <script setup lang="ts">
 import { ArrowLeft, Grid } from 'lucide-vue-next'
+
 definePageMeta({ title: 'Range Component', description: 'Examples and usage for range slider' })
 
 function setTheme(theme: string) {

@@ -59,6 +59,7 @@
 
 <script setup lang="ts">
 import { ArrowLeft, Grid } from 'lucide-vue-next'
+
 definePageMeta({ title: 'Label', description: 'Examples and usage for label' })
 
 function setTheme(theme: string) {

@@ -732,6 +732,7 @@ const menuItems = [
 
 <script setup lang="ts">
 import { ArrowLeft, Grid } from 'lucide-vue-next'
+
 definePageMeta({ title: 'Drawer', description: 'Drawer layout examples' })
 
 // Define user for template usage

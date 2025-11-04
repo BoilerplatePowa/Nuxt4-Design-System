@@ -207,14 +207,7 @@
 </template>
 
 <script setup lang="ts">
-import {
-    Navigation,
-    Menu,
-    Layout,
-    Link,
-    Smartphone,
-    Grid,
-} from 'lucide-vue-next'
+import { Navigation, Menu, Layout, Link, Smartphone, Grid } from 'lucide-vue-next'
 
 definePageMeta({
     title: 'Navigation Components',

@@ -49,6 +49,7 @@
 
 <script setup lang="ts">
 import { ArrowLeft, Grid } from 'lucide-vue-next'
+
 definePageMeta({ title: 'File Input Component', description: 'Examples and usage for file input' })
 
 function setTheme(theme: string) {

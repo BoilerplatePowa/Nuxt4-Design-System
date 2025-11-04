@@ -76,27 +76,19 @@
                                 <h3 class="font-bold mb-2">When to Use</h3>
                                 <ul class="space-y-2">
                                     <li class="flex items-center">
-                                        <ArrowRight
-                                            class="w-4 h-4 text-primary mr-2"
-                                        />
+                                        <ArrowRight class="w-4 h-4 text-primary mr-2" />
                                         Primary actions and form submissions
                                     </li>
                                     <li class="flex items-center">
-                                        <ArrowRight
-                                            class="w-4 h-4 text-primary mr-2"
-                                        />
+                                        <ArrowRight class="w-4 h-4 text-primary mr-2" />
                                         Navigation and links
                                     </li>
                                     <li class="flex items-center">
-                                        <ArrowRight
-                                            class="w-4 h-4 text-primary mr-2"
-                                        />
+                                        <ArrowRight class="w-4 h-4 text-primary mr-2" />
                                         Interactive elements
                                     </li>
                                     <li class="flex items-center">
-                                        <ArrowRight
-                                            class="w-4 h-4 text-primary mr-2"
-                                        />
+                                        <ArrowRight class="w-4 h-4 text-primary mr-2" />
                                         Call-to-action buttons
                                     </li>
                                 </ul>

@@ -55,6 +55,7 @@
 
 <script setup lang="ts">
 import { ArrowLeft, Grid } from 'lucide-vue-next'
+
 definePageMeta({ title: 'Progress', description: 'Linear progress examples' })
 
 function setTheme(theme: string) {

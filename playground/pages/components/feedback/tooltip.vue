@@ -55,6 +55,7 @@
 
 <script setup lang="ts">
 import { ArrowLeft, Grid } from 'lucide-vue-next'
+
 definePageMeta({ title: 'Tooltip', description: 'Tooltip examples' })
 
 function setTheme(theme: string) {

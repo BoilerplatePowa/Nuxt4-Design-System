@@ -45,6 +45,7 @@
 
 <script setup lang="ts">
 import { ArrowLeft, Grid } from 'lucide-vue-next'
+
 definePageMeta({ title: 'Form Wizard', description: 'Form wizard example' })
 
 function setTheme(theme: string) {

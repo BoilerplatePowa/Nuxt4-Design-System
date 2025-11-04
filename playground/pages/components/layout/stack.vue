@@ -59,6 +59,7 @@
 
 <script setup lang="ts">
 import { ArrowLeft, Grid } from 'lucide-vue-next'
+
 definePageMeta({ title: 'Stack', description: 'Stack examples' })
 
 function setTheme(theme: string) {

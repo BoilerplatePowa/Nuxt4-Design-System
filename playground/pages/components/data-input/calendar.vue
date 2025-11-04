@@ -46,6 +46,7 @@
 
 <script setup lang="ts">
 import { ArrowLeft, Grid } from 'lucide-vue-next'
+
 definePageMeta({ title: 'Calendar', description: 'Calendar styles for date pickers' })
 
 function setTheme(theme: string) {

@@ -58,6 +58,7 @@
 
 <script setup lang="ts">
 import { ArrowLeft, Grid } from 'lucide-vue-next'
+
 definePageMeta({ title: 'Navbar', description: 'Navbar examples' })
 
 function setTheme(theme: string) {

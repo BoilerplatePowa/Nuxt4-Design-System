@@ -58,6 +58,7 @@
 
 <script setup lang="ts">
 import { ArrowLeft, Grid } from 'lucide-vue-next'
+
 definePageMeta({ title: 'Filter', description: 'Examples and usage for filter group' })
 
 function setTheme(theme: string) {

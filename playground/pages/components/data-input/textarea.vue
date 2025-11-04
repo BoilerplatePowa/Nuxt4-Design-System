@@ -62,6 +62,7 @@
 
 <script setup lang="ts">
 import { ArrowLeft, Grid } from 'lucide-vue-next'
+
 definePageMeta({ title: 'Textarea Component', description: 'Examples and usage for textarea' })
 
 function setTheme(theme: string) {

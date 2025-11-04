@@ -78,7 +78,18 @@
 
 <script setup lang="ts">
 import { onMounted } from 'vue'
-import { Heart, Star, CheckCircle, Info, Zap, Settings, User, Home, ArrowLeft, Grid } from 'lucide-vue-next'
+import {
+    Heart,
+    Star,
+    CheckCircle,
+    Info,
+    Zap,
+    Settings,
+    User,
+    Home,
+    ArrowLeft,
+    Grid,
+} from 'lucide-vue-next'
 
 definePageMeta({
     title: 'BpIcon Component',

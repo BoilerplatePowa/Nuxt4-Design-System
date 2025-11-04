@@ -50,6 +50,7 @@
 
 <script setup lang="ts">
 import { ArrowLeft, Grid } from 'lucide-vue-next'
+
 definePageMeta({ title: 'Toggle Component', description: 'Examples and usage for toggle' })
 
 function setTheme(theme: string) {

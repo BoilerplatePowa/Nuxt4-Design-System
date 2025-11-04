@@ -81,6 +81,7 @@
 
 <script setup lang="ts">
 import { ArrowLeft, Grid } from 'lucide-vue-next'
+
 definePageMeta({ title: 'Rating Component', description: 'Examples and usage for rating' })
 
 function setTheme(theme: string) {

@@ -408,6 +408,7 @@
 
 <script setup lang="ts">
 import { ArrowLeft, Grid, Check, ArrowRight, Search, Banknote } from 'lucide-vue-next'
+
 const basic = ref('')
 const email = ref('')
 const password = ref('')

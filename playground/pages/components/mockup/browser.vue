@@ -77,6 +77,7 @@
 
 <script setup lang="ts">
 import { ArrowLeft, Grid } from 'lucide-vue-next'
+
 definePageMeta({
     title: 'BpBrowserMockup Component',
     description: 'Examples and usage for BpBrowserMockup',

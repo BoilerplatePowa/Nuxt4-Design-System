@@ -130,9 +130,7 @@
                                 <Settings class="w-5 h-5" />
                                 Custom Themes
                             </h3>
-                            <p class="text-sm text-base-content/70 mb-4">
-                                With custom theme list
-                            </p>
+                            <p class="text-sm text-base-content/70 mb-4">With custom theme list</p>
                             <BpThemeController
                                 variant="dropdown"
                                 :themes="customThemes"
@@ -177,21 +175,13 @@
                         <div class="card-body">
                             <h3 class="card-title text-xl mb-4">With Custom Themes</h3>
                             <div class="mockup-code text-left mb-4">
-                                <pre
-                                    data-prefix="<"
-                                ><code>&lt;BpThemeController</code></pre>
-                                <pre
-                                    data-prefix="  "
-                                ><code>  variant="dropdown"</code></pre>
-                                <pre
-                                    data-prefix="  "
-                                ><code>  :themes="themes"</code></pre>
+                                <pre data-prefix="<"><code>&lt;BpThemeController</code></pre>
+                                <pre data-prefix="  "><code>  variant="dropdown"</code></pre>
+                                <pre data-prefix="  "><code>  :themes="themes"</code></pre>
                                 <pre
                                     data-prefix="  "
                                 ><code>  :light-theme="'corporate'"</code></pre>
-                                <pre
-                                    data-prefix="  "
-                                ><code>  :dark-theme="'synthwave'"</code></pre>
+                                <pre data-prefix="  "><code>  :dark-theme="'synthwave'"</code></pre>
                                 <pre data-prefix="/&gt;"><code>/&gt;</code></pre>
                             </div>
                             <BpThemeController
@@ -223,7 +213,9 @@
                             <tr>
                                 <td><code>variant</code></td>
                                 <td>
-                                    <code>'button' | 'toggle' | 'switch' | 'dropdown' | 'radio'</code>
+                                    <code
+                                        >'button' | 'toggle' | 'switch' | 'dropdown' | 'radio'</code
+                                    >
                                 </td>
                                 <td><code>'button'</code></td>
                                 <td>UI variant for the theme controller</td>
@@ -232,7 +224,10 @@
                                 <td><code>themes</code></td>
                                 <td><code>ThemeOption[]</code></td>
                                 <td>
-                                    <code>[{ value: 'light', label: 'Light' }, { value: 'dark', label: 'Dark' }]</code>
+                                    <code
+                                        >[{ value: 'light', label: 'Light' }, { value: 'dark',
+                                        label: 'Dark' }]</code
+                                    >
                                 </td>
                                 <td>Array of theme options</td>
                             </tr>

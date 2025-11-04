@@ -50,6 +50,7 @@
 
 <script setup lang="ts">
 import { ArrowLeft, Grid } from 'lucide-vue-next'
+
 definePageMeta({ title: 'Indicator', description: 'Indicator examples' })
 
 function setTheme(theme: string) {

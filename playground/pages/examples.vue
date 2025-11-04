@@ -297,9 +297,7 @@
                                         v-html="compiledPreview"
                                     />
                                     <div v-else class="text-base-content/50 text-center py-8">
-                                        <File
-                                            class="w-12 h-12 mx-auto mb-2 opacity-50"
-                                        />
+                                        <File class="w-12 h-12 mx-auto mb-2 opacity-50" />
                                         <p>Enter code to see live preview</p>
                                     </div>
                                 </div>
@@ -353,6 +351,8 @@
 </template>
 
 <script setup lang="ts">
+import { Zap, Image, Edit, File, RefreshCw, Navigation, Grid, Download } from 'lucide-vue-next'
+
 definePageMeta({
     title: 'Examples',
     description: 'Interactive examples and code snippets for Nuxt Design System components',
@@ -493,17 +493,6 @@ function loadTemplate(code: string) {
     playgroundCode.value = code
     runCode()
 }
-
-import {
-    Zap,
-    Image,
-    Edit,
-    File,
-    RefreshCw,
-    Navigation,
-    Grid,
-    Download,
-} from 'lucide-vue-next'
 
 // Theme management
 function setTheme(theme: string) {

@@ -143,6 +143,7 @@
 
 <script setup lang="ts">
 import { ArrowLeft, Grid } from 'lucide-vue-next'
+
 definePageMeta({
     title: 'BpDivider Component',
     description: 'Props, examples, and usage for BpDivider',

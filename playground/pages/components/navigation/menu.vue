@@ -67,6 +67,7 @@
 
 <script setup lang="ts">
 import { ArrowLeft, Grid } from 'lucide-vue-next'
+
 definePageMeta({ title: 'Menu', description: 'Menu examples' })
 
 function setTheme(theme: string) {

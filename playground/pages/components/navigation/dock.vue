@@ -49,6 +49,7 @@
 
 <script setup lang="ts">
 import { ArrowLeft, Grid } from 'lucide-vue-next'
+
 definePageMeta({ title: 'Dock', description: 'Dock examples' })
 
 function setTheme(theme: string) {

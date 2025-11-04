@@ -51,6 +51,7 @@
 
 <script setup lang="ts">
 import { ArrowLeft, Grid } from 'lucide-vue-next'
+
 definePageMeta({ title: 'Code Mockup', description: 'Code mockup examples' })
 
 function setTheme(theme: string) {

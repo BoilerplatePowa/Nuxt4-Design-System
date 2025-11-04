@@ -37,8 +37,7 @@
                         <h2 class="card-title text-2xl justify-center mb-4">Explore More</h2>
                         <div class="card-actions justify-center">
                             <NuxtLink to="/components/data-display" class="btn btn-primary">
-                                <ArrowLeft class="w-4 h-4 mr-2" /> Back to Data
-                                Display
+                                <ArrowLeft class="w-4 h-4 mr-2" /> Back to Data Display
                             </NuxtLink>
                             <NuxtLink to="/components" class="btn btn-outline">
                                 <Grid class="w-4 h-4 mr-2" /> All Components
@@ -53,6 +52,7 @@
 
 <script setup lang="ts">
 import { ArrowLeft, Grid } from 'lucide-vue-next'
+
 const value = ref(42)
 function inc() {
     value.value = (value.value + 1) % 100

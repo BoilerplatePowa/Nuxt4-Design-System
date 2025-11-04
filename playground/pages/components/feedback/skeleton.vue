@@ -48,6 +48,7 @@
 
 <script setup lang="ts">
 import { ArrowLeft, Grid } from 'lucide-vue-next'
+
 definePageMeta({ title: 'Skeleton', description: 'Skeleton loader examples' })
 
 function setTheme(theme: string) {

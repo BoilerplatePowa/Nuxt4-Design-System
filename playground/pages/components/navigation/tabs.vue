@@ -127,6 +127,7 @@
 
 <script setup lang="ts">
 import { ArrowLeft, Grid } from 'lucide-vue-next'
+
 const active1 = ref('Overview')
 const tabs1 = [{ label: 'Overview' }, { label: 'Settings' }, { label: 'Profile' }]
 
