@@ -110,7 +110,7 @@
         </div>
 
         <!-- Toast Container -->
-        <BpToastContainer :toasts="toasts" position="top-right" @remove-toast="removeToast" />
+        <!--<BpToastContainer :toasts="toasts" position="top-right" @remove-toast="removeToast" />-->
     </div>
 </template>
 
