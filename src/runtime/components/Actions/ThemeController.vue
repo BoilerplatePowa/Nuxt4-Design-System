@@ -1,6 +1,4 @@
 <template>
-    since css is not manager dynamically, see to update it to be more static, with less
-    customization needed
     <div :class="controllerClasses">
         <!-- Button variant -->
         <button

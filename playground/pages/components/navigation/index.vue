@@ -14,7 +14,7 @@
             <div class="mb-12">
                 <div class="flex items-center gap-4 mb-4">
                     <div class="bg-warning/20 p-4 rounded-full">
-                        <BpIcon name="navigation" class="w-12 h-12 text-warning" />
+                        <Navigation class="w-12 h-12 text-warning" />
                     </div>
                     <div>
                         <h1 class="text-5xl font-bold">Navigation</h1>
@@ -32,7 +32,7 @@
                 <div class="card bg-base-200 shadow-xl hover:shadow-2xl transition-shadow">
                     <div class="card-body">
                         <div class="flex items-center gap-3 mb-4">
-                            <BpIcon name="navigation" class="w-8 h-8 text-primary" />
+                            <Navigation class="w-8 h-8 text-primary" />
                             <h2 class="card-title text-xl">BpTabs</h2>
                         </div>
                         <p class="text-base-content/70 mb-4">
@@ -58,7 +58,7 @@
                 <div class="card bg-base-200 shadow-xl hover:shadow-2xl transition-shadow">
                     <div class="card-body">
                         <div class="flex items-center gap-3 mb-4">
-                            <BpIcon name="navigation" class="w-8 h-8 text-accent" />
+                            <Navigation class="w-8 h-8 text-accent" />
                             <h2 class="card-title text-xl">BpSteps</h2>
                         </div>
                         <p class="text-base-content/70 mb-4">Progress indicator for flows.</p>
@@ -77,7 +77,7 @@
                 <div class="card bg-base-200 shadow-xl hover:shadow-2xl transition-shadow">
                     <div class="card-body">
                         <div class="flex items-center gap-3 mb-4">
-                            <BpIcon name="navigation" class="w-8 h-8 text-secondary" />
+                            <Navigation class="w-8 h-8 text-secondary" />
                             <h2 class="card-title text-xl">Breadcrumbs</h2>
                         </div>
                         <p class="text-base-content/70 mb-4">Hierarchical navigation trail.</p>
@@ -96,7 +96,7 @@
                 <div class="card bg-base-200 shadow-xl hover:shadow-2xl transition-shadow">
                     <div class="card-body">
                         <div class="flex items-center gap-3 mb-4">
-                            <BpIcon name="menu" class="w-8 h-8 text-info" />
+                            <Menu class="w-8 h-8 text-info" />
                             <h2 class="card-title text-xl">Menu</h2>
                         </div>
                         <p class="text-base-content/70 mb-4">Vertical and horizontal menus.</p>
@@ -112,7 +112,7 @@
                 <div class="card bg-base-200 shadow-xl hover:shadow-2xl transition-shadow">
                     <div class="card-body">
                         <div class="flex items-center gap-3 mb-4">
-                            <BpIcon name="layout" class="w-8 h-8 text-success" />
+                            <Layout class="w-8 h-8 text-success" />
                             <h2 class="card-title text-xl">Navbar</h2>
                         </div>
                         <p class="text-base-content/70 mb-4">Top navigation bar.</p>
@@ -131,7 +131,7 @@
                 <div class="card bg-base-200 shadow-xl hover:shadow-2xl transition-shadow">
                     <div class="card-body">
                         <div class="flex items-center gap-3 mb-4">
-                            <BpIcon name="navigation" class="w-8 h-8 text-warning" />
+                            <Navigation class="w-8 h-8 text-warning" />
                             <h2 class="card-title text-xl">Pagination</h2>
                         </div>
                         <p class="text-base-content/70 mb-4">Joined buttons for page navigation.</p>
@@ -150,7 +150,7 @@
                 <div class="card bg-base-200 shadow-xl hover:shadow-2xl transition-shadow">
                     <div class="card-body">
                         <div class="flex items-center gap-3 mb-4">
-                            <BpIcon name="link" class="w-8 h-8 text-primary" />
+                            <Link class="w-8 h-8 text-primary" />
                             <h2 class="card-title text-xl">Link</h2>
                         </div>
                         <p class="text-base-content/70 mb-4">Underline styles for links.</p>
@@ -169,7 +169,7 @@
                 <div class="card bg-base-200 shadow-xl hover:shadow-2xl transition-shadow">
                     <div class="card-body">
                         <div class="flex items-center gap-3 mb-4">
-                            <BpIcon name="smartphone" class="w-8 h-8 text-accent" />
+                            <Smartphone class="w-8 h-8 text-accent" />
                             <h2 class="card-title text-xl">Dock</h2>
                         </div>
                         <p class="text-base-content/70 mb-4">Bottom navigation dock.</p>
@@ -190,12 +190,12 @@
                 <div class="card bg-primary text-primary-content shadow-xl">
                     <div class="card-body text-center">
                         <h2 class="card-title text-2xl justify-center mb-4">
-                            <BpIcon name="navigation" class="w-6 h-6" />
+                            <Navigation class="w-6 h-6" />
                             Explore more components
                         </h2>
                         <div class="card-actions justify-center">
                             <NuxtLink to="/components" class="btn btn-secondary btn-lg">
-                                <BpIcon name="grid" class="w-5 h-5 mr-2" />
+                                <Grid class="w-5 h-5 mr-2" />
                                 All Components
                             </NuxtLink>
                         </div>
@@ -207,6 +207,15 @@
 </template>
 
 <script setup lang="ts">
+import {
+    Navigation,
+    Menu,
+    Layout,
+    Link,
+    Smartphone,
+    Grid,
+} from 'lucide-vue-next'
+
 definePageMeta({
     title: 'Navigation Components',
     description: 'Tabs, steps and navigation patterns',

@@ -23,7 +23,7 @@
                 <div class="card bg-base-200 shadow-xl">
                     <div class="card-body">
                         <div class="alert alert-info mb-4">
-                            <BpIcon name="info" class="w-5 h-5" />
+                            <Info class="w-5 h-5" />
                             <span>
                                 The progress bar starts at 100% and counts down to 0%, showing
                                 remaining time. Hover over a toast to pause the countdown!
@@ -32,19 +32,19 @@
 
                         <div class="flex flex-wrap gap-4">
                             <button class="btn btn-success" @click="showSuccess">
-                                <BpIcon name="check" class="w-4 h-4 mr-2" />
+                                <Check class="w-4 h-4 mr-2" />
                                 Success (3s)
                             </button>
                             <button class="btn btn-error" @click="showError">
-                                <BpIcon name="x" class="w-4 h-4 mr-2" />
+                                <X class="w-4 h-4 mr-2" />
                                 Error (5s)
                             </button>
                             <button class="btn btn-warning" @click="showWarning">
-                                <BpIcon name="alert-triangle" class="w-4 h-4 mr-2" />
+                                <AlertTriangle class="w-4 h-4 mr-2" />
                                 Warning (4s)
                             </button>
                             <button class="btn btn-info" @click="showInfo">
-                                <BpIcon name="info" class="w-4 h-4 mr-2" />
+                                <Info class="w-4 h-4 mr-2" />
                                 Info (3s)
                             </button>
                         </div>
@@ -53,19 +53,19 @@
 
                         <div class="flex flex-wrap gap-4">
                             <button class="btn btn-primary" @click="showLongDuration">
-                                <BpIcon name="clock" class="w-4 h-4 mr-2" />
+                                <Clock class="w-4 h-4 mr-2" />
                                 Long Duration (10s)
                             </button>
                             <button class="btn btn-secondary" @click="showWithTitle">
-                                <BpIcon name="message" class="w-4 h-4 mr-2" />
+                                <MessageSquare class="w-4 h-4 mr-2" />
                                 With Title
                             </button>
                             <button class="btn btn-accent" @click="showWithoutProgress">
-                                <BpIcon name="eye-off" class="w-4 h-4 mr-2" />
+                                <EyeOff class="w-4 h-4 mr-2" />
                                 No Progress Bar
                             </button>
                             <button class="btn btn-outline" @click="clearAllToasts">
-                                <BpIcon name="trash" class="w-4 h-4 mr-2" />
+                                <Trash class="w-4 h-4 mr-2" />
                                 Clear All
                             </button>
                         </div>
@@ -98,10 +98,10 @@
                         <h2 class="card-title text-2xl justify-center mb-4">Explore More</h2>
                         <div class="card-actions justify-center">
                             <NuxtLink to="/components/feedback" class="btn btn-primary">
-                                <BpIcon name="arrow-left" class="w-4 h-4 mr-2" /> Back to Feedback
+                                <ArrowLeft class="w-4 h-4 mr-2" /> Back to Feedback
                             </NuxtLink>
                             <NuxtLink to="/components" class="btn btn-outline">
-                                <BpIcon name="grid" class="w-4 h-4 mr-2" /> All Components
+                                <Grid class="w-4 h-4 mr-2" /> All Components
                             </NuxtLink>
                         </div>
                     </div>
@@ -115,6 +115,18 @@
 </template>
 
 <script setup lang="ts">
+import {
+    Info,
+    Check,
+    X,
+    AlertTriangle,
+    Clock,
+    MessageSquare,
+    EyeOff,
+    Trash,
+    ArrowLeft,
+    Grid,
+} from 'lucide-vue-next'
 import { useToast } from '#imports'
 
 definePageMeta({ title: 'Toast', description: 'Toast examples with progress bar' })

@@ -43,10 +43,10 @@
                         <h2 class="card-title text-2xl justify-center mb-4">Explore More</h2>
                         <div class="card-actions justify-center">
                             <NuxtLink to="/components/data-input" class="btn btn-primary">
-                                <BpIcon name="arrow-left" class="w-4 h-4 mr-2" /> Back to Data Input
+                                <ArrowLeft class="w-4 h-4 mr-2" /> Back to Data Input
                             </NuxtLink>
                             <NuxtLink to="/components" class="btn btn-outline">
-                                <BpIcon name="grid" class="w-4 h-4 mr-2" /> All Components
+                                <Grid class="w-4 h-4 mr-2" /> All Components
                             </NuxtLink>
                         </div>
                     </div>
@@ -57,6 +57,7 @@
 </template>
 
 <script setup lang="ts">
+import { ArrowLeft, Grid } from 'lucide-vue-next'
 definePageMeta({ title: 'Filter', description: 'Examples and usage for filter group' })
 
 function setTheme(theme: string) {

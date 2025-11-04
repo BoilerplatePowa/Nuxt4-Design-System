@@ -12,7 +12,7 @@
                         DaisyUI, and comprehensive component mapping. Build beautiful, consistent
                         interfaces with ease.
                     </p>
-                    <div class="flex flex-wrap gap-4 justify-center">
+                    <div class="flex flex-wrap gap-4 justify-center items-center">
                         <NuxtLink to="/components" class="btn btn-primary btn-lg">
                             <Eye class="w-5 h-5 mr-2" />
                             View Components
@@ -29,6 +29,10 @@
                             <ExternalLink class="w-5 h-5 mr-2" />
                             GitHub
                         </a>
+                        <div class="flex items-center gap-2">
+                            <span class="text-sm text-base-content/70">Theme:</span>
+                            <BpThemeController variant="button" />
+                        </div>
                     </div>
                 </div>
             </div>

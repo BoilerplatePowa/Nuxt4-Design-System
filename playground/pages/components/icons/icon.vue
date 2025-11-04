@@ -63,10 +63,10 @@
                         <h2 class="card-title text-2xl justify-center mb-4">Explore More</h2>
                         <div class="card-actions justify-center">
                             <NuxtLink to="/components/icons" class="btn btn-secondary">
-                                <BpIcon name="arrow-left" class="w-4 h-4 mr-2" /> Back to Icons
+                                <ArrowLeft class="w-4 h-4 mr-2" /> Back to Icons
                             </NuxtLink>
                             <NuxtLink to="/components" class="btn btn-outline">
-                                <BpIcon name="grid" class="w-4 h-4 mr-2" /> All Components
+                                <Grid class="w-4 h-4 mr-2" /> All Components
                             </NuxtLink>
                         </div>
                     </div>
@@ -78,7 +78,7 @@
 
 <script setup lang="ts">
 import { onMounted } from 'vue'
-import { Heart, Star, CheckCircle, Info, Zap, Settings, User, Home } from 'lucide-vue-next'
+import { Heart, Star, CheckCircle, Info, Zap, Settings, User, Home, ArrowLeft, Grid } from 'lucide-vue-next'
 
 definePageMeta({
     title: 'BpIcon Component',

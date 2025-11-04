@@ -18,7 +18,7 @@
                 <div class="card bg-base-200 shadow-xl mb-8">
                     <div class="card-body">
                         <h3 class="card-title text-xl mb-4">
-                            <BpIcon name="zap" class="w-5 h-5 text-primary" />
+                            <Zap class="w-5 h-5 text-primary" />
                             Button Component Examples
                         </h3>
 
@@ -117,7 +117,7 @@
                 <div class="card bg-base-200 shadow-xl mb-8">
                     <div class="card-body">
                         <h3 class="card-title text-xl mb-4">
-                            <BpIcon name="image" class="w-5 h-5 text-secondary" />
+                            <Image class="w-5 h-5 text-secondary" />
                             Icon Component Examples
                         </h3>
 
@@ -131,39 +131,14 @@
                                     <div>
                                         <p class="text-sm font-medium mb-2">Icon Grid</p>
                                         <div class="grid grid-cols-6 gap-3">
-                                            <div
-                                                v-for="icon in iconExamples"
-                                                :key="icon.name"
-                                                class="flex flex-col items-center p-2 rounded hover:bg-base-300 cursor-pointer"
-                                                @click="selectIcon(icon.name)"
-                                            >
-                                                <BpIcon
-                                                    :name="icon.name as any"
-                                                    :class="icon.class"
-                                                />
-                                                <span class="text-xs mt-1">{{ icon.name }}</span>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Selected Icon -->
-                                    <div v-if="selectedIcon" class="p-4 bg-base-300 rounded">
-                                        <p class="text-sm font-medium mb-2">
-                                            Selected Icon: {{ selectedIcon }}
-                                        </p>
-                                        <div class="flex items-center gap-4">
-                                            <BpIcon
-                                                :name="selectedIcon as any"
-                                                class="w-8 h-8 text-primary"
-                                            />
-                                            <BpIcon
-                                                :name="selectedIcon as any"
-                                                class="w-12 h-12 text-secondary"
-                                            />
-                                            <BpIcon
-                                                :name="selectedIcon as any"
-                                                class="w-16 h-16 text-accent"
-                                            />
+                                            <Heart class="w-8 h-8 text-error" />
+                                            <Star class="w-8 h-8 text-warning" />
+                                            <CheckCircle class="w-8 h-8 text-success" />
+                                            <Info class="w-8 h-8 text-info" />
+                                            <Zap class="w-8 h-8 text-primary" />
+                                            <Settings class="w-8 h-8 text-secondary" />
+                                            <User class="w-8 h-8 text-accent" />
+                                            <Home class="w-8 h-8 text-neutral" />
                                         </div>
                                     </div>
                                 </div>
@@ -176,16 +151,16 @@
                                 <div class="mockup-code text-left">
                                     <pre
                                         data-prefix="<"
-                                    ><code>&lt;Icon name="heart" class="w-6 h-6 text-error" /&gt;</code></pre>
+                                    ><code>&lt;Heart class="w-6 h-6 text-error" /&gt;</code></pre>
                                     <pre
                                         data-prefix="<"
-                                    ><code>&lt;Icon name="star" class="w-8 h-8 text-warning" /&gt;</code></pre>
+                                    ><code>&lt;Star class="w-8 h-8 text-warning" /&gt;</code></pre>
                                     <pre
                                         data-prefix="<"
-                                    ><code>&lt;Icon name="check-circle" class="w-10 h-10 text-success" /&gt;</code></pre>
+                                    ><code>&lt;CheckCircle class="w-10 h-10 text-success" /&gt;</code></pre>
                                     <pre
                                         data-prefix="<"
-                                    ><code>&lt;Icon name="info" class="w-12 h-12 text-info" /&gt;</code></pre>
+                                    ><code>&lt;Info class="w-12 h-12 text-info" /&gt;</code></pre>
                                 </div>
 
                                 <div class="mt-4 p-4 bg-base-300 rounded">
@@ -209,7 +184,7 @@
                 <div class="card bg-base-200 shadow-xl mb-8">
                     <div class="card-body">
                         <h3 class="card-title text-xl mb-4">
-                            <BpIcon name="edit" class="w-5 h-5 text-accent" />
+                            <Edit class="w-5 h-5 text-accent" />
                             Form Component Examples
                         </h3>
 
@@ -282,7 +257,7 @@
                 <div class="card bg-base-200 shadow-xl">
                     <div class="card-body">
                         <h3 class="card-title text-xl mb-4">
-                            <BpIcon name="file" class="w-5 h-5" />
+                            <File class="w-5 h-5" />
                             Interactive Code Editor
                         </h3>
 
@@ -298,11 +273,11 @@
 
                                 <div class="mt-4 flex gap-2">
                                     <button class="btn btn-primary btn-sm" @click="runCode">
-                                        <BpIcon name="zap" class="w-4 h-4 mr-2" />
+                                        <Zap class="w-4 h-4 mr-2" />
                                         Run Code
                                     </button>
                                     <button class="btn btn-ghost btn-sm" @click="resetCode">
-                                        <BpIcon name="refresh-cw" class="w-4 h-4 mr-2" />
+                                        <RefreshCw class="w-4 h-4 mr-2" />
                                         Reset
                                     </button>
                                 </div>
@@ -322,8 +297,7 @@
                                         v-html="compiledPreview"
                                     />
                                     <div v-else class="text-base-content/50 text-center py-8">
-                                        <BpIcon
-                                            name="file"
+                                        <File
                                             class="w-12 h-12 mx-auto mb-2 opacity-50"
                                         />
                                         <p>Enter code to see live preview</p>
@@ -354,7 +328,7 @@
                 <div class="card bg-primary text-primary-content shadow-xl">
                     <div class="card-body text-center">
                         <h2 class="card-title text-2xl justify-center mb-4">
-                            <BpIcon name="navigation" class="w-6 h-6" />
+                            <Navigation class="w-6 h-6" />
                             Ready to Code?
                         </h2>
                         <p class="mb-6">
@@ -363,11 +337,11 @@
                         </p>
                         <div class="card-actions justify-center">
                             <NuxtLink to="/components" class="btn btn-secondary btn-lg">
-                                <BpIcon name="grid" class="w-5 h-5 mr-2" />
+                                <Grid class="w-5 h-5 mr-2" />
                                 Browse Components
                             </NuxtLink>
                             <NuxtLink to="/installation" class="btn btn-outline btn-lg">
-                                <BpIcon name="download" class="w-5 h-5 mr-2" />
+                                <Download class="w-5 h-5 mr-2" />
                                 Get Started
                             </NuxtLink>
                         </div>
@@ -387,7 +361,6 @@ definePageMeta({
 // Reactive state
 const isLoading = ref(false)
 const isDisabled = ref(false)
-const selectedIcon = ref<(typeof iconExamples)[number]['name']>('heart')
 const activeButtonTab = ref('colors')
 const playgroundCode = ref('')
 const previewError = ref('')
@@ -411,16 +384,6 @@ const buttonTabs = [
     { id: 'sizes', label: 'Sizes' },
     { id: 'states', label: 'States' },
 ]
-
-const iconExamples = [
-    { name: 'heart', class: 'w-6 h-6 text-error' },
-    { name: 'star', class: 'w-6 h-6 text-warning' },
-    { name: 'check-circle', class: 'w-6 h-6 text-success' },
-    { name: 'info', class: 'w-6 h-6 text-info' },
-    { name: 'zap', class: 'w-6 h-6 text-primary' },
-    { name: 'settings', class: 'w-6 h-6 text-secondary' },
-]
-
 const codeTemplates = [
     {
         name: 'Simple Button',
@@ -429,17 +392,17 @@ const codeTemplates = [
     {
         name: 'Button with Icon',
         code: `<BpButton color="accent" size="lg">
-  <BpIcon name="heart" class="w-4 h-4 mr-2" />
+  <Heart class="w-4 h-4 mr-2" />
   Like
 </BpButton>`,
     },
     {
         name: 'Icon Grid',
         code: `<div class="grid grid-cols-4 gap-4">
-  <BpIcon name="home" class="w-8 h-8 text-primary" />
-  <BpIcon name="user" class="w-8 h-8 text-secondary" />
-  <BpIcon name="settings" class="w-8 h-8 text-accent" />
-  <BpIcon name="search" class="w-8 h-8 text-info" />
+  <Home class="w-8 h-8 text-primary" />
+  <User class="w-8 h-8 text-secondary" />
+  <Settings class="w-8 h-8 text-accent" />
+  <Search class="w-8 h-8 text-info" />
 </div>`,
     },
 ]
@@ -451,10 +414,6 @@ function toggleLoading() {
 
 function toggleDisabled() {
     isDisabled.value = !isDisabled.value
-}
-
-function selectIcon(iconName: (typeof iconExamples)[number]['name']) {
-    selectedIcon.value = iconName
 }
 
 function getButtonCode() {
@@ -534,6 +493,17 @@ function loadTemplate(code: string) {
     playgroundCode.value = code
     runCode()
 }
+
+import {
+    Zap,
+    Image,
+    Edit,
+    File,
+    RefreshCw,
+    Navigation,
+    Grid,
+    Download,
+} from 'lucide-vue-next'
 
 // Theme management
 function setTheme(theme: string) {

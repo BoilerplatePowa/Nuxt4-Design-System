@@ -5,7 +5,7 @@
             <div class="navbar-start">
                 <div class="dropdown">
                     <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
-                        <BpIcon name="menu" class="w-5 h-5" />
+                        <Menu class="w-5 h-5" />
                     </div>
                     <ul
                         tabindex="0"
@@ -22,7 +22,7 @@
                     </ul>
                 </div>
                 <NuxtLink to="/" class="btn btn-ghost text-xl">
-                    <BpIcon name="zap" class="w-6 h-6 text-primary mr-2" />
+                    <Zap class="w-6 h-6 text-primary mr-2" />
                     Nuxt DS
                 </NuxtLink>
             </div>
@@ -50,7 +50,7 @@
                 <!-- Theme Switcher -->
                 <div class="dropdown dropdown-end">
                     <div tabindex="0" role="button" class="btn btn-ghost">
-                        <BpIcon name="settings" class="w-5 h-5" />
+                        <Settings class="w-5 h-5" />
                     </div>
                     <ul
                         tabindex="0"
@@ -58,25 +58,25 @@
                     >
                         <li>
                             <button class="flex items-center gap-2" @click="setTheme('light')">
-                                <BpIcon name="sun" class="w-4 h-4" />
+                                <Sun class="w-4 h-4" />
                                 Light
                             </button>
                         </li>
                         <li>
                             <button class="flex items-center gap-2" @click="setTheme('dark')">
-                                <BpIcon name="moon" class="w-4 h-4" />
+                                <Moon class="w-4 h-4" />
                                 Dark
                             </button>
                         </li>
                         <li>
                             <button class="flex items-center gap-2" @click="setTheme('corporate')">
-                                <BpIcon name="building" class="w-4 h-4" />
+                                <Building class="w-4 h-4" />
                                 Corporate
                             </button>
                         </li>
                         <li>
                             <button class="flex items-center gap-2" @click="setTheme('synthwave')">
-                                <BpIcon name="zap" class="w-4 h-4" />
+                                <Zap class="w-4 h-4" />
                                 Synthwave
                             </button>
                         </li>
@@ -89,7 +89,7 @@
                     target="_blank"
                     class="btn btn-ghost btn-circle"
                 >
-                    <BpIcon name="external-link" class="w-5 h-5" />
+                    <ExternalLink class="w-5 h-5" />
                 </a>
             </div>
         </header>
@@ -102,7 +102,7 @@
         <!-- Footer -->
         <footer class="footer footer-center p-10 bg-base-300 text-base-content">
             <div>
-                <BpIcon name="zap" class="w-8 h-8 text-primary" />
+                <Zap class="w-8 h-8 text-primary" />
                 <p class="font-bold">
                     Nuxt Design System <br />
                     Built with ❤️ for the Vue community
@@ -116,7 +116,7 @@
                         target="_blank"
                         class="link link-hover"
                     >
-                        <BpIcon name="external-link" class="w-5 h-5" />
+                        <ExternalLink class="w-5 h-5" />
                     </a>
                     <NuxtLink to="/components" class="link link-hover">Documentation</NuxtLink>
                     <NuxtLink to="/examples" class="link link-hover">Examples</NuxtLink>
@@ -133,7 +133,9 @@
 </template>
 
 <script setup lang="ts">
+import { Building, ExternalLink, Moon, Settings, Sun, Zap } from 'lucide-vue-next'
 import { ref, onMounted, onBeforeMount } from 'vue'
+import Menu from '~/pages/components/navigation/menu.vue'
 
 // Theme management
 const currentTheme = ref('light')

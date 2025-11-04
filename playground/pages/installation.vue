@@ -15,7 +15,7 @@
                 <div class="card bg-base-200 shadow-xl">
                     <div class="card-body">
                         <h2 class="card-title text-2xl mb-4">
-                            <BpIcon name="check-circle" class="w-6 h-6 text-success" />
+                            <CheckCircle class="w-6 h-6 text-success" />
                             Prerequisites
                         </h2>
                         <div class="grid md:grid-cols-2 gap-6">
@@ -23,15 +23,15 @@
                                 <h3 class="font-bold mb-2">Required Dependencies</h3>
                                 <ul class="space-y-2">
                                     <li class="flex items-center">
-                                        <BpIcon name="check" class="w-4 h-4 text-success mr-2" />
+                                        <Check class="w-4 h-4 text-success mr-2" />
                                         Nuxt 4.1.2 or higher
                                     </li>
                                     <li class="flex items-center">
-                                        <BpIcon name="check" class="w-4 h-4 text-success mr-2" />
+                                        <Check class="w-4 h-4 text-success mr-2" />
                                         Node.js 18+ or 20+
                                     </li>
                                     <li class="flex items-center">
-                                        <BpIcon name="check" class="w-4 h-4 text-success mr-2" />
+                                        <Check class="w-4 h-4 text-success mr-2" />
                                         npm, yarn, or pnpm
                                     </li>
                                 </ul>
@@ -40,15 +40,15 @@
                                 <h3 class="font-bold mb-2">Optional Dependencies</h3>
                                 <ul class="space-y-2">
                                     <li class="flex items-center">
-                                        <BpIcon name="info" class="w-4 h-4 text-info mr-2" />
+                                        <Info class="w-4 h-4 text-info mr-2" />
                                         TypeScript (recommended)
                                     </li>
                                     <li class="flex items-center">
-                                        <BpIcon name="info" class="w-4 h-4 text-info mr-2" />
+                                        <Info class="w-4 h-4 text-info mr-2" />
                                         TailwindCSS (included)
                                     </li>
                                     <li class="flex items-center">
-                                        <BpIcon name="info" class="w-4 h-4 text-info mr-2" />
+                                        <Info class="w-4 h-4 text-info mr-2" />
                                         DaisyUI (included)
                                     </li>
                                 </ul>
@@ -149,7 +149,7 @@
                                 </p>
 
                                 <div class="alert alert-info mb-4">
-                                    <BpIcon name="info" class="w-5 h-5" />
+                                    <Info class="w-5 h-5" />
                                     <div>
                                         <h4 class="font-bold">Recommended Approach</h4>
                                         <p class="text-sm">
@@ -265,7 +265,7 @@
                     <div class="card bg-base-200 shadow-xl">
                         <div class="card-body">
                             <h3 class="card-title text-xl mb-4">
-                                <BpIcon name="settings" class="w-5 h-5" />
+                                <Settings class="w-5 h-5" />
                                 Theme Configuration
                             </h3>
                             <p class="mb-4">
@@ -273,7 +273,7 @@
                             </p>
 
                             <div class="alert alert-success mb-4">
-                                <BpIcon name="check-circle" class="w-5 h-5" />
+                                <CheckCircle class="w-5 h-5" />
                                 <div>
                                     <h4 class="font-bold">Included Themes</h4>
                                     <p class="text-sm">
@@ -303,7 +303,7 @@
                     <div class="card bg-base-200 shadow-xl">
                         <div class="card-body">
                             <h3 class="card-title text-xl mb-4">
-                                <BpIcon name="settings" class="w-5 h-5" />
+                                <Settings class="w-5 h-5" />
                                 Component Customization
                             </h3>
                             <p class="mb-4">
@@ -335,7 +335,7 @@
                     <div class="card bg-base-200 shadow-xl">
                         <div class="card-body">
                             <h3 class="card-title text-xl mb-4">
-                                <BpIcon name="alert-triangle" class="w-5 h-5 text-warning" />
+                                <AlertTriangle class="w-5 h-5 text-warning" />
                                 Common Issues
                             </h3>
 
@@ -378,7 +378,7 @@
                 <div class="card bg-primary text-primary-content shadow-xl">
                     <div class="card-body text-center">
                         <h2 class="card-title text-2xl justify-center mb-4">
-                            <BpIcon name="arrow-right" class="w-6 h-6" />
+                            <ArrowRight class="w-6 h-6" />
                             Ready to Get Started?
                         </h2>
                         <p class="mb-6">
@@ -387,11 +387,11 @@
                         </p>
                         <div class="card-actions justify-center">
                             <NuxtLink to="/components" class="btn btn-secondary btn-lg">
-                                <BpIcon name="eye" class="w-5 h-5 mr-2" />
+                                <Eye class="w-5 h-5 mr-2" />
                                 Browse Components
                             </NuxtLink>
                             <NuxtLink to="/examples" class="btn btn-outline btn-lg">
-                                <BpIcon name="file" class="w-5 h-5 mr-2" />
+                                <File class="w-5 h-5 mr-2" />
                                 View Examples
                             </NuxtLink>
                         </div>
@@ -409,6 +409,17 @@ definePageMeta({
     description:
         'Complete installation guide for Nuxt Design System - step by step setup instructions',
 })
+
+import {
+    CheckCircle,
+    Check,
+    Info,
+    Settings,
+    AlertTriangle,
+    ArrowRight,
+    Eye,
+    File,
+} from 'lucide-vue-next'
 
 // Theme management
 function setTheme(theme: string) {

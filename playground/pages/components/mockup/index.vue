@@ -14,7 +14,7 @@
             <div class="mb-12">
                 <div class="flex items-center gap-4 mb-4">
                     <div class="bg-neutral/20 p-4 rounded-full">
-                        <BpIcon name="monitor" class="w-12 h-12 text-neutral" />
+                        <Monitor class="w-12 h-12 text-neutral" />
                     </div>
                     <div>
                         <h1 class="text-5xl font-bold">Mockup</h1>
@@ -32,7 +32,7 @@
                 <div class="card bg-base-200 shadow-xl hover:shadow-2xl transition-shadow">
                     <div class="card-body">
                         <div class="flex items-center gap-3 mb-4">
-                            <BpIcon name="globe" class="w-8 h-8 text-primary" />
+                            <Globe class="w-8 h-8 text-primary" />
                             <h2 class="card-title text-xl">BpBrowserMockup</h2>
                         </div>
                         <p class="text-base-content/70 mb-4">Browser window-styled container.</p>
@@ -51,7 +51,7 @@
                 <div class="card bg-base-200 shadow-xl hover:shadow-2xl transition-shadow">
                     <div class="card-body">
                         <div class="flex items-center gap-3 mb-4">
-                            <BpIcon name="smartphone" class="w-8 h-8 text-accent" />
+                            <Smartphone class="w-8 h-8 text-accent" />
                             <h2 class="card-title text-xl">BpPhoneMockup</h2>
                         </div>
                         <p class="text-base-content/70 mb-4">Phone-styled container.</p>
@@ -67,7 +67,7 @@
                 <div class="card bg-base-200 shadow-xl hover:shadow-2xl transition-shadow">
                     <div class="card-body">
                         <div class="flex items-center gap-3 mb-4">
-                            <BpIcon name="code" class="w-8 h-8 text-info" />
+                            <Code class="w-8 h-8 text-info" />
                             <h2 class="card-title text-xl">BpCodeMockup</h2>
                         </div>
                         <p class="text-base-content/70 mb-4">Code editor-style container.</p>
@@ -83,7 +83,7 @@
                 <div class="card bg-base-200 shadow-xl hover:shadow-2xl transition-shadow">
                     <div class="card-body">
                         <div class="flex items-center gap-3 mb-4">
-                            <BpIcon name="window" class="w-8 h-8 text-warning" />
+                            <AppWindow class="w-8 h-8 text-warning" />
                             <h2 class="card-title text-xl">BpWindowMockup</h2>
                         </div>
                         <p class="text-base-content/70 mb-4">Desktop window-style container.</p>
@@ -101,12 +101,12 @@
                 <div class="card bg-primary text-primary-content shadow-xl">
                     <div class="card-body text-center">
                         <h2 class="card-title text-2xl justify-center mb-4">
-                            <BpIcon name="navigation" class="w-6 h-6" />
+                            <Navigation class="w-6 h-6" />
                             Explore more components
                         </h2>
                         <div class="card-actions justify-center">
                             <NuxtLink to="/components" class="btn btn-secondary btn-lg">
-                                <BpIcon name="grid" class="w-5 h-5 mr-2" />
+                                <Grid class="w-5 h-5 mr-2" />
                                 All Components
                             </NuxtLink>
                         </div>
@@ -118,6 +118,8 @@
 </template>
 
 <script setup lang="ts">
+import { Monitor, Globe, Smartphone, Code, AppWindow, Navigation, Grid } from 'lucide-vue-next'
+
 definePageMeta({
     title: 'Mockup Components',
     description: 'Device and window mockups',

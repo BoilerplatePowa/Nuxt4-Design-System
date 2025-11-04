@@ -14,7 +14,7 @@
             <div class="mb-12">
                 <div class="flex items-center gap-4 mb-4">
                     <div class="bg-neutral/20 p-4 rounded-full">
-                        <BpIcon name="image" class="w-12 h-12 text-neutral" />
+                        <Image class="w-12 h-12 text-neutral" />
                     </div>
                     <div>
                         <h1 class="text-5xl font-bold">Icons</h1>
@@ -31,7 +31,7 @@
                 <div class="card bg-base-200 shadow-xl hover:shadow-2xl transition-shadow">
                     <div class="card-body">
                         <div class="flex items-center gap-3 mb-4">
-                            <BpIcon name="image" class="w-8 h-8 text-secondary" />
+                            <Image class="w-8 h-8 text-secondary" />
                             <h2 class="card-title text-xl">BpIcon</h2>
                         </div>
                         <p class="text-base-content/70 mb-4">
@@ -51,12 +51,12 @@
                 <div class="card bg-primary text-primary-content shadow-xl">
                     <div class="card-body text-center">
                         <h2 class="card-title text-2xl justify-center mb-4">
-                            <BpIcon name="navigation" class="w-6 h-6" />
+                            <Navigation class="w-6 h-6" />
                             Explore more components
                         </h2>
                         <div class="card-actions justify-center">
                             <NuxtLink to="/components" class="btn btn-secondary btn-lg">
-                                <BpIcon name="grid" class="w-5 h-5 mr-2" />
+                                <Grid class="w-5 h-5 mr-2" />
                                 All Components
                             </NuxtLink>
                         </div>
@@ -68,6 +68,8 @@
 </template>
 
 <script setup lang="ts">
+import { Image, Navigation, Grid } from 'lucide-vue-next'
+
 definePageMeta({
     title: 'Icons',
     description: 'Icon component overview',

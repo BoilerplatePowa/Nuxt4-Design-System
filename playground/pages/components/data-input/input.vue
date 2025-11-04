@@ -29,20 +29,20 @@
                             <h3 class="font-bold mb-2">Key Features</h3>
                             <ul class="space-y-2">
                                 <li class="flex items-center">
-                                    <BpIcon name="check" class="w-4 h-4 text-success mr-2" />
+                                    <Check class="w-4 h-4 text-success mr-2" />
                                     Sizes (xs, sm, md, lg) and variants (bordered, ghost, primary,
                                     ...)
                                 </li>
                                 <li class="flex items-center">
-                                    <BpIcon name="check" class="w-4 h-4 text-success mr-2" />
+                                    <Check class="w-4 h-4 text-success mr-2" />
                                     Left/Right icons and password toggle
                                 </li>
                                 <li class="flex items-center">
-                                    <BpIcon name="check" class="w-4 h-4 text-success mr-2" />
+                                    <Check class="w-4 h-4 text-success mr-2" />
                                     IMask presets (phone, date, currency, number, email, ...)
                                 </li>
                                 <li class="flex items-center">
-                                    <BpIcon name="check" class="w-4 h-4 text-success mr-2" />
+                                    <Check class="w-4 h-4 text-success mr-2" />
                                     VeeValidate Field integration with error + help text
                                 </li>
                             </ul>
@@ -51,15 +51,15 @@
                             <h3 class="font-bold mb-2">When to Use</h3>
                             <ul class="space-y-2">
                                 <li class="flex items-center">
-                                    <BpIcon name="arrow-right" class="w-4 h-4 text-primary mr-2" />
+                                    <ArrowRight class="w-4 h-4 text-primary mr-2" />
                                     Collecting text, email, password or numeric input
                                 </li>
                                 <li class="flex items-center">
-                                    <BpIcon name="arrow-right" class="w-4 h-4 text-primary mr-2" />
+                                    <ArrowRight class="w-4 h-4 text-primary mr-2" />
                                     Inputs with formatting/masking requirements
                                 </li>
                                 <li class="flex items-center">
-                                    <BpIcon name="arrow-right" class="w-4 h-4 text-primary mr-2" />
+                                    <ArrowRight class="w-4 h-4 text-primary mr-2" />
                                     Inputs that require validation feedback
                                 </li>
                             </ul>
@@ -191,7 +191,7 @@
                                     name="search"
                                     label="Search"
                                     placeholder="Search..."
-                                    left-icon="search"
+                                    :left-icon="Search"
                                 />
                                 <BpInput
                                     v-model="amount"
@@ -199,7 +199,7 @@
                                     label="Amount"
                                     placeholder="0.00"
                                     :mask-type="'currency'"
-                                    right-icon="banknote"
+                                    :right-icon="Banknote"
                                 />
                                 <BpInput
                                     v-model="phone"
@@ -393,10 +393,10 @@
                         <h2 class="card-title text-2xl justify-center mb-4">Explore More</h2>
                         <div class="card-actions justify-center">
                             <NuxtLink to="/components/data-input" class="btn btn-primary">
-                                <BpIcon name="arrow-left" class="w-4 h-4 mr-2" /> Back to Data Input
+                                <ArrowLeft class="w-4 h-4 mr-2" /> Back to Data Input
                             </NuxtLink>
                             <NuxtLink to="/components" class="btn btn-outline">
-                                <BpIcon name="grid" class="w-4 h-4 mr-2" /> All Components
+                                <Grid class="w-4 h-4 mr-2" /> All Components
                             </NuxtLink>
                         </div>
                     </div>
@@ -407,6 +407,7 @@
 </template>
 
 <script setup lang="ts">
+import { ArrowLeft, Grid, Check, ArrowRight, Search, Banknote } from 'lucide-vue-next'
 const basic = ref('')
 const email = ref('')
 const password = ref('')

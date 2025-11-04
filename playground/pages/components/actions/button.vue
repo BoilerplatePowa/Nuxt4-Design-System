@@ -49,24 +49,24 @@
                                 <h3 class="font-bold mb-2">Key Features</h3>
                                 <ul class="space-y-2">
                                     <li class="flex items-center">
-                                        <BpIcon name="check" class="w-4 h-4 text-success mr-2" />
+                                        <Check class="w-4 h-4 text-success mr-2" />
                                         Multiple color variants (primary, secondary, accent, ghost,
                                         etc.)
                                     </li>
                                     <li class="flex items-center">
-                                        <BpIcon name="check" class="w-4 h-4 text-success mr-2" />
+                                        <Check class="w-4 h-4 text-success mr-2" />
                                         Size options (xs, sm, md, lg)
                                     </li>
                                     <li class="flex items-center">
-                                        <BpIcon name="check" class="w-4 h-4 text-success mr-2" />
+                                        <Check class="w-4 h-4 text-success mr-2" />
                                         Loading states with spinner
                                     </li>
                                     <li class="flex items-center">
-                                        <BpIcon name="check" class="w-4 h-4 text-success mr-2" />
+                                        <Check class="w-4 h-4 text-success mr-2" />
                                         Disabled states
                                     </li>
                                     <li class="flex items-center">
-                                        <BpIcon name="check" class="w-4 h-4 text-success mr-2" />
+                                        <Check class="w-4 h-4 text-success mr-2" />
                                         Full accessibility support
                                     </li>
                                 </ul>
@@ -76,29 +76,25 @@
                                 <h3 class="font-bold mb-2">When to Use</h3>
                                 <ul class="space-y-2">
                                     <li class="flex items-center">
-                                        <BpIcon
-                                            name="arrow-right"
+                                        <ArrowRight
                                             class="w-4 h-4 text-primary mr-2"
                                         />
                                         Primary actions and form submissions
                                     </li>
                                     <li class="flex items-center">
-                                        <BpIcon
-                                            name="arrow-right"
+                                        <ArrowRight
                                             class="w-4 h-4 text-primary mr-2"
                                         />
                                         Navigation and links
                                     </li>
                                     <li class="flex items-center">
-                                        <BpIcon
-                                            name="arrow-right"
+                                        <ArrowRight
                                             class="w-4 h-4 text-primary mr-2"
                                         />
                                         Interactive elements
                                     </li>
                                     <li class="flex items-center">
-                                        <BpIcon
-                                            name="arrow-right"
+                                        <ArrowRight
                                             class="w-4 h-4 text-primary mr-2"
                                         />
                                         Call-to-action buttons
@@ -312,10 +308,10 @@
 
                         <div class="flex flex-wrap gap-2 mb-4">
                             <BpButton color="primary" shape="circle">
-                                <BpIcon name="heart" class="w-4 h-4" />
+                                <Heart class="w-4 h-4" />
                             </BpButton>
                             <BpButton color="primary" shape="square">
-                                <BpIcon name="star" class="w-4 h-4" />
+                                <Star class="w-4 h-4" />
                             </BpButton>
                         </div>
 
@@ -428,19 +424,19 @@
                                 <h3 class="font-bold mb-4">WCAG 2.1 AA Compliant</h3>
                                 <ul class="space-y-2">
                                     <li class="flex items-center">
-                                        <BpIcon name="check" class="w-4 h-4 text-success mr-2" />
+                                        <Check class="w-4 h-4 text-success mr-2" />
                                         Proper button role and semantics
                                     </li>
                                     <li class="flex items-center">
-                                        <BpIcon name="check" class="w-4 h-4 text-success mr-2" />
+                                        <Check class="w-4 h-4 text-success mr-2" />
                                         Keyboard navigation support
                                     </li>
                                     <li class="flex items-center">
-                                        <BpIcon name="check" class="w-4 h-4 text-success mr-2" />
+                                        <Check class="w-4 h-4 text-success mr-2" />
                                         Screen reader announcements
                                     </li>
                                     <li class="flex items-center">
-                                        <BpIcon name="check" class="w-4 h-4 text-success mr-2" />
+                                        <Check class="w-4 h-4 text-success mr-2" />
                                         Focus indicators
                                     </li>
                                 </ul>
@@ -450,19 +446,19 @@
                                 <h3 class="font-bold mb-4">ARIA Support</h3>
                                 <ul class="space-y-2">
                                     <li class="flex items-center">
-                                        <BpIcon name="check" class="w-4 h-4 text-success mr-2" />
+                                        <Check class="w-4 h-4 text-success mr-2" />
                                         aria-label for icon-only buttons
                                     </li>
                                     <li class="flex items-center">
-                                        <BpIcon name="check" class="w-4 h-4 text-success mr-2" />
+                                        <Check class="w-4 h-4 text-success mr-2" />
                                         aria-disabled for disabled state
                                     </li>
                                     <li class="flex items-center">
-                                        <BpIcon name="check" class="w-4 h-4 text-success mr-2" />
+                                        <Check class="w-4 h-4 text-success mr-2" />
                                         aria-busy for loading state
                                     </li>
                                     <li class="flex items-center">
-                                        <BpIcon name="check" class="w-4 h-4 text-success mr-2" />
+                                        <Check class="w-4 h-4 text-success mr-2" />
                                         aria-describedby for help text
                                     </li>
                                 </ul>
@@ -505,11 +501,11 @@
                         </h2>
                         <div class="card-actions justify-center">
                             <NuxtLink to="/components/actions" class="btn btn-primary">
-                                <BpIcon name="arrow-left" class="w-4 h-4 mr-2" />
+                                <ArrowLeft class="w-4 h-4 mr-2" />
                                 Back to Actions
                             </NuxtLink>
                             <NuxtLink to="/components" class="btn btn-outline">
-                                <BpIcon name="grid" class="w-4 h-4 mr-2" />
+                                <Grid class="w-4 h-4 mr-2" />
                                 All Components
                             </NuxtLink>
                         </div>
@@ -521,6 +517,8 @@
 </template>
 
 <script setup lang="ts">
+import { Check, ArrowRight, Heart, Star, ArrowLeft, Grid } from 'lucide-vue-next'
+
 // Page metadata
 definePageMeta({
     title: 'BpButton Component',

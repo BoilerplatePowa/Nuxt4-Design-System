@@ -14,7 +14,7 @@
             <div class="mb-12">
                 <div class="flex items-center gap-4 mb-4">
                     <div class="bg-primary/20 p-4 rounded-full">
-                        <BpIcon name="zap" class="w-12 h-12 text-primary" />
+                        <Zap class="w-12 h-12 text-primary" />
                     </div>
                     <div>
                         <h1 class="text-5xl font-bold">Actions</h1>
@@ -36,7 +36,7 @@
                 <div class="card bg-base-200 shadow-xl hover:shadow-2xl transition-shadow">
                     <div class="card-body">
                         <div class="flex items-center gap-3 mb-4">
-                            <BpIcon name="zap" class="w-8 h-8 text-primary" />
+                            <Zap class="w-8 h-8 text-primary" />
                             <h2 class="card-title text-xl">BpButton</h2>
                         </div>
                         <p class="text-base-content/70 mb-4">
@@ -66,7 +66,7 @@
                 <div class="card bg-base-200 shadow-xl hover:shadow-2xl transition-shadow">
                     <div class="card-body">
                         <div class="flex items-center gap-3 mb-4">
-                            <BpIcon name="chevron-down" class="w-8 h-8 text-secondary" />
+                            <ChevronDown class="w-8 h-8 text-secondary" />
                             <h2 class="card-title text-xl">BpDropdown</h2>
                         </div>
                         <p class="text-base-content/70 mb-4">
@@ -95,7 +95,7 @@
                 <div class="card bg-base-200 shadow-xl hover:shadow-2xl transition-shadow">
                     <div class="card-body">
                         <div class="flex items-center gap-3 mb-4">
-                            <BpIcon name="maximize" class="w-8 h-8 text-accent" />
+                            <Maximize class="w-8 h-8 text-accent" />
                             <h2 class="card-title text-xl">BpModal</h2>
                         </div>
                         <p class="text-base-content/70 mb-4">
@@ -121,7 +121,7 @@
                 <div class="card bg-base-200 shadow-xl hover:shadow-2xl transition-shadow">
                     <div class="card-body">
                         <div class="flex items-center gap-3 mb-4">
-                            <BpIcon name="refresh-cw" class="w-8 h-8 text-info" />
+                            <RefreshCw class="w-8 h-8 text-info" />
                             <h2 class="card-title text-xl">BpSwap</h2>
                         </div>
                         <p class="text-base-content/70 mb-4">
@@ -143,22 +143,22 @@
                     </div>
                 </div>
 
-                <!-- FAB Component -->
+                <!-- Theme Controller Component -->
                 <div class="card bg-base-200 shadow-xl hover:shadow-2xl transition-shadow">
                     <div class="card-body">
                         <div class="flex items-center gap-3 mb-4">
-                            <BpIcon name="plus" class="w-8 h-8 text-success" />
-                            <h2 class="card-title text-xl">BpFab</h2>
+                            <Palette class="w-8 h-8 text-success" />
+                            <h2 class="card-title text-xl">BpThemeController</h2>
                         </div>
                         <p class="text-base-content/70 mb-4">
-                            A floating action button component for primary actions. Supports various
-                            positions and sub-actions.
+                            Toggle and select DaisyUI themes with multiple UI variants. Supports
+                            button, toggle, switch, dropdown, and radio variants.
                         </p>
 
                         <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="badge badge-success">Floating</span>
-                            <span class="badge badge-success">Primary</span>
-                            <span class="badge badge-success">Sub-actions</span>
+                            <span class="badge badge-success">Theme</span>
+                            <span class="badge badge-success">Toggle</span>
+                            <span class="badge badge-success">Variants</span>
                         </div>
 
                         <div class="card-actions justify-end">
@@ -166,7 +166,7 @@
                                 to="/components/actions/theme-controller"
                                 class="btn btn-success btn-sm"
                             >
-                                Theme Controller
+                                View Details
                             </NuxtLink>
                         </div>
                     </div>
@@ -180,7 +180,7 @@
                 <div class="grid md:grid-cols-3 gap-8">
                     <div class="card bg-base-200 shadow-xl">
                         <div class="card-body text-center">
-                            <BpIcon name="shield" class="w-12 h-12 text-success mx-auto mb-4" />
+                            <Shield class="w-12 h-12 text-success mx-auto mb-4" />
                             <h3 class="card-title justify-center">Accessibility First</h3>
                             <p>
                                 All action components are built with WCAG 2.1 AA compliance in mind,
@@ -191,7 +191,7 @@
 
                     <div class="card bg-base-200 shadow-xl">
                         <div class="card-body text-center">
-                            <BpIcon name="settings" class="w-12 h-12 text-primary mx-auto mb-4" />
+                            <Settings class="w-12 h-12 text-primary mx-auto mb-4" />
                             <h3 class="card-title justify-center">Theme Ready</h3>
                             <p>
                                 Components automatically adapt to your DaisyUI theme, providing
@@ -202,7 +202,7 @@
 
                     <div class="card bg-base-200 shadow-xl">
                         <div class="card-body text-center">
-                            <BpIcon name="zap" class="w-12 h-12 text-accent mx-auto mb-4" />
+                            <Zap class="w-12 h-12 text-accent mx-auto mb-4" />
                             <h3 class="card-title justify-center">Performance Optimized</h3>
                             <p>
                                 Built with modern Vue 3 patterns and optimized for performance,
@@ -222,7 +222,7 @@
                     <div class="card bg-base-200 shadow-xl">
                         <div class="card-body">
                             <h3 class="card-title text-xl mb-4">
-                                <BpIcon name="edit" class="w-5 h-5" />
+                                <Edit class="w-5 h-5" />
                                 Form Actions
                             </h3>
                             <p class="mb-4">Common patterns for form submission and actions.</p>
@@ -248,7 +248,7 @@
                     <div class="card bg-base-200 shadow-xl">
                         <div class="card-body">
                             <h3 class="card-title text-xl mb-4">
-                                <BpIcon name="navigation" class="w-5 h-5" />
+                                <Navigation class="w-5 h-5" />
                                 Navigation Actions
                             </h3>
                             <p class="mb-4">Buttons and actions for navigation and user flow.</p>
@@ -283,19 +283,19 @@
                                 <h3 class="font-bold mb-4 text-success">✅ Do</h3>
                                 <ul class="space-y-2">
                                     <li class="flex items-center">
-                                        <BpIcon name="check" class="w-4 h-4 text-success mr-2" />
+                                        <Check class="w-4 h-4 text-success mr-2" />
                                         Use primary buttons for main actions
                                     </li>
                                     <li class="flex items-center">
-                                        <BpIcon name="check" class="w-4 h-4 text-success mr-2" />
+                                        <Check class="w-4 h-4 text-success mr-2" />
                                         Provide clear, descriptive labels
                                     </li>
                                     <li class="flex items-center">
-                                        <BpIcon name="check" class="w-4 h-4 text-success mr-2" />
+                                        <Check class="w-4 h-4 text-success mr-2" />
                                         Use appropriate button sizes for context
                                     </li>
                                     <li class="flex items-center">
-                                        <BpIcon name="check" class="w-4 h-4 text-success mr-2" />
+                                        <Check class="w-4 h-4 text-success mr-2" />
                                         Include loading states for async actions
                                     </li>
                                 </ul>
@@ -305,19 +305,19 @@
                                 <h3 class="font-bold mb-4 text-error">❌ Don't</h3>
                                 <ul class="space-y-2">
                                     <li class="flex items-center">
-                                        <BpIcon name="x" class="w-4 h-4 text-error mr-2" />
+                                        <X class="w-4 h-4 text-error mr-2" />
                                         Overuse primary buttons
                                     </li>
                                     <li class="flex items-center">
-                                        <BpIcon name="x" class="w-4 h-4 text-error mr-2" />
+                                        <X class="w-4 h-4 text-error mr-2" />
                                         Use vague or unclear labels
                                     </li>
                                     <li class="flex items-center">
-                                        <BpIcon name="x" class="w-4 h-4 text-error mr-2" />
+                                        <X class="w-4 h-4 text-error mr-2" />
                                         Mix button styles inconsistently
                                     </li>
                                     <li class="flex items-center">
-                                        <BpIcon name="x" class="w-4 h-4 text-error mr-2" />
+                                        <X class="w-4 h-4 text-error mr-2" />
                                         Forget loading states for user feedback
                                     </li>
                                 </ul>
@@ -332,7 +332,7 @@
                 <div class="card bg-primary text-primary-content shadow-xl">
                     <div class="card-body text-center">
                         <h2 class="card-title text-2xl justify-center mb-4">
-                            <BpIcon name="navigation" class="w-6 h-6" />
+                            <Navigation class="w-6 h-6" />
                             Ready to Build?
                         </h2>
                         <p class="mb-6">
@@ -341,11 +341,11 @@
                         </p>
                         <div class="card-actions justify-center">
                             <NuxtLink to="/components" class="btn btn-secondary btn-lg">
-                                <BpIcon name="grid" class="w-5 h-5 mr-2" />
+                                <Grid class="w-5 h-5 mr-2" />
                                 Browse All Components
                             </NuxtLink>
                             <NuxtLink to="/examples" class="btn btn-outline btn-lg">
-                                <BpIcon name="file" class="w-5 h-5 mr-2" />
+                                <File class="w-5 h-5 mr-2" />
                                 View Examples
                             </NuxtLink>
                         </div>
@@ -357,6 +357,22 @@
 </template>
 
 <script setup lang="ts">
+import {
+    Zap,
+    ChevronDown,
+    Maximize,
+    RefreshCw,
+    Palette,
+    Shield,
+    Settings,
+    Edit,
+    Navigation,
+    Check,
+    X,
+    Grid,
+    File,
+} from 'lucide-vue-next'
+
 // Page metadata
 definePageMeta({
     title: 'Action Components',

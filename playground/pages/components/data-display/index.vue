@@ -14,7 +14,7 @@
             <div class="mb-12">
                 <div class="flex items-center gap-4 mb-4">
                     <div class="bg-secondary/20 p-4 rounded-full">
-                        <BpIcon name="layout" class="w-12 h-12 text-secondary" />
+                        <Layout class="w-12 h-12 text-secondary" />
                     </div>
                     <div>
                         <h1 class="text-5xl font-bold">Data Display</h1>
@@ -33,7 +33,7 @@
                 <div class="card bg-base-200 shadow-xl hover:shadow-2xl transition-shadow">
                     <div class="card-body">
                         <div class="flex items-center gap-3 mb-4">
-                            <BpIcon name="layout" class="w-8 h-8 text-primary" />
+                            <Layout class="w-8 h-8 text-primary" />
                             <h2 class="card-title text-xl">BpCard</h2>
                         </div>
                         <p class="text-base-content/70 mb-4">
@@ -62,7 +62,7 @@
                 <div class="card bg-base-200 shadow-xl hover:shadow-2xl transition-shadow">
                     <div class="card-body">
                         <div class="flex items-center gap-3 mb-4">
-                            <BpIcon name="navigation" class="w-8 h-8 text-primary" />
+                            <Navigation class="w-8 h-8 text-primary" />
                             <h2 class="card-title text-xl">BpList</h2>
                         </div>
                         <p class="text-base-content/70 mb-4">
@@ -83,7 +83,7 @@
                 <div class="card bg-base-200 shadow-xl hover:shadow-2xl transition-shadow">
                     <div class="card-body">
                         <div class="flex items-center gap-3 mb-4">
-                            <BpIcon name="activity" class="w-8 h-8 text-secondary" />
+                            <Activity class="w-8 h-8 text-secondary" />
                             <h2 class="card-title text-xl">BpStat</h2>
                         </div>
                         <p class="text-base-content/70 mb-4">KPIs and totals with variants.</p>
@@ -102,7 +102,7 @@
                 <div class="card bg-base-200 shadow-xl hover:shadow-2xl transition-shadow">
                     <div class="card-body">
                         <div class="flex items-center gap-3 mb-4">
-                            <BpIcon name="alert-circle" class="w-8 h-8 text-info" />
+                            <AlertCircle class="w-8 h-8 text-info" />
                             <h2 class="card-title text-xl">BpStatus</h2>
                         </div>
                         <p class="text-base-content/70 mb-4">Small status indicator dot.</p>
@@ -121,7 +121,7 @@
                 <div class="card bg-base-200 shadow-xl hover:shadow-2xl transition-shadow">
                     <div class="card-body">
                         <div class="flex items-center gap-3 mb-4">
-                            <BpIcon name="info" class="w-8 h-8 text-accent" />
+                            <Info class="w-8 h-8 text-accent" />
                             <h2 class="card-title text-xl">BpStatusBox</h2>
                         </div>
                         <p class="text-base-content/70 mb-4">Rich status message with actions.</p>
@@ -140,7 +140,7 @@
                 <div class="card bg-base-200 shadow-xl hover:shadow-2xl transition-shadow">
                     <div class="card-body">
                         <div class="flex items-center gap-3 mb-4">
-                            <BpIcon name="navigation" class="w-8 h-8 text-warning" />
+                            <Navigation class="w-8 h-8 text-warning" />
                             <h2 class="card-title text-xl">BpTextDiff</h2>
                         </div>
                         <p class="text-base-content/70 mb-4">Show differences between texts.</p>
@@ -159,7 +159,7 @@
                 <div class="card bg-base-200 shadow-xl hover:shadow-2xl transition-shadow">
                     <div class="card-body">
                         <div class="flex items-center gap-3 mb-4">
-                            <BpIcon name="clock" class="w-8 h-8 text-info" />
+                            <Clock class="w-8 h-8 text-info" />
                             <h2 class="card-title text-xl">BpTimeline</h2>
                         </div>
                         <p class="text-base-content/70 mb-4">Chronological events display.</p>
@@ -178,7 +178,7 @@
                 <div class="card bg-base-200 shadow-xl hover:shadow-2xl transition-shadow">
                     <div class="card-body">
                         <div class="flex items-center gap-3 mb-4">
-                            <BpIcon name="message-circle" class="w-8 h-8 text-primary" />
+                            <MessageCircle class="w-8 h-8 text-primary" />
                             <h2 class="card-title text-xl">BpChatBubble</h2>
                         </div>
                         <p class="text-base-content/70 mb-4">Message bubbles with variants.</p>
@@ -197,7 +197,7 @@
                 <div class="card bg-base-200 shadow-xl hover:shadow-2xl transition-shadow">
                     <div class="card-body">
                         <div class="flex items-center gap-3 mb-4">
-                            <BpIcon name="chevron-down" class="w-8 h-8 text-secondary" />
+                            <ChevronDown class="w-8 h-8 text-secondary" />
                             <h2 class="card-title text-xl">Accordion</h2>
                         </div>
                         <p class="text-base-content/70 mb-4">One-at-a-time collapsible items.</p>
@@ -216,7 +216,7 @@
                 <div class="card bg-base-200 shadow-xl hover:shadow-2xl transition-shadow">
                     <div class="card-body">
                         <div class="flex items-center gap-3 mb-4">
-                            <BpIcon name="chevron-down" class="w-8 h-8 text-accent" />
+                            <ChevronDown class="w-8 h-8 text-accent" />
                             <h2 class="card-title text-xl">Collapse</h2>
                         </div>
                         <p class="text-base-content/70 mb-4">Toggle sections open/closed.</p>
@@ -235,7 +235,7 @@
                 <div class="card bg-base-200 shadow-xl hover:shadow-2xl transition-shadow">
                     <div class="card-body">
                         <div class="flex items-center gap-3 mb-4">
-                            <BpIcon name="image" class="w-8 h-8 text-success" />
+                            <Image class="w-8 h-8 text-success" />
                             <h2 class="card-title text-xl">Carousel</h2>
                         </div>
                         <p class="text-base-content/70 mb-4">Scrollable media/content area.</p>
@@ -254,7 +254,7 @@
                 <div class="card bg-base-200 shadow-xl hover:shadow-2xl transition-shadow">
                     <div class="card-body">
                         <div class="flex items-center gap-3 mb-4">
-                            <BpIcon name="clock" class="w-8 h-8 text-warning" />
+                            <Clock class="w-8 h-8 text-warning" />
                             <h2 class="card-title text-xl">Countdown</h2>
                         </div>
                         <p class="text-base-content/70 mb-4">Animated number transitions.</p>
@@ -273,7 +273,7 @@
                 <div class="card bg-base-200 shadow-xl hover:shadow-2xl transition-shadow">
                     <div class="card-body">
                         <div class="flex items-center gap-3 mb-4">
-                            <BpIcon name="keyboard" class="w-8 h-8 text-info" />
+                            <Keyboard class="w-8 h-8 text-info" />
                             <h2 class="card-title text-xl">Kbd</h2>
                         </div>
                         <p class="text-base-content/70 mb-4">Keyboard key hints.</p>
@@ -288,7 +288,7 @@
                 <div class="card bg-base-200 shadow-xl hover:shadow-2xl transition-shadow">
                     <div class="card-body">
                         <div class="flex items-center gap-3 mb-4">
-                            <BpIcon name="grid" class="w-8 h-8 text-accent" />
+                            <Grid class="w-8 h-8 text-accent" />
                             <h2 class="card-title text-xl">BpTable</h2>
                         </div>
                         <p class="text-base-content/70 mb-4">Table for structured data.</p>
@@ -307,7 +307,7 @@
                 <div class="card bg-base-200 shadow-xl hover:shadow-2xl transition-shadow">
                     <div class="card-body">
                         <div class="flex items-center gap-3 mb-4">
-                            <BpIcon name="user" class="w-8 h-8 text-info" />
+                            <User class="w-8 h-8 text-info" />
                             <h2 class="card-title text-xl">BpAvatar</h2>
                         </div>
                         <p class="text-base-content/70 mb-4">User thumbnails and placeholders.</p>
@@ -326,7 +326,7 @@
                 <div class="card bg-base-200 shadow-xl hover:shadow-2xl transition-shadow">
                     <div class="card-body">
                         <div class="flex items-center gap-3 mb-4">
-                            <BpIcon name="check-circle" class="w-8 h-8 text-success" />
+                            <CheckCircle class="w-8 h-8 text-success" />
                             <h2 class="card-title text-xl">BpBadge</h2>
                         </div>
                         <p class="text-base-content/70 mb-4">Status and count indicators.</p>
@@ -345,7 +345,7 @@
                 <div class="card bg-base-200 shadow-xl hover:shadow-2xl transition-shadow">
                     <div class="card-body">
                         <div class="flex items-center gap-3 mb-4">
-                            <BpIcon name="navigation" class="w-8 h-8 text-warning" />
+                            <Navigation class="w-8 h-8 text-warning" />
                             <h2 class="card-title text-xl">BpTabs</h2>
                         </div>
                         <p class="text-base-content/70 mb-4">Tab navigation for content.</p>
@@ -366,12 +366,12 @@
                 <div class="card bg-primary text-primary-content shadow-xl">
                     <div class="card-body text-center">
                         <h2 class="card-title text-2xl justify-center mb-4">
-                            <BpIcon name="navigation" class="w-6 h-6" />
+                            <Navigation class="w-6 h-6" />
                             Explore more components
                         </h2>
                         <div class="card-actions justify-center">
                             <NuxtLink to="/components" class="btn btn-secondary btn-lg">
-                                <BpIcon name="grid" class="w-5 h-5 mr-2" />
+                                <Grid class="w-5 h-5 mr-2" />
                                 All Components
                             </NuxtLink>
                         </div>
@@ -383,6 +383,22 @@
 </template>
 
 <script setup lang="ts">
+import {
+    Layout,
+    Navigation,
+    Activity,
+    AlertCircle,
+    Info,
+    Clock,
+    MessageCircle,
+    ChevronDown,
+    Image,
+    Keyboard,
+    Grid,
+    User,
+    CheckCircle,
+} from 'lucide-vue-next'
+
 definePageMeta({
     title: 'Data Display Components',
     description: 'Components for presenting data and content',

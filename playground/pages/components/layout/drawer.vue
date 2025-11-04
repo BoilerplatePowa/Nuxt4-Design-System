@@ -717,10 +717,10 @@ const menuItems = [
                         <h2 class="card-title text-2xl justify-center mb-4">Explore More</h2>
                         <div class="card-actions justify-center">
                             <NuxtLink to="/components/layout" class="btn btn-primary">
-                                <BpIcon name="arrow-left" class="w-4 h-4 mr-2" /> Back to Layout
+                                <ArrowLeft class="w-4 h-4 mr-2" /> Back to Layout
                             </NuxtLink>
                             <NuxtLink to="/components" class="btn btn-outline">
-                                <BpIcon name="grid" class="w-4 h-4 mr-2" /> All Components
+                                <Grid class="w-4 h-4 mr-2" /> All Components
                             </NuxtLink>
                         </div>
                     </div>
@@ -731,6 +731,7 @@ const menuItems = [
 </template>
 
 <script setup lang="ts">
+import { ArrowLeft, Grid } from 'lucide-vue-next'
 definePageMeta({ title: 'Drawer', description: 'Drawer layout examples' })
 
 // Define user for template usage

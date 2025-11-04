@@ -14,7 +14,7 @@
             <div class="mb-12">
                 <div class="flex items-center gap-4 mb-4">
                     <div class="bg-success/20 p-4 rounded-full">
-                        <BpIcon name="grid" class="w-12 h-12 text-success" />
+                        <Grid class="w-12 h-12 text-success" />
                     </div>
                     <div>
                         <h1 class="text-5xl font-bold">Layout</h1>
@@ -32,7 +32,7 @@
                 <div class="card bg-base-200 shadow-xl hover:shadow-2xl transition-shadow">
                     <div class="card-body">
                         <div class="flex items-center gap-3 mb-4">
-                            <BpIcon name="minus" class="w-8 h-8 text-neutral" />
+                            <Minus class="w-8 h-8 text-neutral" />
                             <h2 class="card-title text-xl">BpDivider</h2>
                         </div>
                         <p class="text-base-content/70 mb-4">
@@ -61,7 +61,7 @@
                 <div class="card bg-base-200 shadow-xl hover:shadow-2xl transition-shadow">
                     <div class="card-body">
                         <div class="flex items-center gap-3 mb-4">
-                            <BpIcon name="panel-left" class="w-8 h-8 text-primary" />
+                            <PanelLeft class="w-8 h-8 text-primary" />
                             <h2 class="card-title text-xl">BpDrawer</h2>
                         </div>
                         <p class="text-base-content/70 mb-4">Offcanvas sidebar layout.</p>
@@ -77,7 +77,7 @@
                 <div class="card bg-base-200 shadow-xl hover:shadow-2xl transition-shadow">
                     <div class="card-body">
                         <div class="flex items-center gap-3 mb-4">
-                            <BpIcon name="layout" class="w-8 h-8 text-secondary" />
+                            <Layout class="w-8 h-8 text-secondary" />
                             <h2 class="card-title text-xl">BpFooter</h2>
                         </div>
                         <p class="text-base-content/70 mb-4">Site footer with sections.</p>
@@ -96,7 +96,7 @@
                 <div class="card bg-base-200 shadow-xl hover:shadow-2xl transition-shadow">
                     <div class="card-body">
                         <div class="flex items-center gap-3 mb-4">
-                            <BpIcon name="image" class="w-8 h-8 text-accent" />
+                            <Image class="w-8 h-8 text-accent" />
                             <h2 class="card-title text-xl">BpHero</h2>
                         </div>
                         <p class="text-base-content/70 mb-4">Large hero section with overlay.</p>
@@ -112,7 +112,7 @@
                 <div class="card bg-base-200 shadow-xl hover:shadow-2xl transition-shadow">
                     <div class="card-body">
                         <div class="flex items-center gap-3 mb-4">
-                            <BpIcon name="activity" class="w-8 h-8 text-info" />
+                            <Activity class="w-8 h-8 text-info" />
                             <h2 class="card-title text-xl">BpIndicator</h2>
                         </div>
                         <p class="text-base-content/70 mb-4">
@@ -130,7 +130,7 @@
                 <div class="card bg-base-200 shadow-xl hover:shadow-2xl transition-shadow">
                     <div class="card-body">
                         <div class="flex items-center gap-3 mb-4">
-                            <BpIcon name="minus" class="w-8 h-8 text-primary" />
+                            <Minus class="w-8 h-8 text-primary" />
                             <h2 class="card-title text-xl">BpJoin</h2>
                         </div>
                         <p class="text-base-content/70 mb-4">
@@ -148,7 +148,7 @@
                 <div class="card bg-base-200 shadow-xl hover:shadow-2xl transition-shadow">
                     <div class="card-body">
                         <div class="flex items-center gap-3 mb-4">
-                            <BpIcon name="image" class="w-8 h-8 text-warning" />
+                            <Image class="w-8 h-8 text-warning" />
                             <h2 class="card-title text-xl">BpMask</h2>
                         </div>
                         <p class="text-base-content/70 mb-4">Crop content to common shapes.</p>
@@ -164,7 +164,7 @@
                 <div class="card bg-base-200 shadow-xl hover:shadow-2xl transition-shadow">
                     <div class="card-body">
                         <div class="flex items-center gap-3 mb-4">
-                            <BpIcon name="layers" class="w-8 h-8 text-success" />
+                            <Layers class="w-8 h-8 text-success" />
                             <h2 class="card-title text-xl">BpStack</h2>
                         </div>
                         <p class="text-base-content/70 mb-4">Visually stack elements.</p>
@@ -182,12 +182,12 @@
                 <div class="card bg-primary text-primary-content shadow-xl">
                     <div class="card-body text-center">
                         <h2 class="card-title text-2xl justify-center mb-4">
-                            <BpIcon name="navigation" class="w-6 h-6" />
+                            <Navigation class="w-6 h-6" />
                             Explore more components
                         </h2>
                         <div class="card-actions justify-center">
                             <NuxtLink to="/components" class="btn btn-secondary btn-lg">
-                                <BpIcon name="grid" class="w-5 h-5 mr-2" />
+                                <Grid class="w-5 h-5 mr-2" />
                                 All Components
                             </NuxtLink>
                         </div>
@@ -199,6 +199,17 @@
 </template>
 
 <script setup lang="ts">
+import {
+    Grid,
+    Minus,
+    PanelLeft,
+    Layout,
+    Image,
+    Activity,
+    Layers,
+    Navigation,
+} from 'lucide-vue-next'
+
 definePageMeta({
     title: 'Layout Components',
     description: 'Structural components for layout',

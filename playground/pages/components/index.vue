@@ -20,7 +20,7 @@
                     <div class="card-body">
                         <div class="flex items-center gap-4 mb-4">
                             <div class="bg-primary/20 p-3 rounded-full">
-                                <BpIcon name="zap" class="w-8 h-8 text-primary" />
+                                <Zap class="w-8 h-8 text-primary" />
                             </div>
                             <h2 class="card-title text-2xl">Actions</h2>
                         </div>
@@ -48,7 +48,7 @@
                     <div class="card-body">
                         <div class="flex items-center gap-4 mb-4">
                             <div class="bg-secondary/20 p-3 rounded-full">
-                                <BpIcon name="layout" class="w-8 h-8 text-secondary" />
+                                <Layout class="w-8 h-8 text-secondary" />
                             </div>
                             <h2 class="card-title text-2xl">Data Display</h2>
                         </div>
@@ -76,7 +76,7 @@
                     <div class="card-body">
                         <div class="flex items-center gap-4 mb-4">
                             <div class="bg-accent/20 p-3 rounded-full">
-                                <BpIcon name="edit" class="w-8 h-8 text-accent" />
+                                <Edit class="w-8 h-8 text-accent" />
                             </div>
                             <h2 class="card-title text-2xl">Data Input</h2>
                         </div>
@@ -104,7 +104,7 @@
                     <div class="card-body">
                         <div class="flex items-center gap-4 mb-4">
                             <div class="bg-info/20 p-3 rounded-full">
-                                <BpIcon name="message-circle" class="w-8 h-8 text-info" />
+                                <MessageCircle class="w-8 h-8 text-info" />
                             </div>
                             <h2 class="card-title text-2xl">Feedback</h2>
                         </div>
@@ -132,7 +132,7 @@
                     <div class="card-body">
                         <div class="flex items-center gap-4 mb-4">
                             <div class="bg-success/20 p-3 rounded-full">
-                                <BpIcon name="grid" class="w-8 h-8 text-success" />
+                                <Grid class="w-8 h-8 text-success" />
                             </div>
                             <h2 class="card-title text-2xl">Layout</h2>
                         </div>
@@ -159,7 +159,7 @@
                     <div class="card-body">
                         <div class="flex items-center gap-4 mb-4">
                             <div class="bg-warning/20 p-3 rounded-full">
-                                <BpIcon name="navigation" class="w-8 h-8 text-warning" />
+                                <Navigation class="w-8 h-8 text-warning" />
                             </div>
                             <h2 class="card-title text-2xl">Navigation</h2>
                         </div>
@@ -188,7 +188,7 @@
                     <div class="card bg-base-200 shadow-xl">
                         <div class="card-body">
                             <h3 class="card-title text-xl mb-4">
-                                <BpIcon name="zap" class="w-5 h-5 text-primary" />
+                                <Zap class="w-5 h-5 text-primary" />
                                 BpButton
                             </h3>
                             <p class="text-base-content/70 mb-4">
@@ -227,7 +227,7 @@
                     <div class="card bg-base-200 shadow-xl">
                         <div class="card-body">
                             <h3 class="card-title text-xl mb-4">
-                                <BpIcon name="image" class="w-5 h-5 text-secondary" />
+                                <Image class="w-5 h-5 text-secondary" />
                                 Icon
                             </h3>
                             <p class="text-base-content/70 mb-4">
@@ -236,14 +236,14 @@
                             </p>
 
                             <div class="grid grid-cols-4 gap-4 mb-6">
-                                <BpIcon name="heart" class="w-8 h-8 text-error" />
-                                <BpIcon name="star" class="w-8 h-8 text-warning" />
-                                <BpIcon name="check-circle" class="w-8 h-8 text-success" />
-                                <BpIcon name="info" class="w-8 h-8 text-info" />
-                                <BpIcon name="zap" class="w-8 h-8 text-primary" />
-                                <BpIcon name="settings" class="w-8 h-8 text-secondary" />
-                                <BpIcon name="user" class="w-8 h-8 text-accent" />
-                                <BpIcon name="home" class="w-8 h-8 text-neutral" />
+                                <Heart class="w-8 h-8 text-error" />
+                                <Star class="w-8 h-8 text-warning" />
+                                <CheckCircle class="w-8 h-8 text-success" />
+                                <Info class="w-8 h-8 text-info" />
+                                <Zap class="w-8 h-8 text-primary" />
+                                <Settings class="w-8 h-8 text-secondary" />
+                                <User class="w-8 h-8 text-accent" />
+                                <Home class="w-8 h-8 text-neutral" />
                             </div>
 
                             <div class="card-actions justify-end">
@@ -264,7 +264,7 @@
                 <div class="stats shadow w-full">
                     <div class="stat">
                         <div class="stat-figure text-primary">
-                            <BpIcon name="archive" class="w-8 h-8" />
+                            <Archive class="w-8 h-8" />
                         </div>
                         <div class="stat-title">Total Components</div>
                         <div class="stat-value text-primary">46</div>
@@ -273,7 +273,7 @@
 
                     <div class="stat">
                         <div class="stat-figure text-secondary">
-                            <BpIcon name="grid" class="w-8 h-8" />
+                            <Grid class="w-8 h-8" />
                         </div>
                         <div class="stat-title">Categories</div>
                         <div class="stat-value text-secondary">6</div>
@@ -282,7 +282,7 @@
 
                     <div class="stat">
                         <div class="stat-figure text-accent">
-                            <BpIcon name="settings" class="w-8 h-8" />
+                            <Settings class="w-8 h-8" />
                         </div>
                         <div class="stat-title">Variants</div>
                         <div class="stat-value text-accent">200+</div>
@@ -291,7 +291,7 @@
 
                     <div class="stat">
                         <div class="stat-figure text-info">
-                            <BpIcon name="shield" class="w-8 h-8" />
+                            <Shield class="w-8 h-8" />
                         </div>
                         <div class="stat-title">Accessibility</div>
                         <div class="stat-value text-info">WCAG 2.1 AA</div>
@@ -305,7 +305,7 @@
                 <div class="card bg-primary text-primary-content shadow-xl">
                     <div class="card-body text-center">
                         <h2 class="card-title text-2xl justify-center mb-4">
-                            <BpIcon name="navigation" class="w-6 h-6" />
+                            <Navigation class="w-6 h-6" />
                             Ready to Explore?
                         </h2>
                         <p class="mb-6">
@@ -314,11 +314,11 @@
                         </p>
                         <div class="card-actions justify-center">
                             <NuxtLink to="/examples" class="btn btn-secondary btn-lg">
-                                <BpIcon name="file" class="w-5 h-5 mr-2" />
+                                <File class="w-5 h-5 mr-2" />
                                 View Examples
                             </NuxtLink>
                             <NuxtLink to="/installation" class="btn btn-outline btn-lg">
-                                <BpIcon name="download" class="w-5 h-5 mr-2" />
+                                <Download class="w-5 h-5 mr-2" />
                                 Get Started
                             </NuxtLink>
                         </div>
@@ -330,6 +330,27 @@
 </template>
 
 <script setup lang="ts">
+import {
+    Zap,
+    Layout,
+    Edit,
+    MessageCircle,
+    Grid,
+    Navigation,
+    Image,
+    Heart,
+    Star,
+    CheckCircle,
+    Info,
+    Settings,
+    User,
+    Home,
+    Archive,
+    Shield,
+    File,
+    Download,
+} from 'lucide-vue-next'
+
 // Page metadata
 definePageMeta({
     title: 'Components',
