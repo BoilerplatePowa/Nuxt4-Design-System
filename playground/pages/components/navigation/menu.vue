@@ -17,7 +17,7 @@
 
             <section class="mb-16">
                 <h2 class="text-3xl font-bold mb-6">Examples</h2>
-                
+
                 <!-- Basic Vertical Menu -->
                 <div class="card bg-base-200 shadow-xl mb-6">
                     <div class="card-body">
@@ -101,7 +101,19 @@
 </template>
 
 <script setup lang="ts">
-import { ArrowLeft, Grid, Home, User, Settings, Mail, Bell, Search, FileText, Heart, Star } from 'lucide-vue-next'
+import {
+    ArrowLeft,
+    Grid,
+    Home,
+    User,
+    Settings,
+    Mail,
+    Bell,
+    Search,
+    FileText,
+    Heart,
+    Star,
+} from 'lucide-vue-next'
 import type { MenuItem } from '../../../../src/runtime/shared/types.d'
 
 definePageMeta({ title: 'Menu', description: 'Menu examples' })
