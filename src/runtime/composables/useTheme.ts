@@ -1,5 +1,5 @@
 import { useNuxtApp } from 'nuxt/app'
-import type { Ref } from 'vue'
+import { computed, readonly, type Ref } from 'vue'
 
 /**
  * Composable for managing theme state
