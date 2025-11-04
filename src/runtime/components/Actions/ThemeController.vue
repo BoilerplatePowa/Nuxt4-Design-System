@@ -1,4 +1,4 @@
-<template>
+<template> since css is not manager dynamically, see to update it to be more static, with less customization needed
     <div :class="controllerClasses">
         <!-- Button variant -->
         <button
@@ -70,8 +70,9 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, onMounted, watch } from 'vue'
+import { computed, watch } from 'vue'
 import { Sun, Moon } from 'lucide-vue-next'
+import { useTheme } from '../../composables/useTheme'
 
 interface ThemeOption {
     value: string
@@ -105,7 +106,8 @@ const props = withDefaults(defineProps<Props>(), {
     ariaLabel: 'Toggle theme',
 })
 
-const currentTheme = ref(props.defaultTheme)
+// Use the theme composable
+const { currentTheme, setTheme } = useTheme()
 
 const availableThemes = computed(() => props.themes)
 
@@ -198,55 +200,20 @@ const emit = defineEmits<{
 const toggleTheme = () => {
     if (props.variant === 'toggle' || props.variant === 'switch' || props.variant === 'button') {
         const newTheme = isDark.value ? props.lightTheme : props.darkTheme
-        currentTheme.value = newTheme
+        setTheme(newTheme)
         emit('themeChange', newTheme)
     }
 }
 
 const handleThemeChange = (event: Event) => {
     const target = event.target as HTMLSelectElement | HTMLInputElement
-    currentTheme.value = target.value
+    setTheme(target.value)
     emit('themeChange', target.value)
 }
 
-// Apply theme to document
-const applyTheme = (theme: string) => {
-    if (typeof document !== 'undefined') {
-        // Apply to html element for DaisyUI themes
-        document.documentElement.setAttribute('data-theme', theme)
-
-        // Also apply to body for compatibility
-        document.body.setAttribute('data-theme', theme)
-
-        // Update CSS custom properties for theme colors
-        const root = document.documentElement
-        root.style.setProperty('--theme', theme)
-    }
-}
-
-// Watch for theme changes
+// Watch for theme changes to emit events
 watch(currentTheme, (newTheme) => {
-    applyTheme(newTheme)
-})
-
-// Initialize theme on mount
-onMounted(() => {
-    // Try to get theme from localStorage or system preference
-    if (typeof window !== 'undefined') {
-        const savedTheme = localStorage.getItem('theme')
-        if (savedTheme && props.themes.some((t) => t.value === savedTheme)) {
-            currentTheme.value = savedTheme
-        } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-            currentTheme.value = props.darkTheme
-        }
-
-        // Save theme changes to localStorage
-        watch(currentTheme, (newTheme) => {
-            localStorage.setItem('theme', newTheme)
-        })
-    }
-
-    applyTheme(currentTheme.value)
+    emit('themeChange', newTheme)
 })
 </script>
 
