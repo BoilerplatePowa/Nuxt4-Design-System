@@ -46,8 +46,9 @@
 </template>
 
 <script setup lang="ts">
-import { ArrowLeft, Grid } from 'lucide-vue-next'
 definePageMeta({ title: 'Link', description: 'Link examples' })
+
+import { ArrowLeft, Grid } from 'lucide-vue-next'
 
 function setTheme(theme: string) {
     if (import.meta.client) {
