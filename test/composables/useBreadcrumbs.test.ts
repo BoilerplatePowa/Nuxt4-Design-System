@@ -14,7 +14,7 @@ describe('useBreadcrumbs', () => {
             const items = [
                 { label: 'Home', href: '/', value: 'home' },
                 { label: 'Products', href: '/products', value: 'products' },
-                { label: 'Laptop', value: 'laptop' }
+                { label: 'Laptop', value: 'laptop' },
             ]
 
             breadcrumbs.setBreadcrumbs(items)
@@ -25,9 +25,7 @@ describe('useBreadcrumbs', () => {
         })
 
         it('should add home breadcrumb when autoHome is true', () => {
-            const items = [
-                { label: 'Products', href: '/products', value: 'products' }
-            ]
+            const items = [{ label: 'Products', href: '/products', value: 'products' }]
 
             breadcrumbs.setBreadcrumbs(items, { autoHome: true })
 
@@ -42,7 +40,7 @@ describe('useBreadcrumbs', () => {
                 { label: 'Category 1', value: 'cat1' },
                 { label: 'Category 2', value: 'cat2' },
                 { label: 'Category 3', value: 'cat3' },
-                { label: 'Product', value: 'product' }
+                { label: 'Product', value: 'product' },
             ]
 
             breadcrumbs.setBreadcrumbs(items, { maxItems: 3 })
@@ -54,9 +52,7 @@ describe('useBreadcrumbs', () => {
 
     describe('addBreadcrumb', () => {
         it('should add a single breadcrumb', () => {
-            breadcrumbs.setBreadcrumbs([
-                { label: 'Home', value: 'home' }
-            ])
+            breadcrumbs.setBreadcrumbs([{ label: 'Home', value: 'home' }])
 
             breadcrumbs.addBreadcrumb({ label: 'Products', value: 'products' })
 
@@ -71,7 +67,7 @@ describe('useBreadcrumbs', () => {
             breadcrumbs.setBreadcrumbs([
                 { label: 'Home', value: 'home' },
                 { label: 'Products', value: 'products' },
-                { label: 'Laptop', value: 'laptop' }
+                { label: 'Laptop', value: 'laptop' },
             ])
 
             breadcrumbs.removeBreadcrumb('products')
@@ -86,7 +82,7 @@ describe('useBreadcrumbs', () => {
             breadcrumbs.setBreadcrumbs([
                 { label: 'Home', value: 'home' },
                 { label: 'Products', value: 'products' },
-                { label: 'Laptop', value: 'laptop' }
+                { label: 'Laptop', value: 'laptop' },
             ])
 
             breadcrumbs.goBack(2)
@@ -130,7 +126,7 @@ describe('useBreadcrumbs', () => {
             breadcrumbs.setBreadcrumbs([
                 { label: 'Home', value: 'home' },
                 { label: 'Products', value: 'products' },
-                { label: 'Laptop', value: 'laptop' }
+                { label: 'Laptop', value: 'laptop' },
             ])
 
             expect(breadcrumbs.getCurrentPath()).toBe('Home / Products / Laptop')
@@ -139,7 +135,7 @@ describe('useBreadcrumbs', () => {
         it('should get current item', () => {
             breadcrumbs.setBreadcrumbs([
                 { label: 'Home', value: 'home' },
-                { label: 'Products', value: 'products' }
+                { label: 'Products', value: 'products' },
             ])
 
             const current = breadcrumbs.getCurrentItem()
@@ -152,7 +148,7 @@ describe('useBreadcrumbs', () => {
         it('should clear all breadcrumbs', () => {
             breadcrumbs.setBreadcrumbs([
                 { label: 'Home', value: 'home' },
-                { label: 'Products', value: 'products' }
+                { label: 'Products', value: 'products' },
             ])
 
             breadcrumbs.clearBreadcrumbs()

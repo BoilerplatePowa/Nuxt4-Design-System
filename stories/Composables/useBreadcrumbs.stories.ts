@@ -9,30 +9,31 @@ const meta: Meta<typeof BreadcrumbProvider> = {
         layout: 'padded',
         docs: {
             description: {
-                component: 'Global breadcrumbs composable that can be used anywhere in the application to manage navigation breadcrumbs.'
-            }
-        }
+                component:
+                    'Global breadcrumbs composable that can be used anywhere in the application to manage navigation breadcrumbs.',
+            },
+        },
     },
     argTypes: {
         size: {
             control: { type: 'select' },
             options: ['xs', 'sm', 'md', 'lg'],
-            description: 'DaisyUI breadcrumbs size'
+            description: 'DaisyUI breadcrumbs size',
         },
         maxItems: {
             control: { type: 'number' },
-            description: 'Maximum number of breadcrumbs to show'
+            description: 'Maximum number of breadcrumbs to show',
         },
         showHomeIcon: {
             control: { type: 'boolean' },
-            description: 'Show home icon'
+            description: 'Show home icon',
         },
         position: {
             control: { type: 'select' },
             options: ['top', 'bottom', 'inline'],
-            description: 'Position of breadcrumbs'
-        }
-    }
+            description: 'Position of breadcrumbs',
+        },
+    },
 }
 
 export default meta
@@ -43,10 +44,10 @@ export const Default: Story = {
         components: { BreadcrumbProvider },
         setup() {
             const { setPageBreadcrumbs } = useBreadcrumbs()
-            
+
             // Set initial breadcrumbs
             setPageBreadcrumbs('Products')
-            
+
             return {}
         },
         template: `
@@ -55,8 +56,8 @@ export const Default: Story = {
                 <p class="text-base-content/70">This shows the global breadcrumbs state.</p>
                 <BreadcrumbProvider />
             </div>
-        `
-    })
+        `,
+    }),
 }
 
 export const SectionBreadcrumbs: Story = {
@@ -64,9 +65,9 @@ export const SectionBreadcrumbs: Story = {
         components: { BreadcrumbProvider },
         setup() {
             const { setSectionBreadcrumbs } = useBreadcrumbs()
-            
+
             setSectionBreadcrumbs('Products', 'Electronics')
-            
+
             return {}
         },
         template: `
@@ -75,8 +76,8 @@ export const SectionBreadcrumbs: Story = {
                 <p class="text-base-content/70">Shows section and page breadcrumbs.</p>
                 <BreadcrumbProvider />
             </div>
-        `
-    })
+        `,
+    }),
 }
 
 export const NestedBreadcrumbs: Story = {
@@ -84,9 +85,9 @@ export const NestedBreadcrumbs: Story = {
         components: { BreadcrumbProvider },
         setup() {
             const { setNestedBreadcrumbs } = useBreadcrumbs()
-            
+
             setNestedBreadcrumbs(['Products', 'Electronics', 'Laptops', 'Gaming Laptops'])
-            
+
             return {}
         },
         template: `
@@ -95,58 +96,58 @@ export const NestedBreadcrumbs: Story = {
                 <p class="text-base-content/70">Shows deeply nested breadcrumbs with max items limit.</p>
                 <BreadcrumbProvider :max-items="4" />
             </div>
-        `
-    })
+        `,
+    }),
 }
 
 export const Interactive: Story = {
     render: () => ({
         components: { BreadcrumbProvider },
         setup() {
-            const { 
-                setBreadcrumbs, 
-                addBreadcrumb, 
-                goBack, 
+            const {
+                setBreadcrumbs,
+                addBreadcrumb,
+                goBack,
                 clearBreadcrumbs,
                 getCurrentPath,
-                getCurrentItem
+                getCurrentItem,
             } = useBreadcrumbs()
-            
+
             const addProduct = () => {
-                addBreadcrumb({ 
-                    label: 'Product Details', 
+                addBreadcrumb({
+                    label: 'Product Details',
                     value: 'product-details',
-                    href: '/products/123'
+                    href: '/products/123',
                 })
             }
-            
+
             const addCategory = () => {
-                addBreadcrumb({ 
-                    label: 'Category', 
+                addBreadcrumb({
+                    label: 'Category',
                     value: 'category',
-                    href: '/categories/electronics'
+                    href: '/categories/electronics',
                 })
             }
-            
+
             const goBackOne = () => {
                 goBack(1)
             }
-            
+
             const goBackTwo = () => {
                 goBack(2)
             }
-            
+
             const reset = () => {
                 clearBreadcrumbs()
                 setBreadcrumbs([
                     { label: 'Home', href: '/', value: 'home' },
-                    { label: 'Products', href: '/products', value: 'products' }
+                    { label: 'Products', href: '/products', value: 'products' },
                 ])
             }
-            
+
             // Initialize with some breadcrumbs
             reset()
-            
+
             return {
                 addProduct,
                 addCategory,
@@ -154,7 +155,7 @@ export const Interactive: Story = {
                 goBackTwo,
                 reset,
                 getCurrentPath,
-                getCurrentItem
+                getCurrentItem,
             }
         },
         template: `
@@ -188,8 +189,8 @@ export const Interactive: Story = {
                     <p><strong>Current Item:</strong> {{ getCurrentItem()?.label || 'None' }}</p>
                 </div>
             </div>
-        `
-    })
+        `,
+    }),
 }
 
 export const DifferentSizes: Story = {
@@ -197,13 +198,13 @@ export const DifferentSizes: Story = {
         components: { BreadcrumbProvider },
         setup() {
             const { setBreadcrumbs } = useBreadcrumbs()
-            
+
             setBreadcrumbs([
                 { label: 'Home', href: '/', value: 'home' },
                 { label: 'Products', href: '/products', value: 'products' },
-                { label: 'Electronics', value: 'electronics' }
+                { label: 'Electronics', value: 'electronics' },
             ])
-            
+
             return {}
         },
         template: `
@@ -232,6 +233,6 @@ export const DifferentSizes: Story = {
                     </div>
                 </div>
             </div>
-        `
-    })
+        `,
+    }),
 }

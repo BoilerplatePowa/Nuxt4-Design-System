@@ -7,31 +7,33 @@ The design system has been updated to allow clients to pass their own icon compo
 ## What Changed
 
 ### Before (Old Pattern)
+
 ```vue
 <template>
-  <Menu :items="menuItems" />
+    <Menu :items="menuItems" />
 </template>
 
 <script setup>
 const menuItems = [
-  { label: 'Home', icon: 'home', href: '/' },
-  { label: 'Settings', icon: 'settings', href: '/settings' }
+    { label: 'Home', icon: 'home', href: '/' },
+    { label: 'Settings', icon: 'settings', href: '/settings' },
 ]
 </script>
 ```
 
 ### After (New Pattern)
+
 ```vue
 <template>
-  <Menu :items="menuItems" />
+    <Menu :items="menuItems" />
 </template>
 
 <script setup>
 import { Home, Settings } from 'lucide-vue-next'
 
 const menuItems = [
-  { label: 'Home', icon: Home, href: '/' },
-  { label: 'Settings', icon: Settings, href: '/settings' }
+    { label: 'Home', icon: Home, href: '/' },
+    { label: 'Settings', icon: Settings, href: '/settings' },
 ]
 </script>
 ```
@@ -51,6 +53,7 @@ const menuItems = [
 All components that previously accepted icon string names now accept Vue components:
 
 #### Button Component
+
 ```vue
 <!-- Before -->
 <Button icon-left="chevron-left" icon-right="chevron-right">
@@ -68,12 +71,13 @@ import { ChevronLeft, ChevronRight } from 'lucide-vue-next'
 ```
 
 #### Menu Component
+
 ```vue
 <!-- Before -->
 <script setup>
 const items = [
-  { label: 'Dashboard', icon: 'home' },
-  { label: 'Profile', icon: 'user' }
+    { label: 'Dashboard', icon: 'home' },
+    { label: 'Profile', icon: 'user' },
 ]
 </script>
 
@@ -82,19 +86,20 @@ const items = [
 import { Home, User } from 'lucide-vue-next'
 
 const items = [
-  { label: 'Dashboard', icon: Home },
-  { label: 'Profile', icon: User }
+    { label: 'Dashboard', icon: Home },
+    { label: 'Profile', icon: User },
 ]
 </script>
 ```
 
 #### Steps Component
+
 ```vue
 <!-- Before -->
 <script setup>
 const steps = [
-  { title: 'Step 1', icon: 'check' },
-  { title: 'Step 2', icon: 'arrow-right' }
+    { title: 'Step 1', icon: 'check' },
+    { title: 'Step 2', icon: 'arrow-right' },
 ]
 </script>
 
@@ -103,19 +108,20 @@ const steps = [
 import { Check, ArrowRight } from 'lucide-vue-next'
 
 const steps = [
-  { title: 'Step 1', icon: Check },
-  { title: 'Step 2', icon: ArrowRight }
+    { title: 'Step 1', icon: Check },
+    { title: 'Step 2', icon: ArrowRight },
 ]
 </script>
 ```
 
 #### Dock Component
+
 ```vue
 <!-- Before -->
 <script setup>
 const dockItems = [
-  { label: 'Home', icon: 'home' },
-  { label: 'Search', icon: 'search' }
+    { label: 'Home', icon: 'home' },
+    { label: 'Search', icon: 'search' },
 ]
 </script>
 
@@ -124,13 +130,14 @@ const dockItems = [
 import { Home, Search } from 'lucide-vue-next'
 
 const dockItems = [
-  { label: 'Home', icon: Home },
-  { label: 'Search', icon: Search }
+    { label: 'Home', icon: Home },
+    { label: 'Search', icon: Search },
 ]
 </script>
 ```
 
 #### Avatar Component
+
 ```vue
 <!-- Before -->
 <Avatar fallback-icon="user" />
@@ -144,6 +151,7 @@ import { User } from 'lucide-vue-next'
 ```
 
 #### Input Component
+
 ```vue
 <!-- Before -->
 <Input left-icon="mail" right-icon="check" />
@@ -182,9 +190,9 @@ The FormWizard component now requires icon components in step definitions:
 <!-- Before -->
 <script setup>
 const steps = [
-  { title: 'Personal Info', icon: 'user' },
-  { title: 'Address', icon: 'map-pin' },
-  { title: 'Confirmation', icon: 'check' }
+    { title: 'Personal Info', icon: 'user' },
+    { title: 'Address', icon: 'map-pin' },
+    { title: 'Confirmation', icon: 'check' },
 ]
 </script>
 
@@ -193,9 +201,9 @@ const steps = [
 import { User, MapPin, Check } from 'lucide-vue-next'
 
 const steps = [
-  { title: 'Personal Info', icon: User },
-  { title: 'Address', icon: MapPin },
-  { title: 'Confirmation', icon: Check }
+    { title: 'Personal Info', icon: User },
+    { title: 'Address', icon: MapPin },
+    { title: 'Confirmation', icon: Check },
 ]
 </script>
 ```
@@ -205,45 +213,49 @@ const steps = [
 You can now use any Vue component as an icon, not just Lucide:
 
 ### Custom SVG Component
+
 ```vue
 <script setup>
 import { defineComponent, h } from 'vue'
 
 const CustomIcon = defineComponent({
-  props: ['size'],
-  setup(props) {
-    return () => h('svg', {
-      width: props.size || 24,
-      height: props.size || 24,
-      viewBox: '0 0 24 24',
-      fill: 'currentColor'
-    }, [
-      h('path', { d: 'M12 2L2 7v10l10 5 10-5V7L12 2z' })
-    ])
-  }
+    props: ['size'],
+    setup(props) {
+        return () =>
+            h(
+                'svg',
+                {
+                    width: props.size || 24,
+                    height: props.size || 24,
+                    viewBox: '0 0 24 24',
+                    fill: 'currentColor',
+                },
+                [h('path', { d: 'M12 2L2 7v10l10 5 10-5V7L12 2z' })]
+            )
+    },
 })
 
-const menuItems = [
-  { label: 'Custom', icon: CustomIcon }
-]
+const menuItems = [{ label: 'Custom', icon: CustomIcon }]
 </script>
 ```
 
 ### Using Other Icon Libraries
 
 #### Heroicons
+
 ```vue
 <script setup>
 import { HomeIcon, UserIcon } from '@heroicons/vue/24/outline'
 
 const items = [
-  { label: 'Home', icon: HomeIcon },
-  { label: 'Profile', icon: UserIcon }
+    { label: 'Home', icon: HomeIcon },
+    { label: 'Profile', icon: UserIcon },
 ]
 </script>
 ```
 
 #### Font Awesome (with vue-fontawesome)
+
 ```vue
 <script setup>
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
@@ -252,14 +264,12 @@ import { defineComponent, h } from 'vue'
 
 // Wrap Font Awesome icons in a component
 const HomeIcon = defineComponent({
-  setup() {
-    return () => h(FontAwesomeIcon, { icon: faHome })
-  }
+    setup() {
+        return () => h(FontAwesomeIcon, { icon: faHome })
+    },
 })
 
-const items = [
-  { label: 'Home', icon: HomeIcon }
-]
+const items = [{ label: 'Home', icon: HomeIcon }]
 </script>
 ```
 
@@ -286,15 +296,15 @@ Icon props now accept Vue's `Component` type for proper type safety:
 import type { Component } from 'vue'
 
 interface MenuItem {
-  label?: string
-  value?: string | number
-  href?: string
-  icon?: Component // Vue component (e.g., Lucide icon component)
-  badge?: string | number
-  disabled?: boolean
-  active?: boolean
-  title?: string
-  children?: MenuItem[]
+    label?: string
+    value?: string | number
+    href?: string
+    icon?: Component // Vue component (e.g., Lucide icon component)
+    badge?: string | number
+    disabled?: boolean
+    active?: boolean
+    title?: string
+    children?: MenuItem[]
 }
 ```
 
@@ -323,40 +333,40 @@ Here are commonly used Lucide icons for quick reference:
 
 ```typescript
 import {
-  Home,
-  User,
-  Settings,
-  Search,
-  Mail,
-  Phone,
-  Calendar,
-  Clock,
-  MapPin,
-  Download,
-  Upload,
-  Edit,
-  Delete,
-  Plus,
-  Minus,
-  Check,
-  X,
-  ChevronDown,
-  ChevronUp,
-  ChevronLeft,
-  ChevronRight,
-  Eye,
-  EyeOff,
-  Lock,
-  Unlock,
-  Bell,
-  Heart,
-  Star,
-  Menu,
-  Info,
-  AlertCircle,
-  CheckCircle,
-  XCircle,
-  HelpCircle
+    Home,
+    User,
+    Settings,
+    Search,
+    Mail,
+    Phone,
+    Calendar,
+    Clock,
+    MapPin,
+    Download,
+    Upload,
+    Edit,
+    Delete,
+    Plus,
+    Minus,
+    Check,
+    X,
+    ChevronDown,
+    ChevronUp,
+    ChevronLeft,
+    ChevronRight,
+    Eye,
+    EyeOff,
+    Lock,
+    Unlock,
+    Bell,
+    Heart,
+    Star,
+    Menu,
+    Info,
+    AlertCircle,
+    CheckCircle,
+    XCircle,
+    HelpCircle,
 } from 'lucide-vue-next'
 ```
 
@@ -387,9 +397,7 @@ import type { Component } from 'vue'
 import { Home } from 'lucide-vue-next'
 
 // This should work automatically
-const items = [
-  { label: 'Home', icon: Home }
-]
+const items = [{ label: 'Home', icon: Home }]
 
 // Or explicitly type if needed
 const icon: Component = Home
@@ -399,7 +407,8 @@ const icon: Component = Home
 
 **Problem**: Bundle size hasn't decreased after migration.
 
-**Solution**: 
+**Solution**:
+
 1. Make sure you're only importing icons you use
 2. Check that your build tool supports tree-shaking (Vite does by default)
 3. Remove any unused icon imports
@@ -419,4 +428,3 @@ If you encounter issues during migration, please:
 - [Lucide Vue Next Documentation](https://lucide.dev/guide/packages/lucide-vue-next)
 - [Component Playground Examples](/playground)
 - [Storybook Stories](/storybook)
-

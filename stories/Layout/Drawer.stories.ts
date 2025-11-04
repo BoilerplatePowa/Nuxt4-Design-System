@@ -1,15 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite'
 import Drawer from '../../src/runtime/components/Layout/Drawer.vue'
 import Navbar from '../../src/runtime/components/Navigation/Navbar.vue'
-import {
-    Home,
-    Library,
-    Settings,
-    HelpCircle,
-    FileText,
-    Search,
-    BarChart,
-} from 'lucide-vue-next'
+import { Home, Library, Settings, HelpCircle, FileText, Search, BarChart } from 'lucide-vue-next'
 
 const meta: Meta<typeof Drawer> = {
     title: 'Layout/Drawer',

@@ -4,7 +4,21 @@ import Steps from '../../src/runtime/components/Navigation/Steps.vue'
 import Button from '../../src/runtime/components/Actions/Button.vue'
 import Card from '../../src/runtime/components/DataDisplay/Card.vue'
 import Avatar from '../../src/runtime/components/DataDisplay/Avatar.vue'
-import { CheckCircle, MapPin, User, Settings, Heart, Check, Package, Truck, Home, ClipboardList, Code, TestTube, Rocket } from 'lucide-vue-next'
+import {
+    CheckCircle,
+    MapPin,
+    User,
+    Settings,
+    Heart,
+    Check,
+    Package,
+    Truck,
+    Home,
+    ClipboardList,
+    Code,
+    TestTube,
+    Rocket,
+} from 'lucide-vue-next'
 
 const meta: Meta<typeof Steps> = {
     title: 'Navigation/Steps',

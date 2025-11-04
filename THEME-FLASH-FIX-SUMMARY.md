@@ -1,6 +1,7 @@
 # Theme Flash Fix - Summary
 
 ## Problem Solved ✅
+
 **Issue**: Theme initialization in `ThemeController` component caused a visible flash when the page loaded, as the theme was applied after component mount.
 
 **Solution**: Moved theme initialization to a Nuxt plugin that runs before the app mounts, ensuring the correct theme is applied immediately without any visual flash.
@@ -8,10 +9,12 @@
 ## Files Changed
 
 ### 1. `/src/runtime/plugin.ts` ✨ ENHANCED
+
 **Before**: Simple console.log plugin
 **After**: Full theme management plugin
 
 **Key Features**:
+
 - Initializes theme before app renders (no flash!)
 - Reads from localStorage or system preference
 - Provides reactive theme state via `$theme`
@@ -20,9 +23,11 @@
 - Applies theme to both `document.documentElement` and `document.body`
 
 ### 2. `/src/runtime/composables/useTheme.ts` 🆕 NEW
+
 **Purpose**: Convenient composable for theme management
 
 **Exports**:
+
 ```typescript
 {
   currentTheme: Readonly<Ref<string>>,
@@ -33,13 +38,16 @@
 ```
 
 **Benefits**:
+
 - Type-safe theme access
 - Easy to use in any component
 - Computed `isDark` helper
 - Readonly state to prevent direct mutations
 
 ### 3. `/src/runtime/components/Actions/ThemeController.vue` 🔄 REFACTORED
+
 **Changes**:
+
 - Removed `onMounted` initialization
 - Removed local theme state management
 - Now uses `useTheme()` composable
@@ -47,6 +55,7 @@
 - No more flash on mount!
 
 **What Stayed**:
+
 - All props and events remain the same
 - All variants work identically
 - Component API is unchanged (backward compatible)
@@ -87,30 +96,35 @@
 ## Benefits
 
 ### 🚀 Performance
+
 - Theme applied before first paint
 - No layout shift or flash
 - Single source of truth for theme state
 - Efficient reactive updates
 
 ### 🏗️ Architecture
+
 - Clean separation of concerns
 - Plugin handles state management
 - Components handle UI only
 - Composable provides convenient API
 
 ### 🔒 Type Safety
+
 - Full TypeScript support
 - Proper type definitions
 - No `any` types
 - Type-safe theme operations
 
 ### 🎯 Developer Experience
+
 - Simple API: `useTheme()`
 - Backward compatible
 - Well documented
 - Easy to test
 
 ### ♿ Accessibility
+
 - Respects system preferences
 - Persists user choice
 - No visual disruption
@@ -119,6 +133,7 @@
 ## Usage Examples
 
 ### Basic Theme Toggle
+
 ```vue
 <script setup>
 import { useTheme } from '@boilerplatepowa/nuxt4-design-system/composables/useTheme'
@@ -127,40 +142,43 @@ const { toggleTheme } = useTheme()
 </script>
 
 <template>
-  <button @click="toggleTheme()">Toggle Theme</button>
+    <button @click="toggleTheme()">Toggle Theme</button>
 </template>
 ```
 
 ### Check Current Theme
+
 ```vue
 <script setup>
 const { currentTheme, isDark } = useTheme()
 </script>
 
 <template>
-  <div>
-    <p>Current: {{ currentTheme }}</p>
-    <p>Is Dark: {{ isDark }}</p>
-  </div>
+    <div>
+        <p>Current: {{ currentTheme }}</p>
+        <p>Is Dark: {{ isDark }}</p>
+    </div>
 </template>
 ```
 
 ### Set Specific Theme
+
 ```vue
 <script setup>
 const { setTheme } = useTheme()
 </script>
 
 <template>
-  <button @click="setTheme('synthwave')">Synthwave</button>
+    <button @click="setTheme('synthwave')">Synthwave</button>
 </template>
 ```
 
 ### Use ThemeController Component
+
 ```vue
 <template>
-  <!-- No changes needed! Works the same but better -->
-  <ThemeController variant="button" />
+    <!-- No changes needed! Works the same but better -->
+    <ThemeController variant="button" />
 </template>
 ```
 
@@ -180,33 +198,40 @@ const { setTheme } = useTheme()
 ## Migration Impact
 
 ### For End Users
+
 ✅ **No changes required** - Everything works better automatically
 
 ### For Component Users
+
 ✅ **No changes required** - ThemeController API unchanged
 
 ### For Advanced Users
+
 ✨ **New feature available** - Can now use `useTheme()` composable for more control
 
 ## Documentation
 
 Created comprehensive documentation:
+
 1. `THEME-PLUGIN-MIGRATION.md` - Technical migration details
 2. `THEME-USAGE-GUIDE.md` - Complete usage guide with examples
 
 ## Next Steps (Optional Enhancements)
 
 ### Short Term
+
 - [ ] Add theme validation against available themes list
 - [ ] Add transition animations for theme changes
 - [ ] Add theme preview functionality
 
 ### Medium Term
+
 - [ ] Listen for system theme changes in real-time
 - [ ] Add theme preloading for instant switching
 - [ ] Create theme builder/customizer
 
 ### Long Term
+
 - [ ] Support for custom theme definitions
 - [ ] Theme scheduling (auto-switch at certain times)
 - [ ] Per-route theme overrides
@@ -214,11 +239,13 @@ Created comprehensive documentation:
 ## Performance Metrics
 
 ### Before
+
 - Theme flash visible: ~100-300ms
 - Layout shift on load: Yes
 - User experience: Jarring
 
 ### After
+
 - Theme flash: ❌ None
 - Layout shift: ❌ None
 - User experience: ✅ Smooth
@@ -244,4 +271,3 @@ This fix eliminates the theme flash issue by moving initialization to a Nuxt plu
 - **Production ready**: Tested and linted
 
 The theme management is now more robust, performant, and developer-friendly! 🎉
-

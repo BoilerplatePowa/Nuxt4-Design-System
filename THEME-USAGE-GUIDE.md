@@ -3,15 +3,17 @@
 ## Quick Start
 
 ### 1. Using the ThemeController Component
+
 The easiest way to add theme switching to your app:
 
 ```vue
 <template>
-  <ThemeController variant="button" />
+    <ThemeController variant="button" />
 </template>
 ```
 
 ### 2. Using the useTheme Composable
+
 For programmatic theme control:
 
 ```vue
@@ -22,84 +24,80 @@ const { currentTheme, setTheme, toggleTheme, isDark } = useTheme()
 </script>
 
 <template>
-  <div>
-    <p>Current theme: {{ currentTheme }}</p>
-    <button @click="toggleTheme()">Toggle Theme</button>
-    <button @click="setTheme('cupcake')">Set Cupcake Theme</button>
-  </div>
+    <div>
+        <p>Current theme: {{ currentTheme }}</p>
+        <button @click="toggleTheme()">Toggle Theme</button>
+        <button @click="setTheme('cupcake')">Set Cupcake Theme</button>
+    </div>
 </template>
 ```
 
 ## ThemeController Variants
 
 ### Button Variant
+
 ```vue
-<ThemeController 
-  variant="button" 
-  size="md"
-  :show-label="true"
-/>
+<ThemeController variant="button" size="md" :show-label="true" />
 ```
 
 ### Toggle Variant
+
 ```vue
-<ThemeController 
-  variant="toggle" 
-  size="lg"
-/>
+<ThemeController variant="toggle" size="lg" />
 ```
 
 ### Switch Variant
+
 ```vue
-<ThemeController 
-  variant="switch" 
-  size="md"
-/>
+<ThemeController variant="switch" size="md" />
 ```
 
 ### Dropdown Variant
+
 ```vue
-<ThemeController 
-  variant="dropdown"
-  :themes="[
-    { value: 'light', label: 'Light Mode' },
-    { value: 'dark', label: 'Dark Mode' },
-    { value: 'cupcake', label: 'Cupcake' },
-    { value: 'corporate', label: 'Corporate' }
-  ]"
+<ThemeController
+    variant="dropdown"
+    :themes="[
+        { value: 'light', label: 'Light Mode' },
+        { value: 'dark', label: 'Dark Mode' },
+        { value: 'cupcake', label: 'Cupcake' },
+        { value: 'corporate', label: 'Corporate' },
+    ]"
 />
 ```
 
 ### Radio Variant
+
 ```vue
-<ThemeController 
-  variant="radio"
-  :themes="[
-    { value: 'light', label: 'Light' },
-    { value: 'dark', label: 'Dark' },
-    { value: 'synthwave', label: 'Synthwave' }
-  ]"
-  radio-name="theme-selector"
+<ThemeController
+    variant="radio"
+    :themes="[
+        { value: 'light', label: 'Light' },
+        { value: 'dark', label: 'Dark' },
+        { value: 'synthwave', label: 'Synthwave' },
+    ]"
+    radio-name="theme-selector"
 />
 ```
 
 ## Props Reference
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `variant` | `'button' \| 'toggle' \| 'switch' \| 'dropdown' \| 'radio'` | `'button'` | UI variant |
-| `themes` | `ThemeOption[]` | `[{value:'light',label:'Light'},{value:'dark',label:'Dark'}]` | Available themes |
-| `defaultTheme` | `string` | `'light'` | Default theme |
-| `darkTheme` | `string` | `'dark'` | Dark theme identifier |
-| `lightTheme` | `string` | `'light'` | Light theme identifier |
-| `showLabel` | `boolean` | `false` | Show theme label (button variant) |
-| `size` | `'xs' \| 'sm' \| 'md' \| 'lg'` | `'md'` | Component size |
-| `radioName` | `string` | `'theme'` | Radio input name |
-| `ariaLabel` | `string` | `'Toggle theme'` | Accessibility label |
+| Prop           | Type                                                        | Default                                                       | Description                       |
+| -------------- | ----------------------------------------------------------- | ------------------------------------------------------------- | --------------------------------- |
+| `variant`      | `'button' \| 'toggle' \| 'switch' \| 'dropdown' \| 'radio'` | `'button'`                                                    | UI variant                        |
+| `themes`       | `ThemeOption[]`                                             | `[{value:'light',label:'Light'},{value:'dark',label:'Dark'}]` | Available themes                  |
+| `defaultTheme` | `string`                                                    | `'light'`                                                     | Default theme                     |
+| `darkTheme`    | `string`                                                    | `'dark'`                                                      | Dark theme identifier             |
+| `lightTheme`   | `string`                                                    | `'light'`                                                     | Light theme identifier            |
+| `showLabel`    | `boolean`                                                   | `false`                                                       | Show theme label (button variant) |
+| `size`         | `'xs' \| 'sm' \| 'md' \| 'lg'`                              | `'md'`                                                        | Component size                    |
+| `radioName`    | `string`                                                    | `'theme'`                                                     | Radio input name                  |
+| `ariaLabel`    | `string`                                                    | `'Toggle theme'`                                              | Accessibility label               |
 
 ## Events
 
 ### themeChange
+
 Emitted when theme changes:
 
 ```vue
@@ -128,19 +126,19 @@ const handleThemeChange = (theme: string) => {
 ### Examples
 
 #### Check Current Theme
+
 ```vue
 <script setup>
 const { currentTheme } = useTheme()
 </script>
 
 <template>
-  <div :class="currentTheme">
-    Theme: {{ currentTheme }}
-  </div>
+    <div :class="currentTheme">Theme: {{ currentTheme }}</div>
 </template>
 ```
 
 #### Change Theme
+
 ```vue
 <script setup>
 const { setTheme } = useTheme()
@@ -152,6 +150,7 @@ const applyTheme = (theme: string) => {
 ```
 
 #### Toggle Theme
+
 ```vue
 <script setup>
 const { toggleTheme } = useTheme()
@@ -165,22 +164,24 @@ const toggleCustom = () => toggleTheme('cupcake', 'synthwave')
 ```
 
 #### Check if Dark Theme
+
 ```vue
 <script setup>
 const { isDark } = useTheme()
 </script>
 
 <template>
-  <div>
-    <Icon v-if="isDark" name="moon" />
-    <Icon v-else name="sun" />
-  </div>
+    <div>
+        <Icon v-if="isDark" name="moon" />
+        <Icon v-else name="sun" />
+    </div>
 </template>
 ```
 
 ## Available DaisyUI Themes
 
 ### Light Themes
+
 - `light` - Default light theme
 - `cupcake` - Soft pastel colors
 - `bumblebee` - Yellow accent
@@ -202,6 +203,7 @@ const { isDark } = useTheme()
 - `winter` - Cool blue
 
 ### Dark Themes
+
 - `dark` - Default dark theme
 - `synthwave` - Retro neon
 - `halloween` - Orange/purple
@@ -216,6 +218,7 @@ const { isDark } = useTheme()
 ## Custom Slots
 
 ### Icon Slot (Button Variant)
+
 ```vue
 <ThemeController variant="button">
   <template #icon>
@@ -227,15 +230,15 @@ const { isDark } = useTheme()
 ## Styling
 
 ### Custom Classes
+
 ```vue
-<ThemeController 
-  variant="button"
-  class="!bg-primary !text-primary-content"
-/>
+<ThemeController variant="button" class="!bg-primary !text-primary-content" />
 ```
 
 ### Size Classes
+
 The component automatically applies DaisyUI size classes:
+
 - `xs`: Extra small
 - `sm`: Small
 - `md`: Medium (default)
@@ -252,76 +255,77 @@ The component automatically applies DaisyUI size classes:
 ## Common Patterns
 
 ### Navbar Theme Switcher
+
 ```vue
 <template>
-  <nav class="navbar bg-base-100">
-    <div class="navbar-start">
-      <a class="btn btn-ghost text-xl">MyApp</a>
-    </div>
-    <div class="navbar-end">
-      <ThemeController variant="button" size="sm" />
-    </div>
-  </nav>
+    <nav class="navbar bg-base-100">
+        <div class="navbar-start">
+            <a class="btn btn-ghost text-xl">MyApp</a>
+        </div>
+        <div class="navbar-end">
+            <ThemeController variant="button" size="sm" />
+        </div>
+    </nav>
 </template>
 ```
 
 ### Settings Page
+
 ```vue
 <template>
-  <div class="card bg-base-200">
-    <div class="card-body">
-      <h2 class="card-title">Theme Settings</h2>
-      <ThemeController 
-        variant="radio"
-        :themes="allThemes"
-      />
+    <div class="card bg-base-200">
+        <div class="card-body">
+            <h2 class="card-title">Theme Settings</h2>
+            <ThemeController variant="radio" :themes="allThemes" />
+        </div>
     </div>
-  </div>
 </template>
 
 <script setup>
 const allThemes = [
-  { value: 'light', label: 'Light' },
-  { value: 'dark', label: 'Dark' },
-  { value: 'cupcake', label: 'Cupcake' },
-  { value: 'synthwave', label: 'Synthwave' }
+    { value: 'light', label: 'Light' },
+    { value: 'dark', label: 'Dark' },
+    { value: 'cupcake', label: 'Cupcake' },
+    { value: 'synthwave', label: 'Synthwave' },
 ]
 </script>
 ```
 
 ### Conditional Rendering Based on Theme
+
 ```vue
 <script setup>
 const { isDark, currentTheme } = useTheme()
 </script>
 
 <template>
-  <div>
-    <!-- Show different content for dark themes -->
-    <div v-if="isDark" class="dark-content">
-      Dark mode content
+    <div>
+        <!-- Show different content for dark themes -->
+        <div v-if="isDark" class="dark-content">Dark mode content</div>
+
+        <!-- Show different content for specific theme -->
+        <div v-if="currentTheme === 'synthwave'" class="synthwave-special">
+            Special synthwave content
+        </div>
     </div>
-    
-    <!-- Show different content for specific theme -->
-    <div v-if="currentTheme === 'synthwave'" class="synthwave-special">
-      Special synthwave content
-    </div>
-  </div>
 </template>
 ```
 
 ## Troubleshooting
 
 ### Theme Not Persisting
+
 - Check that localStorage is available
 - Verify no conflicting theme management code
 - Clear localStorage and try again: `localStorage.removeItem('theme')`
 
 ### Theme Flash on Load
+
 - This should be fixed with the plugin approach
 - If still occurring, check that the plugin is loaded before components
 
 ### Custom Theme Not Working
+
 - Ensure theme name matches DaisyUI theme exactly
 - Check that theme is included in your Tailwind config
 - Verify theme is in the `themes` prop array
@@ -334,15 +338,14 @@ All theme functions are fully typed:
 import type { Ref, ComputedRef } from 'vue'
 
 interface UseThemeReturn {
-  currentTheme: Readonly<Ref<string>>
-  setTheme: (theme: string) => void
-  toggleTheme: (lightTheme?: string, darkTheme?: string) => void
-  isDark: Readonly<ComputedRef<boolean>>
+    currentTheme: Readonly<Ref<string>>
+    setTheme: (theme: string) => void
+    toggleTheme: (lightTheme?: string, darkTheme?: string) => void
+    isDark: Readonly<ComputedRef<boolean>>
 }
 
 interface ThemeOption {
-  value: string
-  label: string
+    value: string
+    label: string
 }
 ```
-

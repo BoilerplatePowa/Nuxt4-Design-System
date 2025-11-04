@@ -133,10 +133,10 @@ import { Heart, Star, Settings } from 'lucide-vue-next'
 </script>
 
 <template>
-  <!-- Direct component rendering -->
-  <component :is="Heart" class="w-6 h-6 text-red-500" />
-  <component :is="Star" class="w-8 h-8 text-yellow-500" />
-  <component :is="Settings" class="w-5 h-5 text-blue-500" />
+    <!-- Direct component rendering -->
+    <component :is="Heart" class="w-6 h-6 text-red-500" />
+    <component :is="Star" class="w-8 h-8 text-yellow-500" />
+    <component :is="Settings" class="w-5 h-5 text-blue-500" />
 </template>
 ```
 
@@ -148,9 +148,9 @@ import { Save, ArrowRight } from 'lucide-vue-next'
 </script>
 
 <template>
-  <BpButton :icon-left="Save" :icon-right="ArrowRight" color="primary">
-    Save & Continue
-  </BpButton>
+    <BpButton :icon-left="Save" :icon-right="ArrowRight" color="primary">
+        Save & Continue
+    </BpButton>
 </template>
 ```
 
@@ -160,12 +160,37 @@ The design system supports all icons from Lucide Vue Next. Import only the icons
 
 ```typescript
 import {
-    Heart, Star, Settings, User, Home, Search,
-    Mail, Phone, Calendar, Download, Upload,
-    Edit, Trash2, Plus, Minus, Check, X,
-    ArrowLeft, ArrowRight, ArrowUp, ArrowDown,
-    Menu, Info, AlertCircle, CheckCircle, XCircle,
-    HelpCircle, Eye, EyeOff, Lock, Unlock
+    Heart,
+    Star,
+    Settings,
+    User,
+    Home,
+    Search,
+    Mail,
+    Phone,
+    Calendar,
+    Download,
+    Upload,
+    Edit,
+    Trash2,
+    Plus,
+    Minus,
+    Check,
+    X,
+    ArrowLeft,
+    ArrowRight,
+    ArrowUp,
+    ArrowDown,
+    Menu,
+    Info,
+    AlertCircle,
+    CheckCircle,
+    XCircle,
+    HelpCircle,
+    Eye,
+    EyeOff,
+    Lock,
+    Unlock,
     // ... and many more
 } from 'lucide-vue-next'
 ```

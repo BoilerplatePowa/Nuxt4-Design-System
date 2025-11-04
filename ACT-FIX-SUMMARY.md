@@ -1,24 +1,28 @@
 # Act Testing Fix Summary
 
 ## Issue
+
 Running `npm run act:test` was failing with the following errors:
 
-1. **Architecture Warning**: 
-   ```
-   ⚠ You are using Apple M-series chip and you have not specified container architecture
-   ```
+1. **Architecture Warning**:
+
+    ```
+    ⚠ You are using Apple M-series chip and you have not specified container architecture
+    ```
 
 2. **Port Binding Error**:
-   ```
-   Error: listen tcp :0: bind: operation not permitted
-   ```
+    ```
+    Error: listen tcp :0: bind: operation not permitted
+    ```
 
 ## Root Causes
 
 ### 1. Missing Container Architecture
+
 The act tool was not configured to use the correct architecture for Apple M-series chips, causing compatibility issues with Docker containers.
 
 ### 2. Artifact Server Port Binding
+
 The artifact server was trying to bind to port 0, which caused permission errors in the sandboxed environment.
 
 ## Solution
@@ -66,6 +70,7 @@ Added two critical configuration flags:
 ## Verification
 
 After applying the fix, the command now successfully:
+
 - ✅ Loads workflows from `.github/workflows/`
 - ✅ Pulls Docker images with correct architecture
 - ✅ Starts test execution without port binding errors
@@ -92,6 +97,7 @@ npm run act:all
 ## Documentation Updates
 
 Updated `ACT-USAGE.md` with:
+
 - Prerequisites note about M-series chip compatibility
 - Platform issues section with architecture flag
 - New troubleshooting section for port binding errors
@@ -130,8 +136,8 @@ This ensures the lock file has all the necessary metadata for `npm ci` to work i
 ## Future Improvements
 
 Consider adding:
+
 - Pre-commit hooks to run quality gates locally
 - VS Code tasks for running act commands
 - CI/CD integration to test workflows before pushing
 - Automated package-lock.json validation in pre-commit hooks
-

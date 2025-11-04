@@ -1,5 +1,33 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite'
-import { Heart, Star, Settings, User, Home, Search, Mail, Phone, Calendar, Clock, MapPin, Download, Upload, Edit, Delete, Plus, Minus, Check, X, Menu, Info, HelpCircle, IceCream, Zap, CheckCircle, AlertCircle, XCircle } from 'lucide-vue-next'
+import {
+    Heart,
+    Star,
+    Settings,
+    User,
+    Home,
+    Search,
+    Mail,
+    Phone,
+    Calendar,
+    Clock,
+    MapPin,
+    Download,
+    Upload,
+    Edit,
+    Delete,
+    Plus,
+    Minus,
+    Check,
+    X,
+    Menu,
+    Info,
+    HelpCircle,
+    IceCream,
+    Zap,
+    CheckCircle,
+    AlertCircle,
+    XCircle,
+} from 'lucide-vue-next'
 
 const meta: Meta = {
     title: 'Icons/Lucide Icons',
@@ -70,7 +98,32 @@ export const Colors: Story = {
 // Icon collection
 export const IconCollection: Story = {
     render: () => ({
-        components: { Heart, Star, Settings, User, Home, Search, Mail, Phone, Calendar, Clock, MapPin, Download, Upload, Edit, Delete, Plus, Minus, Check, X, Menu, Info, HelpCircle, IceCream, Zap },
+        components: {
+            Heart,
+            Star,
+            Settings,
+            User,
+            Home,
+            Search,
+            Mail,
+            Phone,
+            Calendar,
+            Clock,
+            MapPin,
+            Download,
+            Upload,
+            Edit,
+            Delete,
+            Plus,
+            Minus,
+            Check,
+            X,
+            Menu,
+            Info,
+            HelpCircle,
+            IceCream,
+            Zap,
+        },
         template: `
       <div class="space-y-3">
         <h3 class="text-lg font-semibold mb-2">Common Icons</h3>
@@ -108,7 +161,35 @@ export const IconCollection: Story = {
 // Interactive playground
 export const Playground: Story = {
     render: () => ({
-        components: { Heart, Star, Settings, User, Home, Search, Mail, Phone, Calendar, Clock, MapPin, Download, Upload, Edit, Delete, Plus, Minus, Check, X, Menu, Info, HelpCircle, IceCream, Zap, CheckCircle, AlertCircle, XCircle },
+        components: {
+            Heart,
+            Star,
+            Settings,
+            User,
+            Home,
+            Search,
+            Mail,
+            Phone,
+            Calendar,
+            Clock,
+            MapPin,
+            Download,
+            Upload,
+            Edit,
+            Delete,
+            Plus,
+            Minus,
+            Check,
+            X,
+            Menu,
+            Info,
+            HelpCircle,
+            IceCream,
+            Zap,
+            CheckCircle,
+            AlertCircle,
+            XCircle,
+        },
         template: `
       <div class="space-y-6">
         <div class="text-center">

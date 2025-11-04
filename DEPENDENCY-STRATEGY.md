@@ -12,16 +12,17 @@ These are **internal implementation details** that consumers don't need to know 
 
 ```json
 {
-  "@nuxt/kit": "^4.1.2",           // Build-time utilities
-  "@vitejs/plugin-vue": "^6.0.1",  // Build-time Vue plugin
-  "imask": "^7.6.1",                // Phone input masking
-  "lucide-vue-next": "^0.542.0",   // Icon components
-  "vee-validate": "^4.15.1",       // Form validation
-  "yup": "^1.7.0"                   // Validation schemas
+    "@nuxt/kit": "^4.1.2", // Build-time utilities
+    "@vitejs/plugin-vue": "^6.0.1", // Build-time Vue plugin
+    "imask": "^7.6.1", // Phone input masking
+    "lucide-vue-next": "^0.542.0", // Icon components
+    "vee-validate": "^4.15.1", // Form validation
+    "yup": "^1.7.0" // Validation schemas
 }
 ```
 
 **Why bundled?**
+
 - These are tightly coupled to component implementation
 - Consumers don't interact with them directly
 - Version consistency is critical for component behavior
@@ -29,27 +30,31 @@ These are **internal implementation details** that consumers don't need to know 
 ### 2. **peerDependencies** (Required by Consumer)
 
 These are libraries that:
+
 - The consumer likely already has installed
 - Should have a single version across the entire app
 - Are part of the public API or commonly used
 
 #### Required Peer Dependencies
+
 ```json
 {
-  "@tailwindcss/vite": "^4.1.12",  // Required for styling
-  "daisyui": "^5.2.0",              // Required for components
-  "tailwindcss": "^4.1.12"          // Required for styling
+    "@tailwindcss/vite": "^4.1.12", // Required for styling
+    "daisyui": "^5.2.0", // Required for components
+    "tailwindcss": "^4.1.12" // Required for styling
 }
 ```
 
 #### Optional Peer Dependencies
+
 ```json
 {
-  // No optional peer dependencies currently
+    // No optional peer dependencies currently
 }
 ```
 
 **Why peer dependencies?**
+
 - Avoids duplicate installations
 - Prevents version conflicts
 - Reduces total bundle size
@@ -61,11 +66,11 @@ These are only needed during development, testing, and documentation:
 
 ```json
 {
-  "@pinia/nuxt": "^0.9.0",          // For testing Pinia integration
-  "@nuxt/test-utils": "^3.19.2",   // Testing utilities
-  "@storybook/*": "^9.1.4",         // Documentation
-  "vitest": "^3.2.4",               // Testing framework
-  // ... other dev tools
+    "@pinia/nuxt": "^0.9.0", // For testing Pinia integration
+    "@nuxt/test-utils": "^3.19.2", // Testing utilities
+    "@storybook/*": "^9.1.4", // Documentation
+    "vitest": "^3.2.4" // Testing framework
+    // ... other dev tools
 }
 ```
 
@@ -96,15 +101,16 @@ These are only needed during development, testing, and documentation:
 
 ```json
 {
-  "dependencies": {
-    "fuse.js": "^7.0.0",
-    "pinia": "^2.3.0",
-    // ... other deps
-  }
+    "dependencies": {
+        "fuse.js": "^7.0.0",
+        "pinia": "^2.3.0"
+        // ... other deps
+    }
 }
 ```
 
 **Problems:**
+
 - Potential version conflicts
 - Larger package size
 - Unnecessary dependencies
@@ -112,11 +118,13 @@ These are only needed during development, testing, and documentation:
 ### ✅ After (Clean dependencies)
 
 All dependencies are properly categorized:
+
 - Required dependencies are bundled
 - Required peer dependencies are clearly listed
 - Optional peer dependencies are used only when needed
 
 **Benefits:**
+
 - No version conflicts
 - Smaller package size
 - Clear dependency structure
@@ -124,18 +132,21 @@ All dependencies are properly categorized:
 ## Best Practices
 
 ### When to Use dependencies
+
 - Library is internal implementation detail
 - You need a specific version
 - Library is small and tightly coupled
 - Consumers don't interact with it directly
 
 ### When to Use peerDependencies
+
 - Library is commonly used (React, Vue, Nuxt, etc.)
 - You want to avoid version conflicts
 - Library is part of your public API
 - Consumers likely already have it installed
 
 ### When to Use optional peerDependencies
+
 - Feature is optional
 - Not all users need the dependency
 - Want to reduce barrier to entry
@@ -149,9 +160,10 @@ We test against all required peer dependency versions to ensure compatibility ac
 
 ✅ **dependencies**: Internal implementation (bundled)  
 ✅ **peerDependencies**: Required by all consumers  
-✅ **devDependencies**: Development and testing only  
+✅ **devDependencies**: Development and testing only
 
 This strategy provides the best balance of:
+
 - **Performance**: Smaller bundles
 - **Flexibility**: Version control
 - **Compatibility**: No conflicts
@@ -161,4 +173,3 @@ This strategy provides the best balance of:
 
 **Last Updated**: October 30, 2025  
 **Package Version**: 1.0.13+
-
