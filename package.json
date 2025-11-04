@@ -1,6 +1,6 @@
 {
     "name": "@boilerplatepowa/nuxt4-design-system",
-    "version": "1.0.18",
+    "version": "1.0.19",
     "description": "Modern Design System for Nuxt 4+ with TailwindCSS, DaisyUI and Storybook",
     "repository": {
         "type": "git",
